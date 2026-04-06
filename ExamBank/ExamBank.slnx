@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="exambank.data/exambank.data.csproj" />
+  <Project Path="exambank.logic/exambank.logic.csproj" />
+  <Project Path="test/exambank.ui.csproj" />
+</Solution>

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "LVOSyx273lg=",
+  "success": true,
+  "projectFilePath": "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\pdfpig\\0.1.14\\pdfpig.0.1.14.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj",
+      "targetGraphs": []
+    }
+  ]
+}
