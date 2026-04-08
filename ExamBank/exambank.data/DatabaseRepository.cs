@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using exambank.data.Models;
+using System.Collections.Generic;
 
 namespace exambank.data
 {
