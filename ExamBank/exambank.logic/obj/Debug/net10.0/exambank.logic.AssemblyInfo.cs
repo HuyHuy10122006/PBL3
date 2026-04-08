@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exambank.logic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80d5aac68bed4cd476a508a2a9b7db2b23b1b0d1")]
 [assembly: System.Reflection.AssemblyProductAttribute("exambank.logic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exambank.logic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,94 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PBL3\\ExamBank\\ExamBank\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\pbl3\\exambank\\exambank\\exambank.ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\pbl3\\exambank\\exambank\\exambank.ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC4E17B-CC38-2297-56E3-1A42ED13C5FD}|exambank.data\\exambank.data.csproj|d:\\pbl3\\exambank\\exambank\\exambank.data\\databaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CC4E17B-CC38-2297-56E3-1A42ED13C5FD}|exambank.data\\exambank.data.csproj|solutionrelative:exambank.data\\databaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D9BB66A-45D4-5244-3CF5-8CB781658E8A}|exambank.logic\\exambank.logic.csproj|d:\\pbl3\\exambank\\exambank\\exambank.logic\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D9BB66A-45D4-5244-3CF5-8CB781658E8A}|exambank.logic\\exambank.logic.csproj|solutionrelative:exambank.logic\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\Program.cs",
+              "RelativeDocumentMoniker": "exambank.ui\\Program.cs",
+              "ToolTip": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\Program.cs",
+              "RelativeToolTip": "exambank.ui\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T08:05:23.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\Form1.cs",
+              "RelativeDocumentMoniker": "exambank.ui\\Form1.cs",
+              "ToolTip": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\Form1.cs [Design]",
+              "RelativeToolTip": "exambank.ui\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T08:05:13.147Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DatabaseRepository.cs",
+              "DocumentMoniker": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.data\\DatabaseRepository.cs",
+              "RelativeDocumentMoniker": "exambank.data\\DatabaseRepository.cs",
+              "ToolTip": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.data\\DatabaseRepository.cs",
+              "RelativeToolTip": "exambank.data\\DatabaseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T07:48:17.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DocumentService.cs",
+              "DocumentMoniker": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.logic\\DocumentService.cs",
+              "RelativeDocumentMoniker": "exambank.logic\\DocumentService.cs",
+              "ToolTip": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.logic\\DocumentService.cs",
+              "RelativeToolTip": "exambank.logic\\DocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T07:48:08.293Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+D:\PBL3\ExamBank\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.deps.json
+D:\PBL3\ExamBank\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.dll
+D:\PBL3\ExamBank\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.pdb
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.csproj.AssemblyReference.cache
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.GeneratedMSBuildEditorConfig.editorconfig
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.AssemblyInfoInputs.cache
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.AssemblyInfo.cs
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.csproj.CoreCompileInputs.cache
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.sourcelink.json
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.dll
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\refint\exambank.data.dll
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.pdb
+D:\PBL3\ExamBank\ExamBank\exambank.data\obj\Debug\net10.0\ref\exambank.data.dll

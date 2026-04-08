@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj": {}
+    "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\exambank.ui.csproj": {}
   },
   "projects": {
-    "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj": {
+    "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\exambank.ui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj",
+        "projectUniqueName": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\exambank.ui.csproj",
         "projectName": "exambank.ui",
-        "projectPath": "D:\\PBL3\\test\\test\\test\\exambank.ui.csproj",
+        "projectPath": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\exambank.ui.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\PBL3\\test\\test\\test\\obj\\",
+        "outputPath": "D:\\PBL3\\ExamBank\\ExamBank\\exambank.ui\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
