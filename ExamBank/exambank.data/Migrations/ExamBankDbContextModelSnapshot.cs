@@ -22,6 +22,34 @@ namespace exambank.data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("exambank.data.Models.CategoryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("exambank.data.Models.ExamModel", b =>
                 {
                     b.Property<int>("Id")
@@ -68,6 +96,36 @@ namespace exambank.data.Migrations
                     b.ToTable("Exams");
                 });
 
+            modelBuilder.Entity("exambank.data.Models.ExamQuestionModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("ExamId", "QuestionId")
+                        .IsUnique();
+
+                    b.ToTable("ExamQuestions");
+                });
+
             modelBuilder.Entity("exambank.data.Models.QuestionModel", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +138,15 @@ namespace exambank.data.Migrations
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Difficulty")
                         .IsRequired()
@@ -95,6 +162,9 @@ namespace exambank.data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("OptionA")
                         .IsRequired()
@@ -127,6 +197,10 @@ namespace exambank.data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("Questions");
                 });
@@ -172,18 +246,84 @@ namespace exambank.data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("exambank.data.Models.ExamModel", b =>
                 {
                     b.HasOne("exambank.data.Models.UserModel", "Author")
-                        .WithMany()
+                        .WithMany("CreatedExams")
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.ExamQuestionModel", b =>
+                {
+                    b.HasOne("exambank.data.Models.ExamModel", "Exam")
+                        .WithMany("ExamQuestions")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("exambank.data.Models.QuestionModel", "Question")
+                        .WithMany("ExamQuestions")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.QuestionModel", b =>
+                {
+                    b.HasOne("exambank.data.Models.CategoryModel", "Category")
+                        .WithMany("Questions")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("exambank.data.Models.UserModel", "Author")
+                        .WithMany("CreatedQuestions")
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.CategoryModel", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.ExamModel", b =>
+                {
+                    b.Navigation("ExamQuestions");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.QuestionModel", b =>
+                {
+                    b.Navigation("ExamQuestions");
+                });
+
+            modelBuilder.Entity("exambank.data.Models.UserModel", b =>
+                {
+                    b.Navigation("CreatedExams");
+
+                    b.Navigation("CreatedQuestions");
                 });
 #pragma warning restore 612, 618
         }

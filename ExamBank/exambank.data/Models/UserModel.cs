@@ -19,6 +19,7 @@ namespace exambank.data.Models
         [MaxLength(100)]
         public string FullName { get; set; } = string.Empty;
 
+        [Required]
         [MaxLength(100)]
         public string Email { get; set; } = string.Empty;
 
@@ -28,5 +29,7 @@ namespace exambank.data.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public bool IsActive { get; set; } = true;
+        public virtual ICollection<QuestionModel> CreatedQuestions { get; set; } = new List<QuestionModel>();
+        public virtual ICollection<ExamModel> CreatedExams { get; set; } = new List<ExamModel>();
     }
 }

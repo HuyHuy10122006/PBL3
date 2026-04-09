@@ -10,25 +10,32 @@ namespace exambank.data.Models
 
         [Required]
         [MaxLength(200)]
-        public string Title { get; set; } = string.Empty; 
+        public string Title { get; set; } = string.Empty;
+
         [MaxLength(20)]
-        public string ExamCode { get; set; } = string.Empty; 
+        public string ExamCode { get; set; } = string.Empty;
 
         [Required]
-        public int Duration { get; set; } 
-        public int TotalQuestions { get; set; } 
+        public int Duration { get; set; }
+
+        [Required] 
+        public int TotalQuestions { get; set; }
 
         [MaxLength(100)]
-        public string Subject { get; set; } = string.Empty; 
+        public string Subject { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now; 
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [MaxLength(200)]
-        public string? Note { get; set; } 
+        public string? Note { get; set; }
+
         [Required]
         public int CreatedByUserId { get; set; }
 
         [ForeignKey("CreatedByUserId")]
-        public UserModel? Author { get; set; }
+        public virtual UserModel? Author { get; set; }
+
+        // 🆕 Navigation Properties
+        public virtual ICollection<ExamQuestionModel> ExamQuestions { get; set; } = new List<ExamQuestionModel>();
     }
-}
+}   
