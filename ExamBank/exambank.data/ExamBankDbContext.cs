@@ -10,6 +10,7 @@ namespace exambank.data
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<ExamModel> Exams { get; set; }
         public DbSet<ExamQuestionModel> ExamQuestions { get; set; }
+        public DbSet<AIConfigModel> AIConfigs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

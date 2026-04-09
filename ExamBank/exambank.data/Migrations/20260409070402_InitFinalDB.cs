@@ -6,11 +6,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace exambank.data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitEduGenAIDatabase : Migration
+    public partial class InitFinalDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AI_Configs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OllamaUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeoutSeconds = table.Column<int>(type: "int", nullable: false),
+                    Temperature = table.Column<double>(type: "float", nullable: false),
+                    TopP = table.Column<double>(type: "float", nullable: false),
+                    TopK = table.Column<int>(type: "int", nullable: false),
+                    QuestionsPerGeneration = table.Column<int>(type: "int", nullable: false),
+                    EnableRetry = table.Column<bool>(type: "bit", nullable: false),
+                    MaxRetries = table.Column<int>(type: "int", nullable: false),
+                    RetryDelayMs = table.Column<int>(type: "int", nullable: false),
+                    SystemPrompt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OutputFormat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AI_Configs", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -180,6 +206,9 @@ namespace exambank.data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AI_Configs");
+
             migrationBuilder.DropTable(
                 name: "ExamQuestions");
 
