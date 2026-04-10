@@ -12,8 +12,8 @@ using exambank.data;
 namespace exambank.data.Migrations
 {
     [DbContext(typeof(ExamBankDbContext))]
-    [Migration("20260409070402_InitFinalDB")]
-    partial class InitFinalDB
+    [Migration("20260409080338_UpdateDB")]
+    partial class UpdateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

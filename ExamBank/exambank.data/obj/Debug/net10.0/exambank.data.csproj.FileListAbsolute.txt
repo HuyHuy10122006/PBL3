@@ -1,13 +1,13 @@
-E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.deps.json
-E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.runtimeconfig.json
-E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.dll
-E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.pdb
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.csproj.AssemblyReference.cache
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.GeneratedMSBuildEditorConfig.editorconfig
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.AssemblyInfoInputs.cache
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.AssemblyInfo.cs
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.csproj.CoreCompileInputs.cache
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.sourcelink.json
+E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.deps.json
+E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.runtimeconfig.json
+E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.dll
+E:\.net\PBL3\ExamBank\exambank.data\bin\Debug\net10.0\exambank.data.pdb
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.dll
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\refint\exambank.data.dll
 E:\.net\PBL3\ExamBank\exambank.data\obj\Debug\net10.0\exambank.data.pdb

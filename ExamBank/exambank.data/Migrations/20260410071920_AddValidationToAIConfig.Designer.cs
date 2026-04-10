@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using exambank.data;
 
@@ -11,9 +12,11 @@ using exambank.data;
 namespace exambank.data.Migrations
 {
     [DbContext(typeof(ExamBankDbContext))]
-    partial class ExamBankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260410071920_AddValidationToAIConfig")]
+    partial class AddValidationToAIConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

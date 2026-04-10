@@ -4,6 +4,8 @@ namespace exambank.data.Models
 {
     public class CategoryModel
     {
+        private static readonly List<QuestionModel> questionModels = [];
+
         [Key]
         public int Id { get; set; }
 
@@ -18,6 +20,6 @@ namespace exambank.data.Models
 
         public bool IsActive { get; set; } = true; 
 
-        public virtual ICollection<QuestionModel> Questions { get; set; } = new List<QuestionModel>();
+        public virtual ICollection<QuestionModel> Questions { get; set; } = questionModels;
     }
 }

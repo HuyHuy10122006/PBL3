@@ -37,14 +37,9 @@ namespace exambank.data
         Task AddExamQuestionsAsync(List<ExamQuestionModel> examQuestions);
     }
 
-    public class DatabaseRepository : IDatabaseRepository
+    public class DatabaseRepository(ExamBankDbContext dbContext) : IDatabaseRepository
     {
-        private readonly ExamBankDbContext _dbContext;
-
-        public DatabaseRepository(ExamBankDbContext dbContext)
-        {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        }
+        private readonly ExamBankDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         // ========== QUẢN LÝ CÂU HỎI (QUESTION) ==========
 
@@ -97,7 +92,7 @@ namespace exambank.data
 
         public async Task AddQuestionsAsync(List<QuestionModel> questions)
         {
-            if (questions == null || !questions.Any()) return;
+            if (questions == null || questions.Count == 0) return;
             await _dbContext.Questions.AddRangeAsync(questions);
             await _dbContext.SaveChangesAsync();
         }

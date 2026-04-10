@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace exambank.data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitFinalDB : Migration
+    public partial class UpdateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -167,7 +167,7 @@ namespace exambank.data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ExamQuestions_ExamId_QuestionId",
                 table: "ExamQuestions",
-                columns: new[] { "ExamId", "QuestionId" },
+                columns: ["ExamId", "QuestionId"],
                 unique: true);
 
             migrationBuilder.CreateIndex(
