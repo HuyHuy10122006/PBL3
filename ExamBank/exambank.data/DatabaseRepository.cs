@@ -35,6 +35,10 @@ namespace exambank.data
         // ===== ExamQuestion Methods =====
         Task<List<ExamQuestionModel>> GetExamQuestionsAsync(int examId);
         Task AddExamQuestionsAsync(List<ExamQuestionModel> examQuestions);
+
+        // ===== AI Config Methods (ĐÃ BỔ SUNG) =====
+        Task<AIConfigModel?> GetActiveAIConfigAsync();
+        Task UpdateAIConfigAsync(AIConfigModel config);
     }
 
     public class DatabaseRepository(ExamBankDbContext dbContext) : IDatabaseRepository
@@ -198,6 +202,22 @@ namespace exambank.data
         public async Task AddExamQuestionsAsync(List<ExamQuestionModel> examQuestions)
         {
             await _dbContext.ExamQuestions.AddRangeAsync(examQuestions);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        // ========== QUẢN LÝ CẤU HÌNH AI (AICONFIG) ==========
+
+        public async Task<AIConfigModel?> GetActiveAIConfigAsync()
+        {
+            // Lấy cấu hình đang được kích hoạt (IsActive = true)
+            return await _dbContext.AIConfigs
+                .FirstOrDefaultAsync(c => c.IsActive);
+        }
+
+        public async Task UpdateAIConfigAsync(AIConfigModel config)
+        {
+            // Cập nhật thông số do Admin chỉnh sửa
+            _dbContext.AIConfigs.Update(config);
             await _dbContext.SaveChangesAsync();
         }
     }
