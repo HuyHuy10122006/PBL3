@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "zoz/SNFU+dU=",
+  "dgSpecHash": "PYKpl+KiOMI=",
   "success": true,
-  "projectFilePath": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
+  "projectFilePath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ADMIN\\.nuget\\packages\\pdfpig\\0.1.14\\pdfpig.0.1.14.nupkg.sha512"
+    "C:\\Users\\ADMIN\\.nuget\\packages\\pdfpig\\0.1.14\\pdfpig.0.1.14.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\sunnyui\\3.9.5\\sunnyui.3.9.5.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\sunnyui.common\\3.9.5\\sunnyui.common.3.9.5.nupkg.sha512"
   ],
   "logs": []
 }

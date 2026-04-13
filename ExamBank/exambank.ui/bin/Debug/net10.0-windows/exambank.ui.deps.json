@@ -8,10 +8,16 @@
     ".NETCoreApp,Version=v10.0": {
       "exambank.ui/1.0.0": {
         "dependencies": {
-          "PdfPig": "0.1.14"
+          "PdfPig": "0.1.14",
+          "SunnyUI": "3.9.5"
         },
         "runtime": {
           "exambank.ui.dll": {}
+        },
+        "resources": {
+          "vi-VN/exambank.ui.resources.dll": {
+            "locale": "vi-VN"
+          }
         }
       },
       "PdfPig/0.1.14": {
@@ -45,6 +51,25 @@
             "fileVersion": "0.1.14.0"
           }
         }
+      },
+      "SunnyUI/3.9.5": {
+        "dependencies": {
+          "SunnyUI.Common": "3.9.5"
+        },
+        "runtime": {
+          "lib/net10.0-windows7.0/SunnyUI.dll": {
+            "assemblyVersion": "3.9.5.0",
+            "fileVersion": "3.9.5.0"
+          }
+        }
+      },
+      "SunnyUI.Common/3.9.5": {
+        "runtime": {
+          "lib/net10.0/SunnyUI.Common.dll": {
+            "assemblyVersion": "3.9.5.0",
+            "fileVersion": "3.9.5.0"
+          }
+        }
       }
     }
   },
@@ -60,6 +85,20 @@
       "sha512": "sha512-V2Anq0Yvyn3bGGG8WCQxqEAshG0KHIehB0QOotCz14vTkEk1PR3ErPOSmbnEsyOewhdF3G5XpQHywK2L50Xu+A==",
       "path": "pdfpig/0.1.14",
       "hashPath": "pdfpig.0.1.14.nupkg.sha512"
+    },
+    "SunnyUI/3.9.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-auizPjS9h9ZL6RCGoBRxiVeAm4ODlSOXV+OLBy9TKmkKD6CnzgNhdTpkHNifNBxMXVLqiwrQgyxhfzl8efSWsw==",
+      "path": "sunnyui/3.9.5",
+      "hashPath": "sunnyui.3.9.5.nupkg.sha512"
+    },
+    "SunnyUI.Common/3.9.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1EnBP+zlXp1c3cWlNJkVmIHNEJj94m69gSm5eSZ0PD1+MTWF9AV2MrKAHKVGA/5PF5W5InMwiaQdNqLbsmrGdQ==",
+      "path": "sunnyui.common/3.9.5",
+      "hashPath": "sunnyui.common.3.9.5.nupkg.sha512"
     }
   }
 }

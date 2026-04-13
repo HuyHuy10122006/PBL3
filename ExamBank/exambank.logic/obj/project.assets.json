@@ -229,11 +229,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\.net\\PBL3\\ExamBank\\exambank.logic\\exambank.logic.csproj",
+      "projectUniqueName": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.logic\\exambank.logic.csproj",
       "projectName": "exambank.logic",
-      "projectPath": "E:\\.net\\PBL3\\ExamBank\\exambank.logic\\exambank.logic.csproj",
+      "projectPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.logic\\exambank.logic.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "E:\\.net\\PBL3\\ExamBank\\exambank.logic\\obj\\",
+      "outputPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.logic\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj": {}
+    "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj": {}
   },
   "projects": {
-    "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj": {
+    "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
+        "projectUniqueName": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
         "projectName": "exambank.ui",
-        "projectPath": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
+        "projectPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\obj\\",
+        "outputPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,6 +53,10 @@
             "PdfPig": {
               "target": "Package",
               "version": "[0.1.14, )"
+            },
+            "SunnyUI": {
+              "target": "Package",
+              "version": "[3.9.5, )"
             }
           },
           "imports": [

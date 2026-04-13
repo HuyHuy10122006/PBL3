@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exambank.data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a466260872c599efb9923e33fba9be92ba3d3cc7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3af66264cdf9cf71499d4ab88909a6d5bcbd318")]
 [assembly: System.Reflection.AssemblyProductAttribute("exambank.data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exambank.data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

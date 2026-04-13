@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\.net\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj": {}
+    "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj": {}
   },
   "projects": {
-    "E:\\.net\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj": {
+    "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\.net\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj",
+        "projectUniqueName": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj",
         "projectName": "exambank.data",
-        "projectPath": "E:\\.net\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj",
+        "projectPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.data\\exambank.data.csproj",
         "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "E:\\.net\\PBL3\\ExamBank\\exambank.data\\obj\\",
+        "outputPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

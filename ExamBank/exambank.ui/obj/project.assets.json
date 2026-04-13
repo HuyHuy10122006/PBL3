@@ -50,6 +50,34 @@
             "related": ".Core.pdb;.Core.xml;.DocumentLayoutAnalysis.pdb;.DocumentLayoutAnalysis.xml;.Fonts.pdb;.Fonts.xml;.Package.pdb;.Package.xml;.pdb;.Tokenization.pdb;.Tokenization.xml;.Tokens.pdb;.Tokens.xml;.xml"
           }
         }
+      },
+      "SunnyUI/3.9.5": {
+        "type": "package",
+        "dependencies": {
+          "SunnyUI.Common": "3.9.5"
+        },
+        "compile": {
+          "lib/net10.0-windows7.0/SunnyUI.dll": {}
+        },
+        "runtime": {
+          "lib/net10.0-windows7.0/SunnyUI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "SunnyUI.Common/3.9.5": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/SunnyUI.Common.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/SunnyUI.Common.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
@@ -171,11 +199,51 @@
         "pdfpig.nuspec",
         "pdfpig.png"
       ]
+    },
+    "SunnyUI/3.9.5": {
+      "sha512": "auizPjS9h9ZL6RCGoBRxiVeAm4ODlSOXV+OLBy9TKmkKD6CnzgNhdTpkHNifNBxMXVLqiwrQgyxhfzl8efSWsw==",
+      "type": "package",
+      "path": "sunnyui/3.9.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "SunnyUI.png",
+        "lib/net10.0-windows7.0/SunnyUI.dll",
+        "lib/net40/SunnyUI.dll",
+        "lib/net472/SunnyUI.dll",
+        "lib/net8.0-windows7.0/SunnyUI.dll",
+        "sunnyui.3.9.5.nupkg.sha512",
+        "sunnyui.nuspec"
+      ]
+    },
+    "SunnyUI.Common/3.9.5": {
+      "sha512": "1EnBP+zlXp1c3cWlNJkVmIHNEJj94m69gSm5eSZ0PD1+MTWF9AV2MrKAHKVGA/5PF5W5InMwiaQdNqLbsmrGdQ==",
+      "type": "package",
+      "path": "sunnyui.common/3.9.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "SunnyUI.png",
+        "lib/net10.0/SunnyUI.Common.dll",
+        "lib/net10.0/SunnyUI.Common.xml",
+        "lib/net40/SunnyUI.Common.dll",
+        "lib/net40/SunnyUI.Common.xml",
+        "lib/net472/SunnyUI.Common.dll",
+        "lib/net472/SunnyUI.Common.xml",
+        "lib/net8.0/SunnyUI.Common.dll",
+        "lib/net8.0/SunnyUI.Common.xml",
+        "sunnyui.common.3.9.5.nupkg.sha512",
+        "sunnyui.common.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net10.0-windows7.0": [
-      "PdfPig >= 0.1.14"
+      "PdfPig >= 0.1.14",
+      "SunnyUI >= 3.9.5"
     ]
   },
   "packageFolders": {
@@ -185,11 +253,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
+      "projectUniqueName": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
       "projectName": "exambank.ui",
-      "projectPath": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
+      "projectPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\exambank.ui.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "E:\\.net\\PBL3\\ExamBank\\exambank.ui\\obj\\",
+      "outputPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -231,6 +299,10 @@
           "PdfPig": {
             "target": "Package",
             "version": "[0.1.14, )"
+          },
+          "SunnyUI": {
+            "target": "Package",
+            "version": "[3.9.5, )"
           }
         },
         "imports": [
