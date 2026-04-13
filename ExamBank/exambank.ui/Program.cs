@@ -1,3 +1,5 @@
+using exambank.ui;
+
 namespace test
 {
     internal static class Program
@@ -11,7 +13,11 @@ namespace test
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            FormDangNhap login = new FormDangNhap();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new FormGiaoVien());
+            }
         }
     }
 }
