@@ -32,7 +32,7 @@
             lblTitle = new Sunny.UI.UILabel();
             lblSubTitle = new Sunny.UI.UILabel();
             lblDescription = new Sunny.UI.UILabel();
-            txtIdentifier = new Sunny.UI.UITextBox();
+            txtEmail = new Sunny.UI.UITextBox();
             btnSendRequest = new Sunny.UI.UIButton();
             lnkReturnLogin = new Sunny.UI.UILinkLabel();
             pnlForgotPassCard.SuspendLayout();
@@ -43,7 +43,7 @@
             pnlForgotPassCard.Controls.Add(lblTitle);
             pnlForgotPassCard.Controls.Add(lblSubTitle);
             pnlForgotPassCard.Controls.Add(lblDescription);
-            pnlForgotPassCard.Controls.Add(txtIdentifier);
+            pnlForgotPassCard.Controls.Add(txtEmail);
             pnlForgotPassCard.Controls.Add(btnSendRequest);
             pnlForgotPassCard.Controls.Add(lnkReturnLogin);
             pnlForgotPassCard.Dock = DockStyle.Fill;
@@ -93,21 +93,20 @@
             lblDescription.Text = "Nhập địa chỉ Email của bạn để nhận hướng dẫn khôi phục mật khẩu.";
             lblDescription.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txtIdentifier
+            // txtEmail
             // 
-            txtIdentifier.Font = new Font("Segoe UI", 11F);
-            txtIdentifier.Location = new Point(60, 200);
-            txtIdentifier.Margin = new Padding(4, 5, 4, 5);
-            txtIdentifier.MinimumSize = new Size(1, 16);
-            txtIdentifier.Name = "txtIdentifier";
-            txtIdentifier.Padding = new Padding(5);
-            txtIdentifier.ShowText = false;
-            txtIdentifier.Size = new Size(330, 35);
-            txtIdentifier.Symbol = 61447;
-            txtIdentifier.TabIndex = 3;
-            txtIdentifier.TextAlignment = ContentAlignment.MiddleLeft;
-            txtIdentifier.Watermark = "Email";
-            txtIdentifier.WatermarkActiveColor = Color.White;
+            txtEmail.Font = new Font("Segoe UI", 11F);
+            txtEmail.Location = new Point(60, 200);
+            txtEmail.Margin = new Padding(4, 5, 4, 5);
+            txtEmail.MinimumSize = new Size(1, 16);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Padding = new Padding(5);
+            txtEmail.ShowText = false;
+            txtEmail.Size = new Size(330, 35);
+            txtEmail.Symbol = 61447;
+            txtEmail.TabIndex = 3;
+            txtEmail.TextAlignment = ContentAlignment.MiddleLeft;
+            txtEmail.Watermark = "Email";
             // 
             // btnSendRequest
             // 
@@ -154,7 +153,7 @@
         private Sunny.UI.UILabel lblTitle;
         private Sunny.UI.UILabel lblSubTitle;
         private Sunny.UI.UILabel lblDescription;
-        private Sunny.UI.UITextBox txtIdentifier;
+        private Sunny.UI.UITextBox txtEmail;
         private Sunny.UI.UIButton btnSendRequest;
         private Sunny.UI.UILinkLabel lnkReturnLogin;
 

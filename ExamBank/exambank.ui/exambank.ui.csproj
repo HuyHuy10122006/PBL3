@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mscc.GenerativeAI" Version="3.1.0" />
     <PackageReference Include="PdfPig" Version="0.1.14" />
-    <PackageReference Include="SunnyUI" Version="3.9.5" />
+    <PackageReference Include="SunnyUI" Version="3.9.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\exambank.data\exambank.data.csproj" />
+    <ProjectReference Include="..\exambank.logic\exambank.logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

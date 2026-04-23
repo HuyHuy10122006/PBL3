@@ -27,6 +27,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGiaoVien));
             SidebarPanel = new Sunny.UI.UIPanel();
             pnlMenu = new Sunny.UI.UIPanel();
+            btnLog = new Sunny.UI.UISymbolButton();
+            btnHome = new Sunny.UI.UIButton();
             btnViewExamBank = new Sunny.UI.UIButton();
             btnManageExams = new Sunny.UI.UIButton();
             btnManageQuestions = new Sunny.UI.UIButton();
@@ -54,6 +56,8 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.MidnightBlue;
+            pnlMenu.Controls.Add(btnLog);
+            pnlMenu.Controls.Add(btnHome);
             pnlMenu.Controls.Add(btnViewExamBank);
             pnlMenu.Controls.Add(btnManageExams);
             pnlMenu.Controls.Add(btnManageQuestions);
@@ -65,6 +69,48 @@
             pnlMenu.RectColor = Color.FromArgb(44, 62, 80);
             pnlMenu.RectSides = ToolStripStatusLabelBorderSides.None;
             pnlMenu.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // btnLog
+            // 
+            resources.ApplyResources(btnLog, "btnLog");
+            btnLog.BackColor = Color.MediumBlue;
+            btnLog.FillColor = Color.Gainsboro;
+            btnLog.FillColor2 = Color.Gainsboro;
+            btnLog.ForeColor = Color.Black;
+            btnLog.ForeDisableColor = Color.Black;
+            btnLog.ForeHoverColor = Color.Black;
+            btnLog.ForePressColor = Color.Black;
+            btnLog.ForeSelectedColor = Color.Black;
+            btnLog.Name = "btnLog";
+            btnLog.Radius = 10;
+            btnLog.Style = Sunny.UI.UIStyle.Custom;
+            btnLog.Symbol = 0;
+            btnLog.SymbolColor = Color.Black;
+            btnLog.SymbolHoverColor = Color.Black;
+            btnLog.SymbolPressColor = Color.Black;
+            btnLog.SymbolSelectedColor = Color.Black;
+            btnLog.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnLog.Click += btnLog_Click;
+            // 
+            // btnHome
+            // 
+            btnHome.BackColor = Color.FromArgb(44, 62, 80);
+            btnHome.FillColor = Color.FromArgb(44, 62, 80);
+            btnHome.FillColor2 = Color.FromArgb(44, 62, 80);
+            btnHome.FillHoverColor = Color.FromArgb(55, 75, 95);
+            btnHome.FillPressColor = Color.FromArgb(40, 55, 75);
+            btnHome.FillSelectedColor = Color.FromArgb(70, 90, 110);
+            resources.ApplyResources(btnHome, "btnHome");
+            btnHome.ForeDisableColor = Color.Black;
+            btnHome.Name = "btnHome";
+            btnHome.Radius = 15;
+            btnHome.RectColor = Color.FromArgb(44, 62, 80);
+            btnHome.RectHoverColor = Color.FromArgb(44, 62, 80);
+            btnHome.RectPressColor = Color.FromArgb(44, 62, 80);
+            btnHome.RectSelectedColor = Color.FromArgb(30, 50, 60);
+            btnHome.RectSides = ToolStripStatusLabelBorderSides.None;
+            btnHome.TextAlign = ContentAlignment.MiddleLeft;
+            btnHome.TipsFont = new Font("Times New Roman", 9F);
             // 
             // btnViewExamBank
             // 
@@ -84,7 +130,7 @@
             btnViewExamBank.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnViewExamBank.RectSides = ToolStripStatusLabelBorderSides.None;
             btnViewExamBank.TextAlign = ContentAlignment.MiddleLeft;
-            btnViewExamBank.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnViewExamBank.TipsFont = new Font("Times New Roman", 9F);
             btnViewExamBank.Click += btnViewExamBank_Click;
             // 
             // btnManageExams
@@ -105,7 +151,7 @@
             btnManageExams.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnManageExams.RectSides = ToolStripStatusLabelBorderSides.None;
             btnManageExams.TextAlign = ContentAlignment.MiddleLeft;
-            btnManageExams.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnManageExams.TipsFont = new Font("Times New Roman", 9F);
             btnManageExams.Click += btnManageExams_Click;
             // 
             // btnManageQuestions
@@ -126,7 +172,7 @@
             btnManageQuestions.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnManageQuestions.RectSides = ToolStripStatusLabelBorderSides.None;
             btnManageQuestions.TextAlign = ContentAlignment.MiddleLeft;
-            btnManageQuestions.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnManageQuestions.TipsFont = new Font("Times New Roman", 9F);
             btnManageQuestions.Click += btnManageQuestions_Click;
             // 
             // btnCreateQuestion
@@ -148,7 +194,7 @@
             btnCreateQuestion.RectSides = ToolStripStatusLabelBorderSides.None;
             btnCreateQuestion.Selected = true;
             btnCreateQuestion.TextAlign = ContentAlignment.MiddleLeft;
-            btnCreateQuestion.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnCreateQuestion.TipsFont = new Font("Times New Roman", 9F);
             btnCreateQuestion.Click += btnCreateQuestion_Click;
             // 
             // pnlLogo
@@ -196,6 +242,7 @@
             Name = "FormGiaoVien";
             Resizable = true;
             ZoomScaleRect = new Rectangle(19, 19, 1050, 700);
+            FormClosing += FormGiaoVien_FormClosing;
             SidebarPanel.ResumeLayout(false);
             pnlMenu.ResumeLayout(false);
             pnlLogo.ResumeLayout(false);
@@ -212,6 +259,8 @@
         private Sunny.UI.UIButton btnManageExams;
         private Sunny.UI.UIButton btnManageQuestions;
         private Sunny.UI.UIButton btnCreateQuestion;
+        private Sunny.UI.UIButton btnHome;
+        private Sunny.UI.UISymbolButton btnLog;
     }
 
         #endregion

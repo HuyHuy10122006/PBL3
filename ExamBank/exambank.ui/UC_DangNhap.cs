@@ -1,4 +1,7 @@
-﻿using System;
+﻿using exambank.data;
+using exambank.data.Models;
+using Sunny.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,29 +18,84 @@ namespace exambank.ui
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        public UserModel CheckLogin(string username, string password)
         {
-            // Tạm thời chấp nhận mọi đăng nhập
-            if (this.ParentForm is FormDangNhap mainForm)
+            using (var db = new ExamBankDbContext())
             {
-                mainForm.DialogResult = DialogResult.OK;
-                mainForm.Close();
+                // Lưu ý: Trong thực tế nên dùng BCrypt để Verify password thay vì so sánh chuỗi thuần
+                var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+
+                if (user != null && user.IsActive)
+                {
+                    return user;
+                }
+                return null;
             }
         }
 
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string user = txtUsername.Text.Trim();
+            string pass = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
+            {
+
+                UIMessageTip.ShowWarning("Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
+                return;
+            }
+
+            // Gọi hàm kiểm tra từ Database
+            UserModel authenticatedUser = CheckLogin(user, pass);
+
+            if (authenticatedUser != null)
+            {
+                // Ẩn form hiện tại
+                Form parentForm = this.FindForm();
+                if (parentForm != null)
+                {
+                    parentForm.Hide();
+
+                    if (authenticatedUser.Role == "Admin")
+                    {
+                        FormAdmin adminForm = new FormAdmin(authenticatedUser);
+                        adminForm.ShowDialog();
+                    }
+                    else
+                    {
+                        FormGiaoVien teacherForm = new FormGiaoVien(authenticatedUser);
+                        teacherForm.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                UIMessageTip.ShowError("Tài khoản hoặc mật khẩu không đúng!");
+            }
+
+
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+            // Hiện lại màn hình đăng nhập
+            Form parentForm1 = this.FindForm();
+            if (parentForm1 != null)
+            {
+                parentForm1.Show();
+            }
+        }
         private void BtnRegister_Click(object sender, EventArgs e)
         {
-            if (this.ParentForm is FormDangNhap mainForm)
+            if (this.FindForm() is FormDangNhap mainForm)
             {
-                mainForm.LoadUserControl(new UC_DangKy());
+                mainForm.ucRegister.BringToFront();
             }
         }
 
         private void LnkForgotPassword_Click(object sender, EventArgs e)
         {
-            if (this.ParentForm is FormDangNhap mainForm)
+            if (this.FindForm() is FormDangNhap mainForm)
             {
-                mainForm.LoadUserControl(new UC_QuenMatKhau());
+                mainForm.ucForgot.BringToFront();
             }
         }
 

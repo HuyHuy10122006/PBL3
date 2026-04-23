@@ -25,14 +25,13 @@
         private void InitializeComponent()
         {
             pnlLoginCard = new Sunny.UI.UIPanel();
-            uc = new UC_DangNhap();
-            lblAC = new Sunny.UI.UILabel();
+            ucLogin = new UC_DangNhap();
             pnlLoginCard.SuspendLayout();
             SuspendLayout();
             // 
             // pnlLoginCard
             // 
-            pnlLoginCard.Controls.Add(uc);
+            pnlLoginCard.Controls.Add(ucLogin);
             pnlLoginCard.FillColor = Color.White;
             pnlLoginCard.Font = new Font("Microsoft Sans Serif", 12F);
             pnlLoginCard.Location = new Point(250, 50);
@@ -46,32 +45,22 @@
             pnlLoginCard.Text = null;
             pnlLoginCard.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // uc
+            // ucLogin
             // 
-            uc.BackColor = Color.FromArgb(243, 244, 246);
-            uc.BackgroundImageLayout = ImageLayout.Stretch;
-            uc.Dock = DockStyle.Fill;
-            uc.Location = new Point(0, 0);
-            uc.Name = "uc";
-            uc.Size = new Size(450, 600);
-            uc.TabIndex = 0;
-            // 
-            // lblAC
-            // 
-            lblAC.Font = new Font("Microsoft Sans Serif", 12F);
-            lblAC.ForeColor = Color.FromArgb(48, 48, 48);
-            lblAC.Location = new Point(60, 104);
-            lblAC.Name = "lblAC";
-            lblAC.Size = new Size(1, 1);
-            lblAC.TabIndex = 1;
+            ucLogin.BackColor = Color.FromArgb(243, 244, 246);
+            ucLogin.BackgroundImageLayout = ImageLayout.Stretch;
+            ucLogin.Dock = DockStyle.Fill;
+            ucLogin.Location = new Point(0, 0);
+            ucLogin.Name = "ucLogin";
+            ucLogin.Size = new Size(450, 600);
+            ucLogin.TabIndex = 0;
             // 
             // FormDangNhap
             // 
             BackColor = Color.FromArgb(243, 244, 246);
-            BackgroundImage = Properties.Resources.Gemini_Generated_Image_w8z9now8z9now8z9;
+            BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(941, 674);
-            Controls.Add(lblAC);
             Controls.Add(pnlLoginCard);
             Name = "FormDangNhap";
             Padding = new Padding(2, 36, 2, 2);
@@ -83,11 +72,8 @@
             ResumeLayout(false);
         }
 
-        private Sunny.UI.UIPanel pnlLoginCard;
-
         #endregion
-
-        private exambank.ui.UC_DangNhap uc;
-        private Sunny.UI.UILabel lblAC;
+        private Sunny.UI.UIPanel pnlLoginCard;
+        public exambank.ui.UC_DangNhap ucLogin;
     }
 }

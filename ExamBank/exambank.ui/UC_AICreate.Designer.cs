@@ -30,60 +30,50 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_AICreate));
             pnlLeft = new Sunny.UI.UIPanel();
+            btnCreateExam = new Sunny.UI.UISymbolButton();
             pnlCauHinh = new Sunny.UI.UIPanel();
+            udtTG = new Sunny.UI.UIUpDownTextBox();
+            uiLabel8 = new Sunny.UI.UILabel();
+            udtSL = new Sunny.UI.UIUpDownTextBox();
+            uiLabel7 = new Sunny.UI.UILabel();
+            uiLabel6 = new Sunny.UI.UILabel();
+            cbDoKho = new Sunny.UI.UIComboBox();
+            uiLabel5 = new Sunny.UI.UILabel();
+            uiLabel4 = new Sunny.UI.UILabel();
             cbMonHoc = new Sunny.UI.UIComboBox();
-            txtSelectedChuong = new Sunny.UI.UITextBox();
             cbKhoi = new Sunny.UI.UIComboBox();
             uiLabel3 = new Sunny.UI.UILabel();
-            grpMucDo = new Sunny.UI.UIGroupBox();
-            uiLabel6 = new Sunny.UI.UILabel();
-            uiIntegerUpDown1 = new Sunny.UI.UIIntegerUpDown();
-            unit1 = new Sunny.UI.UILabel();
-            uiLabel7 = new Sunny.UI.UILabel();
-            uiIntegerUpDown2 = new Sunny.UI.UIIntegerUpDown();
-            unit2 = new Sunny.UI.UILabel();
-            uiLabel8 = new Sunny.UI.UILabel();
-            uiIntegerUpDown3 = new Sunny.UI.UIIntegerUpDown();
-            unit3 = new Sunny.UI.UILabel();
-            lblVDC = new Sunny.UI.UILabel();
-            numVDC = new Sunny.UI.UIIntegerUpDown();
-            unit4 = new Sunny.UI.UILabel();
-            pnlFooter = new Sunny.UI.UIPanel();
-            lblTongSoCau = new Sunny.UI.UILabel();
-            pnlPopup = new Sunny.UI.UIPanel();
-            clbChuong = new CheckedListBox();
-            btnDone = new Sunny.UI.UIButton();
             pnlNguonDuLieu = new Sunny.UI.UIPanel();
             tabSource = new Sunny.UI.UITabControl();
             tpFile = new TabPage();
             btnSelectFile = new Sunny.UI.UISymbolButton();
-            lblFileStatus = new Sunny.UI.UILabel();
+            txtFilePath = new Sunny.UI.UITextBox();
             tpText = new TabPage();
-            uiTextBox1 = new Sunny.UI.UITextBox();
+            txtText = new Sunny.UI.UITextBox();
             uiLabel2 = new Sunny.UI.UILabel();
-            pnlThaoTac = new Sunny.UI.UIPanel();
-            btnCreateExam = new Sunny.UI.UISymbolButton();
-            uiLabel1 = new Sunny.UI.UILabel();
+            flpPreview = new FlowLayoutPanel();
+            pnlHeader = new Sunny.UI.UIPanel();
+            lblExamInfo = new Sunny.UI.UILabel();
+            lblResultTitle = new Sunny.UI.UILabel();
+            btnSaveToBank = new Sunny.UI.UISymbolButton();
+            pnlBody = new Sunny.UI.UIPanel();
             vSplitter = new Splitter();
-            flpPreview = new Sunny.UI.UIFlowLayoutPanel();
             pnlLeft.SuspendLayout();
             pnlCauHinh.SuspendLayout();
-            grpMucDo.SuspendLayout();
-            pnlFooter.SuspendLayout();
-            pnlPopup.SuspendLayout();
             pnlNguonDuLieu.SuspendLayout();
             tabSource.SuspendLayout();
             tpFile.SuspendLayout();
             tpText.SuspendLayout();
-            pnlThaoTac.SuspendLayout();
+            pnlHeader.SuspendLayout();
+            pnlBody.SuspendLayout();
             SuspendLayout();
             // 
             // pnlLeft
             // 
             pnlLeft.BackColor = Color.White;
+            pnlLeft.Controls.Add(btnCreateExam);
             pnlLeft.Controls.Add(pnlCauHinh);
             pnlLeft.Controls.Add(pnlNguonDuLieu);
-            pnlLeft.Controls.Add(pnlThaoTac);
             resources.ApplyResources(pnlLeft, "pnlLeft");
             pnlLeft.FillColor = Color.FromArgb(245, 245, 250);
             pnlLeft.FillColor2 = Color.FromArgb(245, 245, 250);
@@ -92,16 +82,40 @@
             pnlLeft.RectSides = ToolStripStatusLabelBorderSides.None;
             pnlLeft.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // btnCreateExam
+            // 
+            btnCreateExam.FillColor = Color.FromArgb(110, 190, 40);
+            btnCreateExam.FillColor2 = Color.FromArgb(110, 190, 40);
+            btnCreateExam.FillHoverColor = Color.FromArgb(139, 203, 83);
+            btnCreateExam.FillPressColor = Color.FromArgb(88, 152, 32);
+            btnCreateExam.FillSelectedColor = Color.FromArgb(88, 152, 32);
+            resources.ApplyResources(btnCreateExam, "btnCreateExam");
+            btnCreateExam.LightColor = Color.FromArgb(245, 251, 241);
+            btnCreateExam.Name = "btnCreateExam";
+            btnCreateExam.Radius = 10;
+            btnCreateExam.RectColor = Color.FromArgb(110, 190, 40);
+            btnCreateExam.RectHoverColor = Color.FromArgb(139, 203, 83);
+            btnCreateExam.RectPressColor = Color.FromArgb(88, 152, 32);
+            btnCreateExam.RectSelectedColor = Color.FromArgb(88, 152, 32);
+            btnCreateExam.Style = Sunny.UI.UIStyle.Custom;
+            btnCreateExam.SymbolSize = 26;
+            btnCreateExam.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnCreateExam.Click += btnCreateExam_Click;
+            // 
             // pnlCauHinh
             // 
             pnlCauHinh.BackColor = Color.White;
+            pnlCauHinh.Controls.Add(udtTG);
+            pnlCauHinh.Controls.Add(uiLabel8);
+            pnlCauHinh.Controls.Add(udtSL);
+            pnlCauHinh.Controls.Add(uiLabel7);
+            pnlCauHinh.Controls.Add(uiLabel6);
+            pnlCauHinh.Controls.Add(cbDoKho);
+            pnlCauHinh.Controls.Add(uiLabel5);
+            pnlCauHinh.Controls.Add(uiLabel4);
             pnlCauHinh.Controls.Add(cbMonHoc);
-            pnlCauHinh.Controls.Add(txtSelectedChuong);
             pnlCauHinh.Controls.Add(cbKhoi);
             pnlCauHinh.Controls.Add(uiLabel3);
-            pnlCauHinh.Controls.Add(grpMucDo);
-            pnlCauHinh.Controls.Add(pnlFooter);
-            pnlCauHinh.Controls.Add(pnlPopup);
             pnlCauHinh.FillColor = Color.White;
             pnlCauHinh.FillColor2 = Color.White;
             resources.ApplyResources(pnlCauHinh, "pnlCauHinh");
@@ -109,6 +123,69 @@
             pnlCauHinh.Radius = 15;
             pnlCauHinh.RectColor = Color.Black;
             pnlCauHinh.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // udtTG
+            // 
+            udtTG.DoubleStep = 1D;
+            resources.ApplyResources(udtTG, "udtTG");
+            udtTG.Name = "udtTG";
+            udtTG.ShowText = false;
+            udtTG.TextAlignment = ContentAlignment.MiddleRight;
+            udtTG.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtTG.Watermark = "";
+            // 
+            // uiLabel8
+            // 
+            resources.ApplyResources(uiLabel8, "uiLabel8");
+            uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel8.Name = "uiLabel8";
+            // 
+            // udtSL
+            // 
+            udtSL.DoubleStep = 1D;
+            resources.ApplyResources(udtSL, "udtSL");
+            udtSL.Name = "udtSL";
+            udtSL.ShowText = false;
+            udtSL.TextAlignment = ContentAlignment.MiddleRight;
+            udtSL.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtSL.Watermark = "";
+            // 
+            // uiLabel7
+            // 
+            resources.ApplyResources(uiLabel7, "uiLabel7");
+            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel7.Name = "uiLabel7";
+            // 
+            // uiLabel6
+            // 
+            resources.ApplyResources(uiLabel6, "uiLabel6");
+            uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel6.Name = "uiLabel6";
+            // 
+            // cbDoKho
+            // 
+            cbDoKho.DataSource = null;
+            cbDoKho.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            cbDoKho.FillColor = Color.White;
+            resources.ApplyResources(cbDoKho, "cbDoKho");
+            cbDoKho.ItemHoverColor = Color.FromArgb(155, 200, 255);
+            cbDoKho.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
+            cbDoKho.Name = "cbDoKho";
+            cbDoKho.SymbolSize = 24;
+            cbDoKho.TextAlignment = ContentAlignment.MiddleLeft;
+            cbDoKho.Watermark = "Chọn độ khó...";
+            // 
+            // uiLabel5
+            // 
+            resources.ApplyResources(uiLabel5, "uiLabel5");
+            uiLabel5.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel5.Name = "uiLabel5";
+            // 
+            // uiLabel4
+            // 
+            resources.ApplyResources(uiLabel4, "uiLabel4");
+            uiLabel4.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel4.Name = "uiLabel4";
             // 
             // cbMonHoc
             // 
@@ -122,27 +199,10 @@
             cbMonHoc.TextAlignment = ContentAlignment.MiddleLeft;
             cbMonHoc.Watermark = "Chọn môn học...";
             // 
-            // txtSelectedChuong
-            // 
-            txtSelectedChuong.BackColor = Color.White;
-            txtSelectedChuong.ButtonSymbol = 61560;
-            txtSelectedChuong.FillColor2 = Color.White;
-            txtSelectedChuong.FillReadOnlyColor = Color.White;
-            resources.ApplyResources(txtSelectedChuong, "txtSelectedChuong");
-            txtSelectedChuong.ForeDisableColor = Color.FromArgb(244, 244, 244);
-            txtSelectedChuong.ForeReadOnlyColor = Color.FromArgb(244, 244, 244);
-            txtSelectedChuong.Name = "txtSelectedChuong";
-            txtSelectedChuong.ReadOnly = true;
-            txtSelectedChuong.RectReadOnlyColor = Color.FromArgb(80, 160, 255);
-            txtSelectedChuong.ShowText = false;
-            txtSelectedChuong.SymbolColor = Color.FromArgb(80, 160, 255);
-            txtSelectedChuong.TextAlignment = ContentAlignment.MiddleLeft;
-            txtSelectedChuong.Watermark = "Nhấp để chọn chương...";
-            txtSelectedChuong.Click += txtSelectedChuong_Click;
-            // 
             // cbKhoi
             // 
             cbKhoi.DataSource = null;
+            cbKhoi.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbKhoi.FillColor = Color.White;
             resources.ApplyResources(cbKhoi, "cbKhoi");
             cbKhoi.ItemHoverColor = Color.FromArgb(155, 200, 255);
@@ -158,146 +218,6 @@
             resources.ApplyResources(uiLabel3, "uiLabel3");
             uiLabel3.ForeColor = Color.Navy;
             uiLabel3.Name = "uiLabel3";
-            // 
-            // grpMucDo
-            // 
-            grpMucDo.BackColor = Color.White;
-            grpMucDo.Controls.Add(uiLabel6);
-            grpMucDo.Controls.Add(uiIntegerUpDown1);
-            grpMucDo.Controls.Add(unit1);
-            grpMucDo.Controls.Add(uiLabel7);
-            grpMucDo.Controls.Add(uiIntegerUpDown2);
-            grpMucDo.Controls.Add(unit2);
-            grpMucDo.Controls.Add(uiLabel8);
-            grpMucDo.Controls.Add(uiIntegerUpDown3);
-            grpMucDo.Controls.Add(unit3);
-            grpMucDo.Controls.Add(lblVDC);
-            grpMucDo.Controls.Add(numVDC);
-            grpMucDo.Controls.Add(unit4);
-            grpMucDo.FillColor = Color.White;
-            resources.ApplyResources(grpMucDo, "grpMucDo");
-            grpMucDo.Name = "grpMucDo";
-            grpMucDo.TextAlignment = ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel6
-            // 
-            resources.ApplyResources(uiLabel6, "uiLabel6");
-            uiLabel6.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel6.Name = "uiLabel6";
-            // 
-            // uiIntegerUpDown1
-            // 
-            resources.ApplyResources(uiIntegerUpDown1, "uiIntegerUpDown1");
-            uiIntegerUpDown1.Name = "uiIntegerUpDown1";
-            uiIntegerUpDown1.ShowText = false;
-            uiIntegerUpDown1.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // unit1
-            // 
-            resources.ApplyResources(unit1, "unit1");
-            unit1.ForeColor = Color.FromArgb(48, 48, 48);
-            unit1.Name = "unit1";
-            // 
-            // uiLabel7
-            // 
-            resources.ApplyResources(uiLabel7, "uiLabel7");
-            uiLabel7.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel7.Name = "uiLabel7";
-            // 
-            // uiIntegerUpDown2
-            // 
-            resources.ApplyResources(uiIntegerUpDown2, "uiIntegerUpDown2");
-            uiIntegerUpDown2.Name = "uiIntegerUpDown2";
-            uiIntegerUpDown2.ShowText = false;
-            uiIntegerUpDown2.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // unit2
-            // 
-            resources.ApplyResources(unit2, "unit2");
-            unit2.ForeColor = Color.FromArgb(48, 48, 48);
-            unit2.Name = "unit2";
-            // 
-            // uiLabel8
-            // 
-            resources.ApplyResources(uiLabel8, "uiLabel8");
-            uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel8.Name = "uiLabel8";
-            // 
-            // uiIntegerUpDown3
-            // 
-            resources.ApplyResources(uiIntegerUpDown3, "uiIntegerUpDown3");
-            uiIntegerUpDown3.Name = "uiIntegerUpDown3";
-            uiIntegerUpDown3.ShowText = false;
-            uiIntegerUpDown3.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // unit3
-            // 
-            resources.ApplyResources(unit3, "unit3");
-            unit3.ForeColor = Color.FromArgb(48, 48, 48);
-            unit3.Name = "unit3";
-            // 
-            // lblVDC
-            // 
-            resources.ApplyResources(lblVDC, "lblVDC");
-            lblVDC.ForeColor = Color.FromArgb(48, 48, 48);
-            lblVDC.Name = "lblVDC";
-            // 
-            // numVDC
-            // 
-            resources.ApplyResources(numVDC, "numVDC");
-            numVDC.Name = "numVDC";
-            numVDC.ShowText = false;
-            numVDC.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // unit4
-            // 
-            resources.ApplyResources(unit4, "unit4");
-            unit4.ForeColor = Color.FromArgb(48, 48, 48);
-            unit4.Name = "unit4";
-            // 
-            // pnlFooter
-            // 
-            pnlFooter.Controls.Add(lblTongSoCau);
-            pnlFooter.FillColor = Color.FromArgb(80, 160, 255);
-            resources.ApplyResources(pnlFooter, "pnlFooter");
-            pnlFooter.Name = "pnlFooter";
-            pnlFooter.RectSides = ToolStripStatusLabelBorderSides.None;
-            pnlFooter.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // lblTongSoCau
-            // 
-            lblTongSoCau.BackColor = Color.FromArgb(80, 160, 255);
-            resources.ApplyResources(lblTongSoCau, "lblTongSoCau");
-            lblTongSoCau.ForeColor = Color.White;
-            lblTongSoCau.Name = "lblTongSoCau";
-            // 
-            // pnlPopup
-            // 
-            pnlPopup.BackColor = Color.FromArgb(244, 244, 244);
-            pnlPopup.Controls.Add(clbChuong);
-            pnlPopup.Controls.Add(btnDone);
-            pnlPopup.FillColor = Color.FromArgb(244, 244, 244);
-            resources.ApplyResources(pnlPopup, "pnlPopup");
-            pnlPopup.Name = "pnlPopup";
-            pnlPopup.RectColor = Color.Black;
-            pnlPopup.RectDisableColor = Color.White;
-            pnlPopup.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // clbChuong
-            // 
-            clbChuong.BackColor = Color.FromArgb(244, 244, 244);
-            clbChuong.BorderStyle = BorderStyle.None;
-            clbChuong.CheckOnClick = true;
-            clbChuong.FormattingEnabled = true;
-            resources.ApplyResources(clbChuong, "clbChuong");
-            clbChuong.Name = "clbChuong";
-            // 
-            // btnDone
-            // 
-            resources.ApplyResources(btnDone, "btnDone");
-            btnDone.Name = "btnDone";
-            btnDone.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnDone.Click += btnDone_Click;
             // 
             // pnlNguonDuLieu
             // 
@@ -330,52 +250,59 @@
             tabSource.TabSelectedHighColor = Color.Blue;
             tabSource.TabUnSelectedColor = Color.WhiteSmoke;
             tabSource.TabUnSelectedForeColor = Color.DimGray;
-            tabSource.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            tabSource.TipsFont = new Font("Times New Roman", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             // 
             // tpFile
             // 
             tpFile.BackColor = Color.White;
             tpFile.Controls.Add(btnSelectFile);
-            tpFile.Controls.Add(lblFileStatus);
+            tpFile.Controls.Add(txtFilePath);
             resources.ApplyResources(tpFile, "tpFile");
             tpFile.Name = "tpFile";
             // 
             // btnSelectFile
             // 
             resources.ApplyResources(btnSelectFile, "btnSelectFile");
+            btnSelectFile.LightColor = Color.FromArgb(24, 24, 24);
             btnSelectFile.Name = "btnSelectFile";
+            btnSelectFile.Radius = 10;
+            btnSelectFile.Style = Sunny.UI.UIStyle.Custom;
             btnSelectFile.Symbol = 61717;
             btnSelectFile.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnSelectFile.Click += btnSelectFile_Click;
             // 
-            // lblFileStatus
+            // txtFilePath
             // 
-            resources.ApplyResources(lblFileStatus, "lblFileStatus");
-            lblFileStatus.ForeColor = Color.FromArgb(48, 48, 48);
-            lblFileStatus.Name = "lblFileStatus";
+            resources.ApplyResources(txtFilePath, "txtFilePath");
+            txtFilePath.Name = "txtFilePath";
+            txtFilePath.ReadOnly = true;
+            txtFilePath.ShowText = false;
+            txtFilePath.TextAlignment = ContentAlignment.MiddleCenter;
+            txtFilePath.Watermark = "Đường dẫn tài liệu...";
             // 
             // tpText
             // 
             tpText.BackColor = Color.White;
-            tpText.Controls.Add(uiTextBox1);
+            tpText.Controls.Add(txtText);
             resources.ApplyResources(tpText, "tpText");
             tpText.Name = "tpText";
             // 
-            // uiTextBox1
+            // txtText
             // 
-            uiTextBox1.ButtonRectColor = Color.FromArgb(18, 58, 92);
-            uiTextBox1.ButtonStyleInherited = false;
-            resources.ApplyResources(uiTextBox1, "uiTextBox1");
-            uiTextBox1.FillColor2 = Color.FromArgb(24, 24, 24);
-            uiTextBox1.Multiline = true;
-            uiTextBox1.Name = "uiTextBox1";
-            uiTextBox1.RectColor = Color.DarkGray;
-            uiTextBox1.ScrollBarColor = Color.FromArgb(24, 24, 24);
-            uiTextBox1.ScrollBarStyleInherited = false;
-            uiTextBox1.ShowScrollBar = true;
-            uiTextBox1.ShowText = false;
-            uiTextBox1.Style = Sunny.UI.UIStyle.Custom;
-            uiTextBox1.TextAlignment = ContentAlignment.MiddleLeft;
-            uiTextBox1.Watermark = "Nhập văn bản vào đây...";
+            txtText.ButtonRectColor = Color.FromArgb(18, 58, 92);
+            txtText.ButtonStyleInherited = false;
+            resources.ApplyResources(txtText, "txtText");
+            txtText.FillColor2 = Color.FromArgb(24, 24, 24);
+            txtText.Multiline = true;
+            txtText.Name = "txtText";
+            txtText.RectColor = Color.DarkGray;
+            txtText.ScrollBarColor = Color.FromArgb(24, 24, 24);
+            txtText.ScrollBarStyleInherited = false;
+            txtText.ShowScrollBar = true;
+            txtText.ShowText = false;
+            txtText.Style = Sunny.UI.UIStyle.Custom;
+            txtText.TextAlignment = ContentAlignment.MiddleLeft;
+            txtText.Watermark = "Nhập văn bản vào đây...";
             // 
             // uiLabel2
             // 
@@ -384,33 +311,63 @@
             uiLabel2.ForeColor = Color.Navy;
             uiLabel2.Name = "uiLabel2";
             // 
-            // pnlThaoTac
+            // flpPreview
             // 
-            pnlThaoTac.BackColor = Color.FromArgb(245, 245, 250);
-            pnlThaoTac.Controls.Add(btnCreateExam);
-            pnlThaoTac.Controls.Add(uiLabel1);
-            pnlThaoTac.FillColor = Color.White;
-            pnlThaoTac.FillColor2 = Color.White;
-            resources.ApplyResources(pnlThaoTac, "pnlThaoTac");
-            pnlThaoTac.Name = "pnlThaoTac";
-            pnlThaoTac.Radius = 15;
-            pnlThaoTac.RectColor = Color.Black;
-            pnlThaoTac.TextAlignment = ContentAlignment.MiddleCenter;
+            resources.ApplyResources(flpPreview, "flpPreview");
+            flpPreview.BackColor = Color.WhiteSmoke;
+            flpPreview.Name = "flpPreview";
             // 
-            // btnCreateExam
+            // pnlHeader
             // 
-            resources.ApplyResources(btnCreateExam, "btnCreateExam");
-            btnCreateExam.Name = "btnCreateExam";
-            btnCreateExam.Symbol = 61453;
-            btnCreateExam.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnCreateExam.Click += btnCreateExam_Click;
+            pnlHeader.Controls.Add(lblExamInfo);
+            pnlHeader.Controls.Add(lblResultTitle);
+            pnlHeader.Controls.Add(btnSaveToBank);
+            resources.ApplyResources(pnlHeader, "pnlHeader");
+            pnlHeader.FillColor = Color.MidnightBlue;
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // uiLabel1
+            // lblExamInfo
             // 
-            uiLabel1.BackColor = Color.White;
-            resources.ApplyResources(uiLabel1, "uiLabel1");
-            uiLabel1.ForeColor = Color.Navy;
-            uiLabel1.Name = "uiLabel1";
+            lblExamInfo.BackColor = Color.MidnightBlue;
+            resources.ApplyResources(lblExamInfo, "lblExamInfo");
+            lblExamInfo.ForeColor = Color.WhiteSmoke;
+            lblExamInfo.Name = "lblExamInfo";
+            // 
+            // lblResultTitle
+            // 
+            lblResultTitle.BackColor = Color.MidnightBlue;
+            resources.ApplyResources(lblResultTitle, "lblResultTitle");
+            lblResultTitle.ForeColor = Color.WhiteSmoke;
+            lblResultTitle.Name = "lblResultTitle";
+            // 
+            // btnSaveToBank
+            // 
+            resources.ApplyResources(btnSaveToBank, "btnSaveToBank");
+            btnSaveToBank.BackColor = Color.MediumBlue;
+            btnSaveToBank.FillColor = Color.Gainsboro;
+            btnSaveToBank.FillColor2 = Color.Gainsboro;
+            btnSaveToBank.ForeColor = Color.Black;
+            btnSaveToBank.ForeDisableColor = Color.Black;
+            btnSaveToBank.ForeHoverColor = Color.Black;
+            btnSaveToBank.ForePressColor = Color.Black;
+            btnSaveToBank.ForeSelectedColor = Color.Black;
+            btnSaveToBank.Name = "btnSaveToBank";
+            btnSaveToBank.Radius = 10;
+            btnSaveToBank.Style = Sunny.UI.UIStyle.Custom;
+            btnSaveToBank.Symbol = 61639;
+            btnSaveToBank.SymbolColor = Color.Black;
+            btnSaveToBank.SymbolHoverColor = Color.Black;
+            btnSaveToBank.SymbolPressColor = Color.Black;
+            btnSaveToBank.SymbolSelectedColor = Color.Black;
+            btnSaveToBank.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            // 
+            // pnlBody
+            // 
+            pnlBody.Controls.Add(flpPreview);
+            resources.ApplyResources(pnlBody, "pnlBody");
+            pnlBody.Name = "pnlBody";
+            pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // vSplitter
             // 
@@ -418,22 +375,11 @@
             vSplitter.Name = "vSplitter";
             vSplitter.TabStop = false;
             // 
-            // flpPreview
-            // 
-            flpPreview.BackColor = Color.FromArgb(245, 245, 250);
-            resources.ApplyResources(flpPreview, "flpPreview");
-            flpPreview.FillColor = Color.FromArgb(245, 245, 250);
-            flpPreview.FillColor2 = Color.FromArgb(245, 245, 250);
-            flpPreview.Name = "flpPreview";
-            flpPreview.Radius = 1;
-            flpPreview.RectColor = Color.Black;
-            flpPreview.ShowText = false;
-            flpPreview.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
             // UC_AICreate
             // 
             BackColor = SystemColors.ActiveCaption;
-            Controls.Add(flpPreview);
+            Controls.Add(pnlBody);
+            Controls.Add(pnlHeader);
             Controls.Add(vSplitter);
             Controls.Add(pnlLeft);
             Name = "UC_AICreate";
@@ -441,29 +387,23 @@
             Load += UC_AICreate_Load;
             pnlLeft.ResumeLayout(false);
             pnlCauHinh.ResumeLayout(false);
-            grpMucDo.ResumeLayout(false);
-            pnlFooter.ResumeLayout(false);
-            pnlPopup.ResumeLayout(false);
             pnlNguonDuLieu.ResumeLayout(false);
             tabSource.ResumeLayout(false);
             tpFile.ResumeLayout(false);
             tpText.ResumeLayout(false);
-            pnlThaoTac.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
+            pnlBody.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         private Sunny.UI.UIPanel pnlLeft;
-        private System.Windows.Forms.Splitter vSplitter;
         private Sunny.UI.UITabControl tabSource;
         private System.Windows.Forms.TabPage tpFile;
         private System.Windows.Forms.TabPage tpText;
         private Sunny.UI.UISymbolButton btnSelectFile;
-        private Sunny.UI.UILabel lblFileStatus;
         private Sunny.UI.UISymbolButton btnCreateExam;
         private Sunny.UI.UIPanel pnlNguonDuLieu;
         private Sunny.UI.UILabel uiLabel2;
-        private Sunny.UI.UIPanel pnlThaoTac;
-        private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UIPanel pnlCauHinh;
         private Sunny.UI.UILabel uiLabel3;
 
@@ -471,26 +411,22 @@
 
         private Sunny.UI.UIComboBox cbMonHoc;
         private Sunny.UI.UIComboBox cbKhoi;
-        private Sunny.UI.UIGroupBox grpMucDo;
-        private Sunny.UI.UILabel uiLabel6;
-        private Sunny.UI.UIIntegerUpDown uiIntegerUpDown1;
-        private Sunny.UI.UILabel unit1;
+        private Sunny.UI.UITextBox txtText;
+        private FlowLayoutPanel flpPreview;
+        private Sunny.UI.UITextBox txtFilePath;
         private Sunny.UI.UILabel uiLabel7;
-        private Sunny.UI.UIIntegerUpDown uiIntegerUpDown2;
-        private Sunny.UI.UILabel unit2;
+        private Sunny.UI.UILabel uiLabel6;
+        private Sunny.UI.UIComboBox cbDoKho;
+        private Sunny.UI.UILabel uiLabel5;
+        private Sunny.UI.UILabel uiLabel4;
+        private Sunny.UI.UIUpDownTextBox udtSL;
+        private Sunny.UI.UIUpDownTextBox udtTG;
         private Sunny.UI.UILabel uiLabel8;
-        private Sunny.UI.UIIntegerUpDown uiIntegerUpDown3;
-        private Sunny.UI.UILabel unit3;
-        private Sunny.UI.UILabel lblVDC;
-        private Sunny.UI.UIIntegerUpDown numVDC;
-        private Sunny.UI.UILabel unit4;
-        private Sunny.UI.UIPanel pnlFooter;
-        private Sunny.UI.UILabel lblTongSoCau;
-        private Sunny.UI.UIPanel pnlPopup;
-        private CheckedListBox clbChuong;
-        private Sunny.UI.UIButton btnDone;
-        private Sunny.UI.UITextBox txtSelectedChuong;
-        private Sunny.UI.UITextBox uiTextBox1;
-        private Sunny.UI.UIFlowLayoutPanel flpPreview;
+        private Sunny.UI.UIPanel pnlHeader;
+        private Sunny.UI.UIPanel pnlBody;
+        private Sunny.UI.UILabel lblExamInfo;
+        private Sunny.UI.UILabel lblResultTitle;
+        private Sunny.UI.UISymbolButton btnSaveToBank;
+        private Splitter vSplitter;
     }
 }

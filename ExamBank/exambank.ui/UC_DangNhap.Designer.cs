@@ -98,7 +98,6 @@
             txtUsername.TabIndex = 2;
             txtUsername.TextAlignment = ContentAlignment.MiddleLeft;
             txtUsername.Watermark = "Email/Tên đăng nhập";
-            txtUsername.WatermarkActiveColor = Color.White;
             // 
             // txtPassword
             // 
@@ -125,7 +124,6 @@
             txtPassword.TabIndex = 3;
             txtPassword.TextAlignment = ContentAlignment.MiddleLeft;
             txtPassword.Watermark = "Mật khẩu";
-            txtPassword.WatermarkActiveColor = Color.White;
             txtPassword.ButtonClick += txtPassword_ButtonClick;
             // 
             // lnkForgotPassword

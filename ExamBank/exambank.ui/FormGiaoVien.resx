@@ -117,12 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnLog.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnLog.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 13.8pt</value>
+  </data>
+  <data name="btnLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 426</value>
+  </data>
+  <data name="btnLog.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="btnLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 45</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnLog.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="btnLog.Text" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="&gt;&gt;btnLog.Name" xml:space="preserve">
+    <value>btnLog</value>
+  </data>
+  <data name="&gt;&gt;btnLog.Type" xml:space="preserve">
+    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;btnLog.Parent" xml:space="preserve">
+    <value>pnlMenu</value>
+  </data>
+  <data name="&gt;&gt;btnLog.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnHome.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Times New Roman, 13.8pt</value>
+  </data>
+  <data name="btnHome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 8</value>
+  </data>
+  <data name="btnHome.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="btnHome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 80</value>
+  </data>
+  <data name="btnHome.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btnHome.Text" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Name" xml:space="preserve">
+    <value>btnHome</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Type" xml:space="preserve">
+    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Parent" xml:space="preserve">
+    <value>pnlMenu</value>
+  </data>
+  <data name="&gt;&gt;btnHome.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="btnViewExamBank.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 13.8pt</value>
   </data>
   <data name="btnViewExamBank.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 246</value>
+    <value>3, 340</value>
   </data>
   <data name="btnViewExamBank.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -130,7 +195,6 @@
   <data name="btnViewExamBank.Size" type="System.Drawing.Size, System.Drawing">
     <value>273, 80</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnViewExamBank.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -147,13 +211,13 @@
     <value>pnlMenu</value>
   </data>
   <data name="&gt;&gt;btnViewExamBank.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="btnManageExams.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 13.8pt</value>
   </data>
   <data name="btnManageExams.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 164</value>
+    <value>3, 258</value>
   </data>
   <data name="btnManageExams.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -177,13 +241,13 @@
     <value>pnlMenu</value>
   </data>
   <data name="&gt;&gt;btnManageExams.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="btnManageQuestions.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 13.8pt</value>
   </data>
   <data name="btnManageQuestions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 82</value>
+    <value>3, 176</value>
   </data>
   <data name="btnManageQuestions.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -207,13 +271,13 @@
     <value>pnlMenu</value>
   </data>
   <data name="&gt;&gt;btnManageQuestions.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnCreateQuestion.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 13.8pt</value>
   </data>
   <data name="btnCreateQuestion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
+    <value>3, 94</value>
   </data>
   <data name="btnCreateQuestion.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
@@ -225,7 +289,7 @@
     <value>0</value>
   </data>
   <data name="btnCreateQuestion.Text" xml:space="preserve">
-    <value>Tạo câu hỏi</value>
+    <value>Tạo đề thi</value>
   </data>
   <data name="&gt;&gt;btnCreateQuestion.Name" xml:space="preserve">
     <value>btnCreateQuestion</value>
@@ -237,9 +301,8 @@
     <value>pnlMenu</value>
   </data>
   <data name="&gt;&gt;btnCreateQuestion.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="pnlMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -257,7 +320,7 @@
     <value>1, 1</value>
   </data>
   <data name="pnlMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 478</value>
+    <value>280, 515</value>
   </data>
   <data name="pnlMenu.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -392,7 +455,7 @@
     <value>1, 1</value>
   </data>
   <data name="SidebarPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 662</value>
+    <value>280, 699</value>
   </data>
   <data name="SidebarPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -428,7 +491,7 @@
     <value>1, 1</value>
   </data>
   <data name="pnlBody.Size" type="System.Drawing.Size, System.Drawing">
-    <value>766, 662</value>
+    <value>766, 699</value>
   </data>
   <data name="pnlBody.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -452,10 +515,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1050, 700</value>
+    <value>1050, 737</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 36, 2, 2</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FormGiaoVien</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormGiaoVien</value>

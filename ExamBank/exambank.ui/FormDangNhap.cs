@@ -12,11 +12,14 @@ namespace exambank.ui
 {
     public partial class FormDangNhap : UIForm
     {
+        public UC_DangKy ucRegister = new UC_DangKy();
+        public UC_QuenMatKhau ucForgot = new UC_QuenMatKhau();
         public FormDangNhap()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.ActiveControl = lblAC;
+            LoadUserControl(ucRegister);
+            LoadUserControl(ucForgot);
         }
 
         private void FormDangNhap_Resize(object sender, EventArgs e)
@@ -35,10 +38,10 @@ namespace exambank.ui
 
         public void LoadUserControl(UserControl uc)
         {
-            pnlLoginCard.Controls.Clear();
+            //pnlLoginCard.Controls.Clear();
             uc.Dock = DockStyle.Fill;
             pnlLoginCard.Controls.Add(uc);
-            CenterLoginCard();
+            //CenterLoginCard();
         }
     }
 }

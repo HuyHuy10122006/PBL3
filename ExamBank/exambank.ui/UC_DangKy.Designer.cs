@@ -102,7 +102,6 @@
             txtFullName.TabIndex = 2;
             txtFullName.TextAlignment = ContentAlignment.MiddleLeft;
             txtFullName.Watermark = "Họ tên";
-            txtFullName.WatermarkActiveColor = Color.White;
             // 
             // txtEmail
             // 
@@ -118,7 +117,6 @@
             txtEmail.TabIndex = 3;
             txtEmail.TextAlignment = ContentAlignment.MiddleLeft;
             txtEmail.Watermark = "Địa chỉ Email";
-            txtEmail.WatermarkActiveColor = Color.White;
             // 
             // txtUsername
             // 
@@ -134,7 +132,6 @@
             txtUsername.TabIndex = 4;
             txtUsername.TextAlignment = ContentAlignment.MiddleLeft;
             txtUsername.Watermark = "Tên đăng nhập";
-            txtUsername.WatermarkActiveColor = Color.White;
             // 
             // txtPassword
             // 
@@ -163,7 +160,6 @@
             txtPassword.TabIndex = 5;
             txtPassword.TextAlignment = ContentAlignment.MiddleLeft;
             txtPassword.Watermark = "Mật khẩu";
-            txtPassword.WatermarkActiveColor = Color.White;
             txtPassword.ButtonClick += txtPassword_ButtonClick;
             // 
             // txtConfirmPassword
@@ -193,7 +189,6 @@
             txtConfirmPassword.TabIndex = 6;
             txtConfirmPassword.TextAlignment = ContentAlignment.MiddleLeft;
             txtConfirmPassword.Watermark = "Xác nhận mật khẩu";
-            txtConfirmPassword.WatermarkActiveColor = Color.White;
             txtConfirmPassword.ButtonClick += txtConfirmPassword_ButtonClick;
             // 
             // btnRegister
