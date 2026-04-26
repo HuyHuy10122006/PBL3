@@ -10,12 +10,39 @@ namespace exambank.logic
     public class GeminiService
     {
         private static readonly HttpClient _httpClient = new HttpClient();
-        private readonly string _apiKey = "AIzaSyDJYcxvRMQW73lH87WntqIO7KYBVNCyzk0";
+        private readonly string _apiKey;
         private readonly string _geminiUrl;
 
         public GeminiService()
         {
+            _apiKey = GetApiKey();
             _geminiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={_apiKey}";
+        }
+
+        private string GetApiKey()
+        {
+            // Cách 1: Đọc API Key từ file api_key.txt (Tệp này đã được đưa vào .gitignore để không đẩy lên GitHub)
+            // Tìm file api_key.txt từ thư mục Build lùi dần lên thư mục gốc của Solution
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            while (path != null)
+            {
+                string filePath = System.IO.Path.Combine(path, "api_key.txt");
+                if (System.IO.File.Exists(filePath))
+                {
+                    return System.IO.File.ReadAllText(filePath).Trim();
+                }
+                path = System.IO.Directory.GetParent(path)?.FullName;
+            }
+
+            // Cách 2: Lấy từ biến môi trường (Environment Variable) nếu không dùng file
+            var envKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
+            if (!string.IsNullOrEmpty(envKey)) 
+            {
+                return envKey.Trim();
+            }
+
+            // Báo lỗi rõ ràng trên UI nếu không có key
+            throw new Exception("Không tìm thấy API Key!\n\nVui lòng tạo một file 'api_key.txt' (có chứa API key của bạn từ Google AI Studio) nằm ở ngoài cùng thư mục dự án (ngang hàng với file .sln).\n(Hoặc thiết lập biến môi trường GEMINI_API_KEY)");
         }
 
         public async IAsyncEnumerable<string> GenerateQuestionsStreamAsync(string textChunk, int numbOfQuestions = 10)
@@ -93,7 +120,7 @@ namespace exambank.logic
 
         private async Task<string> GenerateBatchAsync(string textChunk, int numbOfQuestions, int batchIndex)
         {
-            string prompt = $"Bạn là chuyên gia giáo dục. Dựa vào nội dung sau, hãy tạo {numbOfQuestions} câu hỏi trắc nghiệm dưới dạng JSON array (mỗi object gồm: Question, OptionA, OptionB, OptionC, OptionD, Answer). Chỉ trả về mảng JSON, không markdown. Hãy tạo các câu hỏi đa dạng (Phần {batchIndex + 1}). Nội dung: {textChunk}";
+            string prompt = $"Bạn là chuyên gia giáo dục. Dựa vào nội dung sau, hãy tạo {numbOfQuestions} câu hỏi trắc nghiệm dưới dạng JSON array (mỗi object gồm: Question, OptionA, OptionB, OptionC, OptionD, Answer). Chỉ trả về duy nhất 1 mảng JSON chuẩn xác, không có markdown, không có chữ thừa ở đầu và cuối. Hãy tạo các câu hỏi đa dạng (Phần {batchIndex + 1}). Nội dung: {textChunk}";
 
             var requestBody = new
             {

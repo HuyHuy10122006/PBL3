@@ -157,81 +157,90 @@ namespace exambank.ui
                 {
                     await foreach (string jsonResult in geminiService.GenerateQuestionsStreamAsync(textToAnalyze, questionCount))
                     {
-                        if (string.IsNullOrWhiteSpace(jsonResult) || jsonResult == "[]") continue;
-
-                        if (jsonResult.StartsWith("Error"))
+                        try 
                         {
-                            MessageBox.Show($"Lỗi trong quá trình tạo câu hỏi:\n{jsonResult}", "Lỗi API", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            continue;
-                        }
+                            if (string.IsNullOrWhiteSpace(jsonResult) || jsonResult == "[]") continue;
 
-                        string cleanJson = jsonResult.Trim();
-                        int firstBracket = cleanJson.IndexOf('[');
-                        int lastBracket = cleanJson.LastIndexOf(']');
-                        if (firstBracket >= 0 && lastBracket > firstBracket) 
-                        {
-                            cleanJson = cleanJson.Substring(firstBracket, lastBracket - firstBracket + 1);
-                        }
-                        else
-                        {
-                            // Nếu không tìm thấy mảng JSON hợp lệ
-                            continue;
-                        }
-
-                        var options = new System.Text.Json.JsonSerializerOptions { 
-                            PropertyNameCaseInsensitive = true,
-                            AllowTrailingCommas = true,
-                            ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip,
-                            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
-                        };
-                        var questions = System.Text.Json.JsonSerializer.Deserialize<List<exambank.data.Models.QuestionModel>>(cleanJson, options);
-
-                        if (questions != null && questions.Count > 0)
-                        {
-                            foreach (var qDict in questions)
+                            if (jsonResult.StartsWith("Error"))
                             {
-                                if (string.IsNullOrWhiteSpace(qDict.Question)) qDict.Question = "N/A";
-                                if (qDict.OptionA == null) qDict.OptionA = "";
-                                if (qDict.OptionB == null) qDict.OptionB = "";
-                                if (qDict.OptionC == null) qDict.OptionC = "";
-                                if (qDict.OptionD == null) qDict.OptionD = "";
-
-                                if (string.IsNullOrWhiteSpace(qDict.Answer)) 
-                                {
-                                    qDict.Answer = "A";
-                                }
-                                else
-                                {
-                                    string ans = qDict.Answer.Trim().ToUpper();
-                                    if (ans.StartsWith("OPTION") && ans.Length > 6)
-                                    {
-                                        ans = ans.Substring(6, 1);
-                                    }
-                                    if (ans.Length > 1)
-                                    {
-                                        // Chỉ lấy ký tự đầu tiên
-                                        ans = ans.Substring(0, 1);
-                                    }
-                                    if (ans != "A" && ans != "B" && ans != "C" && ans != "D") 
-                                    {
-                                        ans = "A";
-                                    }
-                                    qDict.Answer = ans;
-                                }
-
-                                qDict.Id = listQuestions.Count + 1; // Tạo ID hiển thị tăng dần bắt đầu từ 1
-
-                                listQuestions.Add(qDict);
-                                totalCreated++;
+                                MessageBox.Show($"Lỗi trong quá trình tạo câu hỏi:\n{jsonResult}", "Lỗi API", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                continue;
                             }
 
-                            lblUploadInfo.Text = $"Đang tạo... ({totalCreated}/{questionCount} câu)";
-
-                            // Kéo đến dòng cuối cùng để hiển thị tạo tới đâu thấy tới đó
-                            if (dgvQuestions.Rows.Count > 0)
+                            string cleanJson = jsonResult.Trim();
+                            int firstBracket = cleanJson.IndexOf('[');
+                            int lastBracket = cleanJson.LastIndexOf(']');
+                            if (firstBracket >= 0 && lastBracket > firstBracket) 
                             {
-                                dgvQuestions.FirstDisplayedScrollingRowIndex = dgvQuestions.RowCount - 1;
+                                cleanJson = cleanJson.Substring(firstBracket, lastBracket - firstBracket + 1);
                             }
+                            else
+                            {
+                                // Nếu không tìm thấy mảng JSON hợp lệ
+                                continue;
+                            }
+
+                            var options = new System.Text.Json.JsonSerializerOptions { 
+                                PropertyNameCaseInsensitive = true,
+                                AllowTrailingCommas = true,
+                                ReadCommentHandling = System.Text.Json.JsonCommentHandling.Skip,
+                                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+                            };
+                            var questions = System.Text.Json.JsonSerializer.Deserialize<List<exambank.data.Models.QuestionModel>>(cleanJson, options);
+
+                            if (questions != null && questions.Count > 0)
+                            {
+                                foreach (var qDict in questions)
+                                {
+                                    if (string.IsNullOrWhiteSpace(qDict.Question)) qDict.Question = "N/A";
+                                    if (qDict.OptionA == null) qDict.OptionA = "";
+                                    if (qDict.OptionB == null) qDict.OptionB = "";
+                                    if (qDict.OptionC == null) qDict.OptionC = "";
+                                    if (qDict.OptionD == null) qDict.OptionD = "";
+
+                                    if (string.IsNullOrWhiteSpace(qDict.Answer)) 
+                                    {
+                                        qDict.Answer = "A";
+                                    }
+                                    else
+                                    {
+                                        string ans = qDict.Answer.Trim().ToUpper();
+                                        if (ans.StartsWith("OPTION") && ans.Length > 6)
+                                        {
+                                            ans = ans.Substring(6, 1);
+                                        }
+                                        if (ans.Length > 1)
+                                        {
+                                            // Chỉ lấy ký tự đầu tiên
+                                            ans = ans.Substring(0, 1);
+                                        }
+                                        if (ans != "A" && ans != "B" && ans != "C" && ans != "D") 
+                                        {
+                                            ans = "A";
+                                        }
+                                        qDict.Answer = ans;
+                                    }
+
+                                    qDict.Id = listQuestions.Count + 1; // Tạo ID hiển thị tăng dần bắt đầu từ 1
+
+                                    listQuestions.Add(qDict);
+                                    totalCreated++;
+                                }
+
+                                lblUploadInfo.Text = $"Đang tạo... ({totalCreated}/{questionCount} câu)";
+
+                                // Kéo đến dòng cuối cùng để hiển thị tạo tới đâu thấy tới đó
+                                if (dgvQuestions.Rows.Count > 0)
+                                {
+                                    dgvQuestions.FirstDisplayedScrollingRowIndex = dgvQuestions.RowCount - 1;
+                                }
+                            }
+                        }
+                        catch (Exception innerEx)
+                        {
+                            // Bắt lỗi từng mẻ (batch) để các mẻ sau vẫn được chạy tiếp
+                            Console.WriteLine($"[Cảnh báo] Lỗi phân tích JSON ở phần này: {innerEx.Message}");
+                            // MessageBox.Show($"Có một phần dữ liệu bị lỗi định dạng từ AI (đã bỏ qua).\nChi tiết: {innerEx.Message}", "Cảnh báo JSON", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
 
