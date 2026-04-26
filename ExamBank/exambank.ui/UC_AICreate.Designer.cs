@@ -32,9 +32,7 @@
             pnlLeft = new Sunny.UI.UIPanel();
             btnCreateExam = new Sunny.UI.UISymbolButton();
             pnlCauHinh = new Sunny.UI.UIPanel();
-            udtTG = new Sunny.UI.UIUpDownTextBox();
             uiLabel8 = new Sunny.UI.UILabel();
-            udtSL = new Sunny.UI.UIUpDownTextBox();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             cbDoKho = new Sunny.UI.UIComboBox();
@@ -58,6 +56,8 @@
             btnSaveToBank = new Sunny.UI.UISymbolButton();
             pnlBody = new Sunny.UI.UIPanel();
             vSplitter = new Splitter();
+            iudSL = new Sunny.UI.UIIntegerUpDown();
+            iudTG = new Sunny.UI.UIIntegerUpDown();
             pnlLeft.SuspendLayout();
             pnlCauHinh.SuspendLayout();
             pnlNguonDuLieu.SuspendLayout();
@@ -105,9 +105,9 @@
             // pnlCauHinh
             // 
             pnlCauHinh.BackColor = Color.White;
-            pnlCauHinh.Controls.Add(udtTG);
+            pnlCauHinh.Controls.Add(iudTG);
+            pnlCauHinh.Controls.Add(iudSL);
             pnlCauHinh.Controls.Add(uiLabel8);
-            pnlCauHinh.Controls.Add(udtSL);
             pnlCauHinh.Controls.Add(uiLabel7);
             pnlCauHinh.Controls.Add(uiLabel6);
             pnlCauHinh.Controls.Add(cbDoKho);
@@ -124,31 +124,11 @@
             pnlCauHinh.RectColor = Color.Black;
             pnlCauHinh.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // udtTG
-            // 
-            udtTG.DoubleStep = 1D;
-            resources.ApplyResources(udtTG, "udtTG");
-            udtTG.Name = "udtTG";
-            udtTG.ShowText = false;
-            udtTG.TextAlignment = ContentAlignment.MiddleRight;
-            udtTG.Type = Sunny.UI.UITextBox.UIEditType.Integer;
-            udtTG.Watermark = "";
-            // 
             // uiLabel8
             // 
             resources.ApplyResources(uiLabel8, "uiLabel8");
             uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
             uiLabel8.Name = "uiLabel8";
-            // 
-            // udtSL
-            // 
-            udtSL.DoubleStep = 1D;
-            resources.ApplyResources(udtSL, "udtSL");
-            udtSL.Name = "udtSL";
-            udtSL.ShowText = false;
-            udtSL.TextAlignment = ContentAlignment.MiddleRight;
-            udtSL.Type = Sunny.UI.UITextBox.UIEditType.Integer;
-            udtSL.Watermark = "";
             // 
             // uiLabel7
             // 
@@ -375,6 +355,20 @@
             vSplitter.Name = "vSplitter";
             vSplitter.TabStop = false;
             // 
+            // iudSL
+            // 
+            resources.ApplyResources(iudSL, "iudSL");
+            iudSL.Name = "iudSL";
+            iudSL.ShowText = false;
+            iudSL.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // iudTG
+            // 
+            resources.ApplyResources(iudTG, "iudTG");
+            iudTG.Name = "iudTG";
+            iudTG.ShowText = false;
+            iudTG.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
             // UC_AICreate
             // 
             BackColor = SystemColors.ActiveCaption;
@@ -419,8 +413,6 @@
         private Sunny.UI.UIComboBox cbDoKho;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UILabel uiLabel4;
-        private Sunny.UI.UIUpDownTextBox udtSL;
-        private Sunny.UI.UIUpDownTextBox udtTG;
         private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UIPanel pnlHeader;
         private Sunny.UI.UIPanel pnlBody;
@@ -428,5 +420,7 @@
         private Sunny.UI.UILabel lblResultTitle;
         private Sunny.UI.UISymbolButton btnSaveToBank;
         private Splitter vSplitter;
+        private Sunny.UI.UIIntegerUpDown iudTG;
+        private Sunny.UI.UIIntegerUpDown iudSL;
     }
 }

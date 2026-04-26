@@ -226,17 +226,29 @@
   <data name="&gt;&gt;btnCreateExam.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;udtTG.Name" xml:space="preserve">
-    <value>udtTG</value>
+  <data name="&gt;&gt;iudTG.Name" xml:space="preserve">
+    <value>iudTG</value>
   </data>
-  <data name="&gt;&gt;udtTG.Type" xml:space="preserve">
-    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  <data name="&gt;&gt;iudTG.Type" xml:space="preserve">
+    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
-  <data name="&gt;&gt;udtTG.Parent" xml:space="preserve">
+  <data name="&gt;&gt;iudTG.Parent" xml:space="preserve">
     <value>pnlCauHinh</value>
   </data>
-  <data name="&gt;&gt;udtTG.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;iudTG.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Name" xml:space="preserve">
+    <value>iudSL</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Type" xml:space="preserve">
+    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Parent" xml:space="preserve">
+    <value>pnlCauHinh</value>
+  </data>
+  <data name="&gt;&gt;iudSL.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;uiLabel8.Name" xml:space="preserve">
     <value>uiLabel8</value>
@@ -248,18 +260,6 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Name" xml:space="preserve">
-    <value>udtSL</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Type" xml:space="preserve">
-    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;udtSL.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="&gt;&gt;uiLabel7.Name" xml:space="preserve">
@@ -391,42 +391,6 @@
   <data name="&gt;&gt;pnlCauHinh.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="udtTG.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="udtTG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 221</value>
-  </data>
-  <data name="udtTG.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="udtTG.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="udtTG.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="udtTG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 35</value>
-  </data>
-  <data name="udtTG.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="udtTG.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;udtTG.Name" xml:space="preserve">
-    <value>udtTG</value>
-  </data>
-  <data name="&gt;&gt;udtTG.Type" xml:space="preserve">
-    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;udtTG.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;udtTG.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="uiLabel8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
   </data>
@@ -458,42 +422,6 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="udtSL.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="udtSL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 176</value>
-  </data>
-  <data name="udtSL.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="udtSL.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="udtSL.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="udtSL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 35</value>
-  </data>
-  <data name="udtSL.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="udtSL.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Name" xml:space="preserve">
-    <value>udtSL</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Type" xml:space="preserve">
-    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;udtSL.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;udtSL.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="uiLabel7.Font" type="System.Drawing.Font, System.Drawing">
@@ -1329,6 +1257,78 @@
   </data>
   <data name="&gt;&gt;vSplitter.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="iudSL.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="iudSL.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 176</value>
+  </data>
+  <data name="iudSL.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="iudSL.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="iudSL.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="iudSL.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 35</value>
+  </data>
+  <data name="iudSL.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="iudSL.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Name" xml:space="preserve">
+    <value>iudSL</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Type" xml:space="preserve">
+    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;iudSL.Parent" xml:space="preserve">
+    <value>pnlCauHinh</value>
+  </data>
+  <data name="&gt;&gt;iudSL.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="iudTG.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="iudTG.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 221</value>
+  </data>
+  <data name="iudTG.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="iudTG.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="iudTG.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="iudTG.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 36</value>
+  </data>
+  <data name="iudTG.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="iudTG.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;iudTG.Name" xml:space="preserve">
+    <value>iudTG</value>
+  </data>
+  <data name="&gt;&gt;iudTG.Type" xml:space="preserve">
+    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;iudTG.Parent" xml:space="preserve">
+    <value>pnlCauHinh</value>
+  </data>
+  <data name="&gt;&gt;iudTG.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

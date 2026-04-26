@@ -148,18 +148,26 @@
             btnEdit.SymbolColor = Color.Black;
             btnEdit.TabIndex = 7;
             btnEdit.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnEdit.Click += btnEdit_Click;
             // 
             // txtContentDisplay
             // 
             txtContentDisplay.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtContentDisplay.FillColor2 = Color.White;
+            txtContentDisplay.FillReadOnlyColor = Color.White;
             txtContentDisplay.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtContentDisplay.ForeColor = Color.Black;
+            txtContentDisplay.ForeDisableColor = Color.Black;
+            txtContentDisplay.ForeReadOnlyColor = Color.Black;
             txtContentDisplay.Location = new Point(14, 51);
             txtContentDisplay.Margin = new Padding(4, 5, 4, 5);
             txtContentDisplay.MinimumSize = new Size(1, 16);
             txtContentDisplay.Multiline = true;
             txtContentDisplay.Name = "txtContentDisplay";
             txtContentDisplay.Padding = new Padding(5);
-            txtContentDisplay.RectSides = ToolStripStatusLabelBorderSides.None;
+            txtContentDisplay.ReadOnly = true;
+            txtContentDisplay.RectColor = Color.Silver;
+            txtContentDisplay.RectReadOnlyColor = Color.White;
             txtContentDisplay.ShowText = false;
             txtContentDisplay.Size = new Size(839, 32);
             txtContentDisplay.TabIndex = 3;
@@ -184,8 +192,12 @@
             // 
             // txtAnsA
             // 
-            txtAnsA.FillReadOnlyColor = Color.WhiteSmoke;
+            txtAnsA.FillColor2 = Color.White;
+            txtAnsA.FillReadOnlyColor = Color.White;
             txtAnsA.Font = new Font("Times New Roman", 12F);
+            txtAnsA.ForeColor = Color.Black;
+            txtAnsA.ForeDisableColor = Color.Black;
+            txtAnsA.ForeReadOnlyColor = Color.Black;
             txtAnsA.Location = new Point(4, 5);
             txtAnsA.Margin = new Padding(4, 5, 4, 5);
             txtAnsA.MinimumSize = new Size(1, 16);
@@ -193,7 +205,9 @@
             txtAnsA.Name = "txtAnsA";
             txtAnsA.Padding = new Padding(5);
             txtAnsA.Radius = 10;
-            txtAnsA.RectSides = ToolStripStatusLabelBorderSides.None;
+            txtAnsA.ReadOnly = true;
+            txtAnsA.RectColor = Color.Silver;
+            txtAnsA.RectReadOnlyColor = Color.White;
             txtAnsA.ShowText = false;
             txtAnsA.Size = new Size(199, 27);
             txtAnsA.TabIndex = 0;
@@ -203,8 +217,12 @@
             // 
             // txtAnsB
             // 
-            txtAnsB.FillReadOnlyColor = Color.WhiteSmoke;
+            txtAnsB.FillColor2 = Color.White;
+            txtAnsB.FillReadOnlyColor = Color.White;
             txtAnsB.Font = new Font("Times New Roman", 12F);
+            txtAnsB.ForeColor = Color.Black;
+            txtAnsB.ForeDisableColor = Color.Black;
+            txtAnsB.ForeReadOnlyColor = Color.Black;
             txtAnsB.Location = new Point(4, 42);
             txtAnsB.Margin = new Padding(4, 5, 4, 5);
             txtAnsB.MinimumSize = new Size(1, 16);
@@ -212,7 +230,9 @@
             txtAnsB.Name = "txtAnsB";
             txtAnsB.Padding = new Padding(5);
             txtAnsB.Radius = 10;
-            txtAnsB.RectSides = ToolStripStatusLabelBorderSides.None;
+            txtAnsB.ReadOnly = true;
+            txtAnsB.RectColor = Color.Silver;
+            txtAnsB.RectReadOnlyColor = Color.White;
             txtAnsB.ShowText = false;
             txtAnsB.Size = new Size(199, 27);
             txtAnsB.Symbol = 61528;
@@ -223,8 +243,12 @@
             // 
             // txtAnsC
             // 
-            txtAnsC.FillReadOnlyColor = Color.WhiteSmoke;
+            txtAnsC.FillColor2 = Color.White;
+            txtAnsC.FillReadOnlyColor = Color.White;
             txtAnsC.Font = new Font("Times New Roman", 12F);
+            txtAnsC.ForeColor = Color.Black;
+            txtAnsC.ForeDisableColor = Color.Black;
+            txtAnsC.ForeReadOnlyColor = Color.Black;
             txtAnsC.Location = new Point(4, 79);
             txtAnsC.Margin = new Padding(4, 5, 4, 5);
             txtAnsC.MinimumSize = new Size(1, 16);
@@ -232,7 +256,9 @@
             txtAnsC.Name = "txtAnsC";
             txtAnsC.Padding = new Padding(5);
             txtAnsC.Radius = 10;
-            txtAnsC.RectSides = ToolStripStatusLabelBorderSides.None;
+            txtAnsC.ReadOnly = true;
+            txtAnsC.RectColor = Color.Silver;
+            txtAnsC.RectReadOnlyColor = Color.White;
             txtAnsC.ShowText = false;
             txtAnsC.Size = new Size(199, 27);
             txtAnsC.Symbol = 61528;
@@ -243,8 +269,12 @@
             // 
             // txtAnsD
             // 
-            txtAnsD.FillReadOnlyColor = Color.WhiteSmoke;
+            txtAnsD.FillColor2 = Color.White;
+            txtAnsD.FillReadOnlyColor = Color.White;
             txtAnsD.Font = new Font("Times New Roman", 12F);
+            txtAnsD.ForeColor = Color.Black;
+            txtAnsD.ForeDisableColor = Color.Black;
+            txtAnsD.ForeReadOnlyColor = Color.Black;
             txtAnsD.Location = new Point(4, 116);
             txtAnsD.Margin = new Padding(4, 5, 4, 5);
             txtAnsD.MinimumSize = new Size(1, 16);
@@ -252,7 +282,9 @@
             txtAnsD.Name = "txtAnsD";
             txtAnsD.Padding = new Padding(5);
             txtAnsD.Radius = 10;
-            txtAnsD.RectSides = ToolStripStatusLabelBorderSides.None;
+            txtAnsD.ReadOnly = true;
+            txtAnsD.RectColor = Color.Silver;
+            txtAnsD.RectReadOnlyColor = Color.White;
             txtAnsD.ShowText = false;
             txtAnsD.Size = new Size(199, 27);
             txtAnsD.Symbol = 61528;

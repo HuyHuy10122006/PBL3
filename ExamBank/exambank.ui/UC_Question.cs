@@ -26,7 +26,7 @@ namespace exambank.ui
             InitializeComponent();
         }
 
-        public void SetData(QuestionModel question, int stt=1)
+        public void SetData(QuestionModel question, int stt = 1)
         {
             txtContentDisplay.MouseWheel -= RedirectWheel;
             txtContentDisplay.MouseWheel += RedirectWheel;
@@ -113,12 +113,12 @@ namespace exambank.ui
 
             foreach (var txt in answerBoxes)
             {
-                txt.FillColor = colorNormal;
+                txt.FillColor = txt.FillReadOnlyColor = colorNormal;
                 txt.RectSides = ToolStripStatusLabelBorderSides.None;
                 //txt.Text = "    " + txt.Text.Replace("\u2713 ", "").Trim(); // Xóa dấu tick nếu có
             }
-            selected.FillColor = colorSelected;
-            selected.RectColor = colorBorderSelected;
+            selected.FillColor = selected.FillReadOnlyColor = colorSelected;
+            selected.RectColor = selected.RectReadOnlyColor = colorBorderSelected;
             selected.RectSides = ToolStripStatusLabelBorderSides.All;
             //selected.Text = "\u2713 " + selected.Text.Trim();
         }
@@ -164,6 +164,17 @@ namespace exambank.ui
         private void UC_Question_Resize(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            var List_txt = new[] { txtContentDisplay, txtAnsA, txtAnsB, txtAnsC, txtAnsD};
+            for (int i = 0; i < List_txt.Length; i++)
+            {
+                var txt = List_txt[i];
+                txt.ReadOnly = !txt.ReadOnly;
+            }
+            txtContentDisplay.Focus();
         }
     }
 }

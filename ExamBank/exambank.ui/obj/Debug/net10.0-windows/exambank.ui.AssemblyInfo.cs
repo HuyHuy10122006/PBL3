@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("exambank.ui")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efad868f989a580c4bfffaa0b41a8844330e79bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+122a6033519058497e9d459248133a752cd5ecd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("exambank.ui")]
 [assembly: System.Reflection.AssemblyTitleAttribute("exambank.ui")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

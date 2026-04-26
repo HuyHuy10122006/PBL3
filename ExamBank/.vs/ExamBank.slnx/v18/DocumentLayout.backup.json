@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\dut\\hk4\\pbl3\\code\\pbl3\\exambank\\exambank.ui\\uc_aicreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\uc_aicreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\dut\\hk4\\pbl3\\code\\pbl3\\exambank\\exambank.ui\\aiservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\aiservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\dut\\hk4\\pbl3\\code\\pbl3\\exambank\\exambank.ui\\uc_managequestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\uc_managequestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\uc_aicreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\uc_aicreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|d:\\dut\\hk4\\pbl3\\code\\pbl3\\exambank\\exambank.ui\\uc_question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\uc_question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\formadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\formadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\formgiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0806E199-D205-41B4-18C4-1F9A0975C0F4}|exambank.ui\\exambank.ui.csproj|solutionrelative:exambank.ui\\formgiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,78 +26,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UC_Question.cs",
-              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_Question.cs",
-              "RelativeDocumentMoniker": "exambank.ui\\UC_Question.cs",
-              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_Question.cs",
-              "RelativeToolTip": "exambank.ui\\UC_Question.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAcwBwAAAA+AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "UC_ManageQuestions.cs [Design]",
+              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_ManageQuestions.cs",
+              "RelativeDocumentMoniker": "exambank.ui\\UC_ManageQuestions.cs",
+              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_ManageQuestions.cs [Design]",
+              "RelativeToolTip": "exambank.ui\\UC_ManageQuestions.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T04:04:54.724Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-26T09:46:11.612Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AIServiceTest.cs",
-              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\AIServiceTest.cs",
-              "RelativeDocumentMoniker": "exambank.ui\\AIServiceTest.cs",
-              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\AIServiceTest.cs",
-              "RelativeToolTip": "exambank.ui\\AIServiceTest.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAYwBcAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T03:39:41.492Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UC_AICreate.cs",
-              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_AICreate.cs",
-              "RelativeDocumentMoniker": "exambank.ui\\UC_AICreate.cs",
-              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_AICreate.cs",
-              "RelativeToolTip": "exambank.ui\\UC_AICreate.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAmwLsAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T17:06:22.368Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "UC_AICreate.cs [Design]",
               "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_AICreate.cs",
               "RelativeDocumentMoniker": "exambank.ui\\UC_AICreate.cs",
               "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\UC_AICreate.cs [Design]",
               "RelativeToolTip": "exambank.ui\\UC_AICreate.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T17:02:48.785Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FormAdmin.cs [Design]",
-              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\FormAdmin.cs",
-              "RelativeDocumentMoniker": "exambank.ui\\FormAdmin.cs",
-              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\FormAdmin.cs [Design]",
-              "RelativeToolTip": "exambank.ui\\FormAdmin.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T16:49:07.001Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FormGiaoVien.cs [Design]",
-              "DocumentMoniker": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\FormGiaoVien.cs",
-              "RelativeDocumentMoniker": "exambank.ui\\FormGiaoVien.cs",
-              "ToolTip": "D:\\DUT\\HK4\\PBL3\\Code\\PBL3\\ExamBank\\exambank.ui\\FormGiaoVien.cs [Design]",
-              "RelativeToolTip": "exambank.ui\\FormGiaoVien.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T16:38:17.303Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-04-26T08:37:21.922Z"
             }
           ]
         }

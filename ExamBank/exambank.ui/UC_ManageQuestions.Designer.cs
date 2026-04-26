@@ -49,8 +49,10 @@
             dgvQuestions = new Sunny.UI.UIDataGridView();
             pnlQuestion = new Sunny.UI.UIPanel();
             uiPanel1 = new Sunny.UI.UIPanel();
-            dataGridViewCheckBoxColumn1 = new DataGridViewCheckBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            colID = new DataGridViewTextBoxColumn();
+            colContent = new DataGridViewTextBoxColumn();
+            colMon = new DataGridViewTextBoxColumn();
+            colDoKho = new DataGridViewTextBoxColumn();
             colEdit = new DataGridViewImageColumn();
             colDelete = new DataGridViewImageColumn();
             pnlHeader.SuspendLayout();
@@ -283,7 +285,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvQuestions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvQuestions.ColumnHeadersHeight = 32;
-            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { dataGridViewCheckBoxColumn1, dataGridViewTextBoxColumn2, colEdit, colDelete });
+            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colContent, colMon, colDoKho, colEdit, colDelete });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = Color.White;
             dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 12F);
@@ -341,7 +343,7 @@
             // uiPanel1
             // 
             uiPanel1.Dock = DockStyle.Top;
-            uiPanel1.FillColor = Color.FromArgb(192, 255, 192);
+            uiPanel1.FillColor = Color.FromArgb(0, 192, 0);
             uiPanel1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             uiPanel1.Location = new Point(0, 0);
             uiPanel1.Margin = new Padding(4, 5, 4, 5);
@@ -349,25 +351,39 @@
             uiPanel1.Name = "uiPanel1";
             uiPanel1.Radius = 10;
             uiPanel1.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
+            uiPanel1.RectColor = Color.Transparent;
             uiPanel1.Size = new Size(452, 50);
             uiPanel1.TabIndex = 0;
             uiPanel1.Text = "Chi tiết câu hỏi";
             uiPanel1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // dataGridViewCheckBoxColumn1
+            // colID
             // 
-            dataGridViewCheckBoxColumn1.HeaderText = "Chọn";
-            dataGridViewCheckBoxColumn1.MinimumWidth = 6;
-            dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            dataGridViewCheckBoxColumn1.Resizable = DataGridViewTriState.False;
-            dataGridViewCheckBoxColumn1.Width = 60;
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.Width = 50;
             // 
-            // dataGridViewTextBoxColumn2
+            // colContent
             // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn2.HeaderText = "Nội dung câu hỏi";
-            dataGridViewTextBoxColumn2.MinimumWidth = 200;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            colContent.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colContent.HeaderText = "Nội dung câu hỏi";
+            colContent.MinimumWidth = 200;
+            colContent.Name = "colContent";
+            // 
+            // colMon
+            // 
+            colMon.HeaderText = "Môn học";
+            colMon.MinimumWidth = 6;
+            colMon.Name = "colMon";
+            colMon.Width = 120;
+            // 
+            // colDoKho
+            // 
+            colDoKho.HeaderText = "Độ khó";
+            colDoKho.MinimumWidth = 6;
+            colDoKho.Name = "colDoKho";
+            colDoKho.Width = 120;
             // 
             // colEdit
             // 
@@ -422,8 +438,10 @@
         private Sunny.UI.UISymbolButton btnAddManual;
         private Sunny.UI.UIPanel pnlQuestion;
         private Sunny.UI.UIPanel uiPanel1;
-        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colContent;
+        private DataGridViewTextBoxColumn colMon;
+        private DataGridViewTextBoxColumn colDoKho;
         private DataGridViewImageColumn colEdit;
         private DataGridViewImageColumn colDelete;
     }

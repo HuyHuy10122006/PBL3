@@ -1,97 +1,76 @@
 ﻿using exambank.data.Models;
-using Mscc.GenerativeAI;
-using Mscc.GenerativeAI.Types;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 public class AIServiceTest
 {
-    private readonly string _apiKey = "AIzaSyBVLaUvcVt_Ac7CD3MHbtbPzlS4LMI_Ykg";
-
     /// <summary>
-    /// Sinh câu hỏi từ File hoặc Văn bản trực tiếp
+    /// Thay vì gọi AI, hàm này trả về danh sách câu hỏi mẫu cố định.
     /// </summary>
-    /// <param name="input">Đường dẫn file hoặc nội dung văn bản</param>
-    /// <param name="isFilePath">True nếu input là đường dẫn file, False nếu là văn bản thô</param>
+    /// <param name="input">Không sử dụng trong bản mock</param>
+    /// <param name="isFilePath">Không sử dụng trong bản mock</param>
     public async Task<List<QuestionModel>> GenerateQuestionsAsync(string input, string subject, string difficulty, int count, bool isFilePath)
     {
-        var googleAI = new GoogleAI(_apiKey);
-        var model = googleAI.GenerativeModel(Model.Gemini25Flash);
-
-        string prompt = $@"
-        Bạn là một chuyên gia giáo dục. Dựa trên nội dung tài liệu được cung cấp, hãy tạo đúng {count} câu hỏi trắc nghiệm môn {subject} ở mức độ {difficulty}.
-        
-        YÊU CẦU ĐỊNH DẠNG TRẢ VỀ:
-        Trả về DUY NHẤT một mã JSON array (không bao gồm markdown ```json). Mỗi phần tử phải có cấu trúc:
-        {{
-            ""Question"": ""Nội dung câu hỏi"",
-            ""OptionA"": ""Đáp án A"",
-            ""OptionB"": ""Đáp án B"",
-            ""OptionC"": ""Đáp án C"",
-            ""OptionD"": ""Đáp án D"",
-            ""Answer"": ""Chữ cái A/B/C/D"",
-            ""Explanation"": ""Giải thích lý do chọn""
-        }}";
-
-        GenerateContentResponse response;
-
-        if (isFilePath)
+        // Khởi tạo danh sách 5 câu hỏi mẫu
+        var mockQuestions = new List<QuestionModel>
         {
-            // TRƯỜNG HỢP 1: ĐỌC TỪ FILE
-            string ext = Path.GetExtension(input).ToLower();
-
-            if (ext == ".pdf")
-            {
-                // Gửi file PDF trực tiếp (Gemini tự OCR)
-                byte[] fileBytes = File.ReadAllBytes(input);
-                string base64File = Convert.ToBase64String(fileBytes);
-
-                var request = new GenerateContentRequest(prompt);
-                request.Contents[0].Parts.Add(new InlineData { MimeType = "application/pdf", Data = base64File });
-                response = await model.GenerateContent(request);
+            new QuestionModel {
+                Question = "Thành phần nào sau đây là 'bộ não' của máy tính?",
+                OptionA = "RAM",
+                OptionB = "CPU",
+                OptionC = "Ổ cứng",
+                OptionD = "Card đồ họa",
+                Answer = "B",
+                Explanation = "CPU (Central Processing Unit) là đơn vị xử lý trung tâm, đảm nhận mọi tính toán cốt lõi."
+            },
+            new QuestionModel {
+                Question = "Giao thức nào được sử dụng để truyền tải trang web?",
+                OptionA = "FTP",
+                OptionB = "SMTP",
+                OptionC = "HTTP",
+                OptionD = "SSH",
+                Answer = "C",
+                Explanation = "HTTP (Hypertext Transfer Protocol) là giao thức chuẩn để truyền tải dữ liệu giữa trình duyệt và server."
+            },
+            new QuestionModel {
+                Question = "Trong lập trình C#, từ khóa nào dùng để khai báo một hằng số?",
+                OptionA = "static",
+                OptionB = "readonly",
+                OptionC = "var",
+                OptionD = "const",
+                Answer = "D",
+                Explanation = "Từ khóa 'const' dùng để khai báo các giá trị không đổi trong suốt quá trình thực thi chương trình."
+            },
+            new QuestionModel {
+                Question = "Hệ điều hành nào sau đây là mã nguồn mở?",
+                OptionA = "Windows",
+                OptionB = "macOS",
+                OptionC = "Linux",
+                OptionD = "iOS",
+                Answer = "C",
+                Explanation = "Linux là hệ điều hành mã nguồn mở nổi tiếng nhất, cho phép người dùng tự do chỉnh sửa."
+            },
+            new QuestionModel {
+                Question = "Đơn vị đo dung lượng lưu trữ nhỏ nhất trong các lựa chọn sau là gì?",
+                OptionA = "Megabyte (MB)",
+                OptionB = "Gigabyte (GB)",
+                OptionC = "Terabyte (TB)",
+                OptionD = "Kilobyte (KB)",
+                Answer = "D",
+                Explanation = "Theo thứ tự tăng dần: KB < MB < GB < TB."
             }
-            else
-            {
-                // Đối với .txt hoặc các file văn bản khác
-                string fileContent = File.ReadAllText(input);
-                response = await model.GenerateContent($"{prompt}\n\nNỘI DUNG TÀI LIỆU:\n{fileContent}");
-            }
-        }
-        else
+        };
+
+        // Gán các thông tin metadata (môn học, độ khó, thời gian)
+        foreach (var q in mockQuestions)
         {
-            // TRƯỜNG HỢP 2: VĂN BẢN TRỰC TIẾP TỪ TEXTBOX
-            response = await model.GenerateContent($"{prompt}\n\nNỘI DUNG VĂN BẢN:\n{input}");
+            q.Subject = subject;
+            q.Difficulty = difficulty;
+            q.CreatedAt = DateTime.Now;
+            q.IsActive = true;
         }
 
-        return ParseResponse(response.Text, subject, difficulty);
-    }
-
-    private List<QuestionModel> ParseResponse(string rawJson, string subject, string difficulty)
-    {
-        try
-        {
-            // Làm sạch chuỗi phản hồi từ AI (loại bỏ các thẻ markdown nếu có)
-            string cleanJson = rawJson.Replace("```json", "").Replace("```", "").Trim();
-
-            var questions = JsonConvert.DeserializeObject<List<QuestionModel>>(cleanJson);
-
-            // Gán thông tin bổ sung cho các đối tượng QuestionModel
-            foreach (var q in questions)
-            {
-                q.Subject = subject;
-                q.Difficulty = difficulty;
-                q.CreatedAt = DateTime.Now;
-                q.IsActive = true;
-            }
-
-            return questions;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("Lỗi phân tích dữ liệu AI: " + ex.Message + "\nNội dung thô: " + rawJson);
-        }
+        return mockQuestions;
     }
 }
