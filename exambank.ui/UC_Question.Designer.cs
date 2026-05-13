@@ -104,7 +104,7 @@
             // 
             // lblNumber
             // 
-            lblNumber.BackColor = Color.CornflowerBlue;
+            lblNumber.BackColor = Color.Transparent;
             lblNumber.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblNumber.ForeColor = Color.White;
             lblNumber.Location = new Point(14, 5);

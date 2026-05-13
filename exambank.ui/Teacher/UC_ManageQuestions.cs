@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using static Azure.Core.HttpHeader;
 
 namespace exambank.ui
 {
@@ -27,90 +28,53 @@ namespace exambank.ui
 
         private void UC_ManageQuestions_Load(object sender, EventArgs e)
         {
-            InitFilterData();
-            LoadData();
+            InitFilterDataAsync();
+            LoadDataTable();
+            dgvQuestions.AutoGenerateColumns = false;
         }
 
-        private void InitFilterData()
+        // Nạp dữ liệu vào ComboBox
+        private async Task InitFilterDataAsync()
         {
-            // Nạp dữ liệu vào ComboBox (Sử dụng Constants đã có trong Summary)
-            cbMonHoc.Items.Clear();
-            cbMonHoc.Items.Add("Chọn môn");
-            cbMonHoc.Items.AddRange(Constants.List_MonHoc.ToArray());
-            cbMonHoc.SelectedIndex = 0;
+            List<string> subjects = await _questionService.GetUniqueValuesAsync(q => q.Subject);
+            subjects.Insert(0, "Tất cả");
+            cbMonHoc.DataSource = subjects;
 
-            cbDoKho.Items.Clear();
-            cbDoKho.Items.Add("Chọn mức độ");
-            cbDoKho.Items.AddRange(Constants.List_DoKho.ToArray());
-            cbDoKho.SelectedIndex = 0;
+            List<string> grades = await _questionService.GetUniqueValuesAsync(q => q.Grade);
+            grades.Insert(0, "Tất cả");
+            cbKhoi.DataSource = grades;
 
-            // Nạp dữ liệu Khối (Grade)[cite: 2]
-            cbKhoi.Items.Clear();
-            cbKhoi.Items.Add("Chọn khối");
-            cbKhoi.Items.AddRange(Constants.List_Khoi.ToArray());
-            cbKhoi.SelectedIndex = 0;
+            List<string> difficulties = Constants.List_DoKho.ToList();
+            difficulties.Insert(0, "Tất cả");
+            cbDoKho.DataSource = difficulties;
         }
 
-        private void LoadData()
+        // Nạp dữ liệu vào DataGridView
+        private async Task LoadDataTable()
         {
             string keyword = txtSearch.Text.Trim();
-            string mon = cbMonHoc.SelectedItem?.ToString();
-            string doKho = cbDoKho.SelectedItem?.ToString();
-            string khoi = cbKhoi.SelectedItem?.ToString();
+            string mon = cbMonHoc.Text == "Tất cả" ? null : cbMonHoc.Text;
+            string doKho = cbDoKho.Text == "Tất cả" ? null : cbDoKho.Text;
+            string khoi = cbKhoi.Text == "Tất cả" ? null : cbKhoi.Text;
 
-            _questions = _questionService.GetQuestions(keyword, mon, khoi, doKho);
+            _questions = await Task.Run(() => _questionService.GetQuestions(keyword, mon, khoi, doKho));
             BindGrid(_questions);
         }
 
         private void BindGrid(List<QuestionModel> data)
         {
-            dgvQuestions.DataSource = data.Select(q => new
+            var displayList = data.Select(q => new
             {
                 ID = q.Id,
                 Content = q.Question,
                 MonHoc = q.Subject,
-                DoKho = q.Difficulty,
-                Sua = Properties.Resources.icon_edit,
-                Xoa = Properties.Resources.icon_trash
+                DoKho = q.Difficulty
             }).ToList();
-
+            dgvQuestions.DataSource = displayList;
         }
 
-        // Sự kiện khi nhấn nút Làm mới
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            //txtSearch.Text = "";
-            //cbMonHoc.SelectedIndex = 0;
-            //cbDoKho.SelectedIndex = 0;
-            //cbKhoi.SelectedIndex = 0;
-            LoadData();
-            flpQuestion.Controls.Clear();
-        }
 
-        // Sự kiện khi nhấn nút Xóa mục đã chọn (Nút màu đỏ phía dưới)
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            var selectedRows = dgvQuestions.SelectedRows;
-            if (selectedRows.Count == 0) return;
-
-            if (UIMessageBox.ShowAsk($"Bạn có chắc chắn muốn xóa {selectedRows.Count} câu hỏi này?"))
-            {
-                List<int> ids = new List<int>();
-                foreach (DataGridViewRow row in selectedRows)
-                {
-                    ids.Add((int)row.Cells["colID"].Value);
-                }
-
-                if (_questionService.DeleteMultiple(ids))
-                {
-                    UIMessageBox.ShowSuccess("Đã xóa thành công!");
-                    LoadData();
-                    flpQuestion.Controls.Clear();
-                }
-            }
-        }
-
-        // Sự kiện khi Click vào Grid để xem chi tiết hoặc xóa lẻ
+        // Sự kiện khi Click vào Grid
         private async void dgvQuestions_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // 1. Kiểm tra điều kiện biên và trạng thái đang bận
@@ -119,59 +83,37 @@ namespace exambank.ui
 
             try
             {
-                _isBusy = true; // Khóa luồng ngay khi bắt đầu xử lý
+                _isBusy = true;
 
-                if (e.ColumnIndex == dgvQuestions.Columns["colXoa"].Index)
-                {
-                    var idValue = dgvQuestions.Rows[e.RowIndex].Cells["colID"].Value;
-                    if (idValue != null && int.TryParse(idValue.ToString(), out int questionId))
-                    {
-                        if (UIMessageBox.ShowAsk($"Bạn có chắc chắn muốn xóa câu hỏi ID: {questionId}?"))
-                        {
-                            // Gọi thông qua service thay vì hàm nội bộ không tồn tại
-                            if (_questionService.DeleteQuestion(questionId))
-                            {
-                                UIMessageBox.ShowSuccess("Xóa thành công!");
-                                LoadData(); // Tải lại lưới dữ liệu
-                                flpQuestion.Controls.Clear(); // Xóa chi tiết bên phải[cite: 8]
-                            }
-                        }
-                    }
-                    return;
-                }
-
-                // 3. Hiển thị chi tiết câu hỏi (Tác vụ gây tốn tài nguyên nhất)
+                // 3. Hiển thị chi tiết câu hỏi
                 var cellValue = dgvQuestions.Rows[e.RowIndex].Cells["colID"].Value;
                 if (cellValue != null && int.TryParse(cellValue.ToString(), out int qId))
                 {
                     var question = _questions.FirstOrDefault(q => q.Id == qId);
                     if (question != null)
                     {
-                        // Sử dụng phương thức hiển thị chi tiết đã tách biệt
-                        // isEditMode = true nếu click vào cột Sửa[cite: 2]
-                        bool isEdit = (e.ColumnIndex == dgvQuestions.Columns["colSua"].Index);
-                        ShowDetail(question, isEdit);
+                        ShowDetail(question);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIMessageBox.ShowError2($"Có lỗi xảy ra: {ex.Message}");
             }
             finally
             {
                 // Chờ một khoảng thời gian cực ngắn để UI kịp phản hồi trước khi mở khóa
                 await Task.Delay(50);
-                _isBusy = false; // Giải phóng luồng[cite: 8]
+                _isBusy = false;
             }
         }
 
-        private void ShowDetail(QuestionModel q, bool isEditMode)
+        private void ShowDetail(QuestionModel q)
         {
             // Kiểm tra xem có cần Invoke để chuyển về luồng chính không
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => ShowDetail(q, isEditMode)));
+                this.Invoke(new Action(() => ShowDetail(q)));
                 return;
             }
 
@@ -179,7 +121,7 @@ namespace exambank.ui
             {
                 flpQuestion.SuspendLayout(); // Tạm dừng vẽ để tránh lỗi Handle
 
-                // Giải phóng Control cũ một cách an toàn
+                // Giải phóng Control cũ
                 foreach (Control ctrl in flpQuestion.Controls)
                 {
                     ctrl.Dispose();
@@ -188,8 +130,6 @@ namespace exambank.ui
 
                 UC_Question uc = new UC_Question();
                 uc.SetData(q, $"ID: {q.Id}");
-        if (isEditMode) uc.SwapEditMode();
-
                 uc.Width = flpQuestion.ClientSize.Width - 20;
                 flpQuestion.Controls.Add(uc);
             }
@@ -199,65 +139,143 @@ namespace exambank.ui
             }
         }
 
-        // Nút Lưu (Góc dưới cùng bên phải) - Dùng để lưu các thay đổi nếu UC_Question đang ở mode sửa
+        // Sự kiện khi nhấn nút Làm mới
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadDataTable();
+            flpQuestion.Controls.Clear();
+        }
+
+
+        // Nút Lưu
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
+            //Nếu không có UC_Question nào đang hiển thị
+            if (flpQuestion.Controls.Count == 0)
+            {
+                UIMessageTip.ShowWarning("Không tìm thấy câu hỏi nào đang hiển thị.");
+                return;
+            }
+
             // Duyệt trong flpQuestion lấy UC_Question hiện tại và gọi hàm Save
             foreach (Control ctrl in flpQuestion.Controls)
             {
                 if (ctrl is UC_Question uc)
                 {
-                    // Giả sử UC_Question có hàm GetUpdatedData() trả về QuestionModel
-                    var updated = uc.GetUpdatedData();
+                    //GetData() trả về QuestionModel
+                    var updated = uc.GetData();
                     if (updated == null)
                     {
-                        MessageBox.Show("Không tìm thấy UC_Question để lưu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UIMessageBox.ShowError2("Không tìm thấy câu hỏi để lưu.");
                     }
-                        if (updated != null && _questionService.UpdateQuestion(updated))
+                    if (updated != null && _questionService.UpdateQuestion(updated))
                     {
-                        UIMessageBox.ShowSuccess("Đã lưu thay đổi.");
-                        LoadData();
+                        UIMessageTip.ShowOk("Đã lưu thay đổi.");
+                        LoadDataTable();
                     }
                 }
             }
         }
 
+        private void btnDeleteDetail_Click(object sender, EventArgs e)
+        {
+            //Nếu không có UC_Question nào đang hiển thị
+            if (flpQuestion.Controls.Count == 0)
+            {
+                UIMessageTip.ShowWarning("Không tìm thấy câu hỏi nào đang hiển thị.");
+                return;
+            }
+
+            // Duyệt trong flpQuestion lấy UC_Question hiện tại và gọi hàm Save
+            foreach (Control ctrl in flpQuestion.Controls)
+            {
+                if (ctrl is UC_Question uc)
+                {
+                    // GetData() trả về QuestionModel
+                    var updated = uc.GetData();
+                    if (updated == null)
+                    {
+                        UIMessageBox.ShowError2("Không tìm thấy câu hỏi để xóa.");
+                    }
+                    if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa câu hỏi này?"))
+                    {
+                        if (updated != null && _questionService.DeleteMultiple(new List<int> { updated.Id }))
+                        {
+                            UIMessageTip.ShowOk("Đã xóa thành công.");
+                            LoadDataTable();
+                            flpQuestion.Controls.Clear();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Sự kiện khi nhấn nút Xóa câu hỏi đã chọn
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var selectedRows = dgvQuestions.SelectedRows;
+            if (selectedRows.Count == 0) return;
+
+            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa {selectedRows.Count} câu hỏi này?"))
+            {
+                List<int> ids = new List<int>();
+                foreach (DataGridViewRow row in selectedRows)
+                {
+                    ids.Add((int)row.Cells["colID"].Value);
+                }
+
+                if (_questionService.DeleteMultiple(ids))
+                {
+                    UIMessageTip.ShowOk("Đã xóa thành công!");
+                    LoadDataTable();
+                    flpQuestion.Controls.Clear();
+                }
+            }
+        }
         private void btnTaoDe_Click(object sender, EventArgs e)
         {
             // Chuyển sang chức năng tạo đề từ các câu đã chọn
-            UIMessageBox.ShowInfo("Chức năng chưa có.");
-        }
-
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) LoadData();
+            UIMessageBox.ShowInfo2("Chức năng chưa có.");
         }
 
         private void dgvQuestions_SelectionChanged(object sender, EventArgs e)
         {
-            // 1. Kiểm tra an toàn Handle trước khi truy cập
-            if (!dgvQuestions.IsHandleCreated || dgvQuestions.IsDisposed) return;
+            if (dgvQuestions.IsDisposed) return;
 
-            // 2. Sử dụng BeginInvoke để đưa việc cập nhật vào hàng đợi xử lý của UI
-            // Điều này giúp tránh việc xung đột Handle khi người dùng quét chuột quá nhanh
-            this.BeginInvoke(new Action(() =>
-            {
             try
             {
-                // Kiểm tra lại một lần nữa trong delegate để chắc chắn không bị lỗi luồng
-                if (dgvQuestions.SelectedRows != null)
-                {
-                    int count = dgvQuestions.SelectedRows.Count;
-
-                        lblSelect.Text = $"{count} câu hỏi đang được chọn";
+                lblSelect.Text = $"{dgvQuestions.SelectedRows.Count} câu hỏi đang được chọn";
             }
-    }
-        catch (Exception)
-        {
-            // Bỏ qua lỗi nếu Handle bị hủy trong lúc đang xử lý
+            catch (ObjectDisposedException)
+            {
+            }
         }
-    }));
-}
+
+        private void Filter()
+        {
+            string keyword = txtSearch.Text.Trim().ToLower();
+            string mon = cbMonHoc.Text;
+            string doKho = cbDoKho.Text;
+            string khoi = cbKhoi.Text;
+
+            var filtered = _questions.Where(q =>
+                (string.IsNullOrWhiteSpace(keyword) || q.Question.ToLower().Contains(keyword)) &&
+                (mon == "Tất cả" || q.Subject == mon) &&
+                (khoi == "Tất cả" || q.Grade == khoi) &&
+                (doKho == "Tất cả" || q.Difficulty == doKho)
+            ).ToList();
+
+            BindGrid(filtered);
+        }
+
+        private void cb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Filter();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            Filter();
+        }
     }
 }

@@ -90,40 +90,45 @@ namespace exambank.ui.LogicTest
             }
         }
 
-        public bool CreateExam(ExamModel exam, List<int> selectedQuestionIds)
+        public bool CreateExam(ExamModel exam, List<QuestionModel> questions)
         {
-            using (var db = new ExamBankDbContext())
+            using (var _context = new ExamBankDbContext())
             {
-                using (var transaction = db.Database.BeginTransaction())
+                using (var transaction = _context.Database.BeginTransaction()) // Dùng Transaction để đảm bảo an toàn dữ liệu
                 {
                     try
                     {
-                        // 1. Lưu thông tin đề thi trước
-                        exam.CreatedAt = DateTime.Now;
-                        db.Exams.Add(exam);
-                        db.SaveChanges(); // Lưu để lấy ID của đề thi vừa tạo
-
-                        // 2. Lưu danh sách câu hỏi vào bảng trung gian
-                        for (int i = 0; i < selectedQuestionIds.Count; i++)
+                        // 1. Lưu những câu hỏi chưa có trong DB trước
+                        foreach (var q in questions)
                         {
-                            var examQuestion = new ExamQuestionModel
+                            if (q.Id == 0) // Nếu Id = 0 nghĩa là câu hỏi mới từ AI, chưa có trong DB
                             {
-                                ExamId = exam.Id,
-                                QuestionId = selectedQuestionIds[i],
-                                QuestionOrder = i + 1, // Thứ tự câu hỏi trong đề[cite: 14]
+                                _context.Questions.Add(q);
+                            }
+                        }
+                        _context.SaveChanges(); // Sau lệnh này, EF sẽ tự nạp ID mới từ SQL vào lại biến q.Id
+
+                        // 2. Bây giờ đã có ID, tạo liên kết ExamQuestion
+                        for (int i = 0; i < questions.Count; i++)
+                        {
+                            exam.ExamQuestions.Add(new ExamQuestionModel
+                            {
+                                QuestionId = questions[i].Id, // Lúc này Id đã khác 0
+                                QuestionOrder = i + 1,
                                 CreatedAt = DateTime.Now
-                            };
-                            db.ExamQuestions.Add(examQuestion);
+                            });
                         }
 
-                        db.SaveChanges();
-                        transaction.Commit();
+                        // 3. Lưu đề thi
+                        _context.Exams.Add(exam);
+                        _context.SaveChanges();
+
+                        transaction.Commit(); // Hoàn tất mọi thứ
                         return true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        transaction.Rollback();
-                        // Log lỗi tại đây (ex.Message)
+                        transaction.Rollback(); // Nếu lỗi bất kỳ bước nào, hủy bỏ toàn bộ (không lưu nửa vời)
                         return false;
                     }
                 }

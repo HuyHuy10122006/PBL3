@@ -41,13 +41,16 @@ namespace exambank.ui
             var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
             string[] options = { question.OptionA, question.OptionB, question.OptionC, question.OptionD };
             char prefix = 'A';
-
+            
+            SwapEditMode(); // Tạm đảo chế độ để kích hoạt sự kiện Click
             for (int i = 0; i < answerBoxes.Length; i++)
             {
                 if (i < options.Length && !string.IsNullOrEmpty(options[i]))
                 {
                     answerBoxes[i].Visible = true;
                     answerBoxes[i].Text = $"{prefix}. {options[i]}";
+
+                    
 
                     // Đăng ký sự kiện nếu chưa có
                     answerBoxes[i].Click -= Answer_Click;
@@ -67,6 +70,8 @@ namespace exambank.ui
 
             // 3. Highlight đáp án đúng
             HighlightCorrectAnswer(question.Answer);
+
+            SwapEditMode(); // Đặt lại chế độ chỉnh sửa về mặc định
         }
 
         // --- HÀM TÍNH TOÁN LẠI TOÀN BỘ KÍCH THƯỚC (QUAN TRỌNG) ---
@@ -129,6 +134,7 @@ namespace exambank.ui
         // --- HÀM TÔ MÀU KHI CHỌN ---
         private void Answer_Click(object sender, EventArgs e)
         {
+            if (txtAnsA.ReadOnly) return; // Nếu đang ở chế độ xem, không cho phép chọn
             UITextBox selected = (UITextBox)sender;
             var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
 
@@ -136,12 +142,10 @@ namespace exambank.ui
             {
                 txt.FillColor = txt.FillReadOnlyColor = colorNormal;
                 txt.RectSides = ToolStripStatusLabelBorderSides.None;
-                //txt.Text = "    " + txt.Text.Replace("\u2713 ", "").Trim(); // Xóa dấu tick nếu có
             }
             selected.FillColor = selected.FillReadOnlyColor = colorSelected;
             selected.RectColor = selected.RectReadOnlyColor = colorBorderSelected;
             selected.RectSides = ToolStripStatusLabelBorderSides.All;
-            //selected.Text = "\u2713 " + selected.Text.Trim();
         }
 
         // --- HÀM TÍNH CHIỀU CAO SÁT NỘI DUNG ---
@@ -196,7 +200,7 @@ namespace exambank.ui
         }
 
         // --- HÀM LẤY DỮ LIỆU ĐÃ CHỈNH SỬA ---
-        public QuestionModel GetUpdatedData()
+        public QuestionModel GetData()
         {
             if (_currentQuestion == null) return null;
 
@@ -205,14 +209,14 @@ namespace exambank.ui
                 // 1. Cập nhật nội dung câu hỏi
                 _currentQuestion.Question = txtContentDisplay.Text.Trim();
 
-        // 2. Cập nhật các đáp án (Loại bỏ tiền tố "A. ", "B. " nếu có)
-        _currentQuestion.OptionA = CleanOptionText(txtAnsA.Text, 'A'); 
-        _currentQuestion.OptionB = CleanOptionText(txtAnsB.Text, 'B'); 
-        _currentQuestion.OptionC = CleanOptionText(txtAnsC.Text, 'C'); 
-        _currentQuestion.OptionD = CleanOptionText(txtAnsD.Text, 'D'); 
+                // 2. Cập nhật các đáp án (Loại bỏ tiền tố "A. ", "B. " nếu có)
+                _currentQuestion.OptionA = CleanOptionText(txtAnsA.Text, 'A'); 
+                _currentQuestion.OptionB = CleanOptionText(txtAnsB.Text, 'B'); 
+                _currentQuestion.OptionC = CleanOptionText(txtAnsC.Text, 'C'); 
+                _currentQuestion.OptionD = CleanOptionText(txtAnsD.Text, 'D'); 
 
-        // 3. Xác định đáp án đúng dựa trên màu sắc được chọn (FillColor)
-        var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
+                // 3. Xác định đáp án đúng dựa trên màu sắc được chọn (FillColor)
+                var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
                 char[] prefixes = { 'A', 'B', 'C', 'D' };
 
                 for (int i = 0; i < answerBoxes.Length; i++)
@@ -264,6 +268,7 @@ namespace exambank.ui
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            _currentQuestion.IsActive = false;
             this.Dispose();
         }
     }

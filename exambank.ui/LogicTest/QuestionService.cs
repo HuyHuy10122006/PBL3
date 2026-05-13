@@ -74,11 +74,11 @@ namespace exambank.ui.LogicTest
 
                 if (!string.IsNullOrEmpty(keyword))
                     query = query.Where(q => q.Question.Contains(keyword));
-                if (!string.IsNullOrEmpty(mon) && mon != "Chọn môn")
+                if (!string.IsNullOrEmpty(mon))
                     query = query.Where(q => q.Subject == mon);
-                if (!string.IsNullOrEmpty(doKho) && doKho != "Chọn mức độ")
+                if (!string.IsNullOrEmpty(doKho))
                     query = query.Where(q => q.Difficulty == doKho);
-                if (!string.IsNullOrEmpty(khoi) && khoi != "Chọn khối")
+                if (!string.IsNullOrEmpty(khoi))
                     query = query.Where(q => q.Grade == khoi);
 
                 return query.OrderByDescending(q => q.CreatedAt).ToList();
@@ -92,6 +92,21 @@ namespace exambank.ui.LogicTest
                 var targets = db.Questions.Where(q => ids.Contains(q.Id)).ToList();
                 foreach (var t in targets) t.IsActive = false;
                 return db.SaveChanges() > 0;
+            }
+        }
+
+        public async Task<List<string>> GetUniqueValuesAsync(Func<QuestionModel, string> selector)
+        {
+            using (var db = new ExamBankDbContext())
+            {
+                return await Task.Run(() => db.Questions
+                    .AsNoTracking()
+                    .AsEnumerable() // Chuyển về IEnumerable để dùng Func selector
+                    .Select(selector)
+                    .Where(val => !string.IsNullOrEmpty(val))
+                    .Distinct()
+                    .OrderBy(val => val)
+                    .ToList());
             }
         }
 

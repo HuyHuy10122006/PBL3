@@ -442,13 +442,22 @@
             // 
             btnSelectDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSelectDelete.FillColor = Color.FromArgb(192, 0, 0);
-            btnSelectDelete.FillColor2 = Color.Gainsboro;
+            btnSelectDelete.FillColor2 = Color.FromArgb(192, 0, 0);
+            btnSelectDelete.FillHoverColor = Color.FromArgb(235, 115, 115);
+            btnSelectDelete.FillPressColor = Color.FromArgb(184, 64, 64);
+            btnSelectDelete.FillSelectedColor = Color.FromArgb(184, 64, 64);
             btnSelectDelete.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSelectDelete.LightColor = Color.FromArgb(253, 243, 243);
             btnSelectDelete.Location = new Point(1003, 19);
             btnSelectDelete.MinimumSize = new Size(1, 1);
             btnSelectDelete.Name = "btnSelectDelete";
             btnSelectDelete.Radius = 10;
+            btnSelectDelete.RectColor = Color.FromArgb(230, 80, 80);
+            btnSelectDelete.RectHoverColor = Color.FromArgb(235, 115, 115);
+            btnSelectDelete.RectPressColor = Color.FromArgb(184, 64, 64);
+            btnSelectDelete.RectSelectedColor = Color.FromArgb(184, 64, 64);
             btnSelectDelete.Size = new Size(193, 33);
+            btnSelectDelete.Style = Sunny.UI.UIStyle.Custom;
             btnSelectDelete.Symbol = 61453;
             btnSelectDelete.SymbolSize = 22;
             btnSelectDelete.TabIndex = 12;

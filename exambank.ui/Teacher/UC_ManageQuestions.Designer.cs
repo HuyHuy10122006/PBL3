@@ -30,13 +30,12 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlHeader = new Sunny.UI.UIPanel();
             btnAddManual = new Sunny.UI.UISymbolButton();
             uiLabel4 = new Sunny.UI.UILabel();
@@ -60,10 +59,9 @@
             colContent = new DataGridViewTextBoxColumn();
             colMon = new DataGridViewTextBoxColumn();
             colDoKho = new DataGridViewTextBoxColumn();
-            colSua = new DataGridViewImageColumn();
-            colXoa = new DataGridViewImageColumn();
             pnlQuestion = new Sunny.UI.UIPanel();
             pnlThaoTacExam = new Sunny.UI.UIPanel();
+            btnDeleteDetail = new Sunny.UI.UISymbolButton();
             btnSave = new Sunny.UI.UISymbolButton();
             flpQuestion = new FlowLayoutPanel();
             pnlHeaderQuestion = new Sunny.UI.UIPanel();
@@ -106,21 +104,14 @@
             // btnAddManual
             // 
             btnAddManual.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAddManual.FillColor = Color.FromArgb(0, 150, 136);
-            btnAddManual.FillColor2 = Color.FromArgb(0, 150, 136);
-            btnAddManual.FillHoverColor = Color.FromArgb(51, 171, 160);
-            btnAddManual.FillPressColor = Color.FromArgb(0, 120, 109);
-            btnAddManual.FillSelectedColor = Color.FromArgb(0, 120, 109);
+            btnAddManual.FillColor = Color.RoyalBlue;
+            btnAddManual.FillColor2 = Color.RoyalBlue;
             btnAddManual.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnAddManual.LightColor = Color.FromArgb(238, 248, 248);
+            btnAddManual.LightColor = Color.FromArgb(14, 30, 63);
             btnAddManual.Location = new Point(1091, 61);
             btnAddManual.MinimumSize = new Size(1, 1);
             btnAddManual.Name = "btnAddManual";
             btnAddManual.Radius = 10;
-            btnAddManual.RectColor = Color.FromArgb(0, 150, 136);
-            btnAddManual.RectHoverColor = Color.FromArgb(51, 171, 160);
-            btnAddManual.RectPressColor = Color.FromArgb(0, 120, 109);
-            btnAddManual.RectSelectedColor = Color.FromArgb(0, 120, 109);
             btnAddManual.Size = new Size(167, 47);
             btnAddManual.Style = Sunny.UI.UIStyle.Custom;
             btnAddManual.Symbol = 61694;
@@ -176,9 +167,10 @@
             // cbDoKho
             // 
             cbDoKho.DataSource = null;
+            cbDoKho.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbDoKho.FillColor = Color.White;
             cbDoKho.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbDoKho.Font = new Font("Microsoft Sans Serif", 12F);
+            cbDoKho.Font = new Font("Times New Roman", 12F);
             cbDoKho.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbDoKho.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbDoKho.Location = new Point(701, 60);
@@ -194,13 +186,15 @@
             cbDoKho.TabIndex = 4;
             cbDoKho.TextAlignment = ContentAlignment.MiddleLeft;
             cbDoKho.Watermark = "Chọn mức độ";
+            cbDoKho.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // cbKhoi
             // 
             cbKhoi.DataSource = null;
+            cbKhoi.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbKhoi.FillColor = Color.White;
             cbKhoi.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbKhoi.Font = new Font("Microsoft Sans Serif", 12F);
+            cbKhoi.Font = new Font("Times New Roman", 12F);
             cbKhoi.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbKhoi.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbKhoi.Location = new Point(510, 60);
@@ -216,13 +210,15 @@
             cbKhoi.TabIndex = 2;
             cbKhoi.TextAlignment = ContentAlignment.MiddleLeft;
             cbKhoi.Watermark = "Chọn khối";
+            cbKhoi.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // cbMonHoc
             // 
             cbMonHoc.DataSource = null;
+            cbMonHoc.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbMonHoc.FillColor = Color.White;
             cbMonHoc.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbMonHoc.Font = new Font("Microsoft Sans Serif", 12F);
+            cbMonHoc.Font = new Font("Times New Roman", 12F);
             cbMonHoc.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbMonHoc.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbMonHoc.Location = new Point(323, 60);
@@ -238,6 +234,7 @@
             cbMonHoc.TabIndex = 1;
             cbMonHoc.TextAlignment = ContentAlignment.MiddleLeft;
             cbMonHoc.Watermark = "Chọn môn";
+            cbMonHoc.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // txtSearch
             // 
@@ -248,7 +245,7 @@
             txtSearch.ButtonSymbol = 61442;
             txtSearch.ButtonWidth = 45;
             txtSearch.FillColor2 = Color.FromArgb(24, 24, 24);
-            txtSearch.Font = new Font("Microsoft Sans Serif", 12F);
+            txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearch.Location = new Point(18, 60);
             txtSearch.Margin = new Padding(4, 5, 4, 5);
             txtSearch.MinimumSize = new Size(1, 16);
@@ -266,22 +263,32 @@
             txtSearch.TabIndex = 1;
             txtSearch.TextAlignment = ContentAlignment.MiddleLeft;
             txtSearch.Watermark = "Nhập nội dung...";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnDelete
             // 
             btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnDelete.FillColor = Color.FromArgb(192, 0, 0);
-            btnDelete.FillColor2 = Color.Gainsboro;
+            btnDelete.FillColor2 = Color.FromArgb(192, 0, 0);
+            btnDelete.FillHoverColor = Color.FromArgb(235, 115, 115);
+            btnDelete.FillPressColor = Color.FromArgb(184, 64, 64);
+            btnDelete.FillSelectedColor = Color.FromArgb(184, 64, 64);
             btnDelete.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDelete.Location = new Point(603, 19);
+            btnDelete.LightColor = Color.FromArgb(253, 243, 243);
+            btnDelete.Location = new Point(585, 19);
             btnDelete.MinimumSize = new Size(1, 1);
             btnDelete.Name = "btnDelete";
             btnDelete.Radius = 10;
-            btnDelete.Size = new Size(193, 33);
+            btnDelete.RectColor = Color.FromArgb(230, 80, 80);
+            btnDelete.RectHoverColor = Color.FromArgb(235, 115, 115);
+            btnDelete.RectPressColor = Color.FromArgb(184, 64, 64);
+            btnDelete.RectSelectedColor = Color.FromArgb(184, 64, 64);
+            btnDelete.Size = new Size(211, 33);
+            btnDelete.Style = Sunny.UI.UIStyle.Custom;
             btnDelete.Symbol = 61453;
             btnDelete.SymbolSize = 22;
             btnDelete.TabIndex = 10;
-            btnDelete.Text = "Xóa mục đã chọn";
+            btnDelete.Text = "Xóa câu hỏi đã chọn";
             btnDelete.TipsFont = new Font("Microsoft Sans Serif", 9F);
             btnDelete.Click += btnDelete_Click;
             // 
@@ -342,7 +349,7 @@
             btnTaoDe.FillColor = Color.FromArgb(0, 0, 192);
             btnTaoDe.FillColor2 = Color.Gainsboro;
             btnTaoDe.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTaoDe.Location = new Point(353, 19);
+            btnTaoDe.Location = new Point(340, 19);
             btnTaoDe.MinimumSize = new Size(1, 1);
             btnTaoDe.Name = "btnTaoDe";
             btnTaoDe.Radius = 10;
@@ -388,15 +395,23 @@
             btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRefresh.BackColor = Color.Transparent;
             btnRefresh.FillColor = Color.DarkSeaGreen;
-            btnRefresh.FillColor2 = Color.Transparent;
+            btnRefresh.FillColor2 = Color.DarkSeaGreen;
+            btnRefresh.FillHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.FillPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.FillSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.Black;
+            btnRefresh.LightColor = Color.FromArgb(245, 251, 241);
             btnRefresh.Location = new Point(688, 4);
             btnRefresh.MinimumSize = new Size(1, 1);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Radius = 10;
             btnRefresh.RectColor = Color.Black;
+            btnRefresh.RectHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.RectPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.RectSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Size = new Size(121, 34);
+            btnRefresh.Style = Sunny.UI.UIStyle.Custom;
             btnRefresh.Symbol = 61473;
             btnRefresh.SymbolColor = Color.Black;
             btnRefresh.SymbolSize = 22;
@@ -425,15 +440,15 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvQuestions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvQuestions.ColumnHeadersHeight = 32;
-            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colContent, colMon, colDoKho, colSua, colXoa });
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.White;
-            dataGridViewCellStyle7.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(220, 236, 255);
-            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dgvQuestions.DefaultCellStyle = dataGridViewCellStyle7;
+            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colContent, colMon, colDoKho });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(220, 236, 255);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvQuestions.DefaultCellStyle = dataGridViewCellStyle6;
             dgvQuestions.EnableHeadersVisualStyles = false;
             dgvQuestions.Font = new Font("Microsoft Sans Serif", 12F);
             dgvQuestions.GridColor = Color.Black;
@@ -442,22 +457,22 @@
             dgvQuestions.ReadOnly = true;
             dgvQuestions.RectColor = Color.Black;
             dgvQuestions.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(243, 249, 255);
-            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dgvQuestions.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(243, 249, 255);
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvQuestions.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvQuestions.RowHeadersVisible = false;
             dgvQuestions.RowHeadersWidth = 51;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(220, 236, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dgvQuestions.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(220, 236, 255);
+            dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dgvQuestions.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dgvQuestions.ScrollBarColor = Color.Black;
             dgvQuestions.ScrollBarRectColor = Color.Black;
             dgvQuestions.ScrollBarStyleInherited = false;
@@ -512,31 +527,6 @@
             colDoKho.ReadOnly = true;
             colDoKho.Width = 120;
             // 
-            // colSua
-            // 
-            colSua.DataPropertyName = "Sua";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.Red;
-            dataGridViewCellStyle6.NullValue = "System.Drawing.Bitmap";
-            colSua.DefaultCellStyle = dataGridViewCellStyle6;
-            colSua.HeaderText = "Sửa";
-            colSua.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            colSua.MinimumWidth = 6;
-            colSua.Name = "colSua";
-            colSua.ReadOnly = true;
-            colSua.Width = 50;
-            // 
-            // colXoa
-            // 
-            colXoa.DataPropertyName = "Xoa";
-            colXoa.HeaderText = "Xóa";
-            colXoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            colXoa.MinimumWidth = 6;
-            colXoa.Name = "colXoa";
-            colXoa.ReadOnly = true;
-            colXoa.Resizable = DataGridViewTriState.True;
-            colXoa.Width = 50;
-            // 
             // pnlQuestion
             // 
             pnlQuestion.Controls.Add(pnlThaoTacExam);
@@ -557,6 +547,7 @@
             // pnlThaoTacExam
             // 
             pnlThaoTacExam.BackColor = Color.Transparent;
+            pnlThaoTacExam.Controls.Add(btnDeleteDetail);
             pnlThaoTacExam.Controls.Add(btnSave);
             pnlThaoTacExam.Dock = DockStyle.Bottom;
             pnlThaoTacExam.FillColor = Color.WhiteSmoke;
@@ -570,6 +561,33 @@
             pnlThaoTacExam.TabIndex = 3;
             pnlThaoTacExam.Text = null;
             pnlThaoTacExam.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // btnDeleteDetail
+            // 
+            btnDeleteDetail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteDetail.FillColor = Color.FromArgb(192, 0, 0);
+            btnDeleteDetail.FillColor2 = Color.FromArgb(192, 0, 0);
+            btnDeleteDetail.FillHoverColor = Color.FromArgb(235, 115, 115);
+            btnDeleteDetail.FillPressColor = Color.FromArgb(184, 64, 64);
+            btnDeleteDetail.FillSelectedColor = Color.FromArgb(184, 64, 64);
+            btnDeleteDetail.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDeleteDetail.LightColor = Color.FromArgb(253, 243, 243);
+            btnDeleteDetail.Location = new Point(179, 12);
+            btnDeleteDetail.MinimumSize = new Size(1, 1);
+            btnDeleteDetail.Name = "btnDeleteDetail";
+            btnDeleteDetail.Radius = 10;
+            btnDeleteDetail.RectColor = Color.FromArgb(230, 80, 80);
+            btnDeleteDetail.RectHoverColor = Color.FromArgb(235, 115, 115);
+            btnDeleteDetail.RectPressColor = Color.FromArgb(184, 64, 64);
+            btnDeleteDetail.RectSelectedColor = Color.FromArgb(184, 64, 64);
+            btnDeleteDetail.Size = new Size(119, 40);
+            btnDeleteDetail.Style = Sunny.UI.UIStyle.Custom;
+            btnDeleteDetail.Symbol = 61453;
+            btnDeleteDetail.SymbolSize = 22;
+            btnDeleteDetail.TabIndex = 13;
+            btnDeleteDetail.Text = "Xóa";
+            btnDeleteDetail.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnDeleteDetail.Click += btnDeleteDetail_Click;
             // 
             // btnSave
             // 
@@ -653,12 +671,6 @@
         private Sunny.UI.UIPanel pnlHeaderQuestion;
         private Sunny.UI.UIPanel pnlHeaderTable;
         private FlowLayoutPanel flpQuestion;
-        private DataGridViewTextBoxColumn colID;
-        private DataGridViewTextBoxColumn colContent;
-        private DataGridViewTextBoxColumn colMon;
-        private DataGridViewTextBoxColumn colDoKho;
-        private DataGridViewImageColumn colSua;
-        private DataGridViewImageColumn colXoa;
         private Sunny.UI.UISymbolButton btnDelete;
         private Sunny.UI.UIPanel pnlThaoTacTable;
         private Sunny.UI.UILabel lblSelect;
@@ -666,5 +678,10 @@
         private Sunny.UI.UIPanel pnlThaoTacExam;
         private Sunny.UI.UISymbolButton btnSave;
         private Sunny.UI.UISymbolButton btnRefresh;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colContent;
+        private DataGridViewTextBoxColumn colMon;
+        private DataGridViewTextBoxColumn colDoKho;
+        private Sunny.UI.UISymbolButton btnDeleteDetail;
     }
 }

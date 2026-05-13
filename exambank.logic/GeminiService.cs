@@ -47,7 +47,7 @@ namespace exambank.logic
 
         public async IAsyncEnumerable<string> GenerateQuestionsStreamAsync(string textChunk, int numbOfQuestions = 10)
         {
-            int batchSize = 20; // Xử lý 20 câu mỗi mẻ để an toàn nhất
+            int batchSize = 10; // Giảm xuống 10 câu mỗi mẻ để tránh rate limit cứng của Google AI Studio (Free tier khoảng 15 RPM)
             int numBatches = (int)Math.Ceiling((double)numbOfQuestions / batchSize);
 
             for (int i = 0; i < numBatches; i++)
@@ -62,17 +62,17 @@ namespace exambank.logic
                     yield return res;
                 }
 
-                // Chờ đủ thời gian để hệ thống AI không báo lỗi
+                // Chờ đủ thời gian để hệ thống AI không báo lỗi (15 RPM -> chờ khoảng 5 giây mỗi request)
                 if (i < numBatches - 1)
                 {
-                    await Task.Delay(4000); 
+                    await Task.Delay(5000); 
                 }
             }
         }
 
         public async Task<string> GenerateQuestionsAsync(string textChunk, int numbOfQuestions = 10)
         {
-            int batchSize = 20; // Xử lý 20 câu mỗi luồng tạo tốc độ cao nhất
+            int batchSize = 10; // Giảm batch size
             if (numbOfQuestions <= batchSize)
             {
                 return await GenerateBatchAsync(textChunk, numbOfQuestions, 0);
@@ -87,10 +87,10 @@ namespace exambank.logic
                 string res = await GenerateBatchAsync(textChunk, count, i);
                 results.Add(res);
 
-                // Tránh lỗi quá tải của API (Rate Limit)
+                // Tránh lỗi quá tải của API (Rate Limit) khoản 15 RPM
                 if (i < numBatches - 1)
                 {
-                    await Task.Delay(4000); // Đợi 4 giây giữa các request
+                    await Task.Delay(5000); // Đợi 5 giây giữa các request
                 }
             }
 
@@ -143,7 +143,7 @@ namespace exambank.logic
             string jsonBody = JsonSerializer.Serialize(requestBody);
 
             // Tích hợp cơ chế Retry-Backoff để an toàn tuyệt đối
-            int maxRetries = 3; 
+            int maxRetries = 5; // Tăng số lượng retry
             for (int i = 0; i < maxRetries; i++)
             {
                 try
@@ -162,8 +162,9 @@ namespace exambank.logic
                                 return $"Error: Hệ thống AI đang quá tải (TooManyRequests sau {maxRetries} lần thử). Vui lòng thử lại sau.";
                             }
 
-                            // Đợi theo hàm số mũ cơ bản để nhường API
-                            int waitTime = 4000 + (i * 3000); 
+                            // Google Gemeni Free tier có hard limit RPM (Request Per Minute) là 15 
+                            // -> Nếu gặp rate limit, phải đợi ít nhất 10 - 30 giây
+                            int waitTime = 10000 + (i * 10000); 
                             Console.WriteLine($"Gặp lỗi {(int)response.StatusCode}. Thử lại sau {waitTime / 1000} giây (lần thử {i + 1}/{maxRetries - 1})...");
                             await Task.Delay(waitTime); 
                             continue;

@@ -59,6 +59,8 @@
             btnSaveExam = new Sunny.UI.UISymbolButton();
             pnlBody = new Sunny.UI.UIPanel();
             pnlExamName = new Sunny.UI.UIPanel();
+            uiLabel9 = new Sunny.UI.UILabel();
+            txtExamCode = new Sunny.UI.UITextBox();
             uiLabel1 = new Sunny.UI.UILabel();
             txtExamName = new Sunny.UI.UITextBox();
             vSplitter = new Splitter();
@@ -332,18 +334,11 @@
             // 
             resources.ApplyResources(btnSaveQuestion, "btnSaveQuestion");
             btnSaveQuestion.BackColor = Color.MediumBlue;
-            btnSaveQuestion.FillColor = Color.FromArgb(0, 150, 136);
-            btnSaveQuestion.FillColor2 = Color.FromArgb(0, 150, 136);
-            btnSaveQuestion.FillHoverColor = Color.FromArgb(51, 171, 160);
-            btnSaveQuestion.FillPressColor = Color.FromArgb(0, 120, 109);
-            btnSaveQuestion.FillSelectedColor = Color.FromArgb(0, 120, 109);
-            btnSaveQuestion.LightColor = Color.FromArgb(238, 248, 248);
+            btnSaveQuestion.FillColor = Color.RoyalBlue;
+            btnSaveQuestion.FillColor2 = Color.RoyalBlue;
+            btnSaveQuestion.LightColor = Color.FromArgb(14, 30, 63);
             btnSaveQuestion.Name = "btnSaveQuestion";
             btnSaveQuestion.Radius = 10;
-            btnSaveQuestion.RectColor = Color.FromArgb(0, 150, 136);
-            btnSaveQuestion.RectHoverColor = Color.FromArgb(51, 171, 160);
-            btnSaveQuestion.RectPressColor = Color.FromArgb(0, 120, 109);
-            btnSaveQuestion.RectSelectedColor = Color.FromArgb(0, 120, 109);
             btnSaveQuestion.Style = Sunny.UI.UIStyle.Custom;
             btnSaveQuestion.Symbol = 61639;
             btnSaveQuestion.TipsFont = new Font("Microsoft Sans Serif", 9F);
@@ -353,18 +348,11 @@
             // 
             resources.ApplyResources(btnExport, "btnExport");
             btnExport.BackColor = Color.MediumBlue;
-            btnExport.FillColor = Color.FromArgb(0, 150, 136);
-            btnExport.FillColor2 = Color.FromArgb(0, 150, 136);
-            btnExport.FillHoverColor = Color.FromArgb(51, 171, 160);
-            btnExport.FillPressColor = Color.FromArgb(0, 120, 109);
-            btnExport.FillSelectedColor = Color.FromArgb(0, 120, 109);
-            btnExport.LightColor = Color.FromArgb(238, 248, 248);
+            btnExport.FillColor = Color.RoyalBlue;
+            btnExport.FillColor2 = Color.RoyalBlue;
+            btnExport.LightColor = Color.FromArgb(14, 30, 63);
             btnExport.Name = "btnExport";
             btnExport.Radius = 10;
-            btnExport.RectColor = Color.FromArgb(0, 150, 136);
-            btnExport.RectHoverColor = Color.FromArgb(51, 171, 160);
-            btnExport.RectPressColor = Color.FromArgb(0, 120, 109);
-            btnExport.RectSelectedColor = Color.FromArgb(0, 120, 109);
             btnExport.Style = Sunny.UI.UIStyle.Custom;
             btnExport.Symbol = 362830;
             btnExport.TipsFont = new Font("Microsoft Sans Serif", 9F);
@@ -381,18 +369,11 @@
             // 
             resources.ApplyResources(btnSaveExam, "btnSaveExam");
             btnSaveExam.BackColor = Color.MediumBlue;
-            btnSaveExam.FillColor = Color.FromArgb(0, 150, 136);
-            btnSaveExam.FillColor2 = Color.FromArgb(0, 150, 136);
-            btnSaveExam.FillHoverColor = Color.FromArgb(51, 171, 160);
-            btnSaveExam.FillPressColor = Color.FromArgb(0, 120, 109);
-            btnSaveExam.FillSelectedColor = Color.FromArgb(0, 120, 109);
-            btnSaveExam.LightColor = Color.FromArgb(238, 248, 248);
+            btnSaveExam.FillColor = Color.RoyalBlue;
+            btnSaveExam.FillColor2 = Color.RoyalBlue;
+            btnSaveExam.LightColor = Color.FromArgb(14, 30, 63);
             btnSaveExam.Name = "btnSaveExam";
             btnSaveExam.Radius = 10;
-            btnSaveExam.RectColor = Color.FromArgb(0, 150, 136);
-            btnSaveExam.RectHoverColor = Color.FromArgb(51, 171, 160);
-            btnSaveExam.RectPressColor = Color.FromArgb(0, 120, 109);
-            btnSaveExam.RectSelectedColor = Color.FromArgb(0, 120, 109);
             btnSaveExam.Style = Sunny.UI.UIStyle.Custom;
             btnSaveExam.Symbol = 61639;
             btnSaveExam.TipsFont = new Font("Microsoft Sans Serif", 9F);
@@ -400,14 +381,16 @@
             // 
             // pnlBody
             // 
-            pnlBody.Controls.Add(pnlExamName);
             pnlBody.Controls.Add(flpPreview);
+            pnlBody.Controls.Add(pnlExamName);
             resources.ApplyResources(pnlBody, "pnlBody");
             pnlBody.Name = "pnlBody";
             pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // pnlExamName
             // 
+            pnlExamName.Controls.Add(uiLabel9);
+            pnlExamName.Controls.Add(txtExamCode);
             pnlExamName.Controls.Add(uiLabel1);
             pnlExamName.Controls.Add(txtExamName);
             resources.ApplyResources(pnlExamName, "pnlExamName");
@@ -415,6 +398,23 @@
             pnlExamName.Name = "pnlExamName";
             pnlExamName.RectColor = Color.Black;
             pnlExamName.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel9
+            // 
+            uiLabel9.BackColor = Color.Transparent;
+            resources.ApplyResources(uiLabel9, "uiLabel9");
+            uiLabel9.ForeColor = Color.FromArgb(48, 48, 48);
+            uiLabel9.Name = "uiLabel9";
+            // 
+            // txtExamCode
+            // 
+            resources.ApplyResources(txtExamCode, "txtExamCode");
+            txtExamCode.BackColor = Color.Transparent;
+            txtExamCode.Name = "txtExamCode";
+            txtExamCode.RectColor = Color.Black;
+            txtExamCode.ShowText = false;
+            txtExamCode.TextAlignment = ContentAlignment.MiddleLeft;
+            txtExamCode.Watermark = "";
             // 
             // uiLabel1
             // 
@@ -497,5 +497,7 @@
         private Sunny.UI.UIPanel pnlExamName;
         private Sunny.UI.UILabel uiLabel1;
         private Sunny.UI.UITextBox txtExamName;
+        private Sunny.UI.UILabel uiLabel9;
+        private Sunny.UI.UITextBox txtExamCode;
     }
 }
