@@ -12,6 +12,7 @@
     <PackageReference Include="Mscc.GenerativeAI" Version="3.1.0" />
     <PackageReference Include="PdfPig" Version="0.1.14" />
     <PackageReference Include="SunnyUI" Version="3.9.6" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,10 +16,37 @@ namespace exambank.ui
     public partial class UC_DangNhap : BaseUserControl
     {
         private readonly LoginService _loginService;
+
         public UC_DangNhap(LoginService loginService)
         {
             InitializeComponent();
             _loginService = loginService;
+            ApplyFloatingLabels();
+        }
+
+        private void ApplyFloatingLabels()
+        {
+            CreateLabel(txtUsername, "Email / Tên đăng nhập");
+            CreateLabel(txtPassword, "Mật khẩu");
+        }
+
+        private void CreateLabel(Control txtBox, string text)
+        {
+            if (txtBox is UITextBox uiTxt)
+            {
+                uiTxt.Watermark = "";
+            }
+
+            Label lbl = new Label();
+            lbl.Text = text;
+            lbl.AutoSize = true;
+            lbl.BackColor = Color.White;
+            lbl.ForeColor = Color.DimGray;
+            lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lbl.Location = new Point(txtBox.Location.X + 12, txtBox.Location.Y - 8);
+
+            this.Controls.Add(lbl);
+            lbl.BringToFront();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -29,18 +56,18 @@ namespace exambank.ui
 
             if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
             {
-                UIMessageTip.ShowWarning("Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
+                MessageBox.Show("Vui lòng nhập đầy đủ tài khoản và mật khẩu!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (pass.Length < 6)
             {
-                UIMessageTip.ShowError("Mật khẩu phải có ít nhất 6 ký tự!");
+                MessageBox.Show("Mật khẩu phải có ít nhất 6 ký tự!", "Cảnh báo bảo mật", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                // Gọi hàm kiểm tra từ Database
                 UserModel authenticatedUser = _loginService.CheckLogin(user, pass);
 
                 if (authenticatedUser != null)
@@ -49,12 +76,12 @@ namespace exambank.ui
                 }
                 else
                 {
-                    UIMessageTip.ShowError("Tài khoản hoặc mật khẩu không đúng!");
+                    MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Đăng nhập thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError2($"Đã xảy ra lỗi: {ex.Message}");
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

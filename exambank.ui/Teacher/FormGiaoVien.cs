@@ -16,6 +16,9 @@ namespace exambank.ui
     {
         private UserModel _loginUser;
         private NavigationService _nav;
+
+        // Khai báo thêm biến cho Trang chủ
+        private UC_TrangChu _ucTrangChu;
         private UC_AICreate _ucAICreate;
         private UC_ManageQuestions _ucManageQuestions;
         private UC_ManageExams _ucManageExams;
@@ -30,21 +33,31 @@ namespace exambank.ui
             menuButtons = new List<UIButton> { btnHome, btnCreateQuestion, btnManageQuestions, btnManageExams, btnViewExamBank };
             _loginUser = user;
             _nav = new NavigationService(pnlBody);
-            _ucAICreate = new UC_AICreate(_loginUser);
-            _nav.Display(_ucAICreate);
-            btnCreateQuestion_Click(null, null);
-            
+
+            // Mở Trang chủ làm màn hình mặc định khi Form vừa load xong
+            btnHome_Click(null, null);
         }
 
-        // Sự kiện Click cho từng nút
+        // Sự kiện Click cho nút Trang chủ
         private void btnHome_Click(object sender, EventArgs e)
         {
             UIHelper.SetActiveMenu(btnHome, menuButtons);
+
+            // Nếu chưa khởi tạo thì tạo mới, có rồi thì gọi ra để tiết kiệm RAM
+            if (_ucTrangChu == null)
+            {
+                _ucTrangChu = new UC_TrangChu();
+            }
+            _nav.Display(_ucTrangChu);
         }
 
         private void btnCreateQuestion_Click(object sender, EventArgs e)
         {
             UIHelper.SetActiveMenu(btnCreateQuestion, menuButtons);
+            if (_ucAICreate == null)
+            {
+                _ucAICreate = new UC_AICreate(_loginUser);
+            }
             _nav.Display(_ucAICreate);
         }
 
@@ -80,7 +93,7 @@ namespace exambank.ui
 
         private void btnLog_Click(object sender, EventArgs e)
         {
-            var result = UIMessageBox.ShowAsk2("Bạn có chắc chắn muốn đăng xuất không?");
+            var result = UIMessageBox.ShowAsk("Bạn có chắc chắn muốn đăng xuất không?");
             if (result)
             {
                 this.DialogResult = DialogResult.OK;

@@ -11,70 +11,97 @@ using System.Drawing;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using exambank.ui.Base;
 
 namespace exambank.ui
 {
     public partial class UC_DangKy : BaseUserControl
     {
         private readonly LoginService _loginService;
+        private string selectedAvatarPath = string.Empty;
 
         public UC_DangKy(LoginService loginService)
         {
             InitializeComponent();
             _loginService = loginService;
+            ApplyFloatingLabels();
+        }
+
+        private void ApplyFloatingLabels()
+        {
+            CreateLabel(txtFullName, "Họ tên");
+            CreateLabel(txtEmail, "Email");
+            CreateLabel(txtUsername, "Username");
+            CreateLabel(txtPassword, "Password");
+            CreateLabel(txtConfirmPassword, "Nhập lại Password");
+        }
+
+        private void CreateLabel(Control txtBox, string text)
+        {
+            if (txtBox is UITextBox uiTxt)
+            {
+                uiTxt.Watermark = "";
+            }
+
+            Label lbl = new Label();
+            lbl.Text = text;
+            lbl.AutoSize = true;
+            lbl.BackColor = Color.White;
+            lbl.ForeColor = Color.DimGray;
+            lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lbl.Location = new Point(txtBox.Location.X + 12, txtBox.Location.Y - 8);
+
+            this.Controls.Add(lbl);
+            lbl.BringToFront();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            // 1. Lấy dữ liệu từ giao diện
             string fullName = txtFullName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string user = txtUsername.Text.Trim();
             string pass = txtPassword.Text.Trim();
             string confirmPass = txtConfirmPassword.Text.Trim();
 
-            // 2. Kiểm tra dữ liệu đầu vào (Validation)
             if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) ||
                 string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
             {
-                UIMessageTip.ShowWarning("Vui lòng điền đầy đủ thông tin!");
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!UIHelper.IsValidEmail(email))
             {
-                UIMessageTip.ShowError("Định dạng Email không hợp lệ!");
+                MessageBox.Show("Định dạng Email không hợp lệ!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (pass != confirmPass)
             {
-                UIMessageTip.ShowError("Xác nhận mật khẩu không khớp!");
+                MessageBox.Show("Xác nhận mật khẩu không khớp!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (pass.Length < 6)
             {
-                UIMessageTip.ShowError("Mật khẩu phải có ít nhất 6 ký tự!");
+                MessageBox.Show("Mật khẩu phải có ít nhất 6 ký tự!", "Cảnh báo bảo mật", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 3. Thực hiện lưu vào Database
             try
             {
                 if (_loginService.RegisterUser(fullName, email, user, pass, out string mess))
                 {
-                    UIMessageTip.ShowOk(mess);
+                    MessageBox.Show(mess, "Đăng ký thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnNavigate?.Invoke(NavigationTarget.Login, null);
                 }
                 else
                 {
-                    UIMessageTip.ShowError(mess);
+                    MessageBox.Show(mess, "Đăng ký thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError2("Đã xảy ra lỗi: " + ex.Message);
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -91,6 +118,25 @@ namespace exambank.ui
         private void txtConfirmPassword_ButtonClick(object sender, EventArgs e)
         {
             UIHelper.TogglePassword(txtConfirmPassword);
+        }
+
+        private void Avatar_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                selectedAvatarPath = openFileDialog.FileName;
+
+                if (sender is PictureBox pic)
+                {
+                    pic.ImageLocation = selectedAvatarPath;
+                }
+                else if (sender is UIAvatar avatar)
+                {
+                    avatar.Image = Image.FromFile(selectedAvatarPath);
+                }
+            }
         }
     }
 }

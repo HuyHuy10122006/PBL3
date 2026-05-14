@@ -21,6 +21,31 @@ namespace exambank.ui
         {
             InitializeComponent();
             _loginService = loginService;
+            ApplyFloatingLabels();
+        }
+
+        private void ApplyFloatingLabels()
+        {
+            CreateLabel(txtEmail, "Email");
+        }
+
+        private void CreateLabel(Control txtBox, string text)
+        {
+            if (txtBox is UITextBox uiTxt)
+            {
+                uiTxt.Watermark = "";
+            }
+
+            Label lbl = new Label();
+            lbl.Text = text;
+            lbl.AutoSize = true;
+            lbl.BackColor = Color.White;
+            lbl.ForeColor = Color.DimGray;
+            lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lbl.Location = new Point(txtBox.Location.X + 12, txtBox.Location.Y - 8);
+
+            this.Controls.Add(lbl);
+            lbl.BringToFront();
         }
 
         private void lnkReturnLogin_Click(object sender, EventArgs e)
@@ -32,36 +57,33 @@ namespace exambank.ui
         {
             string email = txtEmail.Text.Trim();
 
-            // 1. Kiểm tra đầu vào
             if (string.IsNullOrEmpty(email))
             {
-                UIMessageTip.ShowWarning("Vui lòng nhập địa chỉ Email!");
+                MessageBox.Show("Vui lòng nhập địa chỉ Email!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!UIHelper.IsValidEmail(email))
             {
-                UIMessageTip.ShowError("Định dạng Email không hợp lệ!");
+                MessageBox.Show("Định dạng Email không hợp lệ!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Kiểm tra sự tồn tại của Email trong Database
             try
             {
                 if (_loginService.SendPasswordRecoveryRequest(email, out string message))
                 {
-                    UIMessageTip.ShowOk(message);
+                    MessageBox.Show(message, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    UIMessageTip.ShowError(message);
+                    MessageBox.Show(message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                UIMessageBox.ShowError2("Đã xảy ra lỗi: " + ex.Message);
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-     
     }
 }
