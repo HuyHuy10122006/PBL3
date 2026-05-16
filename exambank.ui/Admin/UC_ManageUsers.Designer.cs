@@ -30,42 +30,48 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlHeader = new Sunny.UI.UIPanel();
+            uiLabel3 = new Sunny.UI.UILabel();
+            cbRole = new Sunny.UI.UIComboBox();
             uiLabel2 = new Sunny.UI.UILabel();
             uiLabel1 = new Sunny.UI.UILabel();
-            cbSubject = new Sunny.UI.UIComboBox();
+            cbTT = new Sunny.UI.UIComboBox();
             txtSearch = new Sunny.UI.UITextBox();
             pnlBody = new Sunny.UI.UIPanel();
             pnlDgv = new Sunny.UI.UIPanel();
-            uiDataGridView1 = new Sunny.UI.UIDataGridView();
-            colMaGV = new DataGridViewTextBoxColumn();
-            colTenGV = new DataGridViewTextBoxColumn();
-            colTT = new DataGridViewTextBoxColumn();
-            colXem = new DataGridViewImageColumn();
+            dgvUsers = new Sunny.UI.UIDataGridView();
             uiPanel2 = new Sunny.UI.UIPanel();
             btnRefresh = new Sunny.UI.UISymbolButton();
-            pnlUser = new Sunny.UI.UIPanel();
-            uiPanel1 = new Sunny.UI.UIPanel();
-            uiPanel3 = new Sunny.UI.UIPanel();
-            btnSave = new Sunny.UI.UISymbolButton();
+            colID = new DataGridViewTextBoxColumn();
+            colSTT = new DataGridViewTextBoxColumn();
+            colFullName = new DataGridViewTextBoxColumn();
+            colUsername = new DataGridViewTextBoxColumn();
+            colEmail = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
+            colRole = new DataGridViewTextBoxColumn();
+            colActions = new DataGridViewButtonColumn();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
             pnlDgv.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             uiPanel2.SuspendLayout();
-            pnlUser.SuspendLayout();
-            uiPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.Transparent;
+            pnlHeader.Controls.Add(uiLabel3);
+            pnlHeader.Controls.Add(cbRole);
             pnlHeader.Controls.Add(uiLabel2);
             pnlHeader.Controls.Add(uiLabel1);
-            pnlHeader.Controls.Add(cbSubject);
+            pnlHeader.Controls.Add(cbTT);
             pnlHeader.Controls.Add(txtSearch);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.FillColor = Color.MidnightBlue;
@@ -76,17 +82,53 @@
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Radius = 15;
             pnlHeader.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
+            pnlHeader.RectColor = Color.Gray;
             pnlHeader.Size = new Size(1224, 120);
             pnlHeader.TabIndex = 6;
             pnlHeader.Text = null;
             pnlHeader.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel3
+            // 
+            uiLabel3.BackColor = Color.Transparent;
+            uiLabel3.Font = new Font("Times New Roman", 12F);
+            uiLabel3.ForeColor = Color.WhiteSmoke;
+            uiLabel3.Location = new Point(562, 26);
+            uiLabel3.Name = "uiLabel3";
+            uiLabel3.Size = new Size(164, 29);
+            uiLabel3.TabIndex = 8;
+            uiLabel3.Text = "Vai trò:";
+            // 
+            // cbRole
+            // 
+            cbRole.DataSource = null;
+            cbRole.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            cbRole.FillColor = Color.White;
+            cbRole.FillColor2 = Color.FromArgb(24, 24, 24);
+            cbRole.Font = new Font("Times New Roman", 12F);
+            cbRole.ItemHoverColor = Color.FromArgb(155, 200, 255);
+            cbRole.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
+            cbRole.Location = new Point(562, 60);
+            cbRole.Margin = new Padding(4, 5, 4, 5);
+            cbRole.MinimumSize = new Size(63, 0);
+            cbRole.Name = "cbRole";
+            cbRole.Padding = new Padding(0, 0, 30, 2);
+            cbRole.Radius = 10;
+            cbRole.RectColor = Color.Black;
+            cbRole.Size = new Size(149, 35);
+            cbRole.Style = Sunny.UI.UIStyle.Custom;
+            cbRole.SymbolSize = 24;
+            cbRole.TabIndex = 7;
+            cbRole.TextAlignment = ContentAlignment.MiddleLeft;
+            cbRole.Watermark = "Chọn vai trò";
+            cbRole.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // uiLabel2
             // 
             uiLabel2.BackColor = Color.Transparent;
             uiLabel2.Font = new Font("Times New Roman", 12F);
             uiLabel2.ForeColor = Color.WhiteSmoke;
-            uiLabel2.Location = new Point(323, 26);
+            uiLabel2.Location = new Point(334, 26);
             uiLabel2.Name = "uiLabel2";
             uiLabel2.Size = new Size(164, 29);
             uiLabel2.TabIndex = 6;
@@ -103,34 +145,36 @@
             uiLabel1.TabIndex = 5;
             uiLabel1.Text = "TÌM KIẾM TÀI KHOẢN";
             // 
-            // cbSubject
+            // cbTT
             // 
-            cbSubject.DataSource = null;
-            cbSubject.FillColor = Color.White;
-            cbSubject.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbSubject.Font = new Font("Microsoft Sans Serif", 12F);
-            cbSubject.ItemHoverColor = Color.FromArgb(155, 200, 255);
-            cbSubject.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbSubject.Location = new Point(323, 60);
-            cbSubject.Margin = new Padding(4, 5, 4, 5);
-            cbSubject.MinimumSize = new Size(63, 0);
-            cbSubject.Name = "cbSubject";
-            cbSubject.Padding = new Padding(0, 0, 30, 2);
-            cbSubject.Radius = 10;
-            cbSubject.RectColor = Color.Black;
-            cbSubject.Size = new Size(194, 35);
-            cbSubject.Style = Sunny.UI.UIStyle.Custom;
-            cbSubject.SymbolSize = 24;
-            cbSubject.TabIndex = 1;
-            cbSubject.TextAlignment = ContentAlignment.MiddleLeft;
-            cbSubject.Watermark = "Chọn trạng thái";
+            cbTT.DataSource = null;
+            cbTT.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
+            cbTT.FillColor = Color.White;
+            cbTT.FillColor2 = Color.FromArgb(24, 24, 24);
+            cbTT.Font = new Font("Times New Roman", 12F);
+            cbTT.ItemHoverColor = Color.FromArgb(155, 200, 255);
+            cbTT.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
+            cbTT.Location = new Point(334, 60);
+            cbTT.Margin = new Padding(4, 5, 4, 5);
+            cbTT.MinimumSize = new Size(63, 0);
+            cbTT.Name = "cbTT";
+            cbTT.Padding = new Padding(0, 0, 30, 2);
+            cbTT.Radius = 10;
+            cbTT.RectColor = Color.Black;
+            cbTT.Size = new Size(182, 35);
+            cbTT.Style = Sunny.UI.UIStyle.Custom;
+            cbTT.SymbolSize = 24;
+            cbTT.TabIndex = 1;
+            cbTT.TextAlignment = ContentAlignment.MiddleLeft;
+            cbTT.Watermark = "Chọn trạng thái";
+            cbTT.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // txtSearch
             // 
             txtSearch.ButtonRectColor = Color.FromArgb(18, 58, 92);
             txtSearch.ButtonStyleInherited = false;
             txtSearch.FillColor2 = Color.FromArgb(24, 24, 24);
-            txtSearch.Font = new Font("Microsoft Sans Serif", 12F);
+            txtSearch.Font = new Font("Times New Roman", 12F);
             txtSearch.Location = new Point(18, 60);
             txtSearch.Margin = new Padding(4, 5, 4, 5);
             txtSearch.MinimumSize = new Size(1, 16);
@@ -147,7 +191,8 @@
             txtSearch.SymbolSize = 23;
             txtSearch.TabIndex = 1;
             txtSearch.TextAlignment = ContentAlignment.MiddleLeft;
-            txtSearch.Watermark = "Nhập tên, usename...";
+            txtSearch.Watermark = "Nhập tên, usename, email...";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // pnlBody
             // 
@@ -160,7 +205,7 @@
             pnlBody.MinimumSize = new Size(1, 1);
             pnlBody.Name = "pnlBody";
             pnlBody.RectColor = Color.Black;
-            pnlBody.Size = new Size(825, 421);
+            pnlBody.Size = new Size(1224, 421);
             pnlBody.TabIndex = 8;
             pnlBody.Text = null;
             pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
@@ -168,7 +213,7 @@
             // pnlDgv
             // 
             pnlDgv.BackColor = Color.Transparent;
-            pnlDgv.Controls.Add(uiDataGridView1);
+            pnlDgv.Controls.Add(dgvUsers);
             pnlDgv.Dock = DockStyle.Fill;
             pnlDgv.FillColor = Color.Transparent;
             pnlDgv.Font = new Font("Microsoft Sans Serif", 12F);
@@ -177,99 +222,73 @@
             pnlDgv.MinimumSize = new Size(1, 1);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Radius = 1;
-            pnlDgv.Size = new Size(825, 380);
+            pnlDgv.Size = new Size(1224, 380);
             pnlDgv.TabIndex = 4;
             pnlDgv.Text = null;
             pnlDgv.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // uiDataGridView1
+            // dgvUsers
             // 
-            dataGridViewCellStyle1.BackColor = Color.White;
-            uiDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            uiDataGridView1.BackgroundColor = Color.White;
-            uiDataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvUsers.AllowUserToAddRows = false;
+            dgvUsers.AllowUserToDeleteRows = false;
+            dgvUsers.AllowUserToResizeColumns = false;
+            dgvUsers.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
+            dgvUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvUsers.BackgroundColor = Color.White;
+            dgvUsers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
             dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Control;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            uiDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            uiDataGridView1.ColumnHeadersHeight = 32;
-            uiDataGridView1.Columns.AddRange(new DataGridViewColumn[] { colMaGV, colTenGV, colTT, colXem });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            uiDataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            uiDataGridView1.Dock = DockStyle.Fill;
-            uiDataGridView1.EnableHeadersVisualStyles = false;
-            uiDataGridView1.Font = new Font("Microsoft Sans Serif", 12F);
-            uiDataGridView1.GridColor = Color.Black;
-            uiDataGridView1.Location = new Point(0, 0);
-            uiDataGridView1.Name = "uiDataGridView1";
-            uiDataGridView1.RectColor = Color.Black;
-            uiDataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            uiDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            uiDataGridView1.RowHeadersVisible = false;
-            uiDataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F);
-            uiDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            uiDataGridView1.ScrollBarColor = Color.Black;
-            uiDataGridView1.ScrollBarRectColor = Color.Black;
-            uiDataGridView1.ScrollBarStyleInherited = false;
-            uiDataGridView1.SelectedIndex = -1;
-            uiDataGridView1.Size = new Size(825, 380);
-            uiDataGridView1.StripeOddColor = Color.White;
-            uiDataGridView1.TabIndex = 1;
-            // 
-            // colMaGV
-            // 
-            colMaGV.DataPropertyName = "MaGV";
-            colMaGV.HeaderText = "Mã GV";
-            colMaGV.MinimumWidth = 6;
-            colMaGV.Name = "colMaGV";
-            colMaGV.ReadOnly = true;
-            colMaGV.Width = 80;
-            // 
-            // colTenGV
-            // 
-            colTenGV.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTenGV.DataPropertyName = "TenGV";
-            colTenGV.HeaderText = "Tên giáo viên";
-            colTenGV.MinimumWidth = 200;
-            colTenGV.Name = "colTenGV";
-            // 
-            // colTT
-            // 
-            colTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colTT.DataPropertyName = "TT";
-            colTT.HeaderText = "Trạng thái";
-            colTT.MinimumWidth = 6;
-            colTT.Name = "colTT";
-            colTT.Width = 125;
-            // 
-            // colXem
-            // 
-            colXem.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colXem.DataPropertyName = "Xem";
-            colXem.HeaderText = "Xem chi tiết";
-            colXem.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            colXem.MinimumWidth = 6;
-            colXem.Name = "colXem";
-            colXem.Width = 116;
+            dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvUsers.ColumnHeadersHeight = 32;
+            dgvUsers.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colFullName, colUsername, colEmail, colStatus, colRole, colActions });
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgvUsers.DefaultCellStyle = dataGridViewCellStyle7;
+            dgvUsers.Dock = DockStyle.Fill;
+            dgvUsers.EnableHeadersVisualStyles = false;
+            dgvUsers.Font = new Font("Microsoft Sans Serif", 12F);
+            dgvUsers.GridColor = Color.Black;
+            dgvUsers.Location = new Point(0, 0);
+            dgvUsers.Name = "dgvUsers";
+            dgvUsers.ReadOnly = true;
+            dgvUsers.RectColor = Color.Black;
+            dgvUsers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle8.SelectionForeColor = Color.White;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dgvUsers.RowHeadersVisible = false;
+            dgvUsers.RowHeadersWidth = 51;
+            dataGridViewCellStyle9.BackColor = Color.White;
+            dataGridViewCellStyle9.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dgvUsers.RowTemplate.Height = 33;
+            dgvUsers.ScrollBarColor = Color.Black;
+            dgvUsers.ScrollBarRectColor = Color.Black;
+            dgvUsers.ScrollBarStyleInherited = false;
+            dgvUsers.SelectedIndex = -1;
+            dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUsers.Size = new Size(1224, 380);
+            dgvUsers.StripeOddColor = Color.WhiteSmoke;
+            dgvUsers.TabIndex = 1;
+            dgvUsers.CellContentClick += dgvUsers_CellContentClick;
+            dgvUsers.CellFormatting += dgvUsers_CellFormatting;
+            dgvUsers.DataBindingComplete += dgvUsers_DataBindingComplete;
             // 
             // uiPanel2
             // 
@@ -284,7 +303,7 @@
             uiPanel2.Radius = 15;
             uiPanel2.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
             uiPanel2.RectColor = Color.Transparent;
-            uiPanel2.Size = new Size(825, 41);
+            uiPanel2.Size = new Size(1224, 41);
             uiPanel2.TabIndex = 1;
             uiPanel2.Text = "Danh sách tài khoản";
             uiPanel2.TextAlignment = ContentAlignment.MiddleLeft;
@@ -294,116 +313,136 @@
             btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRefresh.BackColor = Color.Transparent;
             btnRefresh.FillColor = Color.DarkSeaGreen;
-            btnRefresh.FillColor2 = Color.Transparent;
+            btnRefresh.FillColor2 = Color.DarkSeaGreen;
+            btnRefresh.FillHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.FillPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.FillSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.Black;
-            btnRefresh.Location = new Point(701, 4);
+            btnRefresh.LightColor = Color.FromArgb(245, 251, 241);
+            btnRefresh.Location = new Point(1100, 4);
             btnRefresh.MinimumSize = new Size(1, 1);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Radius = 10;
-            btnRefresh.RectColor = Color.Black;
+            btnRefresh.RectColor = Color.FromArgb(64, 64, 64);
+            btnRefresh.RectHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.RectPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.RectSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Size = new Size(121, 34);
+            btnRefresh.Style = Sunny.UI.UIStyle.Custom;
             btnRefresh.Symbol = 61473;
             btnRefresh.SymbolColor = Color.Black;
             btnRefresh.SymbolSize = 22;
             btnRefresh.TabIndex = 13;
             btnRefresh.Text = "Làm mới";
             btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnRefresh.Click += btnRefresh_Click;
             // 
-            // pnlUser
+            // colID
             // 
-            pnlUser.BackColor = Color.Transparent;
-            pnlUser.Controls.Add(uiPanel1);
-            pnlUser.Controls.Add(uiPanel3);
-            pnlUser.Dock = DockStyle.Right;
-            pnlUser.FillColor = Color.White;
-            pnlUser.Font = new Font("Microsoft Sans Serif", 12F);
-            pnlUser.Location = new Point(825, 120);
-            pnlUser.Margin = new Padding(4, 5, 4, 5);
-            pnlUser.MinimumSize = new Size(1, 1);
-            pnlUser.Name = "pnlUser";
-            pnlUser.Radius = 10;
-            pnlUser.Size = new Size(399, 421);
-            pnlUser.TabIndex = 9;
-            pnlUser.Text = null;
-            pnlUser.TextAlignment = ContentAlignment.MiddleCenter;
+            colID.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colID.DataPropertyName = "Id";
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
+            colID.Visible = false;
+            colID.Width = 59;
             // 
-            // uiPanel1
+            // colSTT
             // 
-            uiPanel1.Dock = DockStyle.Top;
-            uiPanel1.FillColor = Color.FromArgb(0, 192, 0);
-            uiPanel1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            uiPanel1.Location = new Point(0, 0);
-            uiPanel1.Margin = new Padding(4, 5, 4, 5);
-            uiPanel1.MinimumSize = new Size(1, 1);
-            uiPanel1.Name = "uiPanel1";
-            uiPanel1.Radius = 15;
-            uiPanel1.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
-            uiPanel1.RectColor = Color.Transparent;
-            uiPanel1.Size = new Size(399, 41);
-            uiPanel1.TabIndex = 0;
-            uiPanel1.Text = "Chi tiết tài khoản";
-            uiPanel1.TextAlignment = ContentAlignment.MiddleLeft;
+            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSTT.DataPropertyName = "STT";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colSTT.DefaultCellStyle = dataGridViewCellStyle3;
+            colSTT.HeaderText = "STT";
+            colSTT.MinimumWidth = 6;
+            colSTT.Name = "colSTT";
+            colSTT.ReadOnly = true;
+            colSTT.Width = 75;
             // 
-            // uiPanel3
+            // colFullName
             // 
-            uiPanel3.BackColor = Color.Transparent;
-            uiPanel3.Controls.Add(btnSave);
-            uiPanel3.Dock = DockStyle.Bottom;
-            uiPanel3.FillColor = Color.WhiteSmoke;
-            uiPanel3.Font = new Font("Microsoft Sans Serif", 12F);
-            uiPanel3.Location = new Point(0, 352);
-            uiPanel3.Margin = new Padding(4, 5, 4, 5);
-            uiPanel3.MinimumSize = new Size(1, 1);
-            uiPanel3.Name = "uiPanel3";
-            uiPanel3.RectColor = Color.Gainsboro;
-            uiPanel3.Size = new Size(399, 69);
-            uiPanel3.TabIndex = 3;
-            uiPanel3.Text = null;
-            uiPanel3.TextAlignment = ContentAlignment.MiddleCenter;
+            colFullName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colFullName.DataPropertyName = "FullName";
+            colFullName.HeaderText = "Họ tên";
+            colFullName.MinimumWidth = 200;
+            colFullName.Name = "colFullName";
+            colFullName.ReadOnly = true;
             // 
-            // btnSave
+            // colUsername
             // 
-            btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSave.FillColor = Color.FromArgb(230, 80, 80);
-            btnSave.FillColor2 = Color.FromArgb(230, 80, 80);
-            btnSave.FillHoverColor = Color.FromArgb(235, 115, 115);
-            btnSave.FillPressColor = Color.FromArgb(184, 64, 64);
-            btnSave.FillSelectedColor = Color.FromArgb(184, 64, 64);
-            btnSave.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSave.LightColor = Color.FromArgb(253, 243, 243);
-            btnSave.Location = new Point(268, 17);
-            btnSave.MinimumSize = new Size(1, 1);
-            btnSave.Name = "btnSave";
-            btnSave.Radius = 10;
-            btnSave.RectColor = Color.FromArgb(230, 80, 80);
-            btnSave.RectHoverColor = Color.FromArgb(235, 115, 115);
-            btnSave.RectPressColor = Color.FromArgb(184, 64, 64);
-            btnSave.RectSelectedColor = Color.FromArgb(184, 64, 64);
-            btnSave.Size = new Size(119, 40);
-            btnSave.Style = Sunny.UI.UIStyle.Custom;
-            btnSave.Symbol = 0;
-            btnSave.SymbolSize = 22;
-            btnSave.TabIndex = 12;
-            btnSave.Text = "Khóa";
-            btnSave.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            colUsername.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colUsername.DataPropertyName = "Username";
+            colUsername.HeaderText = "Username";
+            colUsername.MinimumWidth = 6;
+            colUsername.Name = "colUsername";
+            colUsername.ReadOnly = true;
+            colUsername.Width = 123;
+            // 
+            // colEmail
+            // 
+            colEmail.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colEmail.DataPropertyName = "Email";
+            colEmail.HeaderText = "Email";
+            colEmail.MinimumWidth = 6;
+            colEmail.Name = "colEmail";
+            colEmail.ReadOnly = true;
+            colEmail.Width = 86;
+            // 
+            // colStatus
+            // 
+            colStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colStatus.DataPropertyName = "Status";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colStatus.DefaultCellStyle = dataGridViewCellStyle4;
+            colStatus.HeaderText = "Trạng thái";
+            colStatus.MinimumWidth = 6;
+            colStatus.Name = "colStatus";
+            colStatus.ReadOnly = true;
+            colStatus.Width = 125;
+            // 
+            // colRole
+            // 
+            colRole.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colRole.DataPropertyName = "Role";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colRole.DefaultCellStyle = dataGridViewCellStyle5;
+            colRole.HeaderText = "Vai trò";
+            colRole.MinimumWidth = 6;
+            colRole.Name = "colRole";
+            colRole.ReadOnly = true;
+            colRole.Width = 95;
+            // 
+            // colActions
+            // 
+            colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colActions.DataPropertyName = "Actions";
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Font = new Font("Times New Roman", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            colActions.DefaultCellStyle = dataGridViewCellStyle6;
+            colActions.FlatStyle = FlatStyle.Flat;
+            colActions.HeaderText = "Thao tác";
+            colActions.MinimumWidth = 6;
+            colActions.Name = "colActions";
+            colActions.ReadOnly = true;
+            colActions.Resizable = DataGridViewTriState.True;
+            colActions.Width = 89;
             // 
             // UC_ManageUsers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(pnlBody);
-            Controls.Add(pnlUser);
             Controls.Add(pnlHeader);
             Name = "UC_ManageUsers";
             Size = new Size(1224, 541);
+            Load += UC_ManageUsers_Load;
             pnlHeader.ResumeLayout(false);
             pnlBody.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)uiDataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             uiPanel2.ResumeLayout(false);
-            pnlUser.ResumeLayout(false);
-            uiPanel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -412,20 +451,22 @@
         private Sunny.UI.UIPanel pnlHeader;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UIComboBox cbSubject;
+        private Sunny.UI.UIComboBox cbTT;
         private Sunny.UI.UITextBox txtSearch;
         private Sunny.UI.UIPanel pnlBody;
         private Sunny.UI.UIPanel pnlDgv;
-        private Sunny.UI.UIDataGridView uiDataGridView1;
+        private Sunny.UI.UIDataGridView dgvUsers;
         private Sunny.UI.UIPanel uiPanel2;
         private Sunny.UI.UISymbolButton btnRefresh;
-        private Sunny.UI.UIPanel pnlUser;
-        private Sunny.UI.UIPanel uiPanel1;
-        private Sunny.UI.UIPanel uiPanel3;
-        private Sunny.UI.UISymbolButton btnSave;
-        private DataGridViewTextBoxColumn colMaGV;
-        private DataGridViewTextBoxColumn colTenGV;
-        private DataGridViewTextBoxColumn colTT;
-        private DataGridViewImageColumn colXem;
+        private Sunny.UI.UILabel uiLabel3;
+        private Sunny.UI.UIComboBox cbRole;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colSTT;
+        private DataGridViewTextBoxColumn colFullName;
+        private DataGridViewTextBoxColumn colUsername;
+        private DataGridViewTextBoxColumn colEmail;
+        private DataGridViewTextBoxColumn colStatus;
+        private DataGridViewTextBoxColumn colRole;
+        private DataGridViewButtonColumn colActions;
     }
 }

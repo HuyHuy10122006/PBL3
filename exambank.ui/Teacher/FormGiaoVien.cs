@@ -24,6 +24,8 @@ namespace exambank.ui
         private UC_ManageExams _ucManageExams;
         private UC_ViewExamBank _ucViewExamBank;
         private List<UIButton> menuButtons;
+        private List<QuestionModel> _currentQuestions = new List<QuestionModel>();
+        private List<ExamModel> _currentExams = new List<ExamModel>();
 
         public FormGiaoVien(UserModel user)
         {
@@ -66,7 +68,7 @@ namespace exambank.ui
             UIHelper.SetActiveMenu(btnManageQuestions, menuButtons);
             if (_ucManageQuestions == null)
             {
-                _ucManageQuestions = new UC_ManageQuestions(_loginUser);
+                _ucManageQuestions = new UC_ManageQuestions(_loginUser, _currentQuestions);
             }
             _nav.Display(_ucManageQuestions);
         }
@@ -76,7 +78,7 @@ namespace exambank.ui
             UIHelper.SetActiveMenu(btnManageExams, menuButtons);
             if (_ucManageExams == null)
             {
-                _ucManageExams = new UC_ManageExams();
+                _ucManageExams = new UC_ManageExams(_loginUser, _currentExams);
             }
             _nav.Display(_ucManageExams);
         }
@@ -86,7 +88,7 @@ namespace exambank.ui
             UIHelper.SetActiveMenu(btnViewExamBank, menuButtons);
             if (_ucViewExamBank == null)
             {
-                _ucViewExamBank = new UC_ViewExamBank();
+                _ucViewExamBank = new UC_ViewExamBank(_loginUser);
             }
             _nav.Display(_ucViewExamBank);
         }

@@ -30,12 +30,13 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlHeader = new Sunny.UI.UIPanel();
             btnAddManual = new Sunny.UI.UISymbolButton();
             uiLabel4 = new Sunny.UI.UILabel();
@@ -56,14 +57,15 @@
             btnRefresh = new Sunny.UI.UISymbolButton();
             dgvQuestions = new Sunny.UI.UIDataGridView();
             colID = new DataGridViewTextBoxColumn();
+            colSTT = new DataGridViewTextBoxColumn();
             colContent = new DataGridViewTextBoxColumn();
             colMon = new DataGridViewTextBoxColumn();
             colDoKho = new DataGridViewTextBoxColumn();
             pnlQuestion = new Sunny.UI.UIPanel();
+            flpQuestion = new FlowLayoutPanel();
             pnlThaoTacExam = new Sunny.UI.UIPanel();
             btnDeleteDetail = new Sunny.UI.UISymbolButton();
             btnSave = new Sunny.UI.UISymbolButton();
-            flpQuestion = new FlowLayoutPanel();
             pnlHeaderQuestion = new Sunny.UI.UIPanel();
             pnlHeader.SuspendLayout();
             pnlMain.SuspendLayout();
@@ -119,6 +121,7 @@
             btnAddManual.TabIndex = 9;
             btnAddManual.Text = "Thêm thủ công";
             btnAddManual.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnAddManual.Click += btnAddManual_Click;
             // 
             // uiLabel4
             // 
@@ -255,10 +258,10 @@
             txtSearch.RectColor = Color.Black;
             txtSearch.ScrollBarColor = Color.FromArgb(24, 24, 24);
             txtSearch.ScrollBarStyleInherited = false;
-            txtSearch.ShowButton = true;
             txtSearch.ShowText = false;
             txtSearch.Size = new Size(282, 35);
             txtSearch.Style = Sunny.UI.UIStyle.Custom;
+            txtSearch.Symbol = 61442;
             txtSearch.SymbolSize = 23;
             txtSearch.TabIndex = 1;
             txtSearch.TextAlignment = ContentAlignment.MiddleLeft;
@@ -337,7 +340,7 @@
             pnlThaoTacTable.Margin = new Padding(4, 5, 4, 5);
             pnlThaoTacTable.MinimumSize = new Size(1, 1);
             pnlThaoTacTable.Name = "pnlThaoTacTable";
-            pnlThaoTacTable.RectColor = Color.Gainsboro;
+            pnlThaoTacTable.RectColor = Color.Gray;
             pnlThaoTacTable.Size = new Size(816, 70);
             pnlThaoTacTable.TabIndex = 2;
             pnlThaoTacTable.Text = null;
@@ -424,31 +427,32 @@
             // 
             dgvQuestions.AllowUserToAddRows = false;
             dgvQuestions.AllowUserToDeleteRows = false;
+            dgvQuestions.AllowUserToResizeColumns = false;
             dgvQuestions.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
+            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
             dgvQuestions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvQuestions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvQuestions.BackgroundColor = Color.White;
             dgvQuestions.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
             dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.Black;
             dataGridViewCellStyle2.Padding = new Padding(10, 0, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
             dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvQuestions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvQuestions.ColumnHeadersHeight = 32;
-            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colContent, colMon, colDoKho });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(220, 236, 255);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dgvQuestions.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colContent, colMon, colDoKho });
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.White;
+            dataGridViewCellStyle7.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(220, 236, 255);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgvQuestions.DefaultCellStyle = dataGridViewCellStyle7;
             dgvQuestions.EnableHeadersVisualStyles = false;
             dgvQuestions.Font = new Font("Microsoft Sans Serif", 12F);
             dgvQuestions.GridColor = Color.Black;
@@ -457,36 +461,39 @@
             dgvQuestions.ReadOnly = true;
             dgvQuestions.RectColor = Color.Black;
             dgvQuestions.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(243, 249, 255);
-            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvQuestions.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dgvQuestions.RowHeadersVisible = false;
-            dgvQuestions.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.WhiteSmoke;
             dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 12F);
             dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(220, 236, 255);
+            dataGridViewCellStyle8.SelectionBackColor = Color.LightGray;
             dataGridViewCellStyle8.SelectionForeColor = Color.FromArgb(48, 48, 48);
-            dgvQuestions.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dgvQuestions.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dgvQuestions.RowHeadersVisible = false;
+            dgvQuestions.RowHeadersWidth = 51;
+            dataGridViewCellStyle9.BackColor = Color.White;
+            dataGridViewCellStyle9.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(220, 236, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dgvQuestions.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dgvQuestions.RowTemplate.Height = 33;
             dgvQuestions.ScrollBarColor = Color.Black;
             dgvQuestions.ScrollBarRectColor = Color.Black;
             dgvQuestions.ScrollBarStyleInherited = false;
             dgvQuestions.SelectedIndex = -1;
             dgvQuestions.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvQuestions.Size = new Size(816, 307);
-            dgvQuestions.StripeOddColor = Color.White;
+            dgvQuestions.StripeOddColor = Color.WhiteSmoke;
             dgvQuestions.Style = Sunny.UI.UIStyle.Custom;
             dgvQuestions.TabIndex = 0;
             dgvQuestions.CellClick += dgvQuestions_CellClick;
+            dgvQuestions.DataBindingComplete += dgvQuestions_DataBindingComplete;
             dgvQuestions.SelectionChanged += dgvQuestions_SelectionChanged;
             // 
             // colID
             // 
+            colID.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colID.DataPropertyName = "Id";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colID.DefaultCellStyle = dataGridViewCellStyle3;
@@ -494,7 +501,20 @@
             colID.MinimumWidth = 6;
             colID.Name = "colID";
             colID.ReadOnly = true;
-            colID.Width = 50;
+            colID.Visible = false;
+            colID.Width = 125;
+            // 
+            // colSTT
+            // 
+            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSTT.DataPropertyName = "STT";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colSTT.DefaultCellStyle = dataGridViewCellStyle4;
+            colSTT.HeaderText = "STT";
+            colSTT.MinimumWidth = 6;
+            colSTT.Name = "colSTT";
+            colSTT.ReadOnly = true;
+            colSTT.Width = 85;
             // 
             // colContent
             // 
@@ -507,9 +527,10 @@
             // 
             // colMon
             // 
+            colMon.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colMon.DataPropertyName = "MonHoc";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colMon.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colMon.DefaultCellStyle = dataGridViewCellStyle5;
             colMon.HeaderText = "Môn học";
             colMon.MinimumWidth = 6;
             colMon.Name = "colMon";
@@ -518,19 +539,20 @@
             // 
             // colDoKho
             // 
+            colDoKho.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colDoKho.DataPropertyName = "DoKho";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colDoKho.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colDoKho.DefaultCellStyle = dataGridViewCellStyle6;
             colDoKho.HeaderText = "Độ khó";
             colDoKho.MinimumWidth = 6;
             colDoKho.Name = "colDoKho";
             colDoKho.ReadOnly = true;
-            colDoKho.Width = 120;
+            colDoKho.Width = 108;
             // 
             // pnlQuestion
             // 
-            pnlQuestion.Controls.Add(pnlThaoTacExam);
             pnlQuestion.Controls.Add(flpQuestion);
+            pnlQuestion.Controls.Add(pnlThaoTacExam);
             pnlQuestion.Controls.Add(pnlHeaderQuestion);
             pnlQuestion.Dock = DockStyle.Right;
             pnlQuestion.Font = new Font("Microsoft Sans Serif", 12F);
@@ -544,6 +566,15 @@
             pnlQuestion.Text = null;
             pnlQuestion.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // flpQuestion
+            // 
+            flpQuestion.BackColor = Color.FromArgb(243, 249, 255);
+            flpQuestion.Dock = DockStyle.Fill;
+            flpQuestion.Location = new Point(0, 41);
+            flpQuestion.Name = "flpQuestion";
+            flpQuestion.Size = new Size(454, 305);
+            flpQuestion.TabIndex = 1;
+            // 
             // pnlThaoTacExam
             // 
             pnlThaoTacExam.BackColor = Color.Transparent;
@@ -556,7 +587,7 @@
             pnlThaoTacExam.Margin = new Padding(4, 5, 4, 5);
             pnlThaoTacExam.MinimumSize = new Size(1, 1);
             pnlThaoTacExam.Name = "pnlThaoTacExam";
-            pnlThaoTacExam.RectColor = Color.Gainsboro;
+            pnlThaoTacExam.RectColor = Color.Gray;
             pnlThaoTacExam.Size = new Size(454, 70);
             pnlThaoTacExam.TabIndex = 3;
             pnlThaoTacExam.Text = null;
@@ -606,15 +637,6 @@
             btnSave.Text = "Lưu";
             btnSave.TipsFont = new Font("Microsoft Sans Serif", 9F);
             btnSave.Click += btnSave_Click;
-            // 
-            // flpQuestion
-            // 
-            flpQuestion.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flpQuestion.BackColor = Color.White;
-            flpQuestion.Location = new Point(0, 41);
-            flpQuestion.Name = "flpQuestion";
-            flpQuestion.Size = new Size(454, 306);
-            flpQuestion.TabIndex = 1;
             // 
             // pnlHeaderQuestion
             // 
@@ -678,10 +700,11 @@
         private Sunny.UI.UIPanel pnlThaoTacExam;
         private Sunny.UI.UISymbolButton btnSave;
         private Sunny.UI.UISymbolButton btnRefresh;
+        private Sunny.UI.UISymbolButton btnDeleteDetail;
         private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colSTT;
         private DataGridViewTextBoxColumn colContent;
         private DataGridViewTextBoxColumn colMon;
         private DataGridViewTextBoxColumn colDoKho;
-        private Sunny.UI.UISymbolButton btnDeleteDetail;
     }
 }

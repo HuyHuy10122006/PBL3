@@ -32,8 +32,8 @@
             pnlLeft = new Sunny.UI.UIPanel();
             btnCreateExam = new Sunny.UI.UISymbolButton();
             pnlCauHinh = new Sunny.UI.UIPanel();
-            iudTG = new Sunny.UI.UIIntegerUpDown();
-            iudSL = new Sunny.UI.UIIntegerUpDown();
+            udtxtCountQuestion = new Sunny.UI.UIUpDownTextBox();
+            udtxtTime = new Sunny.UI.UIUpDownTextBox();
             uiLabel8 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
@@ -113,8 +113,8 @@
             // pnlCauHinh
             // 
             pnlCauHinh.BackColor = Color.White;
-            pnlCauHinh.Controls.Add(iudTG);
-            pnlCauHinh.Controls.Add(iudSL);
+            pnlCauHinh.Controls.Add(udtxtCountQuestion);
+            pnlCauHinh.Controls.Add(udtxtTime);
             pnlCauHinh.Controls.Add(uiLabel8);
             pnlCauHinh.Controls.Add(uiLabel7);
             pnlCauHinh.Controls.Add(uiLabel6);
@@ -132,19 +132,25 @@
             pnlCauHinh.RectColor = Color.Black;
             pnlCauHinh.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // iudTG
+            // udtxtCountQuestion
             // 
-            resources.ApplyResources(iudTG, "iudTG");
-            iudTG.Name = "iudTG";
-            iudTG.ShowText = false;
-            iudTG.TextAlignment = ContentAlignment.MiddleCenter;
+            udtxtCountQuestion.DoubleStep = 1D;
+            resources.ApplyResources(udtxtCountQuestion, "udtxtCountQuestion");
+            udtxtCountQuestion.Name = "udtxtCountQuestion";
+            udtxtCountQuestion.ShowText = false;
+            udtxtCountQuestion.TextAlignment = ContentAlignment.MiddleRight;
+            udtxtCountQuestion.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtxtCountQuestion.Watermark = "";
             // 
-            // iudSL
+            // udtxtTime
             // 
-            resources.ApplyResources(iudSL, "iudSL");
-            iudSL.Name = "iudSL";
-            iudSL.ShowText = false;
-            iudSL.TextAlignment = ContentAlignment.MiddleCenter;
+            udtxtTime.DoubleStep = 1D;
+            resources.ApplyResources(udtxtTime, "udtxtTime");
+            udtxtTime.Name = "udtxtTime";
+            udtxtTime.ShowText = false;
+            udtxtTime.TextAlignment = ContentAlignment.MiddleRight;
+            udtxtTime.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtxtTime.Watermark = "";
             // 
             // uiLabel8
             // 
@@ -316,7 +322,7 @@
             // flpPreview
             // 
             resources.ApplyResources(flpPreview, "flpPreview");
-            flpPreview.BackColor = Color.WhiteSmoke;
+            flpPreview.BackColor = Color.FromArgb(243, 249, 255);
             flpPreview.Name = "flpPreview";
             // 
             // pnlHeader
@@ -328,6 +334,7 @@
             resources.ApplyResources(pnlHeader, "pnlHeader");
             pnlHeader.FillColor = Color.MidnightBlue;
             pnlHeader.Name = "pnlHeader";
+            pnlHeader.RectColor = Color.Gray;
             pnlHeader.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // btnSaveQuestion
@@ -396,7 +403,7 @@
             resources.ApplyResources(pnlExamName, "pnlExamName");
             pnlExamName.FillColor = Color.WhiteSmoke;
             pnlExamName.Name = "pnlExamName";
-            pnlExamName.RectColor = Color.Black;
+            pnlExamName.RectColor = Color.Gray;
             pnlExamName.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // uiLabel9
@@ -411,7 +418,7 @@
             resources.ApplyResources(txtExamCode, "txtExamCode");
             txtExamCode.BackColor = Color.Transparent;
             txtExamCode.Name = "txtExamCode";
-            txtExamCode.RectColor = Color.Black;
+            txtExamCode.RectColor = Color.Silver;
             txtExamCode.ShowText = false;
             txtExamCode.TextAlignment = ContentAlignment.MiddleLeft;
             txtExamCode.Watermark = "";
@@ -428,7 +435,7 @@
             resources.ApplyResources(txtExamName, "txtExamName");
             txtExamName.BackColor = Color.Transparent;
             txtExamName.Name = "txtExamName";
-            txtExamName.RectColor = Color.Black;
+            txtExamName.RectColor = Color.Silver;
             txtExamName.ShowText = false;
             txtExamName.TextAlignment = ContentAlignment.MiddleLeft;
             txtExamName.Watermark = "";
@@ -490,8 +497,6 @@
         private Sunny.UI.UILabel lblResultTitle;
         private Sunny.UI.UISymbolButton btnSaveExam;
         private Splitter vSplitter;
-        private Sunny.UI.UIIntegerUpDown iudTG;
-        private Sunny.UI.UIIntegerUpDown iudSL;
         private Sunny.UI.UISymbolButton btnExport;
         private Sunny.UI.UISymbolButton btnSaveQuestion;
         private Sunny.UI.UIPanel pnlExamName;
@@ -499,5 +504,7 @@
         private Sunny.UI.UITextBox txtExamName;
         private Sunny.UI.UILabel uiLabel9;
         private Sunny.UI.UITextBox txtExamCode;
+        private Sunny.UI.UIUpDownTextBox udtxtCountQuestion;
+        private Sunny.UI.UIUpDownTextBox udtxtTime;
     }
 }

@@ -73,9 +73,9 @@ namespace exambank.ui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_edit {
+        internal static System.Drawing.Bitmap file_export {
             get {
-                object obj = ResourceManager.GetObject("icon_edit", resourceCulture);
+                object obj = ResourceManager.GetObject("file_export", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace exambank.ui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_export {
+        internal static System.Drawing.Bitmap more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24 {
             get {
-                object obj = ResourceManager.GetObject("icon_export", resourceCulture);
+                object obj = ResourceManager.GetObject("more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace exambank.ui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_share {
+        internal static System.Drawing.Bitmap scan_delete_24dp_EA3323_FILL0_wght400_GRAD0_opsz24 {
             get {
-                object obj = ResourceManager.GetObject("icon_share", resourceCulture);
+                object obj = ResourceManager.GetObject("scan_delete_24dp_EA3323_FILL0_wght400_GRAD0_opsz24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,19 @@ namespace exambank.ui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_trash {
+        internal static System.Drawing.Bitmap share {
             get {
-                object obj = ResourceManager.GetObject("icon_trash", resourceCulture);
+                object obj = ResourceManager.GetObject("share", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap visibility {
+            get {
+                object obj = ResourceManager.GetObject("visibility", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

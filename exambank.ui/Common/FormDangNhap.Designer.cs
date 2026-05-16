@@ -25,7 +25,6 @@
         private void InitializeComponent()
         {
             pnlLoginCard = new Sunny.UI.UIPanel();
-            pnlLoginCard.SuspendLayout();
             SuspendLayout();
             // 
             // pnlLoginCard
@@ -49,14 +48,18 @@
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(941, 674);
+            ControlBoxForeColor = Color.Black;
             Controls.Add(pnlLoginCard);
             Name = "FormDangNhap";
-            Padding = new Padding(2, 36, 2, 2);
+            Padding = new Padding(2, 35, 2, 2);
+            RectColor = Color.Gray;
             Resizable = true;
-            Text = "EduGenAI - Login";
+            Text = "Đăng nhập hệ thống EduGenAI";
+            TitleColor = SystemColors.ActiveCaption;
+            TitleFont = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TitleForeColor = Color.Black;
             ZoomScaleRect = new Rectangle(19, 19, 950, 600);
             Resize += FormDangNhap_Resize;
-            pnlLoginCard.ResumeLayout(false);
             ResumeLayout(false);
         }
 

@@ -99,5 +99,17 @@ namespace exambank.ui
         {
             UIHelper.TogglePassword(txtPassword);
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Nếu người dùng nhấn phím Enter
+            if (keyData == Keys.Enter)
+            {
+                btnLogin.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }

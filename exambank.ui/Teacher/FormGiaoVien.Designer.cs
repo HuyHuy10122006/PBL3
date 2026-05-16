@@ -238,10 +238,15 @@
             // FormGiaoVien
             // 
             resources.ApplyResources(this, "$this");
+            ControlBoxForeColor = Color.Black;
             Controls.Add(pnlBody);
             Controls.Add(SidebarPanel);
             Name = "FormGiaoVien";
+            RectColor = Color.Gray;
             Resizable = true;
+            TitleColor = SystemColors.ActiveCaption;
+            TitleFont = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TitleForeColor = Color.Black;
             ZoomScaleRect = new Rectangle(19, 19, 1050, 700);
             FormClosing += FormGiaoVien_FormClosing;
             SidebarPanel.ResumeLayout(false);

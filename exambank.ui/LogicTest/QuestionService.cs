@@ -1,153 +1,119 @@
 ﻿using exambank.data;
 using exambank.data.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace exambank.ui.LogicTest
 {
     public class QuestionService
     {
-        public List<QuestionModel> GetAllQuestions()
-        {
-            try
-            {
-                using (var db = new ExamBankDbContext())
-                {
-                    return db.Questions.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Lỗi khi lấy danh sách câu hỏi: " + ex.Message);
-                return new List<QuestionModel>();
-            }
-        }
+        // Khởi tạo Repository bằng cách truyền DbContext vào
+        private readonly IDatabaseRepository _repository = new DatabaseRepository(new ExamBankDbContext());
 
-        public bool AddQuestion(QuestionModel q)
+        public async Task<bool> AddQuestionAsync(QuestionModel q)
         {
-            // Kiểm tra logic nghiệp vụ cơ bản
-            if (string.IsNullOrEmpty(q.Question) || string.IsNullOrEmpty(q.Answer))
+            // Tối ưu logic: Kiểm tra null và validate dữ liệu cơ bản gọn hơn
+            if (q == null || string.IsNullOrWhiteSpace(q.Question) || string.IsNullOrWhiteSpace(q.Answer))
+            {
                 return false;
+            }
 
             try
             {
-                using (var db = new ExamBankDbContext())
-                {
-                    db.Questions.Add(q);
-                    return db.SaveChanges() > 0;
-                }
+                // Sử dụng AddQuestionsAsync có sẵn của Repository
+                await _repository.AddQuestionsAsync(new List<QuestionModel> { q });
+                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Lỗi khi lưu: " + ex.Message);
+                Debug.WriteLine("Lỗi khi lưu: " + ex.Message);
                 return false;
             }
         }
 
-        public bool DeleteQuestion(int id)
+        public async Task<List<QuestionModel>> GetQuestionsAsync(int userId)
         {
-            using (var db = new ExamBankDbContext())
-            {
-                var q = db.Questions.Find(id);
-                if (q == null) return false;
-                q.IsActive = false; // Xóa mềm
-                return db.SaveChanges() > 0;
-            }
+            // Tối ưu: Lấy toàn bộ câu hỏi Active thông qua Repo, sau đó lọc theo UserId ở bộ nhớ
+            var allQuestions = await _repository.GetAllQuestionsAsync();
+
+            return allQuestions
+                .Where(q => q.CreatedByUserId == userId)
+                .ToList(); // GetAllQuestionsAsync đã có sẵn OrderByDescending(CreatedAt) trong Repo
         }
 
-        public bool SaveQuestions(List<QuestionModel> questions)
+        public async Task<bool> DeleteMultipleAsync(List<int> ids)
         {
-            using (var db = new ExamBankDbContext())
+            if (ids == null || ids.Count == 0) return false;
+
+            try
             {
-                db.Questions.AddRange(questions);
-                return db.SaveChanges() > 0;
-            }
-        }
-
-        public List<QuestionModel> GetQuestions(string keyword, string mon, string khoi, string doKho)
-        {
-            using (var db = new ExamBankDbContext())
-            {
-                var query = db.Questions.Where(q => q.IsActive);
-
-                if (!string.IsNullOrEmpty(keyword))
-                    query = query.Where(q => q.Question.Contains(keyword));
-                if (!string.IsNullOrEmpty(mon))
-                    query = query.Where(q => q.Subject == mon);
-                if (!string.IsNullOrEmpty(doKho))
-                    query = query.Where(q => q.Difficulty == doKho);
-                if (!string.IsNullOrEmpty(khoi))
-                    query = query.Where(q => q.Grade == khoi);
-
-                return query.OrderByDescending(q => q.CreatedAt).ToList();
-            }
-        }
-
-        public bool DeleteMultiple(List<int> ids)
-        {
-            using (var db = new ExamBankDbContext())
-            {
-                var targets = db.Questions.Where(q => ids.Contains(q.Id)).ToList();
-                foreach (var t in targets) t.IsActive = false;
-                return db.SaveChanges() > 0;
-            }
-        }
-
-        public async Task<List<string>> GetUniqueValuesAsync(Func<QuestionModel, string> selector)
-        {
-            using (var db = new ExamBankDbContext())
-            {
-                return await Task.Run(() => db.Questions
-                    .AsNoTracking()
-                    .AsEnumerable() // Chuyển về IEnumerable để dùng Func selector
-                    .Select(selector)
-                    .Where(val => !string.IsNullOrEmpty(val))
-                    .Distinct()
-                    .OrderBy(val => val)
-                    .ToList());
-            }
-        }
-
-        public bool UpdateQuestion(QuestionModel updatedData)
-        {
-            if (updatedData == null || updatedData.Id <= 0) return false; 
-
-        try
-            {
-                using (var db = new ExamBankDbContext())
+                foreach (var id in ids)
                 {
-                    // 1. Tìm câu hỏi gốc trong Database dựa vào ID
-                    var existingQuestion = db.Questions.FirstOrDefault(q => q.Id == updatedData.Id);
+                    // Tận dụng hàm DeleteQuestionAsync (Xóa mềm bằng cách set IsActive = false) đã viết ở Repo
+                    await _repository.DeleteQuestionAsync(id);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi xóa hàng loạt: " + ex.Message);
+                return false;
+            }
+        }
 
-                    if (existingQuestion != null)
-                    {
-                        // 2. Cập nhật các thuộc tính nội dung
-                        existingQuestion.Question = updatedData.Question; 
-                    existingQuestion.OptionA = updatedData.OptionA; 
-                    existingQuestion.OptionB = updatedData.OptionB; 
-                    existingQuestion.OptionC = updatedData.OptionC; 
-                    existingQuestion.OptionD = updatedData.OptionD; 
-                    existingQuestion.Answer = updatedData.Answer; 
 
-                    // 3. Cập nhật các Metadata nếu cần thiết
-                    existingQuestion.Subject = updatedData.Subject; 
+        public List<string> GetCboValuesAsync(List<QuestionModel> questions, Func<QuestionModel, string> selector)
+        {
+            if (questions == null) return new List<string>();
+
+            return questions
+                .Select(selector)
+                .Where(val => !string.IsNullOrEmpty(val))
+                .Distinct()
+                .OrderBy(val => val)
+                .ToList();
+        }
+
+        public async Task<bool> UpdateQuestionAsync(QuestionModel updatedData)
+        {
+            if (updatedData == null || updatedData.Id < 0) return false;
+            if (updatedData.Id == 0) return await AddQuestionAsync(updatedData);
+
+            try
+            {
+                // 1. Lấy câu hỏi gốc từ DB thông qua Repo (đã check IsActive)
+                var existingQuestion = await _repository.GetQuestionByIdAsync(updatedData.Id);
+
+                if (existingQuestion != null)
+                {
+                    // 2. Cập nhật các thuộc tính nội dung
+                    existingQuestion.Question = updatedData.Question;
+                    existingQuestion.OptionA = updatedData.OptionA;
+                    existingQuestion.OptionB = updatedData.OptionB;
+                    existingQuestion.OptionC = updatedData.OptionC;
+                    existingQuestion.OptionD = updatedData.OptionD;
+                    existingQuestion.Answer = updatedData.Answer;
+
+                    // 3. Cập nhật các Metadata
+                    existingQuestion.Subject = updatedData.Subject;
                     existingQuestion.Difficulty = updatedData.Difficulty;
                     existingQuestion.IsActive = updatedData.IsActive;
-                    
-                    // Không cập nhật CreatedAt và CreatedByUserId để giữ nguyên lịch sử
+                    existingQuestion.CategoryId = updatedData.CategoryId;
 
-                    // 4. Lưu thay đổi xuống SQL Server
-                    return db.SaveChanges() > 0;
+                    // 4. Gọi hàm Update của Repo
+                    await _repository.UpdateQuestionAsync(existingQuestion);
+                    return true;
                 }
-                    return false;
-                }
+
+                return false;
             }
             catch (Exception ex)
             {
-                // Bạn có thể log lỗi ở đây
-                throw new Exception("Lỗi khi cập nhật câu hỏi: " + ex.Message);
+                Debug.WriteLine("Lỗi khi cập nhật câu hỏi: " + ex.Message);
+                return false; // Thay vì throw exception làm sập app, return false an toàn hơn cho UI
             }
         }
     }

@@ -25,9 +25,9 @@ namespace exambank.ui
         private readonly UserModel _loginUser;
         private readonly GeminiService _aiService = new GeminiService();
         private readonly DocumentService _docService = new DocumentService();
-        private readonly QuestionService _questionService = new QuestionService(); //Test
-        private readonly ExamService _examService = new ExamService(); //Test
-        private List<QuestionModel> _questions;
+        private readonly QuestionService _questionService = new QuestionService();
+        private readonly ExamService _examService = new ExamService();
+        private List<QuestionModel> _questionsCreate = new List<QuestionModel>();
         public UC_AICreate(UserModel loginUser)
         {
             _loginUser = loginUser;
@@ -51,8 +51,7 @@ namespace exambank.ui
             for (int i = 0; i < questions.Count; i++)
             {
                 var item = questions[i];
-                UC_Question uc = new UC_Question();
-                uc.SetData(item, $"Câu {i + 1}");
+                UC_Question uc = new UC_Question(item, $"Câu {i + 1}");
                 uc.Width = flpPreview.ClientSize.Width - (flpPreview.Padding.Left + flpPreview.Padding.Right + 10);
                 uc.Margin = new Padding(0, 0, 0, 20);
                 flpPreview.Controls.Add(uc);
@@ -64,9 +63,9 @@ namespace exambank.ui
         {
             try
             {
-                cbKhoi.Items.AddRange(Constants.List_Khoi.ToArray());
-                cbDoKho.Items.AddRange(Constants.List_DoKho.ToArray());
-                cbMonHoc.Items.AddRange(Constants.List_MonHoc.ToArray());
+                cbKhoi.Items.AddRange(Constants.List_Khoi);
+                cbDoKho.Items.AddRange(Constants.List_DoKho);
+                cbMonHoc.Items.AddRange(Constants.List_MonHoc);
             }
             catch (Exception ex)
             {
@@ -103,10 +102,10 @@ namespace exambank.ui
             try
             {
                 // Giải mã JSON thành List<QuestionModel>[cite: 2, 8]
-                _questions = JsonSerializer.Deserialize<List<QuestionModel>>(jsonResult, options) ?? new List<QuestionModel>();
+                _questionsCreate = JsonSerializer.Deserialize<List<QuestionModel>>(jsonResult, options) ?? new List<QuestionModel>();
                 var now = DateTime.Now;
                 // Chuẩn hóa dữ liệu từng câu hỏi để khớp với ràng buộc của QuestionModel
-                foreach (var q in _questions)
+                foreach (var q in _questionsCreate)
                 {
                     // 1. Xử lý triệt để thuộc tính Answer (Phải là A, B, C hoặc D và độ dài = 1)
                     if (string.IsNullOrWhiteSpace(q.Answer))
@@ -148,9 +147,11 @@ namespace exambank.ui
                     q.OptionC ??= "";
                     q.OptionD ??= "";
 
-                    // 3. Gán Metadata[cite: 2]
+                    // 3. Gán Metadata
+                    q.Id = 0;
                     q.Subject = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text;
                     q.Difficulty = string.IsNullOrWhiteSpace(cbDoKho.Text) ? "..." : cbDoKho.Text;
+                    q.Grade = string.IsNullOrWhiteSpace(cbKhoi.Text) ? "..." : cbKhoi.Text;
                     q.CategoryId = 1;
                     q.CreatedByUserId = _loginUser.Id;
                     q.CreatedAt = now;
@@ -160,7 +161,6 @@ namespace exambank.ui
             catch (JsonException ex)
             {
                 UIMessageBox.ShowError2("Lỗi khi xử lý dữ liệu từ AI: " + ex.Message);
-                _questions = new List<QuestionModel>();
             }
         }
 
@@ -201,10 +201,11 @@ namespace exambank.ui
                 inputData = txtText.Text;
             }
 
-            //Kiểm tra số câu hỏi và thời gian có hợp lệ không
-            if (iudSL.Value < 1 || iudTG.Value < 1)
+            //Kiểm tra phần thiết lập đề thi có hợp lệ không trước khi gọi API
+            if (udtxtCountQuestion.IntValue < 1 || udtxtTime.IntValue < 1 || string.IsNullOrWhiteSpace(cbMonHoc.Text)
+                || string.IsNullOrWhiteSpace(cbDoKho.Text) || string.IsNullOrWhiteSpace(cbKhoi.Text))
             {
-                UIMessageBox.ShowWarning2("Vui lòng nhập số câu hỏi và thời gian làm bài hợp lệ!");
+                UIMessageBox.ShowWarning2("Vui lòng nhập đầy đủ thông tin thiết lập đề thi!");
                 return;
             }
 
@@ -214,19 +215,20 @@ namespace exambank.ui
 
             try
             {
+                _questionsCreate.Clear();
                 var now = DateTime.Now;
                 // 3. GỌI AI VÀ XỬ LÝ DỮ LIỆU
-                string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)iudSL.Value);
+                string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)udtxtCountQuestion.IntValue);
                 FixJson(jsonResult);
 
                 if (!string.IsNullOrWhiteSpace(jsonResult) && !jsonResult.StartsWith("Error"))
                 {
 
                     // 4. Hiển thị kết quả
-                    if (_questions.Count > 0)
+                    if (_questionsCreate.Count > 0)
                     {
                         string MonHoc = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text;
-                        LoadQuestions(_questions);
+                        LoadQuestions(_questionsCreate);
                         txtExamName.Text = $"Đề thi {MonHoc} - {now:ddMMyyyyHHmmss}";
                         txtExamCode.Text = now.ToString("ddMMyyyyHHmmss");
                     }
@@ -257,10 +259,10 @@ namespace exambank.ui
             var exam = new ExamModel
             {
                 Subject = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text,
-                Duration = (int)iudTG.Value,
+                Duration = (int)udtxtTime.IntValue,
                 Title = txtExamName.Text,
                 ExamCode = txtExamCode.Text,
-                TotalQuestions = _questions?.Count ?? 0,
+                TotalQuestions = _questionsCreate.Count,
                 CreatedByUserId = _loginUser.Id,
                 CreatedAt = DateTime.Now
             };
@@ -268,20 +270,20 @@ namespace exambank.ui
         }
 
         //Xóa câu hỏi có isActive = false trước khi lưu hoặc xuất file
-        private void  FilterQuestions()
+        private void  RefineQuestions()
         {
-            _questions = _questions.Where(q => q.IsActive).ToList();
+            _questionsCreate = _questionsCreate.Where(q => q.IsActive).ToList();
         }
 
 
         private async void btnExport_Click(object sender, EventArgs e)
         {
-            if (_questions == null || !_questions.Any())
+            if (!_questionsCreate.Any())
             {
                 UIMessageBox.ShowWarning2("Không có câu hỏi nào.");
                 return;
             }
-            FilterQuestions();
+            RefineQuestions();
 
             using (var saveFileDialog = new SaveFileDialog())
             {
@@ -307,7 +309,7 @@ namespace exambank.ui
                         // Chạy tác vụ xuất file trên một luồng khác để tránh treo UI nếu file nặng
                         await Task.Run(() =>
                         {
-                            docService.ExportToWord(saveFileDialog.FileName, _currentExam, _questions);
+                            docService.ExportToWord(saveFileDialog.FileName, _currentExam, _questionsCreate);
                         });
 
                         UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
@@ -321,21 +323,21 @@ namespace exambank.ui
         }
 
 
-        private void btnSaveQuestion_Click(object sender, EventArgs e)
+        private async void btnSaveQuestion_Click(object sender, EventArgs e)
         {
-            if (_questions == null || !_questions.Any())
+            if (!_questionsCreate.Any())
             {
                 UIMessageBox.ShowWarning2("Không có câu hỏi nào.");
                 return;
             }
 
             int successCount = 0;
-            foreach (var question in _questions)
+            foreach (var question in _questionsCreate)
             {
                 if (question.IsActive == false) continue;
                 try
                 {
-                    bool isSuccess = _questionService.AddQuestion(question);
+                    bool isSuccess = await _questionService.AddQuestionAsync(question);
                     if (isSuccess) successCount++;
                 }
                 catch (Exception ex)
@@ -343,7 +345,7 @@ namespace exambank.ui
                     Debug.WriteLine(ex);
                 }
             }
-            int totalActive = _questions.Count(q => q.IsActive);
+            int totalActive = _questionsCreate.Count(q => q.IsActive);
             if (successCount == totalActive)
                 UIMessageBox.ShowSuccess2("Lưu tất cả câu hỏi thành công!");
             else if (successCount > 0)
@@ -352,15 +354,16 @@ namespace exambank.ui
                 UIMessageBox.ShowError2("Lưu thất bại! Có thể các câu hỏi đã được lưu trước đó.");
         }
 
-        private void btnSaveExam_Click(object sender, EventArgs e)
+        private async void btnSaveExam_Click(object sender, EventArgs e)
         {
-            if (_questions == null || _questions.Count == 0)
+            if (_questionsCreate.Count == 0)
             {
                 UIMessageBox.ShowWarning2("Không có câu hỏi nào.");
                 return;
             }
-            FilterQuestions();
+            RefineQuestions();
             ExamModel _currentExam = CreateExam();
+
             //Kiểm tra Tên đề, mã đề có hợp lệ không trước khi xuất file
             if (string.IsNullOrWhiteSpace(_currentExam.Title) || string.IsNullOrWhiteSpace(_currentExam.ExamCode))
             {
@@ -370,7 +373,7 @@ namespace exambank.ui
 
             try
             {
-                bool isSaved = _examService.CreateExam(_currentExam, _questions);
+                bool isSaved = await _examService.CreateExamAsync(_currentExam, _questionsCreate);
                 if (isSaved)
                     UIMessageBox.ShowSuccess2("Lưu đề thi thành công!");
                 else

@@ -149,77 +149,77 @@
   <data name="&gt;&gt;btnCreateExam.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="iudTG.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="udtxtCountQuestion.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="iudTG.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 221</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="iudTG.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="iudTG.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="iudTG.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="iudTG.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 36</value>
-  </data>
-  <data name="iudTG.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="iudTG.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;iudTG.Name" xml:space="preserve">
-    <value>iudTG</value>
-  </data>
-  <data name="&gt;&gt;iudTG.Type" xml:space="preserve">
-    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;iudTG.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;iudTG.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="iudSL.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="iudSL.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="udtxtCountQuestion.Location" type="System.Drawing.Point, System.Drawing">
     <value>155, 176</value>
   </data>
-  <data name="iudSL.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="udtxtCountQuestion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="iudSL.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="udtxtCountQuestion.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 16</value>
   </data>
-  <data name="iudSL.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="udtxtCountQuestion.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 5, 5, 5</value>
   </data>
-  <data name="iudSL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 35</value>
+  <data name="udtxtCountQuestion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 36</value>
   </data>
-  <data name="iudSL.TabIndex" type="System.Int32, mscorlib">
+  <data name="udtxtCountQuestion.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="iudSL.Text" xml:space="preserve">
+  <data name="udtxtCountQuestion.Text" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;iudSL.Name" xml:space="preserve">
-    <value>iudSL</value>
+  <data name="&gt;&gt;udtxtCountQuestion.Name" xml:space="preserve">
+    <value>udtxtCountQuestion</value>
   </data>
-  <data name="&gt;&gt;iudSL.Type" xml:space="preserve">
-    <value>Sunny.UI.UIIntegerUpDown, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  <data name="&gt;&gt;udtxtCountQuestion.Type" xml:space="preserve">
+    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
-  <data name="&gt;&gt;iudSL.Parent" xml:space="preserve">
+  <data name="&gt;&gt;udtxtCountQuestion.Parent" xml:space="preserve">
     <value>pnlCauHinh</value>
   </data>
-  <data name="&gt;&gt;iudSL.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;udtxtCountQuestion.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="udtxtTime.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="udtxtTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 222</value>
+  </data>
+  <data name="udtxtTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="udtxtTime.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 16</value>
+  </data>
+  <data name="udtxtTime.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="udtxtTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 36</value>
+  </data>
+  <data name="udtxtTime.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="udtxtTime.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;udtxtTime.Name" xml:space="preserve">
+    <value>udtxtTime</value>
+  </data>
+  <data name="&gt;&gt;udtxtTime.Type" xml:space="preserve">
+    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;udtxtTime.Parent" xml:space="preserve">
+    <value>pnlCauHinh</value>
+  </data>
+  <data name="&gt;&gt;udtxtTime.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="uiLabel8.Font" type="System.Drawing.Font, System.Drawing">
@@ -1058,7 +1058,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtExamCode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 12pt</value>
   </data>
   <data name="txtExamCode.Location" type="System.Drawing.Point, System.Drawing">
     <value>129, 59</value>
@@ -1124,7 +1124,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtExamName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Times New Roman, 12pt</value>
   </data>
   <data name="txtExamName.Location" type="System.Drawing.Point, System.Drawing">
     <value>129, 11</value>

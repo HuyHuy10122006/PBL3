@@ -103,7 +103,7 @@
             cboTT.DataSource = null;
             cboTT.FillColor = Color.White;
             cboTT.FillColor2 = Color.FromArgb(24, 24, 24);
-            cboTT.Font = new Font("Microsoft Sans Serif", 12F);
+            cboTT.Font = new Font("Times New Roman", 12F);
             cboTT.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cboTT.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cboTT.Location = new Point(700, 60);
@@ -158,7 +158,7 @@
             cbGrade.DataSource = null;
             cbGrade.FillColor = Color.White;
             cbGrade.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbGrade.Font = new Font("Microsoft Sans Serif", 12F);
+            cbGrade.Font = new Font("Times New Roman", 12F);
             cbGrade.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbGrade.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbGrade.Location = new Point(510, 60);
@@ -180,7 +180,7 @@
             cbSubject.DataSource = null;
             cbSubject.FillColor = Color.White;
             cbSubject.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbSubject.Font = new Font("Microsoft Sans Serif", 12F);
+            cbSubject.Font = new Font("Times New Roman", 12F);
             cbSubject.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbSubject.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbSubject.Location = new Point(323, 60);
@@ -202,7 +202,7 @@
             txtSearch.ButtonRectColor = Color.FromArgb(18, 58, 92);
             txtSearch.ButtonStyleInherited = false;
             txtSearch.FillColor2 = Color.FromArgb(24, 24, 24);
-            txtSearch.Font = new Font("Microsoft Sans Serif", 12F);
+            txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearch.Location = new Point(18, 60);
             txtSearch.Margin = new Padding(4, 5, 4, 5);
             txtSearch.MinimumSize = new Size(1, 16);

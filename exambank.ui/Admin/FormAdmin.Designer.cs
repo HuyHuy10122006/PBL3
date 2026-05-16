@@ -286,10 +286,15 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1050, 700);
+            ControlBoxForeColor = Color.Black;
             Controls.Add(pnlBody);
             Controls.Add(pnlSidebar);
             Name = "FormAdmin";
-            Text = "FormAdmin";
+            RectColor = Color.Gray;
+            Text = "Form Admin";
+            TitleColor = SystemColors.ActiveCaption;
+            TitleFont = new Font("Microsoft Sans Serif", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TitleForeColor = Color.Black;
             ZoomScaleRect = new Rectangle(19, 19, 800, 450);
             FormClosing += FormAdmin_FormClosing;
             pnlSidebar.ResumeLayout(false);

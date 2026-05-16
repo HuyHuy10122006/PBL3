@@ -60,7 +60,7 @@
             // 
             // pnlNguonDuLieu
             // 
-            pnlNguonDuLieu.BackColor = Color.FromArgb(245, 245, 250);
+            pnlNguonDuLieu.BackColor = Color.Transparent;
             pnlNguonDuLieu.Controls.Add(btnCheck);
             pnlNguonDuLieu.Controls.Add(txtKey);
             pnlNguonDuLieu.Controls.Add(uiLabel3);
@@ -77,7 +77,7 @@
             pnlNguonDuLieu.MinimumSize = new Size(1, 1);
             pnlNguonDuLieu.Name = "pnlNguonDuLieu";
             pnlNguonDuLieu.Radius = 15;
-            pnlNguonDuLieu.RectColor = Color.Black;
+            pnlNguonDuLieu.RectColor = Color.Gray;
             pnlNguonDuLieu.Size = new Size(849, 221);
             pnlNguonDuLieu.TabIndex = 4;
             pnlNguonDuLieu.Text = null;
@@ -215,7 +215,7 @@
             // 
             // uiPanel1
             // 
-            uiPanel1.BackColor = Color.FromArgb(245, 245, 250);
+            uiPanel1.BackColor = Color.Transparent;
             uiPanel1.Controls.Add(uiLabel9);
             uiPanel1.Controls.Add(uiLabel7);
             uiPanel1.Controls.Add(uiTrackBar1);
@@ -230,7 +230,7 @@
             uiPanel1.MinimumSize = new Size(1, 1);
             uiPanel1.Name = "uiPanel1";
             uiPanel1.Radius = 15;
-            uiPanel1.RectColor = Color.Black;
+            uiPanel1.RectColor = Color.Gray;
             uiPanel1.Size = new Size(849, 245);
             uiPanel1.TabIndex = 5;
             uiPanel1.Text = null;
@@ -297,7 +297,7 @@
             uiGroupBox1.MinimumSize = new Size(1, 1);
             uiGroupBox1.Name = "uiGroupBox1";
             uiGroupBox1.Padding = new Padding(0, 32, 0, 0);
-            uiGroupBox1.RectColor = Color.FromArgb(64, 64, 64);
+            uiGroupBox1.RectColor = Color.Gray;
             uiGroupBox1.Size = new Size(787, 138);
             uiGroupBox1.Style = Sunny.UI.UIStyle.Custom;
             uiGroupBox1.TabIndex = 2;
@@ -339,7 +339,7 @@
             // 
             // uiPanel2
             // 
-            uiPanel2.BackColor = Color.FromArgb(245, 245, 250);
+            uiPanel2.BackColor = Color.Transparent;
             uiPanel2.Controls.Add(btnTestPromt);
             uiPanel2.Controls.Add(uiGroupBox2);
             uiPanel2.Controls.Add(uiLabel5);
@@ -351,7 +351,7 @@
             uiPanel2.MinimumSize = new Size(1, 1);
             uiPanel2.Name = "uiPanel2";
             uiPanel2.Radius = 15;
-            uiPanel2.RectColor = Color.Black;
+            uiPanel2.RectColor = Color.Gray;
             uiPanel2.Size = new Size(849, 268);
             uiPanel2.TabIndex = 6;
             uiPanel2.Text = null;
@@ -384,7 +384,7 @@
             uiGroupBox2.MinimumSize = new Size(1, 1);
             uiGroupBox2.Name = "uiGroupBox2";
             uiGroupBox2.Padding = new Padding(0, 32, 0, 0);
-            uiGroupBox2.RectColor = Color.FromArgb(64, 64, 64);
+            uiGroupBox2.RectColor = Color.Gray;
             uiGroupBox2.Size = new Size(787, 138);
             uiGroupBox2.Style = Sunny.UI.UIStyle.Custom;
             uiGroupBox2.TabIndex = 3;
@@ -442,6 +442,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Gainsboro;
             Controls.Add(btnUpdate);
             Controls.Add(uiPanel2);
             Controls.Add(uiPanel1);

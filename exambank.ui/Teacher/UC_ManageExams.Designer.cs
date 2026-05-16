@@ -28,22 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             dgvExams = new Sunny.UI.UIDataGridView();
-            colMaDe = new DataGridViewTextBoxColumn();
-            colTenDe = new DataGridViewTextBoxColumn();
-            colMon = new DataGridViewTextBoxColumn();
-            colSoCau = new DataGridViewTextBoxColumn();
-            colThoiGian = new DataGridViewTextBoxColumn();
-            colShare = new DataGridViewImageColumn();
-            colExport = new DataGridViewImageColumn();
-            xem = new DataGridViewButtonColumn();
+            colID = new DataGridViewTextBoxColumn();
+            colSTT = new DataGridViewTextBoxColumn();
+            colExamCode = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colSubject = new DataGridViewTextBoxColumn();
+            colTotalQuestions = new DataGridViewTextBoxColumn();
+            colDuration = new DataGridViewTextBoxColumn();
+            colThaoTac = new DataGridViewImageColumn();
+            cmsActions = new Sunny.UI.UIContextMenuStrip(components);
+            miView = new ToolStripMenuItem();
+            sView = new ToolStripSeparator();
+            miShare = new ToolStripMenuItem();
+            sShare = new ToolStripSeparator();
+            miExport = new ToolStripMenuItem();
+            sDelete = new ToolStripSeparator();
+            miDelete = new ToolStripMenuItem();
             pnlDgv = new Sunny.UI.UIPanel();
             pnlHeader = new Sunny.UI.UIPanel();
+            btnCreateExamByMatrix = new Sunny.UI.UISymbolButton();
             txtSearch = new Sunny.UI.UITextBox();
             uiLabel3 = new Sunny.UI.UILabel();
             uiLabel2 = new Sunny.UI.UILabel();
@@ -58,6 +68,7 @@
             btnSelectDelete = new Sunny.UI.UISymbolButton();
             lblSelect = new Sunny.UI.UILabel();
             ((System.ComponentModel.ISupportInitialize)dgvExams).BeginInit();
+            cmsActions.SuspendLayout();
             pnlDgv.SuspendLayout();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
@@ -69,20 +80,22 @@
             // 
             dgvExams.AllowUserToAddRows = false;
             dgvExams.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.White;
+            dgvExams.AllowUserToResizeColumns = false;
+            dgvExams.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
             dgvExams.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvExams.BackgroundColor = Color.White;
             dgvExams.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = Color.LightGray;
             dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Control;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvExams.ColumnHeadersHeight = 32;
-            dgvExams.Columns.AddRange(new DataGridViewColumn[] { colMaDe, colTenDe, colMon, colSoCau, colThoiGian, colShare, colExport, xem });
+            dgvExams.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colExamCode, colTitle, colSubject, colTotalQuestions, colDuration, colThaoTac });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -111,94 +124,162 @@
             dgvExams.RowHeadersVisible = false;
             dgvExams.RowHeadersWidth = 51;
             dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle5.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dgvExams.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvExams.RowTemplate.Height = 33;
             dgvExams.ScrollBarColor = Color.Black;
             dgvExams.ScrollBarRectColor = Color.Black;
             dgvExams.ScrollBarStyleInherited = false;
             dgvExams.SelectedIndex = -1;
             dgvExams.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvExams.Size = new Size(1213, 292);
-            dgvExams.StripeOddColor = Color.White;
+            dgvExams.StripeOddColor = Color.WhiteSmoke;
             dgvExams.TabIndex = 0;
-            dgvExams.CellContentClick += dgvExams_CellClick;
+            dgvExams.CellMouseDown += dgvExams_CellMouseDown;
+            dgvExams.DataBindingComplete += dgvExams_DataBindingComplete;
+            dgvExams.SelectionChanged += dgvExams_SelectionChanged;
             // 
-            // colMaDe
+            // colID
             // 
-            colMaDe.DataPropertyName = "MaDe";
-            colMaDe.HeaderText = "Mã đề";
-            colMaDe.MinimumWidth = 6;
-            colMaDe.Name = "colMaDe";
-            colMaDe.ReadOnly = true;
-            colMaDe.Width = 80;
+            colID.DataPropertyName = "Id";
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
+            colID.Visible = false;
+            colID.Width = 125;
             // 
-            // colTenDe
+            // colSTT
             // 
-            colTenDe.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTenDe.DataPropertyName = "TenDe";
-            colTenDe.HeaderText = "Tên đề thi";
-            colTenDe.MinimumWidth = 200;
-            colTenDe.Name = "colTenDe";
-            colTenDe.ReadOnly = true;
+            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSTT.DataPropertyName = "STT";
+            colSTT.HeaderText = "STT";
+            colSTT.MinimumWidth = 6;
+            colSTT.Name = "colSTT";
+            colSTT.ReadOnly = true;
+            colSTT.Width = 75;
             // 
-            // colMon
+            // colExamCode
             // 
-            colMon.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colMon.DataPropertyName = "Mon";
-            colMon.HeaderText = "Môn học";
-            colMon.MinimumWidth = 6;
-            colMon.Name = "colMon";
-            colMon.ReadOnly = true;
-            colMon.Width = 110;
+            colExamCode.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colExamCode.DataPropertyName = "ExamCode";
+            colExamCode.HeaderText = "Mã đề";
+            colExamCode.MinimumWidth = 6;
+            colExamCode.Name = "colExamCode";
+            colExamCode.ReadOnly = true;
+            colExamCode.Width = 91;
             // 
-            // colSoCau
+            // colTitle
             // 
-            colSoCau.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colSoCau.DataPropertyName = "SoCau";
-            colSoCau.HeaderText = "Số câu";
-            colSoCau.MinimumWidth = 6;
-            colSoCau.Name = "colSoCau";
-            colSoCau.ReadOnly = true;
-            colSoCau.Width = 93;
+            colTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colTitle.DataPropertyName = "Title";
+            colTitle.HeaderText = "Tên đề thi";
+            colTitle.MinimumWidth = 200;
+            colTitle.Name = "colTitle";
+            colTitle.ReadOnly = true;
             // 
-            // colThoiGian
+            // colSubject
             // 
-            colThoiGian.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colThoiGian.DataPropertyName = "ThoiGian";
-            colThoiGian.HeaderText = "Thời gian";
-            colThoiGian.MinimumWidth = 6;
-            colThoiGian.Name = "colThoiGian";
-            colThoiGian.ReadOnly = true;
-            colThoiGian.Width = 117;
+            colSubject.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSubject.DataPropertyName = "Subject";
+            colSubject.HeaderText = "Môn học";
+            colSubject.MinimumWidth = 6;
+            colSubject.Name = "colSubject";
+            colSubject.ReadOnly = true;
+            colSubject.Width = 110;
             // 
-            // colShare
+            // colTotalQuestions
             // 
-            colShare.DataPropertyName = "Share";
-            colShare.HeaderText = "Chia sẻ";
-            colShare.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            colShare.MinimumWidth = 6;
-            colShare.Name = "colShare";
-            colShare.ReadOnly = true;
-            colShare.Width = 85;
+            colTotalQuestions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colTotalQuestions.DataPropertyName = "TotalQuestions";
+            colTotalQuestions.HeaderText = "Số câu";
+            colTotalQuestions.MinimumWidth = 6;
+            colTotalQuestions.Name = "colTotalQuestions";
+            colTotalQuestions.ReadOnly = true;
+            colTotalQuestions.Width = 93;
             // 
-            // colExport
+            // colDuration
             // 
-            colExport.DataPropertyName = "Export";
-            colExport.HeaderText = "Xuất";
-            colExport.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            colExport.MinimumWidth = 6;
-            colExport.Name = "colExport";
-            colExport.ReadOnly = true;
-            colExport.Width = 55;
+            colDuration.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colDuration.DataPropertyName = "Duration";
+            colDuration.HeaderText = "Thời gian";
+            colDuration.MinimumWidth = 6;
+            colDuration.Name = "colDuration";
+            colDuration.ReadOnly = true;
+            colDuration.Width = 117;
             // 
-            // xem
+            // colThaoTac
             // 
-            xem.DataPropertyName = "xem";
-            xem.HeaderText = "Xem";
-            xem.MinimumWidth = 6;
-            xem.Name = "xem";
-            xem.ReadOnly = true;
-            xem.Width = 60;
+            colThaoTac.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colThaoTac.DataPropertyName = "ThaoTac";
+            colThaoTac.HeaderText = "Thao tác";
+            colThaoTac.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
+            colThaoTac.MinimumWidth = 6;
+            colThaoTac.Name = "colThaoTac";
+            colThaoTac.ReadOnly = true;
+            colThaoTac.Width = 89;
+            // 
+            // cmsActions
+            // 
+            cmsActions.BackColor = Color.FromArgb(243, 249, 255);
+            cmsActions.Font = new Font("Microsoft Sans Serif", 12F);
+            cmsActions.ImageScalingSize = new Size(20, 20);
+            cmsActions.Items.AddRange(new ToolStripItem[] { miView, sView, miShare, sShare, miExport, sDelete, miDelete });
+            cmsActions.Name = "cmsActions";
+            cmsActions.RenderMode = ToolStripRenderMode.System;
+            cmsActions.Size = new Size(224, 142);
+            // 
+            // miView
+            // 
+            miView.Font = new Font("Times New Roman", 13.2000008F);
+            miView.Image = Properties.Resources.visibility;
+            miView.Name = "miView";
+            miView.Size = new Size(223, 30);
+            miView.Text = "Xem chi tiết";
+            miView.Click += miView_Click;
+            // 
+            // sView
+            // 
+            sView.Name = "sView";
+            sView.Size = new Size(220, 6);
+            // 
+            // miShare
+            // 
+            miShare.Font = new Font("Times New Roman", 13.2000008F);
+            miShare.Image = Properties.Resources.share;
+            miShare.Name = "miShare";
+            miShare.Size = new Size(223, 30);
+            miShare.Text = "Chia sẻ";
+            miShare.Click += miShare_Click;
+            // 
+            // sShare
+            // 
+            sShare.Name = "sShare";
+            sShare.Size = new Size(220, 6);
+            // 
+            // miExport
+            // 
+            miExport.Font = new Font("Times New Roman", 13.2000008F);
+            miExport.Image = Properties.Resources.file_export;
+            miExport.Name = "miExport";
+            miExport.Size = new Size(223, 30);
+            miExport.Text = "Xuất file word";
+            miExport.Click += miExport_Click;
+            // 
+            // sDelete
+            // 
+            sDelete.Name = "sDelete";
+            sDelete.Size = new Size(220, 6);
+            // 
+            // miDelete
+            // 
+            miDelete.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            miDelete.ForeColor = Color.Red;
+            miDelete.Image = Properties.Resources.scan_delete_24dp_EA3323_FILL0_wght400_GRAD0_opsz24;
+            miDelete.Name = "miDelete";
+            miDelete.Size = new Size(223, 30);
+            miDelete.Text = "Xóa";
+            miDelete.Click += miDelete_Click;
             // 
             // pnlDgv
             // 
@@ -220,6 +301,7 @@
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.Transparent;
+            pnlHeader.Controls.Add(btnCreateExamByMatrix);
             pnlHeader.Controls.Add(txtSearch);
             pnlHeader.Controls.Add(uiLabel3);
             pnlHeader.Controls.Add(uiLabel2);
@@ -240,6 +322,26 @@
             pnlHeader.Text = null;
             pnlHeader.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // btnCreateExamByMatrix
+            // 
+            btnCreateExamByMatrix.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCreateExamByMatrix.FillColor = Color.RoyalBlue;
+            btnCreateExamByMatrix.FillColor2 = Color.RoyalBlue;
+            btnCreateExamByMatrix.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCreateExamByMatrix.LightColor = Color.FromArgb(14, 30, 63);
+            btnCreateExamByMatrix.Location = new Point(991, 60);
+            btnCreateExamByMatrix.MinimumSize = new Size(1, 1);
+            btnCreateExamByMatrix.Name = "btnCreateExamByMatrix";
+            btnCreateExamByMatrix.Radius = 10;
+            btnCreateExamByMatrix.Size = new Size(205, 47);
+            btnCreateExamByMatrix.Style = Sunny.UI.UIStyle.Custom;
+            btnCreateExamByMatrix.Symbol = 61694;
+            btnCreateExamByMatrix.SymbolSize = 22;
+            btnCreateExamByMatrix.TabIndex = 13;
+            btnCreateExamByMatrix.Text = "Tạo đề từ ma trận";
+            btnCreateExamByMatrix.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnCreateExamByMatrix.Click += btnCreateExamByMatrix_Click;
+            // 
             // txtSearch
             // 
             txtSearch.ButtonFillColor = Color.Gainsboro;
@@ -249,7 +351,7 @@
             txtSearch.ButtonSymbol = 61442;
             txtSearch.ButtonWidth = 45;
             txtSearch.FillColor2 = Color.FromArgb(24, 24, 24);
-            txtSearch.Font = new Font("Microsoft Sans Serif", 12F);
+            txtSearch.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtSearch.Location = new Point(18, 60);
             txtSearch.Margin = new Padding(4, 5, 4, 5);
             txtSearch.MinimumSize = new Size(1, 16);
@@ -259,14 +361,15 @@
             txtSearch.RectColor = Color.Black;
             txtSearch.ScrollBarColor = Color.FromArgb(24, 24, 24);
             txtSearch.ScrollBarStyleInherited = false;
-            txtSearch.ShowButton = true;
             txtSearch.ShowText = false;
             txtSearch.Size = new Size(297, 35);
             txtSearch.Style = Sunny.UI.UIStyle.Custom;
+            txtSearch.Symbol = 61442;
             txtSearch.SymbolSize = 23;
             txtSearch.TabIndex = 12;
             txtSearch.TextAlignment = ContentAlignment.MiddleLeft;
-            txtSearch.Watermark = "Nhập tên đề, giáo viên...";
+            txtSearch.Watermark = "Nhập tên đề thi...";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // uiLabel3
             // 
@@ -278,6 +381,7 @@
             uiLabel3.Size = new Size(164, 29);
             uiLabel3.TabIndex = 7;
             uiLabel3.Text = "Khối:";
+            uiLabel3.Visible = false;
             // 
             // uiLabel2
             // 
@@ -306,7 +410,7 @@
             cbGrade.DataSource = null;
             cbGrade.FillColor = Color.White;
             cbGrade.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbGrade.Font = new Font("Microsoft Sans Serif", 12F);
+            cbGrade.Font = new Font("Times New Roman", 12F);
             cbGrade.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbGrade.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbGrade.Location = new Point(529, 60);
@@ -321,14 +425,17 @@
             cbGrade.SymbolSize = 24;
             cbGrade.TabIndex = 2;
             cbGrade.TextAlignment = ContentAlignment.MiddleLeft;
+            cbGrade.Visible = false;
             cbGrade.Watermark = "Chọn khối";
+            cbGrade.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // cbSubject
             // 
             cbSubject.DataSource = null;
+            cbSubject.DropDownStyle = Sunny.UI.UIDropDownStyle.DropDownList;
             cbSubject.FillColor = Color.White;
             cbSubject.FillColor2 = Color.FromArgb(24, 24, 24);
-            cbSubject.Font = new Font("Microsoft Sans Serif", 12F);
+            cbSubject.Font = new Font("Times New Roman", 12F);
             cbSubject.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbSubject.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
             cbSubject.Location = new Point(342, 60);
@@ -344,6 +451,7 @@
             cbSubject.TabIndex = 1;
             cbSubject.TextAlignment = ContentAlignment.MiddleLeft;
             cbSubject.Watermark = "Chọn môn";
+            cbSubject.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // pnlBody
             // 
@@ -385,21 +493,30 @@
             btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRefresh.BackColor = Color.Transparent;
             btnRefresh.FillColor = Color.DarkSeaGreen;
-            btnRefresh.FillColor2 = Color.Transparent;
+            btnRefresh.FillColor2 = Color.DarkSeaGreen;
+            btnRefresh.FillHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.FillPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.FillSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.Black;
+            btnRefresh.LightColor = Color.FromArgb(245, 251, 241);
             btnRefresh.Location = new Point(1085, 4);
             btnRefresh.MinimumSize = new Size(1, 1);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Radius = 10;
-            btnRefresh.RectColor = Color.Black;
+            btnRefresh.RectColor = Color.FromArgb(64, 64, 64);
+            btnRefresh.RectHoverColor = Color.FromArgb(139, 203, 83);
+            btnRefresh.RectPressColor = Color.FromArgb(88, 152, 32);
+            btnRefresh.RectSelectedColor = Color.FromArgb(88, 152, 32);
             btnRefresh.Size = new Size(121, 34);
+            btnRefresh.Style = Sunny.UI.UIStyle.Custom;
             btnRefresh.Symbol = 61473;
             btnRefresh.SymbolColor = Color.Black;
             btnRefresh.SymbolSize = 22;
             btnRefresh.TabIndex = 13;
             btnRefresh.Text = "Làm mới";
             btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // pnlThaoTac
             // 
@@ -482,7 +599,9 @@
             Controls.Add(pnlHeader);
             Name = "UC_ManageExams";
             Size = new Size(1213, 522);
+            Load += UC_ManageExams_Load;
             ((System.ComponentModel.ISupportInitialize)dgvExams).EndInit();
+            cmsActions.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlBody.ResumeLayout(false);
@@ -519,13 +638,22 @@
         private Sunny.UI.UISymbolButton btnSelectDelete;
         private Sunny.UI.UISymbolButton btnRefresh;
         private Sunny.UI.UISymbolButton btnSelectShare;
-        private DataGridViewTextBoxColumn colMaDe;
-        private DataGridViewTextBoxColumn colTenDe;
-        private DataGridViewTextBoxColumn colMon;
-        private DataGridViewTextBoxColumn colSoCau;
-        private DataGridViewTextBoxColumn colThoiGian;
-        private DataGridViewImageColumn colShare;
-        private DataGridViewImageColumn colExport;
-        private DataGridViewButtonColumn xem;
+        private Sunny.UI.UISymbolButton btnCreateExamByMatrix;
+        private Sunny.UI.UIContextMenuStrip cmsActions;
+        private ToolStripMenuItem miView;
+        private ToolStripMenuItem miShare;
+        private ToolStripMenuItem miExport;
+        private ToolStripSeparator sView;
+        private ToolStripSeparator sShare;
+        private ToolStripSeparator sDelete;
+        private ToolStripMenuItem miDelete;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colSTT;
+        private DataGridViewTextBoxColumn colExamCode;
+        private DataGridViewTextBoxColumn colTitle;
+        private DataGridViewTextBoxColumn colSubject;
+        private DataGridViewTextBoxColumn colTotalQuestions;
+        private DataGridViewTextBoxColumn colDuration;
+        private DataGridViewImageColumn colThaoTac;
     }
 }

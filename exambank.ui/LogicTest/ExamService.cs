@@ -4,168 +4,228 @@ using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Diagnostics;
 
 namespace exambank.ui.LogicTest
 {
     public class ExamService
     {
-        public bool DeleteExams(List<int> examIds)
+        // Khởi tạo Repository để dùng chung (Hàm dựng không nhận tham số)
+        private readonly IDatabaseRepository _repository = new DatabaseRepository(new ExamBankDbContext());
+
+        /// <summary>
+        /// Lấy giá trị Distinct để hiển thị lên ComboBox
+        /// </summary>
+        public List<string> GetCboValues(List<ExamModel> exams, Func<ExamModel, string> selector)
         {
-            using (var db = new ExamBankDbContext())
+            if (exams == null) return new List<string>();
+
+            return exams
+                .Select(selector)
+                .Where(val => !string.IsNullOrEmpty(val))
+                .Distinct()
+                .OrderBy(val => val)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Tạo đề thi ngẫu nhiên dựa trên ma trận môn học, khối, độ khó
+        /// </summary>
+        public async Task<bool> CreateExamByMatrixAsync(ExamModel examInfo)
+        {
+            if (examInfo == null) return false;
+
+            try
             {
-                using (var trans = db.Database.BeginTransaction())
+                // 1. Tận dụng hàm GetAllQuestionsAsync có sẵn ở Repo
+                var allQuestions = await _repository.GetAllQuestionsAsync();
+
+                // 2. Thực hiện lọc dữ liệu trên Memory
+                var query = allQuestions.Where(q => q.CreatedByUserId == examInfo.CreatedByUserId && q.IsActive && q.Subject == examInfo.Subject);
+
+                var pool = query.ToList();
+
+                // 3. Kiểm tra số lượng câu hỏi phù hợp
+                if (pool.Count < examInfo.TotalQuestions)
                 {
-                    try
-                    {
-                        // 1. Xóa liên kết câu hỏi trong đề trước[cite: 14]
-                        var links = db.ExamQuestions.Where(eq => examIds.Contains(eq.ExamId));
-                        db.ExamQuestions.RemoveRange(links);
-
-                        // 2. Xóa đề thi[cite: 13]
-                        var exams = db.Exams.Where(e => examIds.Contains(e.Id));
-                        db.Exams.RemoveRange(exams);
-
-                        db.SaveChanges();
-                        trans.Commit();
-                        return true;
-                    }
-                    catch
-                    {
-                        trans.Rollback();
-                        return false;
-                    }
+                    throw new Exception($"Ngân hàng chỉ có {pool.Count} câu phù hợp, không đủ tạo đề {examInfo.TotalQuestions} câu.");
                 }
-            }
-        }
 
-        public bool UpdateQuestions(List<QuestionModel> updatedQuestions)
-        {
-            if (updatedQuestions == null || !updatedQuestions.Any())
-            {
-                return false; 
-            }
+                // 4. Trộn ngẫu nhiên câu hỏi
+                var selectedQs = pool.OrderBy(x => Guid.NewGuid())
+                                     .Take(examInfo.TotalQuestions)
+                                     .ToList();
 
-            using (var db = new ExamBankDbContext())
-            {
-                // Sử dụng Transaction để đảm bảo tính toàn vẹn dữ liệu
-                using (var transaction = db.Database.BeginTransaction())
+                // 5. Thiết lập liên kết bảng trung gian ExamQuestions
+                examInfo.ExamQuestions.Clear(); // Đảm bảo list trống trước khi add
+                for (int i = 0; i < selectedQs.Count; i++)
                 {
-                    try
+                    examInfo.ExamQuestions.Add(new ExamQuestionModel
                     {
-                        foreach (var q in updatedQuestions)
-                        {
-                            // Tìm câu hỏi gốc trong database
-                            var existingQuestion = db.Questions.Find(q.Id);
-
-                            if (existingQuestion != null)
-                            {
-                                // Cập nhật các thuộc tính dựa trên QuestionModel_2.cs[cite: 1]
-                                existingQuestion.Question = q.Question;
-                                existingQuestion.OptionA = q.OptionA;
-                                existingQuestion.OptionB = q.OptionB;
-                                existingQuestion.OptionC = q.OptionC;
-                                existingQuestion.OptionD = q.OptionD;
-                                existingQuestion.Answer = q.Answer;
-                                existingQuestion.Explanation = q.Explanation;
-                                existingQuestion.Subject = q.Subject;
-                                existingQuestion.Grade = q.Grade;
-                                existingQuestion.Difficulty = q.Difficulty;
-
-                                // Đánh dấu thực thể đã thay đổi
-                                db.Entry(existingQuestion).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                            }
-                        }
-
-                        db.SaveChanges();
-                        transaction.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        UIMessageBox.ShowError($"Cập nhật câu hỏi thất bại: {ex.Message}");
-                        return false;
-                    }
+                        QuestionId = selectedQs[i].Id,
+                        QuestionOrder = i + 1,
+                        CreatedAt = DateTime.Now
+                    });
                 }
+
+                // 6. Gọi Repo lưu cả Exam và danh sách ExamQuestions đi kèm
+                await _repository.AddExamAsync(examInfo);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
-        public bool CreateExam(ExamModel exam, List<QuestionModel> questions)
+        /// <summary>
+        /// Xóa hàng loạt đề thi
+        /// </summary>
+        public async Task<bool> DeleteExamsAsync(List<int> examIds)
         {
-            using (var _context = new ExamBankDbContext())
+            if (examIds == null || examIds.Count == 0) return false;
+
+            try
             {
-                using (var transaction = _context.Database.BeginTransaction()) // Dùng Transaction để đảm bảo an toàn dữ liệu
+                // Tận dụng hàm DeleteExamAsync(id) trong Repo. 
+                // Theo ghi chú ở Repo: Hàm này xóa cứng Exam và DB đã cấu hình Cascade Delete nên tự xóa sạch ExamQuestions liên quan.
+                foreach (var id in examIds)
                 {
-                    try
-                    {
-                        // 1. Lưu những câu hỏi chưa có trong DB trước
-                        foreach (var q in questions)
-                        {
-                            if (q.Id == 0) // Nếu Id = 0 nghĩa là câu hỏi mới từ AI, chưa có trong DB
-                            {
-                                _context.Questions.Add(q);
-                            }
-                        }
-                        _context.SaveChanges(); // Sau lệnh này, EF sẽ tự nạp ID mới từ SQL vào lại biến q.Id
-
-                        // 2. Bây giờ đã có ID, tạo liên kết ExamQuestion
-                        for (int i = 0; i < questions.Count; i++)
-                        {
-                            exam.ExamQuestions.Add(new ExamQuestionModel
-                            {
-                                QuestionId = questions[i].Id, // Lúc này Id đã khác 0
-                                QuestionOrder = i + 1,
-                                CreatedAt = DateTime.Now
-                            });
-                        }
-
-                        // 3. Lưu đề thi
-                        _context.Exams.Add(exam);
-                        _context.SaveChanges();
-
-                        transaction.Commit(); // Hoàn tất mọi thứ
-                        return true;
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback(); // Nếu lỗi bất kỳ bước nào, hủy bỏ toàn bộ (không lưu nửa vời)
-                        return false;
-                    }
+                    await _repository.DeleteExamAsync(id);
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi xóa danh sách đề thi: " + ex.Message);
+                return false;
             }
         }
 
-        // Lấy danh sách đề thi dựa trên Title, Subject và Grade
-        public List<ExamModel> GetExams(string keyword, string subject, string grade)
+        /// <summary>
+        /// Tạo đề thi mới từ danh sách ID câu hỏi đã có sẵn
+        /// </summary>
+        public async Task<bool> CreateExamAsync(ExamModel exam, List<int> questionIds)
         {
-            using (var db = new ExamBankDbContext())
+            if (exam == null || questionIds == null || questionIds.Count == 0) return false;
+
+            try
             {
-                // Model mới không có IsActive, sử dụng CreatedAt để sắp xếp
-                var query = db.Exams.AsQueryable();
+                exam.ExamQuestions.Clear();
+                for (int i = 0; i < questionIds.Count; i++)
+                {
+                    exam.ExamQuestions.Add(new ExamQuestionModel
+                    {
+                        QuestionId = questionIds[i],
+                        QuestionOrder = i + 1,
+                        CreatedAt = DateTime.Now
+                    });
+                }
 
-                if (!string.IsNullOrEmpty(keyword))
-                    query = query.Where(e => e.Title.Contains(keyword) || e.ExamCode.Contains(keyword));
-
-                if (!string.IsNullOrEmpty(subject) && subject != "Chọn môn")
-                    query = query.Where(e => e.Subject == subject);
-
-                // Lưu ý: Grade hiện nằm ở QuestionModel, nếu muốn lọc Exam theo Grade 
-                // cần thông qua bảng trung gian ExamQuestions[cite: 9, 14]
-
-                return query.OrderByDescending(e => e.CreatedAt).ToList();
+                await _repository.AddExamAsync(exam);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi tạo đề thi: " + ex.Message);
+                return false;
             }
         }
 
-        // Lấy danh sách câu hỏi của một đề thi thông qua bảng trung gian ExamQuestionModel
-        public List<QuestionModel> GetQuestionsByExamId(int examId)
+        /// <summary>
+        /// Tạo đề thi mới bao gồm cả câu hỏi chưa có ID (câu hỏi sinh từ AI)
+        /// </summary>
+        public async Task<bool> CreateExamAsync(ExamModel exam, List<QuestionModel> questions)
         {
-            using (var db = new ExamBankDbContext())
+            if (exam == null || questions == null || questions.Count == 0) return false;
+
+            try
             {
-                return db.ExamQuestions
-                         .Where(eq => eq.ExamId == examId)
-                         .OrderBy(eq => eq.QuestionOrder) // Sắp xếp theo thứ tự câu hỏi[cite: 14]
-                         .Select(eq => eq.Question)
-                         .ToList();
+                // 1. Phân tách câu hỏi: Lọc ra danh sách câu hỏi mới từ AI (Id == 0) để thêm vào DB trước
+                var newQuestions = questions.Where(q => q.Id == 0).ToList();
+                if (newQuestions.Count > 0)
+                {
+                    // Tận dụng hàm thêm hàng loạt của Repo
+                    await _repository.AddQuestionsAsync(newQuestions);
+                    // Sau lệnh này, Entity Framework sẽ tự động nạp lại Id thực tế từ DB vào thuộc tính `.Id` của từng phần tử trong `newQuestions` và `questions`
+                }
+
+                // 2. Tạo mối liên kết bảng trung gian dựa trên danh sách câu hỏi (bấy giờ toàn bộ đã có Id hợp lệ)
+                exam.ExamQuestions.Clear();
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    exam.ExamQuestions.Add(new ExamQuestionModel
+                    {
+                        QuestionId = questions[i].Id,
+                        QuestionOrder = i + 1,
+                        CreatedAt = DateTime.Now
+                    });
+                }
+
+                // 3. Lưu đề thi cùng tập hợp bảng trung gian thông qua Repo
+                await _repository.AddExamAsync(exam);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi tạo đề thi kèm câu hỏi AI: " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách đề thi của Giáo viên
+        /// </summary>
+        public async Task<List<ExamModel>> GetExamsAsync(int userId)
+        {
+            // Tận dụng hàm đã viết sẵn trong Repo chuyên biệt cho việc lọc theo UserId
+            return await _repository.GetExamsByUserAsync(userId);
+        }
+
+        /// <summary>
+        /// Lấy danh sách câu hỏi của một đề thi
+        /// </summary>
+        public async Task<List<QuestionModel>> GetQuestionsByExamIdAsync(int examId)
+        {
+            // Tận dụng hàm GetExamWithQuestionsAsync từ Repo để lấy thông tin Đề thi kèm danh sách câu hỏi đi qua bảng trung gian
+            var examWithQuestions = await _repository.GetExamWithQuestionsAsync(examId);
+
+            if (examWithQuestions == null) return new List<QuestionModel>();
+
+            return examWithQuestions.ExamQuestions
+                .OrderBy(eq => eq.QuestionOrder)
+                .Select(eq => eq.Question)
+                .Where(q => q != null) // Loại bỏ phần tử null an toàn
+                .ToList();
+        }
+
+        /// <summary>
+        /// Tải danh sách cấu trúc trung gian ExamQuestionModel
+        /// </summary>
+        public async Task<List<ExamQuestionModel>> LoadExamQuestionsAsync(int examId)
+        {
+            // Tận dụng hàm Repo có sẵn trả về chính xác cấu trúc này kèm lệnh `.Include(eq => eq.Question)`
+            return await _repository.GetExamQuestionsAsync(examId);
+        }
+
+        /// <summary>
+        /// Cập nhật thông tin đề thi và đồng bộ danh sách câu hỏi
+        /// </summary>
+        public async Task<bool> UpdateExamAsync(ExamModel exam)
+        {
+            if (exam == null) return false;
+
+            try
+            {
+                // Tận dụng hàm cập nhật đề thi của Repo
+                await _repository.UpdateExamAsync(exam);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi Database: " + ex.InnerException?.Message ?? ex.Message);
             }
         }
     }

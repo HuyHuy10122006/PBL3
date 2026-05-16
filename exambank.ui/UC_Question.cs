@@ -1,48 +1,58 @@
 ﻿using exambank.data.Models;
 using Sunny.UI;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace exambank.ui
 {
     public partial class UC_Question : UserControl
     {
         private QuestionModel _currentQuestion;
+        private string _selectedAnswerCode = ""; // Lưu đáp án đang chọn (A, B, C, D)
+        private bool _isInitializing = false;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
-
         private const int WM_MOUSEWHEEL = 0x020A;
 
         // Màu sắc đồng nhất với hệ thống
         private readonly Color colorNormal = Color.White;
-        private readonly Color colorSelected = Color.FromArgb(230, 247, 235); // Xanh lá cực nhạt
-        private readonly Color colorBorderSelected = Color.FromArgb(40, 167, 69); // Viền xanh lá đậm
-        private readonly Color colorBorderNormal = Color.White;
+        private readonly Color colorSelected = Color.FromArgb(230, 247, 235);
+        private readonly Color colorBorderSelected = Color.FromArgb(40, 167, 69);
 
-        public UC_Question()
-        {
-            InitializeComponent();
-        }
-
-        public void SetData(QuestionModel question, string Header)
+        public UC_Question(QuestionModel question, string header)
         {
             _currentQuestion = question;
+            InitializeComponent();
+
+            // Thiết lập ban đầu cho các ComboBox
+            cbKhoi.Items.AddRange(Base.Constants.List_Khoi);
+            cbDoKho.Items.AddRange(Base.Constants.List_DoKho);
+            cbMonHoc.Items.AddRange(Base.Constants.List_MonHoc);
+
+            // Gán dữ liệu vào UC
+            SetData(header);
+        }
+
+        private void SetData(string header)
+        {
+            _isInitializing = true; // 1. BẬT CỜ: Báo cho hệ thống biết đang nạp dữ liệu, đừng chặn tô màu
+
+            // Đăng ký sự kiện MouseWheel
             txtContentDisplay.MouseWheel -= RedirectWheel;
             txtContentDisplay.MouseWheel += RedirectWheel;
-            // 1. Gán dữ liệu văn bản trước
-            lblNumber.Text = Header;
-            txtContentDisplay.Text = question.Question;
 
-            // Cập nhật danh sách đáp án (Chỉ gán text, chưa tính size)
+            lblNumber.Text = header;
+            txtContentDisplay.Text = _currentQuestion.Question;
+
             var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
-            string[] options = { question.OptionA, question.OptionB, question.OptionC, question.OptionD };
+            string[] options = { _currentQuestion.OptionA, _currentQuestion.OptionB, _currentQuestion.OptionC, _currentQuestion.OptionD };
             char prefix = 'A';
-            
-            SwapEditMode(); // Tạm đảo chế độ để kích hoạt sự kiện Click
+
+            // Tắt ReadOnly tạm thời để cài đặt dữ liệu mà không bị chặn bởi Answer_Click
+            SetReadOnlyMode(false);
+
             for (int i = 0; i < answerBoxes.Length; i++)
             {
                 if (i < options.Length && !string.IsNullOrEmpty(options[i]))
@@ -50,11 +60,6 @@ namespace exambank.ui
                     answerBoxes[i].Visible = true;
                     answerBoxes[i].Text = $"{prefix}. {options[i]}";
 
-                    
-
-                    // Đăng ký sự kiện nếu chưa có
-                    answerBoxes[i].Click -= Answer_Click;
-                    answerBoxes[i].Click += Answer_Click;
                     answerBoxes[i].MouseWheel -= RedirectWheel;
                     answerBoxes[i].MouseWheel += RedirectWheel;
                 }
@@ -65,59 +70,55 @@ namespace exambank.ui
                 prefix++;
             }
 
-            // 2. Gọi hàm tính toán lại toàn bộ kích thước dựa trên chiều rộng hiện tại
+            cbMonHoc.Text = _currentQuestion.Subject;
+            cbKhoi.Text = _currentQuestion.Grade;
+            cbDoKho.Text = _currentQuestion.Difficulty;
+
             RecalculateLayout();
 
-            // 3. Highlight đáp án đúng
-            HighlightCorrectAnswer(question.Answer);
+            // Highlight đáp án đúng ban đầu
+            HighlightCorrectAnswer(_currentQuestion.Answer);
 
-            SwapEditMode(); // Đặt lại chế độ chỉnh sửa về mặc định
+            // Mặc định ban đầu sau khi nạp data là CHỈ XEM (ReadOnly = true)
+            SetReadOnlyMode(true);
+
+            _isInitializing = false; // 2. TẮT CỜ: Nạp xong rồi, từ bây giờ ai click vào sẽ bị chặn nếu đang ReadOnly
         }
 
-        // --- HÀM TÍNH TOÁN LẠI TOÀN BỘ KÍCH THƯỚC (QUAN TRỌNG) ---
         private void RecalculateLayout()
         {
-            // Tạm dừng vẽ để mượt hình
             this.SuspendLayout();
             flpOptions.SuspendLayout();
 
-            // A. Tính chiều cao cho câu hỏi
-            // Trừ 30px cho padding và scrollbar nếu có
-            int contentWidth = txtContentDisplay.Width - 30;
+            int contentWidth = txtContentDisplay.Width - 15;
             txtContentDisplay.Height = GetPerfectHeight(txtContentDisplay, txtContentDisplay.Text, contentWidth);
 
-            // B. Tính chiều cao cho từng đáp án
             var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
             foreach (var txt in answerBoxes)
             {
                 if (txt.Visible)
                 {
-                    // Ép chiều rộng TextBox theo FlowLayoutPanel
                     txt.Width = flpOptions.Width - 10;
-                    int txtWidth = txt.Width - 30;
+                    int txtWidth = txt.Width - 15;
                     txt.Height = GetPerfectHeight(txt, txt.Text, txtWidth);
                 }
             }
 
-            // C. Sắp xếp lại vị trí các thành phần và tổng chiều cao UC
             UpdateComponentLayout();
 
             flpOptions.ResumeLayout(true);
             this.ResumeLayout(true);
         }
 
-        // --- GHI ĐÈ SỰ KIỆN RESIZE CỦA USER CONTROL ---
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            // Khi chiều rộng thay đổi (kéo giãn Form), tự động tính lại layout
-            if (!string.IsNullOrEmpty(txtContentDisplay.Text))
+            if (txtContentDisplay != null && !string.IsNullOrEmpty(txtContentDisplay.Text))
             {
                 RecalculateLayout();
             }
         }
 
-        // --- HÀM TÔ MÀU ĐÁP ÁN ---
         private void HighlightCorrectAnswer(string answer)
         {
             if (string.IsNullOrEmpty(answer)) return;
@@ -131,52 +132,69 @@ namespace exambank.ui
             }
         }
 
-        // --- HÀM TÔ MÀU KHI CHỌN ---
         private void Answer_Click(object sender, EventArgs e)
         {
-            if (txtAnsA.ReadOnly) return; // Nếu đang ở chế độ xem, không cho phép chọn
             UITextBox selected = (UITextBox)sender;
-            var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
 
-            foreach (var txt in answerBoxes)
+            // Nếu đang ở chế độ ReadOnly VÀ đây không phải là lúc nạp data hệ thống -> CHẶN CLICK
+            if (selected.ReadOnly && !_isInitializing)
             {
-                txt.FillColor = txt.FillReadOnlyColor = colorNormal;
-                txt.RectSides = ToolStripStatusLabelBorderSides.None;
+                return;
             }
+
+            var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
+            string[] codes = { "A", "B", "C", "D" };
+
+            for (int i = 0; i < answerBoxes.Length; i++)
+            {
+                answerBoxes[i].FillColor = answerBoxes[i].FillReadOnlyColor = colorNormal;
+                answerBoxes[i].RectSides = ToolStripStatusLabelBorderSides.None;
+
+                if (answerBoxes[i] == selected)
+                {
+                    _selectedAnswerCode = codes[i];
+                }
+            }
+
             selected.FillColor = selected.FillReadOnlyColor = colorSelected;
             selected.RectColor = selected.RectReadOnlyColor = colorBorderSelected;
             selected.RectSides = ToolStripStatusLabelBorderSides.All;
         }
 
-        // --- HÀM TÍNH CHIỀU CAO SÁT NỘI DUNG ---
         private int GetPerfectHeight(UITextBox txt, string text, int width)
         {
             if (string.IsNullOrEmpty(text)) return 0;
-
-            // Sử dụng TextRenderer để đo kích thước chữ thực tế
-            Size size = TextRenderer.MeasureText(text, txt.Font,
-                new Size(width, int.MaxValue), TextFormatFlags.WordBreak);
-
-            // Cộng thêm 10px cho Padding dưới của TextBox
+            Size size = TextRenderer.MeasureText(text, txt.Font, new Size(width, int.MaxValue), TextFormatFlags.WordBreak);
             return size.Height + 10;
         }
 
         private void UpdateComponentLayout()
         {
-            // Đặt FLP nằm dưới nội dung câu hỏi
             flpOptions.Top = txtContentDisplay.Bottom + 5;
 
-            // Tính tổng chiều cao của các đáp án đang hiện
             int totalH = 0;
             foreach (Control c in flpOptions.Controls)
             {
                 if (c.Visible) totalH += c.Height + c.Margin.Bottom;
             }
-            flpOptions.Height = totalH + 5;
+            flpOptions.Height = totalH + 15;
 
-            // Dãn khung pnlCard bao ngoài
-            pnlCard.Height = flpOptions.Bottom + 15;
-            this.Height = pnlCard.Height + 10;
+            int nextTop = flpOptions.Bottom + 20;
+            void PositionPair(Control lbl, Control combo)
+            {
+                if (lbl == null || combo == null || (!lbl.Visible && !combo.Visible)) return;
+                lbl.Top = nextTop;
+                combo.Top = nextTop;
+                int pairHeight = Math.Max(lbl.Height, combo.Height);
+                nextTop += pairHeight + 10;
+                totalH += pairHeight + 10;
+            }
+            PositionPair(lblKhoi, cbKhoi);
+            PositionPair(lblDoKho, cbDoKho);
+            PositionPair(lblMonHoc, cbMonHoc);
+
+            pnlCard.Height = flpOptions.Top + totalH + 40;
+            this.Height = pnlCard.Height + 20;
         }
 
         private void RedirectWheel(object sender, MouseEventArgs e)
@@ -186,50 +204,42 @@ namespace exambank.ui
                 SendMessage(this.Parent.Handle, WM_MOUSEWHEEL, (IntPtr)e.Delta << 16, IntPtr.Zero);
         }
 
-        private void flpOptions_SizeChanged(object sender, EventArgs e)
+        // Cho phép chuyển đổi giữa chế độ Chỉ Xem (ReadOnly) và Chỉnh Sửa
+        public void SetReadOnlyMode(bool isReadOnly)
         {
-            // Tạm dừng vẽ để tránh bị nháy màn hình
-            flpOptions.SuspendLayout();
+            cbDoKho.ReadOnly = isReadOnly;
+            cbKhoi.ReadOnly = isReadOnly;
+            cbMonHoc.ReadOnly = isReadOnly;
 
-            foreach (Control ctrl in flpOptions.Controls)
+            var listTxt = new[] { txtContentDisplay, txtAnsA, txtAnsB, txtAnsC, txtAnsD };
+            foreach (var txt in listTxt)
             {
-                ctrl.Width = flpOptions.ClientSize.Width - flpOptions.Padding.Horizontal - 5;
+                txt.ReadOnly = isReadOnly;
             }
-
-            flpOptions.ResumeLayout();
+            if (!isReadOnly) txtContentDisplay.Focus();
         }
 
-        // --- HÀM LẤY DỮ LIỆU ĐÃ CHỈNH SỬA ---
         public QuestionModel GetData()
         {
             if (_currentQuestion == null) return null;
 
             try
             {
-                // 1. Cập nhật nội dung câu hỏi
                 _currentQuestion.Question = txtContentDisplay.Text.Trim();
+                _currentQuestion.OptionA = CleanOptionText(txtAnsA.Text, 'A');
+                _currentQuestion.OptionB = CleanOptionText(txtAnsB.Text, 'B');
+                _currentQuestion.OptionC = CleanOptionText(txtAnsC.Text, 'C');
+                _currentQuestion.OptionD = CleanOptionText(txtAnsD.Text, 'D');
 
-                // 2. Cập nhật các đáp án (Loại bỏ tiền tố "A. ", "B. " nếu có)
-                _currentQuestion.OptionA = CleanOptionText(txtAnsA.Text, 'A'); 
-                _currentQuestion.OptionB = CleanOptionText(txtAnsB.Text, 'B'); 
-                _currentQuestion.OptionC = CleanOptionText(txtAnsC.Text, 'C'); 
-                _currentQuestion.OptionD = CleanOptionText(txtAnsD.Text, 'D'); 
+                // Lấy trực tiếp từ biến lưu trữ
+                _currentQuestion.Answer = _selectedAnswerCode;
 
-                // 3. Xác định đáp án đúng dựa trên màu sắc được chọn (FillColor)
-                var answerBoxes = new[] { txtAnsA, txtAnsB, txtAnsC, txtAnsD };
-                char[] prefixes = { 'A', 'B', 'C', 'D' };
-
-                for (int i = 0; i < answerBoxes.Length; i++)
-                {
-                    if (answerBoxes[i].FillColor == colorSelected)
-                    {
-                        _currentQuestion.Answer = prefixes[i].ToString();
-                break;
-                    }
-                }
+                _currentQuestion.Subject = cbMonHoc.Text;
+                _currentQuestion.Grade = cbKhoi.Text;
+                _currentQuestion.Difficulty = cbDoKho.Text;
 
                 return _currentQuestion;
-    }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thu thập dữ liệu: " + ex.Message);
@@ -237,33 +247,33 @@ namespace exambank.ui
             }
         }
 
-        // Hàm phụ trợ để xóa bỏ các tiền tố "A. ", "B. " do hàm SetData tự thêm vào trước đó
         private string CleanOptionText(string text, char prefix)
         {
             if (string.IsNullOrWhiteSpace(text)) return string.Empty;
-
             string startMatch = prefix + ". ";
             if (text.StartsWith(startMatch, StringComparison.OrdinalIgnoreCase))
             {
                 return text.Substring(3).Trim();
-    }
+            }
             return text.Trim();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            SwapEditMode();
+            // Nếu đang khóa (ReadOnly = true) -> Mở khóa (false) và ngược lại.
+            bool currentStatus = txtContentDisplay.ReadOnly;
+            SetReadOnlyMode(!currentStatus);
         }
 
-        public void SwapEditMode()
+        public void isFull(bool isFull)
         {
-            var List_txt = new[] { txtContentDisplay, txtAnsA, txtAnsB, txtAnsC, txtAnsD };
-            for (int i = 0; i < List_txt.Length; i++)
-            {
-                var txt = List_txt[i];
-                txt.ReadOnly = !txt.ReadOnly;
-            }
-            txtContentDisplay.Focus();
+            cbKhoi.Visible = cbDoKho.Visible = cbMonHoc.Visible = isFull;
+            lblKhoi.Visible = lblDoKho.Visible = lblMonHoc.Visible = isFull;
+        }
+
+        public void isEdit(bool isEdit)
+        {
+            btnEdit.Visible = btnDelete.Visible = isEdit;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
