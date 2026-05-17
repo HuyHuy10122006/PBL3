@@ -228,5 +228,13 @@ namespace exambank.ui.LogicTest
                 throw new Exception("Lỗi Database: " + ex.InnerException?.Message ?? ex.Message);
             }
         }
+
+        //Hàm lấy danh sách 10 đề thi gần đây nhất của giáo viên để hiển thị lên Trang chủ
+        public async Task<List<ExamModel>> GetRecentExamsAsync(int userId)
+        {
+            // Tận dụng hàm Repo đã viết sẵn để lấy danh sách đề thi của giáo viên, sau đó sắp xếp và lấy 10 đề gần nhất
+            var exams = await _repository.GetExamsByUserAsync(userId);
+            return exams.OrderByDescending(e => e.CreatedAt).Take(10).ToList();
+        }
     }
 }

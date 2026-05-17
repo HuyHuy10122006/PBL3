@@ -48,7 +48,7 @@ namespace exambank.ui
             // Nếu chưa khởi tạo thì tạo mới, có rồi thì gọi ra để tiết kiệm RAM
             if (_ucTrangChu == null)
             {
-                _ucTrangChu = new UC_TrangChu();
+                _ucTrangChu = new UC_TrangChu(_loginUser);
             }
             _nav.Display(_ucTrangChu);
         }

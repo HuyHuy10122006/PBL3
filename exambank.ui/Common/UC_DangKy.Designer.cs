@@ -198,6 +198,7 @@
             btnRegister.Location = new Point(60, 430);
             btnRegister.MinimumSize = new Size(1, 1);
             btnRegister.Name = "btnRegister";
+            btnRegister.Radius = 10;
             btnRegister.Size = new Size(330, 45);
             btnRegister.TabIndex = 7;
             btnRegister.Text = "ĐĂNG KÝ";
@@ -216,6 +217,7 @@
             btnReturnLogin.Location = new Point(60, 497);
             btnReturnLogin.MinimumSize = new Size(1, 1);
             btnReturnLogin.Name = "btnReturnLogin";
+            btnReturnLogin.Radius = 10;
             btnReturnLogin.RectColor = Color.FromArgb(10, 35, 81);
             btnReturnLogin.Size = new Size(330, 45);
             btnReturnLogin.TabIndex = 6;

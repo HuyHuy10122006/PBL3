@@ -113,8 +113,15 @@ namespace exambank.ui.LogicTest
             catch (Exception ex)
             {
                 Debug.WriteLine("Lỗi khi cập nhật câu hỏi: " + ex.Message);
-                return false; // Thay vì throw exception làm sập app, return false an toàn hơn cho UI
+                return false;
             }
+        }
+
+        //Hàm đếm tổng môn học của 1 user, dùng để hiển thị số liệu trên trang chủ
+        public async Task<List<string>> GetUserSubjectsAsync(int userId)
+        {
+            var questions = await GetQuestionsAsync(userId);
+            return GetCboValuesAsync(questions, q => q.Subject);
         }
     }
 }

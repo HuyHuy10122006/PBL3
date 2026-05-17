@@ -46,9 +46,9 @@ namespace exambank.ui
             lbl.Text = text;
             lbl.AutoSize = true;
             lbl.BackColor = Color.White;
-            lbl.ForeColor = Color.DimGray;
-            lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lbl.Location = new Point(txtBox.Location.X + 12, txtBox.Location.Y - 8);
+            lbl.ForeColor = Color.Navy;
+            lbl.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
+            lbl.Location = new Point(txtBox.Location.X + 23, txtBox.Location.Y - 11);
 
             this.Controls.Add(lbl);
             lbl.BringToFront();

@@ -50,6 +50,7 @@
             pnlLoginCard.Controls.Add(btnRegister);
             pnlLoginCard.Dock = DockStyle.Fill;
             pnlLoginCard.FillColor = Color.White;
+            pnlLoginCard.FillColor2 = Color.White;
             pnlLoginCard.Font = new Font("Microsoft Sans Serif", 12F);
             pnlLoginCard.Location = new Point(0, 0);
             pnlLoginCard.Margin = new Padding(4, 5, 4, 5);
@@ -132,7 +133,7 @@
             lnkForgotPassword.Font = new Font("Segoe UI", 9F);
             lnkForgotPassword.ForeColor = Color.FromArgb(48, 48, 48);
             lnkForgotPassword.LinkBehavior = LinkBehavior.HoverUnderline;
-            lnkForgotPassword.LinkColor = Color.DimGray;
+            lnkForgotPassword.LinkColor = Color.FromArgb(10, 35, 81);
             lnkForgotPassword.Location = new Point(270, 260);
             lnkForgotPassword.Name = "lnkForgotPassword";
             lnkForgotPassword.Size = new Size(120, 20);
@@ -150,6 +151,7 @@
             btnLogin.Location = new Point(60, 310);
             btnLogin.MinimumSize = new Size(1, 1);
             btnLogin.Name = "btnLogin";
+            btnLogin.Radius = 10;
             btnLogin.Size = new Size(330, 45);
             btnLogin.TabIndex = 5;
             btnLogin.Text = "ĐĂNG NHẬP";
@@ -168,6 +170,7 @@
             btnRegister.Location = new Point(60, 370);
             btnRegister.MinimumSize = new Size(1, 1);
             btnRegister.Name = "btnRegister";
+            btnRegister.Radius = 10;
             btnRegister.RectColor = Color.FromArgb(10, 35, 81);
             btnRegister.Size = new Size(330, 45);
             btnRegister.TabIndex = 6;
