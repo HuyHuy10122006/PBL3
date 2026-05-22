@@ -118,35 +118,35 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnCreateExam.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="btnCreateQuestion.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="btnCreateExam.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 603</value>
+  <data name="btnCreateQuestion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 552</value>
   </data>
-  <data name="btnCreateExam.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="btnCreateQuestion.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
-  <data name="btnCreateExam.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="btnCreateQuestion.Size" type="System.Drawing.Size, System.Drawing">
     <value>370, 61</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnCreateExam.TabIndex" type="System.Int32, mscorlib">
+  <data name="btnCreateQuestion.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="btnCreateExam.Text" xml:space="preserve">
-    <value>TẠO ĐỀ THI</value>
+  <data name="btnCreateQuestion.Text" xml:space="preserve">
+    <value>TẠO CÂU HỎI</value>
   </data>
-  <data name="&gt;&gt;btnCreateExam.Name" xml:space="preserve">
-    <value>btnCreateExam</value>
+  <data name="&gt;&gt;btnCreateQuestion.Name" xml:space="preserve">
+    <value>btnCreateQuestion</value>
   </data>
-  <data name="&gt;&gt;btnCreateExam.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnCreateQuestion.Type" xml:space="preserve">
     <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
-  <data name="&gt;&gt;btnCreateExam.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnCreateQuestion.Parent" xml:space="preserve">
     <value>pnlLeft</value>
   </data>
-  <data name="&gt;&gt;btnCreateExam.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnCreateQuestion.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="udtxtCountQuestion.Font" type="System.Drawing.Font, System.Drawing">
@@ -186,79 +186,10 @@
   <data name="&gt;&gt;udtxtCountQuestion.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="udtxtTime.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="udtxtTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 222</value>
-  </data>
-  <data name="udtxtTime.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="udtxtTime.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="udtxtTime.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="udtxtTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 36</value>
-  </data>
-  <data name="udtxtTime.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="udtxtTime.Text" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;udtxtTime.Name" xml:space="preserve">
-    <value>udtxtTime</value>
-  </data>
-  <data name="&gt;&gt;udtxtTime.Type" xml:space="preserve">
-    <value>Sunny.UI.UIUpDownTextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;udtxtTime.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;udtxtTime.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="uiLabel8.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="uiLabel8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="uiLabel8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 221</value>
-  </data>
-  <data name="uiLabel8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 35</value>
-  </data>
-  <data name="uiLabel8.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="uiLabel8.Text" xml:space="preserve">
-    <value>Thời gian (phút)</value>
-  </data>
-  <data name="uiLabel8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;uiLabel8.Name" xml:space="preserve">
-    <value>uiLabel8</value>
-  </data>
-  <data name="&gt;&gt;uiLabel8.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;uiLabel8.Parent" xml:space="preserve">
-    <value>pnlCauHinh</value>
-  </data>
-  <data name="&gt;&gt;uiLabel8.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="uiLabel7.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="uiLabel7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -287,7 +218,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel7.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="uiLabel6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
@@ -320,7 +251,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel6.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="cbDoKho.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 10.8pt</value>
@@ -353,7 +284,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;cbDoKho.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="uiLabel5.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
@@ -386,7 +317,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel5.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="uiLabel4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 12pt</value>
@@ -419,7 +350,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel4.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="cbMonHoc.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 10.8pt</value>
@@ -452,7 +383,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;cbMonHoc.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="cbKhoi.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 10.8pt</value>
@@ -485,7 +416,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;cbKhoi.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="uiLabel3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 13.200001pt, style=Bold</value>
@@ -494,13 +425,13 @@
     <value>10, 4</value>
   </data>
   <data name="uiLabel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 29</value>
+    <value>215, 29</value>
   </data>
   <data name="uiLabel3.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="uiLabel3.Text" xml:space="preserve">
-    <value>Thiết lập đề thi</value>
+    <value>Thiết lập thông tin</value>
   </data>
   <data name="&gt;&gt;uiLabel3.Name" xml:space="preserve">
     <value>uiLabel3</value>
@@ -512,7 +443,7 @@
     <value>pnlCauHinh</value>
   </data>
   <data name="&gt;&gt;uiLabel3.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="pnlCauHinh.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
@@ -527,7 +458,7 @@
     <value>1, 1</value>
   </data>
   <data name="pnlCauHinh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 284</value>
+    <value>371, 233</value>
   </data>
   <data name="pnlCauHinh.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -833,13 +764,13 @@
     <value>TopDown</value>
   </data>
   <data name="flpPreview.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 111</value>
+    <value>0, 0</value>
   </data>
   <data name="flpPreview.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>20, 20, 20, 20</value>
   </data>
   <data name="flpPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>811, 483</value>
+    <value>811, 594</value>
   </data>
   <data name="flpPreview.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -892,47 +823,14 @@
   <data name="&gt;&gt;btnSaveQuestion.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="btnExport.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="btnExport.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="btnExport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 68</value>
-  </data>
-  <data name="btnExport.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnExport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 45</value>
-  </data>
-  <data name="btnExport.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="btnExport.Text" xml:space="preserve">
-    <value>Xuất đề</value>
-  </data>
-  <data name="&gt;&gt;btnExport.Name" xml:space="preserve">
-    <value>btnExport</value>
-  </data>
-  <data name="&gt;&gt;btnExport.Type" xml:space="preserve">
-    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnExport.Parent" xml:space="preserve">
-    <value>pnlHeader</value>
-  </data>
-  <data name="&gt;&gt;btnExport.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="lblResultTitle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 16.2pt, style=Bold</value>
+    <value>Times New Roman, 18pt, style=Bold</value>
   </data>
   <data name="lblResultTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 9</value>
+    <value>6, 45</value>
   </data>
   <data name="lblResultTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>292, 30</value>
+    <value>338, 43</value>
   </data>
   <data name="lblResultTitle.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -950,40 +848,7 @@
     <value>pnlHeader</value>
   </data>
   <data name="&gt;&gt;lblResultTitle.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="btnSaveExam.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="btnSaveExam.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="btnSaveExam.Location" type="System.Drawing.Point, System.Drawing">
-    <value>488, 68</value>
-  </data>
-  <data name="btnSaveExam.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnSaveExam.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 45</value>
-  </data>
-  <data name="btnSaveExam.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="btnSaveExam.Text" xml:space="preserve">
-    <value>Lưu đề</value>
-  </data>
-  <data name="&gt;&gt;btnSaveExam.Name" xml:space="preserve">
-    <value>btnSaveExam</value>
-  </data>
-  <data name="&gt;&gt;btnSaveExam.Type" xml:space="preserve">
-    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnSaveExam.Parent" xml:space="preserve">
-    <value>pnlHeader</value>
-  </data>
-  <data name="&gt;&gt;btnSaveExam.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="pnlHeader.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -1019,177 +884,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlHeader.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="uiLabel9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="uiLabel9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="uiLabel9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 59</value>
-  </data>
-  <data name="uiLabel9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 36</value>
-  </data>
-  <data name="uiLabel9.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="uiLabel9.Text" xml:space="preserve">
-    <value>Mã đề thi:</value>
-  </data>
-  <data name="uiLabel9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;uiLabel9.Name" xml:space="preserve">
-    <value>uiLabel9</value>
-  </data>
-  <data name="&gt;&gt;uiLabel9.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;uiLabel9.Parent" xml:space="preserve">
-    <value>pnlExamName</value>
-  </data>
-  <data name="&gt;&gt;uiLabel9.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="txtExamCode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtExamCode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="txtExamCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 59</value>
-  </data>
-  <data name="txtExamCode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="txtExamCode.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="txtExamCode.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="txtExamCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>674, 36</value>
-  </data>
-  <data name="txtExamCode.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;txtExamCode.Name" xml:space="preserve">
-    <value>txtExamCode</value>
-  </data>
-  <data name="&gt;&gt;txtExamCode.Type" xml:space="preserve">
-    <value>Sunny.UI.UITextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;txtExamCode.Parent" xml:space="preserve">
-    <value>pnlExamName</value>
-  </data>
-  <data name="&gt;&gt;txtExamCode.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="uiLabel1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="uiLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 11</value>
-  </data>
-  <data name="uiLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 36</value>
-  </data>
-  <data name="uiLabel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="uiLabel1.Text" xml:space="preserve">
-    <value>Tên đề thi:</value>
-  </data>
-  <data name="uiLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Name" xml:space="preserve">
-    <value>uiLabel1</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.Parent" xml:space="preserve">
-    <value>pnlExamName</value>
-  </data>
-  <data name="&gt;&gt;uiLabel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="txtExamName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="txtExamName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 12pt</value>
-  </data>
-  <data name="txtExamName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>129, 11</value>
-  </data>
-  <data name="txtExamName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="txtExamName.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 16</value>
-  </data>
-  <data name="txtExamName.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
-  </data>
-  <data name="txtExamName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>674, 36</value>
-  </data>
-  <data name="txtExamName.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;txtExamName.Name" xml:space="preserve">
-    <value>txtExamName</value>
-  </data>
-  <data name="&gt;&gt;txtExamName.Type" xml:space="preserve">
-    <value>Sunny.UI.UITextBox, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;txtExamName.Parent" xml:space="preserve">
-    <value>pnlExamName</value>
-  </data>
-  <data name="&gt;&gt;txtExamName.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="pnlExamName.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pnlExamName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="pnlExamName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pnlExamName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="pnlExamName.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="pnlExamName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>811, 111</value>
-  </data>
-  <data name="pnlExamName.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="pnlExamName.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;pnlExamName.Name" xml:space="preserve">
-    <value>pnlExamName</value>
-  </data>
-  <data name="&gt;&gt;pnlExamName.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlExamName.Parent" xml:space="preserve">
-    <value>pnlBody</value>
-  </data>
-  <data name="&gt;&gt;pnlExamName.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="pnlBody.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

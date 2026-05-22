@@ -30,11 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_AICreate));
             pnlLeft = new Sunny.UI.UIPanel();
-            btnCreateExam = new Sunny.UI.UISymbolButton();
+            btnCreateQuestion = new Sunny.UI.UISymbolButton();
             pnlCauHinh = new Sunny.UI.UIPanel();
             udtxtCountQuestion = new Sunny.UI.UIUpDownTextBox();
-            udtxtTime = new Sunny.UI.UIUpDownTextBox();
-            uiLabel8 = new Sunny.UI.UILabel();
             uiLabel7 = new Sunny.UI.UILabel();
             uiLabel6 = new Sunny.UI.UILabel();
             cbDoKho = new Sunny.UI.UIComboBox();
@@ -54,15 +52,8 @@
             flpPreview = new FlowLayoutPanel();
             pnlHeader = new Sunny.UI.UIPanel();
             btnSaveQuestion = new Sunny.UI.UISymbolButton();
-            btnExport = new Sunny.UI.UISymbolButton();
             lblResultTitle = new Sunny.UI.UILabel();
-            btnSaveExam = new Sunny.UI.UISymbolButton();
             pnlBody = new Sunny.UI.UIPanel();
-            pnlExamName = new Sunny.UI.UIPanel();
-            uiLabel9 = new Sunny.UI.UILabel();
-            txtExamCode = new Sunny.UI.UITextBox();
-            uiLabel1 = new Sunny.UI.UILabel();
-            txtExamName = new Sunny.UI.UITextBox();
             vSplitter = new Splitter();
             pnlLeft.SuspendLayout();
             pnlCauHinh.SuspendLayout();
@@ -72,13 +63,12 @@
             tpText.SuspendLayout();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
-            pnlExamName.SuspendLayout();
             SuspendLayout();
             // 
             // pnlLeft
             // 
             pnlLeft.BackColor = Color.White;
-            pnlLeft.Controls.Add(btnCreateExam);
+            pnlLeft.Controls.Add(btnCreateQuestion);
             pnlLeft.Controls.Add(pnlCauHinh);
             pnlLeft.Controls.Add(pnlNguonDuLieu);
             resources.ApplyResources(pnlLeft, "pnlLeft");
@@ -89,33 +79,31 @@
             pnlLeft.RectSides = ToolStripStatusLabelBorderSides.None;
             pnlLeft.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // btnCreateExam
+            // btnCreateQuestion
             // 
-            btnCreateExam.FillColor = Color.FromArgb(110, 190, 40);
-            btnCreateExam.FillColor2 = Color.FromArgb(110, 190, 40);
-            btnCreateExam.FillHoverColor = Color.FromArgb(139, 203, 83);
-            btnCreateExam.FillPressColor = Color.FromArgb(88, 152, 32);
-            btnCreateExam.FillSelectedColor = Color.FromArgb(88, 152, 32);
-            resources.ApplyResources(btnCreateExam, "btnCreateExam");
-            btnCreateExam.LightColor = Color.FromArgb(245, 251, 241);
-            btnCreateExam.Name = "btnCreateExam";
-            btnCreateExam.Radius = 10;
-            btnCreateExam.RectColor = Color.FromArgb(110, 190, 40);
-            btnCreateExam.RectHoverColor = Color.FromArgb(139, 203, 83);
-            btnCreateExam.RectPressColor = Color.FromArgb(88, 152, 32);
-            btnCreateExam.RectSelectedColor = Color.FromArgb(88, 152, 32);
-            btnCreateExam.Style = Sunny.UI.UIStyle.Custom;
-            btnCreateExam.Symbol = 0;
-            btnCreateExam.SymbolSize = 26;
-            btnCreateExam.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnCreateExam.Click += btnCreateExam_Click;
+            btnCreateQuestion.FillColor = Color.FromArgb(110, 190, 40);
+            btnCreateQuestion.FillColor2 = Color.FromArgb(110, 190, 40);
+            btnCreateQuestion.FillHoverColor = Color.FromArgb(139, 203, 83);
+            btnCreateQuestion.FillPressColor = Color.FromArgb(88, 152, 32);
+            btnCreateQuestion.FillSelectedColor = Color.FromArgb(88, 152, 32);
+            resources.ApplyResources(btnCreateQuestion, "btnCreateQuestion");
+            btnCreateQuestion.LightColor = Color.FromArgb(245, 251, 241);
+            btnCreateQuestion.Name = "btnCreateQuestion";
+            btnCreateQuestion.Radius = 10;
+            btnCreateQuestion.RectColor = Color.FromArgb(110, 190, 40);
+            btnCreateQuestion.RectHoverColor = Color.FromArgb(139, 203, 83);
+            btnCreateQuestion.RectPressColor = Color.FromArgb(88, 152, 32);
+            btnCreateQuestion.RectSelectedColor = Color.FromArgb(88, 152, 32);
+            btnCreateQuestion.Style = Sunny.UI.UIStyle.Custom;
+            btnCreateQuestion.Symbol = 0;
+            btnCreateQuestion.SymbolSize = 26;
+            btnCreateQuestion.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnCreateQuestion.Click += btnCreateExam_Click;
             // 
             // pnlCauHinh
             // 
             pnlCauHinh.BackColor = Color.White;
             pnlCauHinh.Controls.Add(udtxtCountQuestion);
-            pnlCauHinh.Controls.Add(udtxtTime);
-            pnlCauHinh.Controls.Add(uiLabel8);
             pnlCauHinh.Controls.Add(uiLabel7);
             pnlCauHinh.Controls.Add(uiLabel6);
             pnlCauHinh.Controls.Add(cbDoKho);
@@ -141,22 +129,6 @@
             udtxtCountQuestion.TextAlignment = ContentAlignment.MiddleRight;
             udtxtCountQuestion.Type = Sunny.UI.UITextBox.UIEditType.Integer;
             udtxtCountQuestion.Watermark = "";
-            // 
-            // udtxtTime
-            // 
-            udtxtTime.DoubleStep = 1D;
-            resources.ApplyResources(udtxtTime, "udtxtTime");
-            udtxtTime.Name = "udtxtTime";
-            udtxtTime.ShowText = false;
-            udtxtTime.TextAlignment = ContentAlignment.MiddleRight;
-            udtxtTime.Type = Sunny.UI.UITextBox.UIEditType.Integer;
-            udtxtTime.Watermark = "";
-            // 
-            // uiLabel8
-            // 
-            resources.ApplyResources(uiLabel8, "uiLabel8");
-            uiLabel8.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel8.Name = "uiLabel8";
             // 
             // uiLabel7
             // 
@@ -328,9 +300,7 @@
             // pnlHeader
             // 
             pnlHeader.Controls.Add(btnSaveQuestion);
-            pnlHeader.Controls.Add(btnExport);
             pnlHeader.Controls.Add(lblResultTitle);
-            pnlHeader.Controls.Add(btnSaveExam);
             resources.ApplyResources(pnlHeader, "pnlHeader");
             pnlHeader.FillColor = Color.MidnightBlue;
             pnlHeader.Name = "pnlHeader";
@@ -351,20 +321,6 @@
             btnSaveQuestion.TipsFont = new Font("Microsoft Sans Serif", 9F);
             btnSaveQuestion.Click += btnSaveQuestion_Click;
             // 
-            // btnExport
-            // 
-            resources.ApplyResources(btnExport, "btnExport");
-            btnExport.BackColor = Color.MediumBlue;
-            btnExport.FillColor = Color.RoyalBlue;
-            btnExport.FillColor2 = Color.RoyalBlue;
-            btnExport.LightColor = Color.FromArgb(14, 30, 63);
-            btnExport.Name = "btnExport";
-            btnExport.Radius = 10;
-            btnExport.Style = Sunny.UI.UIStyle.Custom;
-            btnExport.Symbol = 362830;
-            btnExport.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnExport.Click += btnExport_Click;
-            // 
             // lblResultTitle
             // 
             lblResultTitle.BackColor = Color.MidnightBlue;
@@ -372,73 +328,12 @@
             lblResultTitle.ForeColor = Color.WhiteSmoke;
             lblResultTitle.Name = "lblResultTitle";
             // 
-            // btnSaveExam
-            // 
-            resources.ApplyResources(btnSaveExam, "btnSaveExam");
-            btnSaveExam.BackColor = Color.MediumBlue;
-            btnSaveExam.FillColor = Color.RoyalBlue;
-            btnSaveExam.FillColor2 = Color.RoyalBlue;
-            btnSaveExam.LightColor = Color.FromArgb(14, 30, 63);
-            btnSaveExam.Name = "btnSaveExam";
-            btnSaveExam.Radius = 10;
-            btnSaveExam.Style = Sunny.UI.UIStyle.Custom;
-            btnSaveExam.Symbol = 61639;
-            btnSaveExam.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnSaveExam.Click += btnSaveExam_Click;
-            // 
             // pnlBody
             // 
             pnlBody.Controls.Add(flpPreview);
-            pnlBody.Controls.Add(pnlExamName);
             resources.ApplyResources(pnlBody, "pnlBody");
             pnlBody.Name = "pnlBody";
             pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // pnlExamName
-            // 
-            pnlExamName.Controls.Add(uiLabel9);
-            pnlExamName.Controls.Add(txtExamCode);
-            pnlExamName.Controls.Add(uiLabel1);
-            pnlExamName.Controls.Add(txtExamName);
-            resources.ApplyResources(pnlExamName, "pnlExamName");
-            pnlExamName.FillColor = Color.WhiteSmoke;
-            pnlExamName.Name = "pnlExamName";
-            pnlExamName.RectColor = Color.Gray;
-            pnlExamName.TextAlignment = ContentAlignment.MiddleCenter;
-            // 
-            // uiLabel9
-            // 
-            uiLabel9.BackColor = Color.Transparent;
-            resources.ApplyResources(uiLabel9, "uiLabel9");
-            uiLabel9.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel9.Name = "uiLabel9";
-            // 
-            // txtExamCode
-            // 
-            resources.ApplyResources(txtExamCode, "txtExamCode");
-            txtExamCode.BackColor = Color.Transparent;
-            txtExamCode.Name = "txtExamCode";
-            txtExamCode.RectColor = Color.Silver;
-            txtExamCode.ShowText = false;
-            txtExamCode.TextAlignment = ContentAlignment.MiddleLeft;
-            txtExamCode.Watermark = "";
-            // 
-            // uiLabel1
-            // 
-            uiLabel1.BackColor = Color.Transparent;
-            resources.ApplyResources(uiLabel1, "uiLabel1");
-            uiLabel1.ForeColor = Color.FromArgb(48, 48, 48);
-            uiLabel1.Name = "uiLabel1";
-            // 
-            // txtExamName
-            // 
-            resources.ApplyResources(txtExamName, "txtExamName");
-            txtExamName.BackColor = Color.Transparent;
-            txtExamName.Name = "txtExamName";
-            txtExamName.RectColor = Color.Silver;
-            txtExamName.ShowText = false;
-            txtExamName.TextAlignment = ContentAlignment.MiddleLeft;
-            txtExamName.Watermark = "";
             // 
             // vSplitter
             // 
@@ -464,7 +359,6 @@
             tpText.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlBody.ResumeLayout(false);
-            pnlExamName.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -473,7 +367,7 @@
         private System.Windows.Forms.TabPage tpFile;
         private System.Windows.Forms.TabPage tpText;
         private Sunny.UI.UISymbolButton btnSelectFile;
-        private Sunny.UI.UISymbolButton btnCreateExam;
+        private Sunny.UI.UISymbolButton btnCreateQuestion;
         private Sunny.UI.UIPanel pnlNguonDuLieu;
         private Sunny.UI.UILabel uiLabel2;
         private Sunny.UI.UIPanel pnlCauHinh;
@@ -491,20 +385,11 @@
         private Sunny.UI.UIComboBox cbDoKho;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UILabel uiLabel4;
-        private Sunny.UI.UILabel uiLabel8;
         private Sunny.UI.UIPanel pnlHeader;
         private Sunny.UI.UIPanel pnlBody;
         private Sunny.UI.UILabel lblResultTitle;
-        private Sunny.UI.UISymbolButton btnSaveExam;
         private Splitter vSplitter;
-        private Sunny.UI.UISymbolButton btnExport;
         private Sunny.UI.UISymbolButton btnSaveQuestion;
-        private Sunny.UI.UIPanel pnlExamName;
-        private Sunny.UI.UILabel uiLabel1;
-        private Sunny.UI.UITextBox txtExamName;
-        private Sunny.UI.UILabel uiLabel9;
-        private Sunny.UI.UITextBox txtExamCode;
         private Sunny.UI.UIUpDownTextBox udtxtCountQuestion;
-        private Sunny.UI.UIUpDownTextBox udtxtTime;
     }
 }

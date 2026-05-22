@@ -50,7 +50,7 @@ namespace exambank.ui
         {
            UIHelper.SetActiveMenu(btnExamBank, menuButtons);
             if (_ucExamBank == null) {
-                _ucExamBank = new UC_ExamBank();
+                _ucExamBank = new UC_ExamBank(_loginUser);
             }
             _nav.Display(_ucExamBank);
         }

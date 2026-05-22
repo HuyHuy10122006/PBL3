@@ -79,7 +79,7 @@ namespace exambank.ui
             {
                 // Thiết lập bộ lọc file
                 ofd.Filter = "Document Files|*.pdf";
-                ofd.Title = "Chọn tài liệu nguồn để tạo đề thi";
+                ofd.Title = "Chọn tài liệu nguồn để tạo câu hỏi";
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -202,16 +202,16 @@ namespace exambank.ui
             }
 
             //Kiểm tra phần thiết lập đề thi có hợp lệ không trước khi gọi API
-            if (udtxtCountQuestion.IntValue < 1 || udtxtTime.IntValue < 1 || string.IsNullOrWhiteSpace(cbMonHoc.Text)
+            if (udtxtCountQuestion.IntValue < 1 || string.IsNullOrWhiteSpace(cbMonHoc.Text)
                 || string.IsNullOrWhiteSpace(cbDoKho.Text) || string.IsNullOrWhiteSpace(cbKhoi.Text))
             {
-                UIMessageBox.ShowWarning2("Vui lòng nhập đầy đủ thông tin thiết lập đề thi!");
+                UIMessageBox.ShowWarning2("Vui lòng nhập đầy đủ thông tin thiết lập câu hỏi!");
                 return;
             }
 
             // 2. Thiết lập trạng thái UI
-            btnCreateExam.Enabled = false;
-            btnCreateExam.Text = "AI đang soạn đề...";
+            btnCreateQuestion.Enabled = false;
+            btnCreateQuestion.Text = "AI đang soạn câu hỏi...";
 
             try
             {
@@ -229,8 +229,6 @@ namespace exambank.ui
                     {
                         string MonHoc = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text;
                         LoadQuestions(_questionsCreate);
-                        txtExamName.Text = $"Đề thi {MonHoc} - {now:ddMMyyyyHHmmss}";
-                        txtExamCode.Text = now.ToString("ddMMyyyyHHmmss");
                     }
                     else
                     {
@@ -249,24 +247,9 @@ namespace exambank.ui
             }
             finally
             {
-                btnCreateExam.Enabled = true;
-                btnCreateExam.Text = "TẠO ĐỀ THI";
+                btnCreateQuestion.Enabled = true;
+                btnCreateQuestion.Text = "TẠO CÂU HỎI";
             }
-        }
-
-        private ExamModel CreateExam()
-        {
-            var exam = new ExamModel
-            {
-                Subject = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text,
-                Duration = (int)udtxtTime.IntValue,
-                Title = txtExamName.Text,
-                ExamCode = txtExamCode.Text,
-                TotalQuestions = _questionsCreate.Count,
-                CreatedByUserId = _loginUser.Id,
-                CreatedAt = DateTime.Now
-            };
-            return exam;
         }
 
         //Xóa câu hỏi có isActive = false trước khi lưu hoặc xuất file
@@ -274,54 +257,6 @@ namespace exambank.ui
         {
             _questionsCreate = _questionsCreate.Where(q => q.IsActive).ToList();
         }
-
-
-        private async void btnExport_Click(object sender, EventArgs e)
-        {
-            if (!_questionsCreate.Any())
-            {
-                UIMessageBox.ShowWarning2("Không có câu hỏi nào.");
-                return;
-            }
-            RefineQuestions();
-
-            using (var saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Filter = "Word Document|*.docx";
-                saveFileDialog.Title = "Lưu đề thi ra file Word";
-                // Lấy tên đề thi từ TextBox để đặt tên file mặc định
-                saveFileDialog.FileName = $"{txtExamName.Text}.docx";
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        ExamModel _currentExam = CreateExam();
-                        //Kiểm tra Tên đề, mã đề có hợp lệ không trước khi xuất file
-                        if (string.IsNullOrWhiteSpace(_currentExam.Title) || string.IsNullOrWhiteSpace(_currentExam.ExamCode))
-                        {
-                            UIMessageBox.ShowWarning2("Tên đề thi hoặc mã đề thi không hợp lệ.");
-                            return;
-                        }
-
-                        var docService = new DocumentService();
-
-                        // Chạy tác vụ xuất file trên một luồng khác để tránh treo UI nếu file nặng
-                        await Task.Run(() =>
-                        {
-                            docService.ExportToWord(saveFileDialog.FileName, _currentExam, _questionsCreate);
-                        });
-
-                        UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
-                    }
-                    catch (Exception ex)
-                    {
-                        UIMessageBox.ShowError2($"Lỗi khi xuất file Word: {ex.Message}");
-                    }
-                }
-            }
-        }
-
 
         private async void btnSaveQuestion_Click(object sender, EventArgs e)
         {
@@ -331,6 +266,7 @@ namespace exambank.ui
                 return;
             }
 
+            RefineQuestions();
             int successCount = 0;
             foreach (var question in _questionsCreate)
             {
@@ -352,37 +288,6 @@ namespace exambank.ui
                 UIMessageBox.ShowInfo2($"Chỉ lưu được {successCount} / {totalActive} câu hỏi.");
             else
                 UIMessageBox.ShowError2("Lưu thất bại! Có thể các câu hỏi đã được lưu trước đó.");
-        }
-
-        private async void btnSaveExam_Click(object sender, EventArgs e)
-        {
-            if (_questionsCreate.Count == 0)
-            {
-                UIMessageBox.ShowWarning2("Không có câu hỏi nào.");
-                return;
-            }
-            RefineQuestions();
-            ExamModel _currentExam = CreateExam();
-
-            //Kiểm tra Tên đề, mã đề có hợp lệ không trước khi xuất file
-            if (string.IsNullOrWhiteSpace(_currentExam.Title) || string.IsNullOrWhiteSpace(_currentExam.ExamCode))
-            {
-                UIMessageBox.ShowWarning2("Tên đề thi hoặc mã đề thi không hợp lệ.");
-                return;
-            }
-
-            try
-            {
-                bool isSaved = await _examService.CreateExamAsync(_currentExam, _questionsCreate);
-                if (isSaved)
-                    UIMessageBox.ShowSuccess2("Lưu đề thi thành công!");
-                else
-                    UIMessageBox.ShowError2("Lưu đề thi thất bại! Kiểm tra lại dữ liệu hoặc kết nối.");
-            }
-            catch (Exception ex)
-            {
-                UIMessageBox.ShowError2("Lỗi khi lưu đề thi: " + ex.Message);
-            }
         }
     }
 }

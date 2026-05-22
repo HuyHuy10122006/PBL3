@@ -236,5 +236,17 @@ namespace exambank.ui.LogicTest
             var exams = await _repository.GetExamsByUserAsync(userId);
             return exams.OrderByDescending(e => e.CreatedAt).Take(10).ToList();
         }
+
+        //Hàm lấy đề thi Public (Test, tạm lấy toàn bộ)
+        public async Task<List<ExamModel>> GetPublicExamsAsync(int userId)
+        {
+            return await _repository.GetAllExamsAsync();
+        }
+
+        //Hàm lấy toàn bộ đề thi (Test)
+        public async Task<List<ExamModel>> GetAllExamsAsync(int userId)
+        {
+            return await _repository.GetAllExamsAsync();
+        }
     }
 }

@@ -109,6 +109,7 @@
             btnHome.RectPressColor = Color.FromArgb(44, 62, 80);
             btnHome.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnHome.RectSides = ToolStripStatusLabelBorderSides.None;
+            btnHome.Selected = true;
             btnHome.TextAlign = ContentAlignment.MiddleLeft;
             btnHome.TipsFont = new Font("Times New Roman", 9F);
             btnHome.Click += btnHome_Click;
@@ -193,7 +194,6 @@
             btnCreateQuestion.RectPressColor = Color.FromArgb(44, 62, 80);
             btnCreateQuestion.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnCreateQuestion.RectSides = ToolStripStatusLabelBorderSides.None;
-            btnCreateQuestion.Selected = true;
             btnCreateQuestion.TextAlign = ContentAlignment.MiddleLeft;
             btnCreateQuestion.TipsFont = new Font("Times New Roman", 9F);
             btnCreateQuestion.Click += btnCreateQuestion_Click;
