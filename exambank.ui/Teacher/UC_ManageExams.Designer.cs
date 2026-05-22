@@ -35,14 +35,6 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             dgvExams = new Sunny.UI.UIDataGridView();
-            colID = new DataGridViewTextBoxColumn();
-            colSTT = new DataGridViewTextBoxColumn();
-            colExamCode = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colSubject = new DataGridViewTextBoxColumn();
-            colTotalQuestions = new DataGridViewTextBoxColumn();
-            colDuration = new DataGridViewTextBoxColumn();
-            colThaoTac = new DataGridViewImageColumn();
             cmsActions = new Sunny.UI.UIContextMenuStrip(components);
             miView = new ToolStripMenuItem();
             sView = new ToolStripSeparator();
@@ -67,6 +59,14 @@
             btnSelectShare = new Sunny.UI.UISymbolButton();
             btnSelectDelete = new Sunny.UI.UISymbolButton();
             lblSelect = new Sunny.UI.UILabel();
+            colID = new DataGridViewTextBoxColumn();
+            colSTT = new DataGridViewTextBoxColumn();
+            colExamCode = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colSubject = new DataGridViewTextBoxColumn();
+            colTotalQuestions = new DataGridViewTextBoxColumn();
+            colDuration = new DataGridViewTextBoxColumn();
+            colActions = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)dgvExams).BeginInit();
             cmsActions.SuspendLayout();
             pnlDgv.SuspendLayout();
@@ -95,7 +95,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvExams.ColumnHeadersHeight = 32;
-            dgvExams.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colExamCode, colTitle, colSubject, colTotalQuestions, colDuration, colThaoTac });
+            dgvExams.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colExamCode, colTitle, colSubject, colTotalQuestions, colDuration, colActions });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -138,86 +138,6 @@
             dgvExams.CellMouseDown += dgvExams_CellMouseDown;
             dgvExams.DataBindingComplete += dgvExams_DataBindingComplete;
             dgvExams.SelectionChanged += dgvExams_SelectionChanged;
-            // 
-            // colID
-            // 
-            colID.DataPropertyName = "Id";
-            colID.HeaderText = "ID";
-            colID.MinimumWidth = 6;
-            colID.Name = "colID";
-            colID.ReadOnly = true;
-            colID.Visible = false;
-            colID.Width = 125;
-            // 
-            // colSTT
-            // 
-            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colSTT.DataPropertyName = "STT";
-            colSTT.HeaderText = "STT";
-            colSTT.MinimumWidth = 6;
-            colSTT.Name = "colSTT";
-            colSTT.ReadOnly = true;
-            colSTT.Width = 75;
-            // 
-            // colExamCode
-            // 
-            colExamCode.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colExamCode.DataPropertyName = "ExamCode";
-            colExamCode.HeaderText = "Mã đề";
-            colExamCode.MinimumWidth = 6;
-            colExamCode.Name = "colExamCode";
-            colExamCode.ReadOnly = true;
-            colExamCode.Width = 91;
-            // 
-            // colTitle
-            // 
-            colTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTitle.DataPropertyName = "Title";
-            colTitle.HeaderText = "Tên đề thi";
-            colTitle.MinimumWidth = 200;
-            colTitle.Name = "colTitle";
-            colTitle.ReadOnly = true;
-            // 
-            // colSubject
-            // 
-            colSubject.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colSubject.DataPropertyName = "Subject";
-            colSubject.HeaderText = "Môn học";
-            colSubject.MinimumWidth = 6;
-            colSubject.Name = "colSubject";
-            colSubject.ReadOnly = true;
-            colSubject.Width = 110;
-            // 
-            // colTotalQuestions
-            // 
-            colTotalQuestions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colTotalQuestions.DataPropertyName = "TotalQuestions";
-            colTotalQuestions.HeaderText = "Số câu";
-            colTotalQuestions.MinimumWidth = 6;
-            colTotalQuestions.Name = "colTotalQuestions";
-            colTotalQuestions.ReadOnly = true;
-            colTotalQuestions.Width = 93;
-            // 
-            // colDuration
-            // 
-            colDuration.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colDuration.DataPropertyName = "Duration";
-            colDuration.HeaderText = "Thời gian";
-            colDuration.MinimumWidth = 6;
-            colDuration.Name = "colDuration";
-            colDuration.ReadOnly = true;
-            colDuration.Width = 117;
-            // 
-            // colThaoTac
-            // 
-            colThaoTac.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            colThaoTac.DataPropertyName = "ThaoTac";
-            colThaoTac.HeaderText = "Thao tác";
-            colThaoTac.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
-            colThaoTac.MinimumWidth = 6;
-            colThaoTac.Name = "colThaoTac";
-            colThaoTac.ReadOnly = true;
-            colThaoTac.Width = 89;
             // 
             // cmsActions
             // 
@@ -593,6 +513,86 @@
             lblSelect.Text = "0 đề thi đang được chọn";
             lblSelect.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // colID
+            // 
+            colID.DataPropertyName = "Id";
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
+            colID.Visible = false;
+            colID.Width = 125;
+            // 
+            // colSTT
+            // 
+            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSTT.DataPropertyName = "STT";
+            colSTT.HeaderText = "STT";
+            colSTT.MinimumWidth = 6;
+            colSTT.Name = "colSTT";
+            colSTT.ReadOnly = true;
+            colSTT.Width = 75;
+            // 
+            // colExamCode
+            // 
+            colExamCode.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colExamCode.DataPropertyName = "ExamCode";
+            colExamCode.HeaderText = "Mã đề";
+            colExamCode.MinimumWidth = 6;
+            colExamCode.Name = "colExamCode";
+            colExamCode.ReadOnly = true;
+            colExamCode.Width = 91;
+            // 
+            // colTitle
+            // 
+            colTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colTitle.DataPropertyName = "Title";
+            colTitle.HeaderText = "Tên đề thi";
+            colTitle.MinimumWidth = 200;
+            colTitle.Name = "colTitle";
+            colTitle.ReadOnly = true;
+            // 
+            // colSubject
+            // 
+            colSubject.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSubject.DataPropertyName = "Subject";
+            colSubject.HeaderText = "Môn học";
+            colSubject.MinimumWidth = 6;
+            colSubject.Name = "colSubject";
+            colSubject.ReadOnly = true;
+            colSubject.Width = 110;
+            // 
+            // colTotalQuestions
+            // 
+            colTotalQuestions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colTotalQuestions.DataPropertyName = "TotalQuestions";
+            colTotalQuestions.HeaderText = "Số câu";
+            colTotalQuestions.MinimumWidth = 6;
+            colTotalQuestions.Name = "colTotalQuestions";
+            colTotalQuestions.ReadOnly = true;
+            colTotalQuestions.Width = 93;
+            // 
+            // colDuration
+            // 
+            colDuration.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colDuration.DataPropertyName = "Duration";
+            colDuration.HeaderText = "Thời gian";
+            colDuration.MinimumWidth = 6;
+            colDuration.Name = "colDuration";
+            colDuration.ReadOnly = true;
+            colDuration.Width = 117;
+            // 
+            // colActions
+            // 
+            colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colActions.DataPropertyName = "Actions";
+            colActions.HeaderText = "Thao tác";
+            colActions.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
+            colActions.MinimumWidth = 6;
+            colActions.Name = "colActions";
+            colActions.ReadOnly = true;
+            colActions.Width = 89;
+            // 
             // UC_ManageExams
             // 
             Controls.Add(pnlBody);
@@ -654,6 +654,6 @@
         private DataGridViewTextBoxColumn colSubject;
         private DataGridViewTextBoxColumn colTotalQuestions;
         private DataGridViewTextBoxColumn colDuration;
-        private DataGridViewImageColumn colThaoTac;
+        private DataGridViewImageColumn colActions;
     }
 }

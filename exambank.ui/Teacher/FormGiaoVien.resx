@@ -117,181 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;pnlMenu.Name" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Parent" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.Name" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.Parent" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SidebarPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="SidebarPanel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 12pt</value>
-  </data>
-  <data name="SidebarPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 36</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SidebarPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="SidebarPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="SidebarPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 699</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SidebarPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="SidebarPanel.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Name" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Name" xml:space="preserve">
-    <value>btnLogout</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Type" xml:space="preserve">
-    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Name" xml:space="preserve">
-    <value>btnHome</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnHome.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btnViewExamBank.Name" xml:space="preserve">
-    <value>btnViewExamBank</value>
-  </data>
-  <data name="&gt;&gt;btnViewExamBank.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnViewExamBank.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnViewExamBank.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;btnManageExams.Name" xml:space="preserve">
-    <value>btnManageExams</value>
-  </data>
-  <data name="&gt;&gt;btnManageExams.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnManageExams.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnManageExams.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;btnManageQuestions.Name" xml:space="preserve">
-    <value>btnManageQuestions</value>
-  </data>
-  <data name="&gt;&gt;btnManageQuestions.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnManageQuestions.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnManageQuestions.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;btnCreateQuestion.Name" xml:space="preserve">
-    <value>btnCreateQuestion</value>
-  </data>
-  <data name="&gt;&gt;btnCreateQuestion.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnCreateQuestion.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnCreateQuestion.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="pnlMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="pnlMenu.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="pnlMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 184</value>
-  </data>
-  <data name="pnlMenu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="pnlMenu.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="pnlMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 515</value>
-  </data>
-  <data name="pnlMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="pnlMenu.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;pnlMenu.Name" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Parent" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="btnLogout.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnLogout.Font" type="System.Drawing.Font, System.Drawing">
     <value>Times New Roman, 13.8pt</value>
   </data>
@@ -304,6 +134,7 @@
   <data name="btnLogout.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 45</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnLogout.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
@@ -368,7 +199,7 @@
     <value>3</value>
   </data>
   <data name="btnViewExamBank.Text" xml:space="preserve">
-    <value>Ngân hàng đề thi</value>
+    <value>Ngân hàng đề thi chung</value>
   </data>
   <data name="&gt;&gt;btnViewExamBank.Name" xml:space="preserve">
     <value>btnViewExamBank</value>
@@ -398,7 +229,7 @@
     <value>2</value>
   </data>
   <data name="btnManageExams.Text" xml:space="preserve">
-    <value>Quản lý đề thi</value>
+    <value>Quản lý đề thi cá nhân</value>
   </data>
   <data name="&gt;&gt;btnManageExams.Name" xml:space="preserve">
     <value>btnManageExams</value>
@@ -428,7 +259,7 @@
     <value>1</value>
   </data>
   <data name="btnManageQuestions.Text" xml:space="preserve">
-    <value>Quản lý câu hỏi</value>
+    <value>Quản lý câu hỏi cá nhân</value>
   </data>
   <data name="&gt;&gt;btnManageQuestions.Name" xml:space="preserve">
     <value>btnManageQuestions</value>
@@ -458,7 +289,7 @@
     <value>0</value>
   </data>
   <data name="btnCreateQuestion.Text" xml:space="preserve">
-    <value>Tạo đề thi</value>
+    <value>Yêu cầu AI tạo câu hỏi</value>
   </data>
   <data name="&gt;&gt;btnCreateQuestion.Name" xml:space="preserve">
     <value>btnCreateQuestion</value>
@@ -472,68 +303,45 @@
   <data name="&gt;&gt;btnCreateQuestion.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="pnlLogo.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Zoom</value>
+  <data name="pnlMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
-    <value>lblTitle</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Name" xml:space="preserve">
-    <value>lblSubTitle</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="pnlLogo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pnlLogo.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="pnlMenu.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 12pt</value>
   </data>
-  <data name="pnlLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="pnlMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 184</value>
   </data>
-  <data name="pnlLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="pnlMenu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="pnlLogo.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="pnlMenu.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
-  <data name="pnlLogo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 184</value>
+  <data name="pnlMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 515</value>
   </data>
-  <data name="pnlLogo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="pnlMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="pnlLogo.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="pnlMenu.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="&gt;&gt;pnlLogo.Name" xml:space="preserve">
-    <value>pnlLogo</value>
+  <data name="&gt;&gt;pnlMenu.Name" xml:space="preserve">
+    <value>pnlMenu</value>
   </data>
-  <data name="&gt;&gt;pnlLogo.Type" xml:space="preserve">
+  <data name="&gt;&gt;pnlMenu.Type" xml:space="preserve">
     <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
-  <data name="&gt;&gt;pnlLogo.Parent" xml:space="preserve">
+  <data name="&gt;&gt;pnlMenu.Parent" xml:space="preserve">
     <value>SidebarPanel</value>
   </data>
-  <data name="&gt;&gt;pnlLogo.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;pnlMenu.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlLogo.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
   </data>
   <data name="lblTitle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 15pt, style=Bold</value>
@@ -593,6 +401,78 @@
     <value>pnlLogo</value>
   </data>
   <data name="&gt;&gt;lblSubTitle.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlLogo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="pnlLogo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt</value>
+  </data>
+  <data name="pnlLogo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pnlLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="pnlLogo.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="pnlLogo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 184</value>
+  </data>
+  <data name="pnlLogo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="pnlLogo.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;pnlLogo.Name" xml:space="preserve">
+    <value>pnlLogo</value>
+  </data>
+  <data name="&gt;&gt;pnlLogo.Type" xml:space="preserve">
+    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;pnlLogo.Parent" xml:space="preserve">
+    <value>SidebarPanel</value>
+  </data>
+  <data name="&gt;&gt;pnlLogo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SidebarPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="SidebarPanel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="SidebarPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 36</value>
+  </data>
+  <data name="SidebarPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="SidebarPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="SidebarPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 699</value>
+  </data>
+  <data name="SidebarPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="SidebarPanel.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;SidebarPanel.Name" xml:space="preserve">
+    <value>SidebarPanel</value>
+  </data>
+  <data name="&gt;&gt;SidebarPanel.Type" xml:space="preserve">
+    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;SidebarPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;SidebarPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="pnlBody.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

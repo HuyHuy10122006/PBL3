@@ -47,8 +47,6 @@
             pnlBody = new Sunny.UI.UIPanel();
             pnlDgv = new Sunny.UI.UIPanel();
             dgvUsers = new Sunny.UI.UIDataGridView();
-            uiPanel2 = new Sunny.UI.UIPanel();
-            btnRefresh = new Sunny.UI.UISymbolButton();
             colID = new DataGridViewTextBoxColumn();
             colSTT = new DataGridViewTextBoxColumn();
             colFullName = new DataGridViewTextBoxColumn();
@@ -57,6 +55,8 @@
             colStatus = new DataGridViewTextBoxColumn();
             colRole = new DataGridViewTextBoxColumn();
             colActions = new DataGridViewButtonColumn();
+            uiPanel2 = new Sunny.UI.UIPanel();
+            btnRefresh = new Sunny.UI.UISymbolButton();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
             pnlDgv.SuspendLayout();
@@ -204,7 +204,7 @@
             pnlBody.Margin = new Padding(4, 5, 4, 5);
             pnlBody.MinimumSize = new Size(1, 1);
             pnlBody.Name = "pnlBody";
-            pnlBody.RectColor = Color.Black;
+            pnlBody.RectColor = Color.Gray;
             pnlBody.Size = new Size(1224, 421);
             pnlBody.TabIndex = 8;
             pnlBody.Text = null;
@@ -222,6 +222,7 @@
             pnlDgv.MinimumSize = new Size(1, 1);
             pnlDgv.Name = "pnlDgv";
             pnlDgv.Radius = 1;
+            pnlDgv.RectSides = ToolStripStatusLabelBorderSides.None;
             pnlDgv.Size = new Size(1224, 380);
             pnlDgv.TabIndex = 4;
             pnlDgv.Text = null;
@@ -258,11 +259,11 @@
             dgvUsers.Dock = DockStyle.Fill;
             dgvUsers.EnableHeadersVisualStyles = false;
             dgvUsers.Font = new Font("Microsoft Sans Serif", 12F);
-            dgvUsers.GridColor = Color.Black;
+            dgvUsers.GridColor = Color.Gray;
             dgvUsers.Location = new Point(0, 0);
             dgvUsers.Name = "dgvUsers";
             dgvUsers.ReadOnly = true;
-            dgvUsers.RectColor = Color.Black;
+            dgvUsers.RectColor = Color.Transparent;
             dgvUsers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = Color.FromArgb(235, 243, 255);
@@ -278,8 +279,8 @@
             dataGridViewCellStyle9.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle9;
             dgvUsers.RowTemplate.Height = 33;
-            dgvUsers.ScrollBarColor = Color.Black;
-            dgvUsers.ScrollBarRectColor = Color.Black;
+            dgvUsers.ScrollBarColor = Color.DimGray;
+            dgvUsers.ScrollBarRectColor = Color.DimGray;
             dgvUsers.ScrollBarStyleInherited = false;
             dgvUsers.SelectedIndex = -1;
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -290,54 +291,6 @@
             dgvUsers.CellFormatting += dgvUsers_CellFormatting;
             dgvUsers.DataBindingComplete += dgvUsers_DataBindingComplete;
             // 
-            // uiPanel2
-            // 
-            uiPanel2.Controls.Add(btnRefresh);
-            uiPanel2.Dock = DockStyle.Top;
-            uiPanel2.FillColor = Color.FromArgb(0, 192, 0);
-            uiPanel2.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            uiPanel2.Location = new Point(0, 0);
-            uiPanel2.Margin = new Padding(4, 5, 4, 5);
-            uiPanel2.MinimumSize = new Size(1, 1);
-            uiPanel2.Name = "uiPanel2";
-            uiPanel2.Radius = 15;
-            uiPanel2.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
-            uiPanel2.RectColor = Color.Transparent;
-            uiPanel2.Size = new Size(1224, 41);
-            uiPanel2.TabIndex = 1;
-            uiPanel2.Text = "Danh sách tài khoản";
-            uiPanel2.TextAlignment = ContentAlignment.MiddleLeft;
-            // 
-            // btnRefresh
-            // 
-            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnRefresh.BackColor = Color.Transparent;
-            btnRefresh.FillColor = Color.DarkSeaGreen;
-            btnRefresh.FillColor2 = Color.DarkSeaGreen;
-            btnRefresh.FillHoverColor = Color.FromArgb(139, 203, 83);
-            btnRefresh.FillPressColor = Color.FromArgb(88, 152, 32);
-            btnRefresh.FillSelectedColor = Color.FromArgb(88, 152, 32);
-            btnRefresh.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRefresh.ForeColor = Color.Black;
-            btnRefresh.LightColor = Color.FromArgb(245, 251, 241);
-            btnRefresh.Location = new Point(1100, 4);
-            btnRefresh.MinimumSize = new Size(1, 1);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Radius = 10;
-            btnRefresh.RectColor = Color.FromArgb(64, 64, 64);
-            btnRefresh.RectHoverColor = Color.FromArgb(139, 203, 83);
-            btnRefresh.RectPressColor = Color.FromArgb(88, 152, 32);
-            btnRefresh.RectSelectedColor = Color.FromArgb(88, 152, 32);
-            btnRefresh.Size = new Size(121, 34);
-            btnRefresh.Style = Sunny.UI.UIStyle.Custom;
-            btnRefresh.Symbol = 61473;
-            btnRefresh.SymbolColor = Color.Black;
-            btnRefresh.SymbolSize = 22;
-            btnRefresh.TabIndex = 13;
-            btnRefresh.Text = "Làm mới";
-            btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnRefresh.Click += btnRefresh_Click;
-            // 
             // colID
             // 
             colID.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -347,7 +300,7 @@
             colID.Name = "colID";
             colID.ReadOnly = true;
             colID.Visible = false;
-            colID.Width = 59;
+            colID.Width = 125;
             // 
             // colSTT
             // 
@@ -428,6 +381,48 @@
             colActions.ReadOnly = true;
             colActions.Resizable = DataGridViewTriState.True;
             colActions.Width = 89;
+            // 
+            // uiPanel2
+            // 
+            uiPanel2.Controls.Add(btnRefresh);
+            uiPanel2.Dock = DockStyle.Top;
+            uiPanel2.FillColor = Color.FromArgb(45, 80, 135);
+            uiPanel2.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            uiPanel2.ForeColor = Color.Gainsboro;
+            uiPanel2.Location = new Point(0, 0);
+            uiPanel2.Margin = new Padding(4, 5, 4, 5);
+            uiPanel2.MinimumSize = new Size(1, 1);
+            uiPanel2.Name = "uiPanel2";
+            uiPanel2.Radius = 15;
+            uiPanel2.RadiusSides = Sunny.UI.UICornerRadiusSides.LeftTop | Sunny.UI.UICornerRadiusSides.RightTop;
+            uiPanel2.RectColor = Color.Transparent;
+            uiPanel2.RectSides = ToolStripStatusLabelBorderSides.None;
+            uiPanel2.Size = new Size(1224, 41);
+            uiPanel2.TabIndex = 1;
+            uiPanel2.Text = "Danh sách tài khoản";
+            uiPanel2.TextAlignment = ContentAlignment.MiddleLeft;
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRefresh.BackColor = Color.Transparent;
+            btnRefresh.FillColor = Color.SteelBlue;
+            btnRefresh.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRefresh.ForeColor = Color.Black;
+            btnRefresh.Location = new Point(1100, 4);
+            btnRefresh.MinimumSize = new Size(1, 1);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Radius = 10;
+            btnRefresh.RectColor = Color.Black;
+            btnRefresh.Size = new Size(121, 34);
+            btnRefresh.Style = Sunny.UI.UIStyle.Custom;
+            btnRefresh.Symbol = 61473;
+            btnRefresh.SymbolColor = Color.Black;
+            btnRefresh.SymbolSize = 22;
+            btnRefresh.TabIndex = 13;
+            btnRefresh.Text = "Làm mới";
+            btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // UC_ManageUsers
             // 

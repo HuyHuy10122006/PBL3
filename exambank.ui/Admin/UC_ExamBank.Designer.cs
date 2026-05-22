@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
@@ -44,22 +45,30 @@
             cbSubject = new Sunny.UI.UIComboBox();
             txtSearch = new Sunny.UI.UITextBox();
             dgvPublicExams = new Sunny.UI.UIDataGridView();
-            colMaDe = new DataGridViewTextBoxColumn();
-            colTenDe = new DataGridViewTextBoxColumn();
-            colAuthor = new DataGridViewTextBoxColumn();
-            colMon = new DataGridViewTextBoxColumn();
-            colTT = new DataGridViewTextBoxColumn();
-            colDuyet = new DataGridViewButtonColumn();
-            ColTuChoi = new DataGridViewButtonColumn();
             pnlBody = new Sunny.UI.UIPanel();
             pnlDgv = new Sunny.UI.UIPanel();
             uiPanel2 = new Sunny.UI.UIPanel();
             btnRefresh = new Sunny.UI.UISymbolButton();
+            cmsActions = new Sunny.UI.UIContextMenuStrip(components);
+            miView = new ToolStripMenuItem();
+            sView = new ToolStripSeparator();
+            miExport = new ToolStripMenuItem();
+            sExport = new ToolStripSeparator();
+            miSave = new ToolStripMenuItem();
+            colID = new DataGridViewTextBoxColumn();
+            colSTT = new DataGridViewTextBoxColumn();
+            colExamCode = new DataGridViewTextBoxColumn();
+            colTitle = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colSubject = new DataGridViewTextBoxColumn();
+            colStatus = new DataGridViewTextBoxColumn();
+            colActions = new DataGridViewImageColumn();
             pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPublicExams).BeginInit();
             pnlBody.SuspendLayout();
             pnlDgv.SuspendLayout();
             uiPanel2.SuspendLayout();
+            cmsActions.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHeader
@@ -92,7 +101,7 @@
             uiLabel4.BackColor = Color.Transparent;
             uiLabel4.Font = new Font("Times New Roman", 12F);
             uiLabel4.ForeColor = Color.WhiteSmoke;
-            uiLabel4.Location = new Point(700, 26);
+            uiLabel4.Location = new Point(525, 26);
             uiLabel4.Name = "uiLabel4";
             uiLabel4.Size = new Size(164, 29);
             uiLabel4.TabIndex = 15;
@@ -106,7 +115,7 @@
             cboTT.Font = new Font("Times New Roman", 12F);
             cboTT.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cboTT.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cboTT.Location = new Point(700, 60);
+            cboTT.Location = new Point(525, 60);
             cboTT.Margin = new Padding(4, 5, 4, 5);
             cboTT.MinimumSize = new Size(63, 0);
             cboTT.Name = "cboTT";
@@ -119,17 +128,19 @@
             cboTT.TabIndex = 14;
             cboTT.TextAlignment = ContentAlignment.MiddleLeft;
             cboTT.Watermark = "Chọn trạng thái";
+            cboTT.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // uiLabel3
             // 
             uiLabel3.BackColor = Color.Transparent;
             uiLabel3.Font = new Font("Times New Roman", 12F);
             uiLabel3.ForeColor = Color.WhiteSmoke;
-            uiLabel3.Location = new Point(510, 26);
+            uiLabel3.Location = new Point(749, 26);
             uiLabel3.Name = "uiLabel3";
             uiLabel3.Size = new Size(164, 29);
             uiLabel3.TabIndex = 7;
             uiLabel3.Text = "Khối:";
+            uiLabel3.Visible = false;
             // 
             // uiLabel2
             // 
@@ -161,7 +172,7 @@
             cbGrade.Font = new Font("Times New Roman", 12F);
             cbGrade.ItemHoverColor = Color.FromArgb(155, 200, 255);
             cbGrade.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
-            cbGrade.Location = new Point(510, 60);
+            cbGrade.Location = new Point(749, 60);
             cbGrade.Margin = new Padding(4, 5, 4, 5);
             cbGrade.MinimumSize = new Size(63, 0);
             cbGrade.Name = "cbGrade";
@@ -173,7 +184,9 @@
             cbGrade.SymbolSize = 24;
             cbGrade.TabIndex = 2;
             cbGrade.TextAlignment = ContentAlignment.MiddleLeft;
+            cbGrade.Visible = false;
             cbGrade.Watermark = "Chọn khối";
+            cbGrade.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // cbSubject
             // 
@@ -196,6 +209,7 @@
             cbSubject.TabIndex = 1;
             cbSubject.TextAlignment = ContentAlignment.MiddleLeft;
             cbSubject.Watermark = "Chọn môn";
+            cbSubject.SelectedIndexChanged += cb_SelectedIndexChanged;
             // 
             // txtSearch
             // 
@@ -223,6 +237,8 @@
             // 
             // dgvPublicExams
             // 
+            dgvPublicExams.AllowUserToAddRows = false;
+            dgvPublicExams.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             dgvPublicExams.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvPublicExams.BackgroundColor = Color.White;
@@ -236,7 +252,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvPublicExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvPublicExams.ColumnHeadersHeight = 32;
-            dgvPublicExams.Columns.AddRange(new DataGridViewColumn[] { colMaDe, colTenDe, colAuthor, colMon, colTT, colDuyet, ColTuChoi });
+            dgvPublicExams.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colExamCode, colTitle, colAuthor, colSubject, colStatus, colActions });
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = SystemColors.Window;
             dataGridViewCellStyle4.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -251,6 +267,7 @@
             dgvPublicExams.GridColor = Color.Black;
             dgvPublicExams.Location = new Point(0, 0);
             dgvPublicExams.Name = "dgvPublicExams";
+            dgvPublicExams.ReadOnly = true;
             dgvPublicExams.RectColor = Color.Black;
             dgvPublicExams.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -273,71 +290,8 @@
             dgvPublicExams.Size = new Size(1227, 379);
             dgvPublicExams.StripeOddColor = Color.White;
             dgvPublicExams.TabIndex = 8;
-            // 
-            // colMaDe
-            // 
-            colMaDe.DataPropertyName = "MaDe";
-            colMaDe.HeaderText = "Mã đề";
-            colMaDe.MinimumWidth = 6;
-            colMaDe.Name = "colMaDe";
-            colMaDe.Width = 70;
-            // 
-            // colTenDe
-            // 
-            colTenDe.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTenDe.DataPropertyName = "TenDe";
-            colTenDe.HeaderText = "Tên đề thi";
-            colTenDe.MinimumWidth = 6;
-            colTenDe.Name = "colTenDe";
-            // 
-            // colAuthor
-            // 
-            colAuthor.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colAuthor.DataPropertyName = "Author";
-            colAuthor.HeaderText = "Người chia sẻ";
-            colAuthor.MinimumWidth = 6;
-            colAuthor.Name = "colAuthor";
-            colAuthor.Width = 152;
-            // 
-            // colMon
-            // 
-            colMon.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colMon.DataPropertyName = "Mon";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colMon.DefaultCellStyle = dataGridViewCellStyle3;
-            colMon.HeaderText = "Môn";
-            colMon.MinimumWidth = 6;
-            colMon.Name = "colMon";
-            colMon.Width = 76;
-            // 
-            // colTT
-            // 
-            colTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colTT.DataPropertyName = "TT";
-            colTT.HeaderText = "Trạng thái";
-            colTT.MinimumWidth = 6;
-            colTT.Name = "colTT";
-            colTT.Width = 125;
-            // 
-            // colDuyet
-            // 
-            colDuyet.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            colDuyet.DataPropertyName = "Duyet";
-            colDuyet.HeaderText = "Thao tác";
-            colDuyet.MinimumWidth = 6;
-            colDuyet.Name = "colDuyet";
-            colDuyet.Text = "Duyệt";
-            colDuyet.Width = 89;
-            // 
-            // ColTuChoi
-            // 
-            ColTuChoi.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            ColTuChoi.DataPropertyName = "TuChoi";
-            ColTuChoi.HeaderText = "Thao tác";
-            ColTuChoi.MinimumWidth = 6;
-            ColTuChoi.Name = "ColTuChoi";
-            ColTuChoi.Text = "Từ chối";
-            ColTuChoi.Width = 89;
+            dgvPublicExams.CellMouseDown += dgvPublicExams_CellMouseDown;
+            dgvPublicExams.DataBindingComplete += dgvPublicExams_DataBindingComplete;
             // 
             // pnlBody
             // 
@@ -407,6 +361,129 @@
             btnRefresh.TabIndex = 12;
             btnRefresh.Text = "Làm mới";
             btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnRefresh.Click += btnRefresh_Click;
+            // 
+            // cmsActions
+            // 
+            cmsActions.BackColor = Color.FromArgb(243, 249, 255);
+            cmsActions.Font = new Font("Microsoft Sans Serif", 12F);
+            cmsActions.ImageScalingSize = new Size(20, 20);
+            cmsActions.Items.AddRange(new ToolStripItem[] { miView, sView, miExport, sExport, miSave });
+            cmsActions.Name = "cmsActions";
+            cmsActions.Size = new Size(201, 106);
+            // 
+            // miView
+            // 
+            miView.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            miView.Image = Properties.Resources.visibility;
+            miView.Name = "miView";
+            miView.Size = new Size(200, 30);
+            miView.Text = "Xem chi tiết";
+            // 
+            // sView
+            // 
+            sView.Name = "sView";
+            sView.Size = new Size(197, 6);
+            // 
+            // miExport
+            // 
+            miExport.Font = new Font("Times New Roman", 13.2000008F);
+            miExport.Name = "miExport";
+            miExport.Size = new Size(200, 30);
+            miExport.Text = "Duyệt";
+            // 
+            // sExport
+            // 
+            sExport.Name = "sExport";
+            sExport.Size = new Size(197, 6);
+            // 
+            // miSave
+            // 
+            miSave.Font = new Font("Times New Roman", 13.2000008F);
+            miSave.Name = "miSave";
+            miSave.Size = new Size(200, 30);
+            miSave.Text = "Từ chối";
+            // 
+            // colID
+            // 
+            colID.DataPropertyName = "ID";
+            colID.HeaderText = "ID";
+            colID.MinimumWidth = 6;
+            colID.Name = "colID";
+            colID.ReadOnly = true;
+            colID.Visible = false;
+            colID.Width = 125;
+            // 
+            // colSTT
+            // 
+            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSTT.DataPropertyName = "STT";
+            colSTT.HeaderText = "STT";
+            colSTT.MinimumWidth = 6;
+            colSTT.Name = "colSTT";
+            colSTT.ReadOnly = true;
+            colSTT.Width = 75;
+            // 
+            // colExamCode
+            // 
+            colExamCode.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colExamCode.DataPropertyName = "ExamCode";
+            colExamCode.HeaderText = "Mã đề";
+            colExamCode.MinimumWidth = 6;
+            colExamCode.Name = "colExamCode";
+            colExamCode.ReadOnly = true;
+            colExamCode.Width = 91;
+            // 
+            // colTitle
+            // 
+            colTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colTitle.DataPropertyName = "Title";
+            colTitle.HeaderText = "Tên đề thi";
+            colTitle.MinimumWidth = 6;
+            colTitle.Name = "colTitle";
+            colTitle.ReadOnly = true;
+            // 
+            // colAuthor
+            // 
+            colAuthor.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colAuthor.DataPropertyName = "Author";
+            colAuthor.HeaderText = "Người chia sẻ";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.ReadOnly = true;
+            colAuthor.Width = 152;
+            // 
+            // colSubject
+            // 
+            colSubject.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colSubject.DataPropertyName = "Subject";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colSubject.DefaultCellStyle = dataGridViewCellStyle3;
+            colSubject.HeaderText = "Môn";
+            colSubject.MinimumWidth = 6;
+            colSubject.Name = "colSubject";
+            colSubject.ReadOnly = true;
+            colSubject.Width = 76;
+            // 
+            // colStatus
+            // 
+            colStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colStatus.DataPropertyName = "Status";
+            colStatus.HeaderText = "Trạng thái";
+            colStatus.MinimumWidth = 6;
+            colStatus.Name = "colStatus";
+            colStatus.ReadOnly = true;
+            colStatus.Width = 125;
+            // 
+            // colActions
+            // 
+            colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colActions.HeaderText = "Thao tác";
+            colActions.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
+            colActions.MinimumWidth = 6;
+            colActions.Name = "colActions";
+            colActions.ReadOnly = true;
+            colActions.Width = 89;
             // 
             // UC_ExamBank
             // 
@@ -416,11 +493,13 @@
             Controls.Add(pnlHeader);
             Name = "UC_ExamBank";
             Size = new Size(1227, 540);
+            Load += UC_ViewExamBank_Load;
             pnlHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPublicExams).EndInit();
             pnlBody.ResumeLayout(false);
             pnlDgv.ResumeLayout(false);
             uiPanel2.ResumeLayout(false);
+            cmsActions.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -440,12 +519,19 @@
         private Sunny.UI.UIPanel pnlDgv;
         private Sunny.UI.UIPanel uiPanel2;
         private Sunny.UI.UISymbolButton btnRefresh;
-        private DataGridViewTextBoxColumn colMaDe;
-        private DataGridViewTextBoxColumn colTenDe;
+        private Sunny.UI.UIContextMenuStrip cmsActions;
+        private ToolStripMenuItem miView;
+        private ToolStripSeparator sView;
+        private ToolStripMenuItem miExport;
+        private ToolStripSeparator sExport;
+        private ToolStripMenuItem miSave;
+        private DataGridViewTextBoxColumn colID;
+        private DataGridViewTextBoxColumn colSTT;
+        private DataGridViewTextBoxColumn colExamCode;
+        private DataGridViewTextBoxColumn colTitle;
         private DataGridViewTextBoxColumn colAuthor;
-        private DataGridViewTextBoxColumn colMon;
-        private DataGridViewTextBoxColumn colTT;
-        private DataGridViewButtonColumn colDuyet;
-        private DataGridViewButtonColumn ColTuChoi;
+        private DataGridViewTextBoxColumn colSubject;
+        private DataGridViewTextBoxColumn colStatus;
+        private DataGridViewImageColumn colActions;
     }
 }

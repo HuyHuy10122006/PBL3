@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace exambank.ui
 {
-    public partial class UC_ManageExams : UserControl
+    public partial class UC_ManageExams : BaseUserControl
     {
         private readonly UserModel _loginUser;
         private readonly ExamService _examService = new ExamService();
@@ -30,7 +30,6 @@ namespace exambank.ui
         {
             LoadDataTable();
             dgvExams.AutoGenerateColumns = false;
-            //miShare.Image = Properties.Resources.icon_share;
         }
 
         private void InitControlDataAsync(List<ExamModel> data)
@@ -101,7 +100,7 @@ namespace exambank.ui
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             // Kiểm tra chuột trái và đúng cột thao tác
-            if (e.Button == MouseButtons.Left && dgvExams.Columns[e.ColumnIndex].Name == "colThaoTac")
+            if (e.Button == MouseButtons.Left && dgvExams.Columns[e.ColumnIndex].Name == "colActions")
             {
                 // Chọn hàng đó luôn
                 dgvExams.CurrentCell = dgvExams.Rows[e.RowIndex].Cells[e.ColumnIndex];
