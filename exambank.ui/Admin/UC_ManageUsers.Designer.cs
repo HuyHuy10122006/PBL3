@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
@@ -54,14 +55,21 @@
             colEmail = new DataGridViewTextBoxColumn();
             colStatus = new DataGridViewTextBoxColumn();
             colRole = new DataGridViewTextBoxColumn();
-            colActions = new DataGridViewButtonColumn();
+            colActions = new DataGridViewImageColumn();
             uiPanel2 = new Sunny.UI.UIPanel();
             btnRefresh = new Sunny.UI.UISymbolButton();
+            cmsActions = new Sunny.UI.UIContextMenuStrip(components);
+            miLock = new ToolStripMenuItem();
+            miUnlock = new ToolStripMenuItem();
+            sSuperAdmin = new ToolStripSeparator();
+            miGgantAdminRole = new ToolStripMenuItem();
+            miRevokeAdminRole = new ToolStripMenuItem();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
             pnlDgv.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             uiPanel2.SuspendLayout();
+            cmsActions.SuspendLayout();
             SuspendLayout();
             // 
             // pnlHeader
@@ -287,8 +295,8 @@
             dgvUsers.Size = new Size(1224, 380);
             dgvUsers.StripeOddColor = Color.WhiteSmoke;
             dgvUsers.TabIndex = 1;
-            dgvUsers.CellContentClick += dgvUsers_CellContentClick;
             dgvUsers.CellFormatting += dgvUsers_CellFormatting;
+            dgvUsers.CellMouseDown += dgvUsers_CellMouseDown;
             dgvUsers.DataBindingComplete += dgvUsers_DataBindingComplete;
             // 
             // colID
@@ -373,9 +381,10 @@
             colActions.DataPropertyName = "Actions";
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.Font = new Font("Times New Roman", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.NullValue = null;
             colActions.DefaultCellStyle = dataGridViewCellStyle6;
-            colActions.FlatStyle = FlatStyle.Flat;
             colActions.HeaderText = "Thao tác";
+            colActions.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
             colActions.MinimumWidth = 6;
             colActions.Name = "colActions";
             colActions.ReadOnly = true;
@@ -424,6 +433,61 @@
             btnRefresh.TipsFont = new Font("Microsoft Sans Serif", 9F);
             btnRefresh.Click += btnRefresh_Click;
             // 
+            // cmsActions
+            // 
+            cmsActions.BackColor = Color.FromArgb(243, 249, 255);
+            cmsActions.Font = new Font("Microsoft Sans Serif", 12F);
+            cmsActions.ImageScalingSize = new Size(20, 20);
+            cmsActions.Items.AddRange(new ToolStripItem[] { miLock, miUnlock, sSuperAdmin, miGgantAdminRole, miRevokeAdminRole });
+            cmsActions.Name = "cmsActions";
+            cmsActions.Size = new Size(215, 158);
+            cmsActions.Opening += cmsActions_Opening;
+            // 
+            // miLock
+            // 
+            miLock.Font = new Font("Times New Roman", 13.2000008F);
+            miLock.ForeColor = Color.Red;
+            miLock.Image = Properties.Resources.lock_24dp_EA3323_FILL0_wght400_GRAD0_opsz24;
+            miLock.Name = "miLock";
+            miLock.Size = new Size(214, 30);
+            miLock.Text = "Khóa";
+            miLock.Click += miLock_Click;
+            // 
+            // miUnlock
+            // 
+            miUnlock.Font = new Font("Times New Roman", 13.2000008F);
+            miUnlock.ForeColor = Color.FromArgb(0, 192, 0);
+            miUnlock.Image = Properties.Resources.lock_open_right_24dp_36D00B_FILL0_wght400_GRAD0_opsz24;
+            miUnlock.Name = "miUnlock";
+            miUnlock.Size = new Size(214, 30);
+            miUnlock.Text = "Mở khóa";
+            miUnlock.Click += miUnlock_Click;
+            // 
+            // sSuperAdmin
+            // 
+            sSuperAdmin.Name = "sSuperAdmin";
+            sSuperAdmin.Size = new Size(211, 6);
+            // 
+            // miGgantAdminRole
+            // 
+            miGgantAdminRole.Font = new Font("Times New Roman", 13.2000008F);
+            miGgantAdminRole.ForeColor = Color.FromArgb(0, 192, 0);
+            miGgantAdminRole.Image = Properties.Resources.arrow_upward_24dp_36D00B_FILL0_wght400_GRAD0_opsz24;
+            miGgantAdminRole.Name = "miGgantAdminRole";
+            miGgantAdminRole.Size = new Size(214, 30);
+            miGgantAdminRole.Text = "Nâng quyền";
+            miGgantAdminRole.Click += miGgantAdminRole_Click;
+            // 
+            // miRevokeAdminRole
+            // 
+            miRevokeAdminRole.Font = new Font("Times New Roman", 13.2000008F);
+            miRevokeAdminRole.ForeColor = Color.Red;
+            miRevokeAdminRole.Image = Properties.Resources.arrow_downward_24dp_EA3323_FILL0_wght400_GRAD0_opsz24;
+            miRevokeAdminRole.Name = "miRevokeAdminRole";
+            miRevokeAdminRole.Size = new Size(214, 30);
+            miRevokeAdminRole.Text = "Hạ quyền";
+            miRevokeAdminRole.Click += miRevokeAdminRole_Click;
+            // 
             // UC_ManageUsers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -438,6 +502,7 @@
             pnlDgv.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             uiPanel2.ResumeLayout(false);
+            cmsActions.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -462,6 +527,14 @@
         private DataGridViewTextBoxColumn colEmail;
         private DataGridViewTextBoxColumn colStatus;
         private DataGridViewTextBoxColumn colRole;
-        private DataGridViewButtonColumn colActions;
+        private DataGridViewImageColumn colActions;
+        private Sunny.UI.UIContextMenuStrip cmsActions;
+        private ToolStripMenuItem miLock;
+        private ToolStripSeparator sLock;
+        private ToolStripMenuItem miUnlock;
+        private ToolStripSeparator sSuperAdmin;
+        private ToolStripMenuItem miGgantAdminRole;
+        private ToolStripSeparator sGgantAdminRole;
+        private ToolStripMenuItem miRevokeAdminRole;
     }
 }

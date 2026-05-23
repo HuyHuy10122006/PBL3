@@ -89,7 +89,10 @@ namespace exambank.ui
 
             try
             {
-                if (_loginService.RegisterUser(fullName, email, user, pass, out string mess))
+                // Tiến hành băm mật khẩu
+                string hashedPassword = UIHelper.HashPassword(pass);
+
+                if (_loginService.RegisterUser(fullName, email, user, hashedPassword, out string mess))
                 {
                     MessageBox.Show(mess, "Đăng ký thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     OnNavigate?.Invoke(NavigationTarget.Login, null);

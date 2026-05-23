@@ -1,4 +1,5 @@
-﻿using exambank.data.Models;
+﻿using exambank.data;
+using exambank.data.Models;
 using exambank.ui.Base;
 using exambank.ui.LogicTest;
 using Sunny.UI;
@@ -77,7 +78,7 @@ namespace exambank.ui
             if (authenticatedUser == null) { return; }
 
             this.Hide();
-            if (authenticatedUser.Role == "Admin")
+            if (authenticatedUser.Role == "Admin" || authenticatedUser.Role == "SuperAdmin")
             {
                 FormAdmin adminForm = new FormAdmin(authenticatedUser);
                 adminForm.FormClosed += ShowMeAgain;
