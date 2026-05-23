@@ -12,10 +12,9 @@ namespace exambank.ui.LogicTest
         {
             using (var db = new ExamBankDbContext())
             {
-                // Lưu ý: Trong thực tế nên dùng BCrypt để Verify password thay vì so sánh chuỗi thuần
-                var user = db.Users.FirstOrDefault(u => (u.Username == username || u.Email == username) && u.Password == password);
+                var user = db.Users.FirstOrDefault(u => (u.Username == username || u.Email == username));
 
-                if (user != null && user.IsActive)
+                if (user != null && user.IsActive && !string.IsNullOrEmpty(user.Password) && Base.UIHelper.VerifyPassword(password, user.Password))
                 {
                     return user;
                 }
@@ -83,6 +82,7 @@ namespace exambank.ui.LogicTest
                 }
             }
         }
+
         //Hàm mô phỏng gửi email khôi phục mật khẩu.
         private bool SendRecoveryEmail(string email, string fullName)
         {
