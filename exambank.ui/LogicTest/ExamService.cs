@@ -14,6 +14,7 @@ namespace exambank.ui.LogicTest
     {
         // Khởi tạo Repository để dùng chung (Hàm dựng không nhận tham số)
         private readonly IDatabaseRepository _repository = new DatabaseRepository(new ExamBankDbContext());
+        private readonly LogService _logService = new LogService();
 
         /// <summary>
         /// Lấy giá trị Distinct để hiển thị lên ComboBox
@@ -39,27 +40,20 @@ namespace exambank.ui.LogicTest
 
             try
             {
-                // 1. Tận dụng hàm GetAllQuestionsAsync có sẵn ở Repo
                 var allQuestions = await _repository.GetAllQuestionsAsync();
-
-                // 2. Thực hiện lọc dữ liệu trên Memory
                 var query = allQuestions.Where(q => q.CreatedByUserId == examInfo.CreatedByUserId && q.IsActive && q.Subject == examInfo.Subject);
-
                 var pool = query.ToList();
 
-                // 3. Kiểm tra số lượng câu hỏi phù hợp
                 if (pool.Count < examInfo.TotalQuestions)
                 {
                     throw new Exception($"Ngân hàng chỉ có {pool.Count} câu phù hợp, không đủ tạo đề {examInfo.TotalQuestions} câu.");
                 }
 
-                // 4. Trộn ngẫu nhiên câu hỏi
                 var selectedQs = pool.OrderBy(x => Guid.NewGuid())
                                      .Take(examInfo.TotalQuestions)
                                      .ToList();
 
-                // 5. Thiết lập liên kết bảng trung gian ExamQuestions
-                examInfo.ExamQuestions.Clear(); // Đảm bảo list trống trước khi add
+                examInfo.ExamQuestions.Clear();
                 for (int i = 0; i < selectedQs.Count; i++)
                 {
                     examInfo.ExamQuestions.Add(new ExamQuestionModel
@@ -70,12 +64,14 @@ namespace exambank.ui.LogicTest
                     });
                 }
 
-                // 6. Gọi Repo lưu cả Exam và danh sách ExamQuestions đi kèm
                 await _repository.AddExamAsync(examInfo);
+
+                _logService.Add($"User:{examInfo.CreatedByUserId}", $"Tạo đề bằng ma trận (ExamId pending)", "Thành công");
                 return true;
             }
             catch (Exception ex)
             {
+                _logService.Add($"User:{examInfo?.CreatedByUserId}", "Tạo đề bằng ma trận", $"Thất bại - {ex.Message}");
                 throw new Exception(ex.Message);
             }
         }
@@ -125,10 +121,13 @@ namespace exambank.ui.LogicTest
                 }
 
                 await _repository.AddExamAsync(exam);
+
+                _logService.Add($"User:{exam.CreatedByUserId}", $"Tạo đề (IDs)", "Thành công");
                 return true;
             }
             catch (Exception ex)
             {
+                _logService.Add($"User:{exam?.CreatedByUserId}", "Tạo đề (IDs)", $"Thất bại - {ex.Message}");
                 Debug.WriteLine("Lỗi khi tạo đề thi: " + ex.Message);
                 return false;
             }
@@ -166,11 +165,14 @@ namespace exambank.ui.LogicTest
 
                 // 3. Lưu đề thi cùng tập hợp bảng trung gian thông qua Repo
                 await _repository.AddExamAsync(exam);
+
+                _logService.Add($"User:{exam.CreatedByUserId}", $"Tạo đề (kèm AI)", "Thành công");
                 return true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Lỗi khi tạo đề thi kèm câu hỏi AI: " + ex.Message);
+                _logService.Add($"User:{exam?.CreatedByUserId}", "Tạo đề (kèm AI)", $"Thất bại - {ex.Message}");
+                Debug.WriteLine("Lỗi khi tạo đề kèm câu hỏi AI: " + ex.Message);
                 return false;
             }
         }

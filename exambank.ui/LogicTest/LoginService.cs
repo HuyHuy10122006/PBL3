@@ -1,25 +1,43 @@
 ﻿using exambank.data;
 using exambank.data.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace exambank.ui.LogicTest
 {
+    public enum LoginStatus
+    {
+        Success,
+        Locked,
+        Invalid
+    }
+
     public class LoginService
     {
-        public UserModel CheckLogin(string username, string password)
+        // Trả về (LoginStatus, UserModel) để UI có thể phân biệt tài khoản bị khóa
+        public (LoginStatus Status, UserModel User) CheckLogin(string username, string password)
         {
             using (var db = new ExamBankDbContext())
             {
-                // Lưu ý: Trong thực tế nên dùng BCrypt để Verify password thay vì so sánh chuỗi thuần
-                var user = db.Users.FirstOrDefault(u => (u.Username == username || u.Email == username) && u.Password == password);
+                var user = db.Users.FirstOrDefault(u => u.Username == username || u.Email == username);
 
-                if (user != null && user.IsActive)
+                if (user == null)
                 {
-                    return user;
+                    return (LoginStatus.Invalid, null);
                 }
-                return null;
+
+                if (!user.IsActive)
+                {
+                    return (LoginStatus.Locked, null);
+                }
+
+                // Lưu ý: trong thực tế nên dùng hashing (BCrypt) để verify mật khẩu
+                if (user.Password != password)
+                {
+                    return (LoginStatus.Invalid, null);
+                }
+
+                return (LoginStatus.Success, user);
             }
         }
 
@@ -27,7 +45,6 @@ namespace exambank.ui.LogicTest
         {
             using (var db = new ExamBankDbContext())
             {
-                // Kiểm tra trùng lặp tài khoản
                 if (db.Users.Any(u => u.Username == username))
                 {
                     mess = "Tên đăng nhập đã tồn tại!";
@@ -40,7 +57,6 @@ namespace exambank.ui.LogicTest
                     return false;
                 }
 
-                // Khởi tạo Model dựa trên UserModel.cs của bạn
                 var newUser = new UserModel
                 {
                     FullName = fullName,
@@ -59,7 +75,7 @@ namespace exambank.ui.LogicTest
                 return true;
             }
         }
-        // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu hay không và gửi yêu cầu khôi phục mật khẩu
+
         public bool SendPasswordRecoveryRequest(string email, out string mess)
         {
             using (var db = new ExamBankDbContext())
@@ -72,7 +88,8 @@ namespace exambank.ui.LogicTest
                 }
 
                 bool isSent = SendRecoveryEmail(email, user.FullName);
-                if (isSent) {
+                if (isSent)
+                {
                     mess = $"Hướng dẫn khôi phục mật khẩu đã được gửi đến email: {email}.";
                     return true;
                 }
@@ -83,10 +100,9 @@ namespace exambank.ui.LogicTest
                 }
             }
         }
-        //Hàm mô phỏng gửi email khôi phục mật khẩu.
+
         private bool SendRecoveryEmail(string email, string fullName)
         {
-            // Tạm thời trả về true để mô phỏng thành công
             return true;
         }
     }
