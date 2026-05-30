@@ -11,6 +11,7 @@ namespace exambank.data
         public DbSet<ExamModel> Exams { get; set; }
         public DbSet<ExamQuestionModel> ExamQuestions { get; set; }
         public DbSet<AIConfigModel> AIConfigs { get; set; }
+        public DbSet<SystemLog> SystemLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

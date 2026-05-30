@@ -68,11 +68,15 @@ namespace exambank.ui
 
             try
             {
-                UserModel authenticatedUser = _loginService.CheckLogin(user, pass);
+                var (status, authenticatedUser) = _loginService.CheckLogin(user, pass);
 
-                if (authenticatedUser != null)
+                if (status == LoginStatus.Success && authenticatedUser != null)
                 {
                     OnNavigate?.Invoke(NavigationTarget.Home, authenticatedUser);
+                }
+                else if (status == LoginStatus.Locked)
+                {
+                    MessageBox.Show("Tài khoản đã bị khóa! Vui lòng liên hệ quản trị viên.", "Tài khoản bị khóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -102,7 +106,6 @@ namespace exambank.ui
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // Nếu người dùng nhấn phím Enter
             if (keyData == Keys.Enter)
             {
                 btnLogin.PerformClick();

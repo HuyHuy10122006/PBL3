@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using exambank.ui.Admin;
 
 namespace exambank.ui
 {
@@ -15,10 +16,12 @@ namespace exambank.ui
     {
         private UserModel _loginUser;
         private NavigationService _nav;
+        private UC_AdminDashboard _ucAdminDashboard;
         private UC_ManageUsers _ucManageUsers;
         private UC_ExamBank _ucExamBank;
         private UC_AIConfig _aiConfig;
         private List<UIButton> menuButtons;
+
         public FormAdmin(UserModel user)
         {
             InitializeComponent();
@@ -26,14 +29,25 @@ namespace exambank.ui
 
             this._loginUser = user;
             _nav = new NavigationService(pnlBody);
+
+            // Khởi tạo các UC (lười khởi tạo lúc cần cũng được)
+            _ucAdminDashboard = new UC_AdminDashboard(_loginUser);
             _ucManageUsers = new UC_ManageUsers(_loginUser);
-            _nav.Display(_ucManageUsers);
+
+            // Mặc định hiển thị trang chủ admin
+            _nav.Display(_ucAdminDashboard);
+
             this.WindowState = FormWindowState.Maximized;
         }
 
         private void btnHome_Click(object sender, EventArgs e)
         {
             UIHelper.SetActiveMenu(btnHome, menuButtons);
+            if (_ucAdminDashboard == null)
+            {
+                _ucAdminDashboard = new UC_AdminDashboard(_loginUser);
+            }
+            _nav.Display(_ucAdminDashboard);
         }
 
         private void btnManageUsers_Click(object sender, EventArgs e)
