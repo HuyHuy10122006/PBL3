@@ -1,5 +1,8 @@
-﻿using exambank.data.Models;
+using System;
+using System.IO;
+using exambank.data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace exambank.data
 {
@@ -17,7 +20,21 @@ namespace exambank.data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=EduGenAI_DB;Trusted_Connection=True;TrustServerCertificate=True;");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .Build();
+
+                string connectionString = configuration.GetConnectionString("DefaultConnection") 
+                    ?? "Server=tcp:huy-edugen-server.database.windows.net,1433;Initial Catalog=EduGenDB;Persist Security Info=False;User ID=huypbl3;Password=251028aA@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=120;";
+
+                optionsBuilder.UseSqlServer(connectionString, options =>
+                    options.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null
+                    )
+                );
             }
         }
 
