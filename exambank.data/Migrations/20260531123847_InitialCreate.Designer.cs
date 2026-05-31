@@ -12,15 +12,15 @@ using exambank.data;
 namespace exambank.data.Migrations
 {
     [DbContext(typeof(ExamBankDbContext))]
-    [Migration("20260524073703_InitDB")]
-    partial class InitDB
+    [Migration("20260531123847_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.8")
+                .HasAnnotation("ProductVersion", "10.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.Base;
 using exambank.ui.LogicTest;
@@ -30,6 +30,15 @@ namespace exambank.ui
         {
             LoadDataTable();
             dgvExams.AutoGenerateColumns = false;
+
+            // Reload dữ liệu mỗi khi UC được hiển thị lại (chuyển tab)
+            this.VisibleChanged += (s, args) =>
+            {
+                if (this.Visible)
+                {
+                    LoadDataTable();
+                }
+            };
         }
 
         private void InitControlDataAsync(List<ExamModel> data)

@@ -1,4 +1,8 @@
+using exambank.data;
 using exambank.ui;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Windows.Forms;
 
 namespace test
 {
@@ -10,9 +14,22 @@ namespace test
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            // Tự động Migrate/Tạo các bảng trong Database nếu chưa có
+            try
+            {
+                using (var db = new ExamBankDbContext())
+                {
+                    db.Database.Migrate();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khởi tạo Database (có thể do sai kết nối hoặc mạng): " + ex.Message, "Lỗi Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Có thể cho chạy tiếp hoặc return tùy ý
+            }
+
             Application.Run(new FormDangNhap());
         }
     }

@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.Base;
 using exambank.ui.LogicTest;
@@ -32,6 +32,15 @@ namespace exambank.ui
         {
             LoadDataTable();
             dgvQuestions.AutoGenerateColumns = false;
+
+            // Reload dữ liệu mỗi khi UC được hiển thị lại (chuyển tab)
+            this.VisibleChanged += (s, args) =>
+            {
+                if (this.Visible)
+                {
+                    LoadDataTable();
+                }
+            };
         }
 
         // Nạp dữ liệu vào ComboBox

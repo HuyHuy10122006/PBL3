@@ -1,4 +1,4 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,8 @@ namespace exambank.ui.LogicTest
 {
     public class QuestionService
     {
-        // Khởi tạo Repository bằng cách truyền DbContext vào
-        private readonly IDatabaseRepository _repository = new DatabaseRepository(new ExamBankDbContext());
+        // Tạo Repository mới mỗi lần gọi để tránh dữ liệu cache cũ
+        private IDatabaseRepository CreateRepository() => new DatabaseRepository(new ExamBankDbContext());
 
         public async Task<bool> AddQuestionAsync(QuestionModel q)
         {
@@ -23,21 +23,64 @@ namespace exambank.ui.LogicTest
 
             try
             {
-                // Sử dụng AddQuestionsAsync có sẵn của Repository
-                await _repository.AddQuestionsAsync(new List<QuestionModel> { q });
-                return true;
+                // Sử dụng 1 DbContext duy nhất cho toàn bộ thao tác để tránh lỗi cross-context tracking
+                using (var db = new ExamBankDbContext())
+                {
+                    // Kiểm tra và tạo Category mặc định nếu chưa có
+                    if (!db.Categories.Any(c => c.Id == q.CategoryId))
+                    {
+                        var defaultCat = db.Categories.FirstOrDefault();
+                        if (defaultCat == null)
+                        {
+                            defaultCat = new CategoryModel
+                            {
+                                Name = "Danh mục mặc định",
+                                Description = "Tạo tự động",
+                                IsActive = true
+                            };
+                            db.Categories.Add(defaultCat);
+                            await db.SaveChangesAsync();
+                        }
+                        q.CategoryId = defaultCat.Id;
+                    }
+
+                    // Tạo entity MỚI hoàn toàn để tránh lỗi IDENTITY_INSERT
+                    var newQuestion = new QuestionModel
+                    {
+                        // KHÔNG gán Id - để SQL Server tự tăng
+                        Question = q.Question,
+                        OptionA = q.OptionA,
+                        OptionB = q.OptionB,
+                        OptionC = q.OptionC,
+                        OptionD = q.OptionD,
+                        Answer = q.Answer,
+                        Explanation = q.Explanation ?? string.Empty,
+                        Subject = q.Subject,
+                        Grade = q.Grade,
+                        Difficulty = q.Difficulty,
+                        CategoryId = q.CategoryId,
+                        CreatedByUserId = q.CreatedByUserId,
+                        CreatedAt = q.CreatedAt,
+                        IsActive = q.IsActive
+                    };
+
+                    db.Questions.Add(newQuestion);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Lỗi khi lưu: " + ex.Message);
-                return false;
+                throw;
             }
         }
 
         public async Task<List<QuestionModel>> GetQuestionsAsync(int userId)
         {
+            var repo = CreateRepository();
             // Tối ưu: Lấy toàn bộ câu hỏi Active thông qua Repo, sau đó lọc theo UserId ở bộ nhớ
-            var allQuestions = await _repository.GetAllQuestionsAsync();
+            var allQuestions = await repo.GetAllQuestionsAsync();
 
             return allQuestions
                 .Where(q => q.CreatedByUserId == userId)
@@ -50,10 +93,11 @@ namespace exambank.ui.LogicTest
 
             try
             {
+                var repo = CreateRepository();
                 foreach (var id in ids)
                 {
                     // Tận dụng hàm DeleteQuestionAsync (Xóa mềm bằng cách set IsActive = false) đã viết ở Repo
-                    await _repository.DeleteQuestionAsync(id);
+                    await repo.DeleteQuestionAsync(id);
                 }
                 return true;
             }
@@ -84,8 +128,9 @@ namespace exambank.ui.LogicTest
 
             try
             {
+                var repo = CreateRepository();
                 // 1. Lấy câu hỏi gốc từ DB thông qua Repo (đã check IsActive)
-                var existingQuestion = await _repository.GetQuestionByIdAsync(updatedData.Id);
+                var existingQuestion = await repo.GetQuestionByIdAsync(updatedData.Id);
 
                 if (existingQuestion != null)
                 {
@@ -104,7 +149,7 @@ namespace exambank.ui.LogicTest
                     existingQuestion.CategoryId = updatedData.CategoryId;
 
                     // 4. Gọi hàm Update của Repo
-                    await _repository.UpdateQuestionAsync(existingQuestion);
+                    await repo.UpdateQuestionAsync(existingQuestion);
                     return true;
                 }
 

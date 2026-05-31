@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.ui.LogicTest;
 using Sunny.UI;
 using System;
@@ -31,6 +31,17 @@ namespace exambank.ui
             //Lấy Rentent Exams (Đề thi gần đây) để hiển thị lên bảng
             _recentExams = await _examService.GetRecentExamsAsync(_loginUser.Id);
             LoadRecentExams();
+
+            // Reload dữ liệu mỗi khi UC được hiển thị lại (chuyển tab)
+            this.VisibleChanged += async (s, args) =>
+            {
+                if (this.Visible)
+                {
+                    await LoadRealStatistics();
+                    _recentExams = await _examService.GetRecentExamsAsync(_loginUser.Id);
+                    LoadRecentExams();
+                }
+            };
         }
 
         private async Task LoadRealStatistics()
