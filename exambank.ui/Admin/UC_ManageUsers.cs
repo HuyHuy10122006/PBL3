@@ -219,45 +219,67 @@ namespace exambank.ui
         {
             // Kiểm tra nhanh trạng thái trước khi chạy
             if (dgvUsers.CurrentRow?.Cells["colStatus"].Value?.ToString() != "Hoạt động") return;
-
-            await ExecuteUserActionAsync(
-                confirmMessage: "Bạn có chắc chắn muốn KHÓA tài khoản của {0} ({1}) không?",
-                successMessage: "Khóa tài khoản thành công!",
-                userServiceAction: (userId) => _userService.ToggleUserStatus(userId, _loginUser.Id)
-            );
+            try
+            {
+                await ExecuteUserActionAsync(
+                    confirmMessage: "Bạn có chắc chắn muốn KHÓA tài khoản của {0} ({1}) không?",
+                    successMessage: "Khóa tài khoản thành công!",
+                    userServiceAction: (userId) => _userService.ToggleUserStatus(userId, _loginUser.Id)
+                );
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
         }
 
         private async void miUnlock_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow?.Cells["colStatus"].Value?.ToString() != "Bị khóa") return;
-
-            await ExecuteUserActionAsync(
-                confirmMessage: "Bạn có chắc chắn muốn MỞ KHÓA tài khoản của {0} ({1}) không?",
-                successMessage: "Mở khóa tài khoản thành công!",
-                userServiceAction: (userId) => _userService.ToggleUserStatus(userId, _loginUser.Id)
-            );
+            try
+            {
+                await ExecuteUserActionAsync(
+                    confirmMessage: "Bạn có chắc chắn muốn MỞ KHÓA tài khoản của {0} ({1}) không?",
+                    successMessage: "Mở khóa tài khoản thành công!",
+                    userServiceAction: (userId) => _userService.ToggleUserStatus(userId, _loginUser.Id)
+                );
+            } catch (Exception ex) {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
         }
 
         private async void miGgantAdminRole_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow?.Cells["colRole"].Value?.ToString() != "Teacher") return;
-
-            await ExecuteUserActionAsync(
-                confirmMessage: "Bạn có chắc chắn muốn NÂNG QUYỀN Admin cho {0} ({1}) không?",
-                successMessage: "Nâng quyền Admin thành công!",
-                userServiceAction: (userId) => _userService.SetUserRole(userId, "Admin", _loginUser.Id)
-            );
+            try
+            {
+                await ExecuteUserActionAsync(
+                    confirmMessage: "Bạn có chắc chắn muốn NÂNG QUYỀN Admin cho {0} ({1}) không?",
+                    successMessage: "Nâng quyền Admin thành công!",
+                    userServiceAction: (userId) => _userService.SetUserRole(userId, "Admin", _loginUser.Id)
+                );
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
         }
 
         private async void miRevokeAdminRole_Click(object sender, EventArgs e)
         {
             if (dgvUsers.CurrentRow?.Cells["colRole"].Value?.ToString() != "Admin") return;
-
-            await ExecuteUserActionAsync(
-                confirmMessage: "Bạn có chắc chắn muốn HẠ QUYỀN tài khoản {0} ({1}) xuống Teacher không?",
-                successMessage: "Hạ quyền Teacher thành công!",
-                userServiceAction: (userId) => _userService.SetUserRole(userId, "Teacher", _loginUser.Id)
-            );
+            try
+            {
+                await ExecuteUserActionAsync(
+                    confirmMessage: "Bạn có chắc chắn muốn HẠ QUYỀN tài khoản {0} ({1}) xuống Teacher không?",
+                    successMessage: "Hạ quyền Teacher thành công!",
+                    userServiceAction: (userId) => _userService.SetUserRole(userId, "Teacher", _loginUser.Id)
+                );
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
         }
     }
 }
