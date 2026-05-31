@@ -68,7 +68,7 @@ namespace exambank.ui.Admin
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(18);
             pnlHeader.RectColor = Color.FromArgb(230, 230, 230);
-            pnlHeader.Size = new Size(1, 84);
+            pnlHeader.Size = new Size(10, 84);
             pnlHeader.Style = UIStyle.Custom;
             pnlHeader.TabIndex = 2;
             pnlHeader.Text = null;
@@ -104,7 +104,7 @@ namespace exambank.ui.Admin
             pnlCards.Location = new Point(0, 84);
             pnlCards.Name = "pnlCards";
             pnlCards.Padding = new Padding(18);
-            pnlCards.Size = new Size(0, 140);
+            pnlCards.Size = new Size(10, 140);
             pnlCards.TabIndex = 1;
             pnlCards.WrapContents = false;
             // 
@@ -116,7 +116,7 @@ namespace exambank.ui.Admin
             pnlContent.Location = new Point(0, 224);
             pnlContent.Name = "pnlContent";
             pnlContent.Padding = new Padding(20);
-            pnlContent.Size = new Size(0, 0);
+            pnlContent.Size = new Size(10, 0);
             pnlContent.TabIndex = 0;
             // 
             // pnlLogsCard
@@ -132,7 +132,7 @@ namespace exambank.ui.Admin
             pnlLogsCard.MinimumSize = new Size(1, 1);
             pnlLogsCard.Name = "pnlLogsCard";
             pnlLogsCard.Padding = new Padding(14);
-            pnlLogsCard.Radius = 8;
+            pnlLogsCard.Radius = 1;
             pnlLogsCard.RectColor = Color.FromArgb(230, 230, 230);
             pnlLogsCard.Size = new Size(1, 1);
             pnlLogsCard.Style = UIStyle.Custom;
@@ -231,7 +231,7 @@ namespace exambank.ui.Admin
             Controls.Add(pnlCards);
             Controls.Add(pnlHeader);
             Name = "UC_AdminDashboard";
-            Size = new Size(0, 0);
+            Size = new Size(10, 10);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlContent.ResumeLayout(false);

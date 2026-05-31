@@ -19,9 +19,9 @@ namespace exambank.ui.LogicTest
             }
         }
 
-<<<<<<< HEAD
         // Thay đổi trạng thái tài khoản (Khóa/Mở khóa)
-        public void ToggleUserStatus(int userId, int currentUserId)
+        // Thêm optional parameter actorUsername để biết ai thực hiện (mặc định "System")
+        public void ToggleUserStatus(int userId, int currentUserId, string actorUsername = "System")
         {
             using (var db = new ExamBankDbContext())
             {
@@ -47,6 +47,9 @@ namespace exambank.ui.LogicTest
                 // Giả định: Trên giao diện là chữ "Hoạt động"/"Bị khóa", trong DB IsActive lưu kiểu bool (true/false)
                 targetUser.IsActive = !targetUser.IsActive;
                 db.SaveChanges();
+
+                string action = targetUser.IsActive ? "Mở khóa tài khoản" : "Khóa tài khoản";
+                _logService.Add(actorUsername, $"{action} (UserId:{userId}, Username:{targetUser.Username})", "Thành công");
             }
         }
 
@@ -76,23 +79,6 @@ namespace exambank.ui.LogicTest
                 // Thực hiện đổi quyền và lưu
                 targetUser.Role = role;
                 db.SaveChanges();
-=======
-        // Khóa hoặc mở khóa người dùng
-        // Thêm optional parameter actorUsername để biết ai thực hiện (mặc định "System")
-        public void ToggleUserStatus(int userId, string actorUsername = "System")
-        {
-            using (var db = new ExamBankDbContext())
-            {
-                var user = db.Users.Find(userId);
-                if (user != null)
-                {
-                    user.IsActive = !user.IsActive; // Đảo ngược trạng thái
-                    db.SaveChanges();
-
-                    string action = user.IsActive ? "Mở khóa tài khoản" : "Khóa tài khoản";
-                    _logService.Add(actorUsername, $"{action} (UserId:{userId}, Username:{user.Username})", "Thành công");
-                }
->>>>>>> main
             }
         }
     }
