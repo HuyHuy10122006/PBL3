@@ -14,6 +14,7 @@ namespace exambank.ui.LogicTest
 
     public class LoginService
     {
+        // Trả về (LoginStatus, UserModel) để UI có thể phân biệt tài khoản bị khóa
         public (LoginStatus Status, UserModel User) CheckLogin(string username, string password)
         {
             using (var db = new ExamBankDbContext())
@@ -30,7 +31,7 @@ namespace exambank.ui.LogicTest
                     return (LoginStatus.Locked, null);
                 }
 
-                if (string.IsNullOrEmpty(user.Password) || !Base.UIHelper.VerifyPassword(password, user.Password))
+                if (string.IsNullOrEmpty(user.Password) && !Base.UIHelper.VerifyPassword(password, user.Password))
                 {
                     return (LoginStatus.Invalid, null);
                 }
@@ -99,6 +100,7 @@ namespace exambank.ui.LogicTest
             }
         }
 
+        //Hàm mô phỏng gửi email khôi phục mật khẩu.
         private bool SendRecoveryEmail(string email, string fullName)
         {
             return true;
