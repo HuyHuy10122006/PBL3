@@ -132,6 +132,7 @@
             btnHome.RectPressColor = Color.FromArgb(44, 62, 80);
             btnHome.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnHome.RectSides = ToolStripStatusLabelBorderSides.None;
+            btnHome.Selected = true;
             btnHome.Size = new Size(273, 80);
             btnHome.TabIndex = 4;
             btnHome.Text = "Trang chủ";
@@ -210,7 +211,6 @@
             btnManageUsers.RectPressColor = Color.FromArgb(44, 62, 80);
             btnManageUsers.RectSelectedColor = Color.FromArgb(30, 50, 60);
             btnManageUsers.RectSides = ToolStripStatusLabelBorderSides.None;
-            btnManageUsers.Selected = true;
             btnManageUsers.Size = new Size(273, 80);
             btnManageUsers.TabIndex = 0;
             btnManageUsers.Text = "Quản lý tài khoản";

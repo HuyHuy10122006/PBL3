@@ -19,15 +19,9 @@ namespace exambank.ui.LogicTest
         {
             using (var db = new ExamBankDbContext())
             {
-<<<<<<< HEAD
-                var user = db.Users.FirstOrDefault(u => (u.Username == username || u.Email == username));
-
-                if (user != null && user.IsActive && !string.IsNullOrEmpty(user.Password) && Base.UIHelper.VerifyPassword(password, user.Password))
-=======
                 var user = db.Users.FirstOrDefault(u => u.Username == username || u.Email == username);
 
                 if (user == null)
->>>>>>> main
                 {
                     return (LoginStatus.Invalid, null);
                 }
@@ -37,8 +31,7 @@ namespace exambank.ui.LogicTest
                     return (LoginStatus.Locked, null);
                 }
 
-                // Lưu ý: trong thực tế nên dùng hashing (BCrypt) để verify mật khẩu
-                if (user.Password != password)
+                if (string.IsNullOrEmpty(user.Password) && !Base.UIHelper.VerifyPassword(password, user.Password))
                 {
                     return (LoginStatus.Invalid, null);
                 }
@@ -107,10 +100,7 @@ namespace exambank.ui.LogicTest
             }
         }
 
-<<<<<<< HEAD
         //Hàm mô phỏng gửi email khôi phục mật khẩu.
-=======
->>>>>>> main
         private bool SendRecoveryEmail(string email, string fullName)
         {
             return true;
