@@ -12,10 +12,13 @@ namespace exambank.data.Models
         [MaxLength(255)]
         public string FileName { get; set; } = string.Empty;
 
+        [MaxLength(500)]
+        public string FilePath { get; set; } = string.Empty;
+
         [MaxLength(50)]
         public string DocumentType { get; set; } = string.Empty;
 
-        public int UserId { get; set; } 
+        public int UserId { get; set; }
 
         public DateTime UploadedAt { get; set; } = DateTime.Now;
 
