@@ -18,12 +18,25 @@ namespace exambank.ui
         private readonly UserModel _loginUser;
         private readonly ExamService _examService = new ExamService();
         private List<ExamModel> _currentExams;
+        private FlowLayoutPanel flpExams;
 
         public UC_ManageExams(UserModel loginUser, List<ExamModel> exams)
         {
             InitializeComponent();
             _loginUser = loginUser;
             _currentExams = exams;
+
+            flpExams = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                Padding = new Padding(15),
+                BackColor = Color.FromArgb(245, 247, 250),
+                WrapContents = true
+            };
+            dgvExams.Visible = false;
+            dgvExams.Parent.Controls.Add(flpExams);
+            flpExams.BringToFront();
         }
 
         private void UC_ManageExams_Load(object sender, EventArgs e)
@@ -67,18 +80,52 @@ namespace exambank.ui
 
         private void BindGrid(List<ExamModel> data)
         {
-            var displayList = data.Select(e => new
+            if (flpExams != null)
             {
-                Id = e.Id,
-                STT = data.IndexOf(e) + 1,
-                ExamCode = e.ExamCode,
-                Title = e.IsShared ? $"{e.Title} (Đã chia sẻ)" : e.Title,
-                Subject = e.Subject,
-                TotalQuestions = e.TotalQuestions,
-                Duration = $"{e.Duration} phút",
-            }).ToList();
+                flpExams.SuspendLayout();
+                flpExams.Controls.Clear();
 
-            dgvExams.DataSource = displayList;
+                if (data.Count == 0)
+                {
+                    var lblEmpty = new Label
+                    {
+                        Text = "📝 Bạn chưa có đề thi nào. Hãy tạo đề thi mới!",
+                        Font = new Font("Segoe UI", 14f, FontStyle.Regular),
+                        ForeColor = Color.FromArgb(160, 160, 160),
+                        AutoSize = false,
+                        Size = new Size(flpExams.Width - 40, 60),
+                        TextAlign = ContentAlignment.MiddleCenter
+                    };
+                    flpExams.Controls.Add(lblEmpty);
+                }
+                else
+                {
+                    foreach (var exam in data)
+                    {
+                        var card = new exambank.ui.Common.UC_ExamCard(exam, true);
+                        card.ActionClicked += Card_ActionClicked;
+                        flpExams.Controls.Add(card);
+                    }
+                }
+
+                flpExams.ResumeLayout();
+            }
+        }
+
+        private void Card_ActionClicked(object sender, exambank.ui.Common.ExamCardEventArgs e)
+        {
+            if (e.Action == "More")
+            {
+                miShare.Text = e.Exam.IsShared ? "Hủy chia sẻ" : "Chia sẻ";
+                Rectangle rect = e.SourceControl.ClientRectangle;
+                cmsActions.Tag = e.Exam;
+                cmsActions.Show(e.SourceControl, rect.Left, rect.Bottom);
+            }
+            else if (e.Action == "View")
+            {
+                cmsActions.Tag = e.Exam;
+                miView_Click(null, EventArgs.Empty);
+            }
         }
 
         private void Filter()
@@ -126,27 +173,32 @@ namespace exambank.ui
             }
         }
 
+        private ExamModel GetSelectedExam()
+        {
+            if (cmsActions.Tag is ExamModel exam) return exam;
+            if (dgvExams.CurrentRow != null)
+            {
+                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
+                return _currentExams.FirstOrDefault(x => x.Id == examId);
+            }
+            return null;
+        }
+
         private async void miView_Click(object sender, EventArgs e)
         {
-            if (dgvExams.CurrentRow == null) return;
+            var fullExamData = GetSelectedExam();
+            if (fullExamData == null) return;
 
             try
             {
-                // Lấy ID
-                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
-                var fullExamData = _currentExams.FirstOrDefault(x => x.Id == examId);
-
-                if (fullExamData != null)
+                if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
                 {
-                    if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
-                    {
-                        fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(examId));
-                    }
+                    fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(fullExamData.Id));
+                }
 
-                    using (FormXemDe frm = new FormXemDe(fullExamData))
-                    {
-                        frm.ShowDialog();
-                    }
+                using (FormXemDe frm = new FormXemDe(fullExamData))
+                {
+                    frm.ShowDialog();
                 }
             }
             catch (Exception ex)
@@ -157,23 +209,24 @@ namespace exambank.ui
 
         private async void miShare_Click(object sender, EventArgs e)
         {
-            if (dgvExams.CurrentRow == null) return;
+            var exam = GetSelectedExam();
+            if (exam == null) return;
             try
             {
-                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
-                bool isSharedNow = await _examService.ToggleShareExamAsync(examId);
-
-                var ext = _currentExams.FirstOrDefault(x => x.Id == examId);
-                if (ext != null)
-                {
-                    ext.IsShared = isSharedNow;
-                }
-
-                BindGrid(_currentExams);
+                bool isSharedNow = await _examService.ToggleShareExamAsync(exam.Id);
+                exam.IsShared = isSharedNow;
                 if (isSharedNow)
-                    UIMessageBox.ShowSuccess2("Đã chia sẻ đề thi lên ngân hàng chung!");
+                {
+                    exam.ApprovalStatus = ApprovalStatus.Pending;
+                    BindGrid(_currentExams);
+                    UIMessageBox.ShowSuccess2("Đã gửi đề thi chờ Admin duyệt!\nĐề thi sẽ hiển thị trên ngân hàng chung sau khi được phê duyệt.");
+                }
                 else
+                {
+                    exam.ApprovalStatus = ApprovalStatus.None;
+                    BindGrid(_currentExams);
                     UIMessageBox.ShowSuccess2("Đã hủy chia sẻ đề thi!");
+                }
             }
             catch (Exception ex)
             {
@@ -183,37 +236,32 @@ namespace exambank.ui
 
         private async void miExport_Click(object sender, EventArgs e)
         {
-            if (dgvExams.CurrentRow == null) return;
+            var fullExamData = GetSelectedExam();
+            if (fullExamData == null) return;
+
             try
             {
-                // Lấy ID
-                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
-                var fullExamData = _currentExams.FirstOrDefault(x => x.Id == examId);
-
-                if (fullExamData != null)
+                if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
                 {
-                    if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
+                    // Nạp câu hỏi (Dùng Task.Run để không lag)
+                    fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(fullExamData.Id));
+                }
+
+                using (var saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Word Document|*.docx";
+                    saveFileDialog.Title = "Lưu đề thi ra file Word";
+                    saveFileDialog.FileName = $"{fullExamData.Title}.docx";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        // Nạp câu hỏi (Dùng Task.Run để không lag)
-                        fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(examId));
-                    }
+                        var docService = new DocumentService();
+                        // Chạy tác vụ xuất file trên một luồng khác để tránh treo UI nếu file nặng
+                        await Task.Run(() => docService.ExportToWord(saveFileDialog.FileName, fullExamData,
+                            fullExamData.ExamQuestions.Select(eq => eq.Question).ToList()
+                        ));
 
-                    using (var saveFileDialog = new SaveFileDialog())
-                    {
-                        saveFileDialog.Filter = "Word Document|*.docx";
-                        saveFileDialog.Title = "Lưu đề thi ra file Word";
-                        saveFileDialog.FileName = $"{fullExamData.Title}.docx";
-
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                        {
-                            var docService = new DocumentService();
-                            // Chạy tác vụ xuất file trên một luồng khác để tránh treo UI nếu file nặng
-                            await Task.Run(() => docService.ExportToWord(saveFileDialog.FileName, fullExamData,
-                                fullExamData.ExamQuestions.Select(eq => eq.Question).ToList()
-                            ));
-
-                            UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
-                        }
+                        UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
                     }
                 }
             }
@@ -225,12 +273,12 @@ namespace exambank.ui
 
         private async void miDelete_Click(object sender, EventArgs e)
         {
-            if (dgvExams.CurrentRow == null) return;
+            var exam = GetSelectedExam();
+            if (exam == null) return;
 
-            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa đề thi đã chọn?"))
+            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa đề thi \"{exam.Title}\"?"))
             {
-                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
-                if ( await _examService.DeleteExamsAsync(new List<int> { examId }))
+                if (await _examService.DeleteExamsAsync(new List<int> { exam.Id }))
                 {
                     UIMessageTip.ShowOk("Đã xóa thành công.");
                     LoadDataTable();
