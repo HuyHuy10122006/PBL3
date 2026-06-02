@@ -49,6 +49,7 @@ namespace exambank.ui
             if (_ucTrangChu == null)
             {
                 _ucTrangChu = new UC_TrangChu(_loginUser);
+                _ucTrangChu.Dock = DockStyle.Fill;
             }
             _nav.Display(_ucTrangChu);
         }

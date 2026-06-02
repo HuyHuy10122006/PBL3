@@ -13,396 +13,535 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
-
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            tlpMain = new TableLayoutPanel();
+            pnlHeader = new Panel();
             lblWelcome = new Sunny.UI.UILabel();
-            panelQ = new Sunny.UI.UIPanel();
-            lblTotalQuestions = new Sunny.UI.UILabel();
-            lblTitleQ = new Sunny.UI.UILabel();
-            iconQ = new Sunny.UI.UISymbolLabel();
-            panelE = new Sunny.UI.UIPanel();
-            lblTotalExams = new Sunny.UI.UILabel();
-            lblTitleE = new Sunny.UI.UILabel();
-            iconE = new Sunny.UI.UISymbolLabel();
-            panelS = new Sunny.UI.UIPanel();
-            lblTotalSubjects = new Sunny.UI.UILabel();
-            lblTitleS = new Sunny.UI.UILabel();
-            iconS = new Sunny.UI.UISymbolLabel();
-            dgvRecentExams = new Sunny.UI.UIDataGridView();
-            colID = new DataGridViewTextBoxColumn();
-            colSTT = new DataGridViewTextBoxColumn();
-            colExamCode = new DataGridViewTextBoxColumn();
-            colTitle = new DataGridViewTextBoxColumn();
-            colSubject = new DataGridViewTextBoxColumn();
-            colTotalQuestions = new DataGridViewTextBoxColumn();
-            colCreatedAt = new DataGridViewTextBoxColumn();
-            uiLabel1 = new Sunny.UI.UILabel();
-            panelQ.SuspendLayout();
-            panelE.SuspendLayout();
-            panelS.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvRecentExams).BeginInit();
+            lblDate = new Sunny.UI.UILabel();
+            tlpCards = new TableLayoutPanel();
+            pnlCard1 = new Sunny.UI.UIPanel();
+            lblCard1Title = new Sunny.UI.UILabel();
+            lblCard1Value = new Sunny.UI.UILabel();
+            btnCard1Detail = new Sunny.UI.UIButton();
+            pnlCard2 = new Sunny.UI.UIPanel();
+            lblCard2Title = new Sunny.UI.UILabel();
+            lblCard2Value = new Sunny.UI.UILabel();
+            btnCard2Detail = new Sunny.UI.UIButton();
+            pnlCard3 = new Sunny.UI.UIPanel();
+            lblCard3Title = new Sunny.UI.UILabel();
+            lblCard3Value = new Sunny.UI.UILabel();
+            btnCard3Detail = new Sunny.UI.UIButton();
+            pnlCard4 = new Sunny.UI.UIPanel();
+            lblCard4Title = new Sunny.UI.UILabel();
+            lblCard4Value = new Sunny.UI.UILabel();
+            btnCard4Detail = new Sunny.UI.UIButton();
+            tlpBottomSection = new TableLayoutPanel();
+            pnlChart = new Sunny.UI.UIPanel();
+            lblChartTitle = new Sunny.UI.UILabel();
+            pnlTable = new Sunny.UI.UIPanel();
+            lblTableTitle = new Sunny.UI.UILabel();
+            dgvRecentActivities = new Sunny.UI.UIDataGridView();
+            barChartAI = new Sunny.UI.UIBarChart();
+            tlpMain.SuspendLayout();
+            pnlHeader.SuspendLayout();
+            tlpCards.SuspendLayout();
+            pnlCard1.SuspendLayout();
+            pnlCard2.SuspendLayout();
+            pnlCard3.SuspendLayout();
+            pnlCard4.SuspendLayout();
+            tlpBottomSection.SuspendLayout();
+            pnlChart.SuspendLayout();
+            pnlTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRecentActivities).BeginInit();
             SuspendLayout();
+            // 
+            // tlpMain
+            // 
+            tlpMain.ColumnCount = 1;
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpMain.Controls.Add(pnlHeader, 0, 0);
+            tlpMain.Controls.Add(tlpCards, 0, 1);
+            tlpMain.Controls.Add(tlpBottomSection, 0, 2);
+            tlpMain.Dock = DockStyle.Fill;
+            tlpMain.Location = new Point(0, 0);
+            tlpMain.Name = "tlpMain";
+            tlpMain.RowCount = 3;
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 84F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 169F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpMain.Size = new Size(1120, 675);
+            tlpMain.TabIndex = 0;
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.Controls.Add(lblWelcome);
+            pnlHeader.Controls.Add(lblDate);
+            pnlHeader.Dock = DockStyle.Fill;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Margin = new Padding(0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(1120, 84);
+            pnlHeader.TabIndex = 0;
             // 
             // lblWelcome
             // 
-            lblWelcome.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            lblWelcome.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblWelcome.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             lblWelcome.ForeColor = Color.FromArgb(48, 48, 48);
-            lblWelcome.Location = new Point(30, 20);
+            lblWelcome.Location = new Point(28, 0);
             lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(810, 40);
+            lblWelcome.Size = new Size(700, 38);
             lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Chào mừng trở lại với hệ thống EduGenAI!";
+            lblWelcome.Text = "Xin chào, Giáo viên. Chúc bạn một ngày làm việc hiệu quả!";
             // 
-            // panelQ
+            // lblDate
             // 
-            panelQ.Controls.Add(lblTotalQuestions);
-            panelQ.Controls.Add(lblTitleQ);
-            panelQ.Controls.Add(iconQ);
-            panelQ.FillColor = Color.FromArgb(235, 245, 255);
-            panelQ.Font = new Font("Microsoft Sans Serif", 12F);
-            panelQ.Location = new Point(30, 80);
-            panelQ.Margin = new Padding(4, 5, 4, 5);
-            panelQ.MinimumSize = new Size(1, 1);
-            panelQ.Name = "panelQ";
-            panelQ.Radius = 15;
-            panelQ.RectColor = Color.LightGray;
-            panelQ.Size = new Size(250, 120);
-            panelQ.TabIndex = 1;
-            panelQ.Text = null;
-            panelQ.TextAlignment = ContentAlignment.MiddleCenter;
+            lblDate.Font = new Font("Segoe UI", 10F);
+            lblDate.ForeColor = Color.Gray;
+            lblDate.Location = new Point(28, 52);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new Size(309, 32);
+            lblDate.TabIndex = 1;
+            lblDate.Text = "Ngày là:";
             // 
-            // lblTotalQuestions
+            // tlpCards
             // 
-            lblTotalQuestions.BackColor = Color.Transparent;
-            lblTotalQuestions.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            lblTotalQuestions.ForeColor = Color.FromArgb(45, 120, 200);
-            lblTotalQuestions.Location = new Point(20, 50);
-            lblTotalQuestions.Name = "lblTotalQuestions";
-            lblTotalQuestions.Size = new Size(150, 50);
-            lblTotalQuestions.TabIndex = 1;
-            lblTotalQuestions.Text = "1,250";
+            tlpCards.ColumnCount = 4;
+            tlpCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tlpCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tlpCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tlpCards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tlpCards.Controls.Add(pnlCard1, 0, 0);
+            tlpCards.Controls.Add(pnlCard2, 1, 0);
+            tlpCards.Controls.Add(pnlCard3, 2, 0);
+            tlpCards.Controls.Add(pnlCard4, 3, 0);
+            tlpCards.Dock = DockStyle.Fill;
+            tlpCards.Location = new Point(0, 84);
+            tlpCards.Margin = new Padding(0);
+            tlpCards.Name = "tlpCards";
+            tlpCards.RowCount = 1;
+            tlpCards.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpCards.Size = new Size(1120, 169);
+            tlpCards.TabIndex = 1;
             // 
-            // lblTitleQ
+            // pnlCard1
             // 
-            lblTitleQ.BackColor = Color.Transparent;
-            lblTitleQ.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTitleQ.ForeColor = Color.FromArgb(45, 120, 200);
-            lblTitleQ.Location = new Point(20, 15);
-            lblTitleQ.Name = "lblTitleQ";
-            lblTitleQ.Size = new Size(200, 30);
-            lblTitleQ.TabIndex = 0;
-            lblTitleQ.Text = "Tổng số câu hỏi";
+            pnlCard1.Controls.Add(lblCard1Title);
+            pnlCard1.Controls.Add(lblCard1Value);
+            pnlCard1.Controls.Add(btnCard1Detail);
+            pnlCard1.Dock = DockStyle.Fill;
+            pnlCard1.FillColor = Color.FromArgb(232, 244, 253);
+            pnlCard1.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlCard1.Location = new Point(13, 9);
+            pnlCard1.Margin = new Padding(13, 9, 9, 9);
+            pnlCard1.MinimumSize = new Size(1, 1);
+            pnlCard1.Name = "pnlCard1";
+            pnlCard1.Radius = 10;
+            pnlCard1.RectColor = Color.FromArgb(232, 244, 253);
+            pnlCard1.Size = new Size(258, 151);
+            pnlCard1.TabIndex = 0;
+            pnlCard1.Text = null;
+            pnlCard1.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // iconQ
+            // lblCard1Title
             // 
-            iconQ.BackColor = Color.White;
-            iconQ.Font = new Font("Microsoft Sans Serif", 48F);
-            iconQ.ForeColor = Color.FromArgb(210, 230, 250);
-            iconQ.Location = new Point(150, 30);
-            iconQ.MinimumSize = new Size(1, 1);
-            iconQ.Name = "iconQ";
-            iconQ.Radius = 15;
-            iconQ.Size = new Size(97, 87);
-            iconQ.Symbol = 57444;
-            iconQ.SymbolSize = 35;
-            iconQ.TabIndex = 2;
+            lblCard1Title.BackColor = Color.Transparent;
+            lblCard1Title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblCard1Title.ForeColor = Color.FromArgb(21, 101, 192);
+            lblCard1Title.Location = new Point(15, 15);
+            lblCard1Title.Name = "lblCard1Title";
+            lblCard1Title.Size = new Size(200, 45);
+            lblCard1Title.TabIndex = 0;
+            lblCard1Title.Text = "Tổng Câu hỏi\r\n(Cá nhân)";
             // 
-            // panelE
+            // lblCard1Value
             // 
-            panelE.Controls.Add(lblTotalExams);
-            panelE.Controls.Add(lblTitleE);
-            panelE.Controls.Add(iconE);
-            panelE.FillColor = Color.FromArgb(255, 245, 235);
-            panelE.Font = new Font("Microsoft Sans Serif", 12F);
-            panelE.Location = new Point(310, 80);
-            panelE.Margin = new Padding(4, 5, 4, 5);
-            panelE.MinimumSize = new Size(1, 1);
-            panelE.Name = "panelE";
-            panelE.Radius = 15;
-            panelE.RectColor = Color.LightGray;
-            panelE.Size = new Size(250, 120);
-            panelE.TabIndex = 2;
-            panelE.Text = null;
-            panelE.TextAlignment = ContentAlignment.MiddleCenter;
+            lblCard1Value.BackColor = Color.Transparent;
+            lblCard1Value.Font = new Font("Segoe UI", 32F, FontStyle.Bold);
+            lblCard1Value.ForeColor = Color.FromArgb(21, 101, 192);
+            lblCard1Value.Location = new Point(15, 55);
+            lblCard1Value.Name = "lblCard1Value";
+            lblCard1Value.Size = new Size(200, 50);
+            lblCard1Value.TabIndex = 1;
+            lblCard1Value.Text = "1,250";
             // 
-            // lblTotalExams
+            // btnCard1Detail
             // 
-            lblTotalExams.BackColor = Color.Transparent;
-            lblTotalExams.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            lblTotalExams.ForeColor = Color.FromArgb(220, 120, 40);
-            lblTotalExams.Location = new Point(20, 50);
-            lblTotalExams.Name = "lblTotalExams";
-            lblTotalExams.Size = new Size(150, 50);
-            lblTotalExams.TabIndex = 1;
-            lblTotalExams.Text = "45";
+            btnCard1Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnCard1Detail.Cursor = Cursors.Hand;
+            btnCard1Detail.FillColor = Color.FromArgb(33, 150, 243);
+            btnCard1Detail.FillHoverColor = Color.FromArgb(30, 136, 229);
+            btnCard1Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCard1Detail.Location = new Point(0, 113);
+            btnCard1Detail.MinimumSize = new Size(1, 1);
+            btnCard1Detail.Name = "btnCard1Detail";
+            btnCard1Detail.RectColor = Color.FromArgb(33, 150, 243);
+            btnCard1Detail.Size = new Size(258, 35);
+            btnCard1Detail.TabIndex = 2;
+            btnCard1Detail.Text = "Xem chi tiết";
+            btnCard1Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // lblTitleE
+            // pnlCard2
             // 
-            lblTitleE.BackColor = Color.Transparent;
-            lblTitleE.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTitleE.ForeColor = Color.FromArgb(220, 120, 40);
-            lblTitleE.Location = new Point(20, 15);
-            lblTitleE.Name = "lblTitleE";
-            lblTitleE.Size = new Size(200, 30);
-            lblTitleE.TabIndex = 0;
-            lblTitleE.Text = "Số đề thi đã tạo";
+            pnlCard2.Controls.Add(lblCard2Title);
+            pnlCard2.Controls.Add(lblCard2Value);
+            pnlCard2.Controls.Add(btnCard2Detail);
+            pnlCard2.Dock = DockStyle.Fill;
+            pnlCard2.FillColor = Color.FromArgb(255, 243, 224);
+            pnlCard2.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlCard2.Location = new Point(289, 9);
+            pnlCard2.Margin = new Padding(9);
+            pnlCard2.MinimumSize = new Size(1, 1);
+            pnlCard2.Name = "pnlCard2";
+            pnlCard2.Radius = 10;
+            pnlCard2.RectColor = Color.FromArgb(255, 243, 224);
+            pnlCard2.Size = new Size(262, 151);
+            pnlCard2.TabIndex = 1;
+            pnlCard2.Text = null;
+            pnlCard2.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // iconE
+            // lblCard2Title
             // 
-            iconE.BackColor = Color.White;
-            iconE.Font = new Font("Microsoft Sans Serif", 48F);
-            iconE.ForeColor = Color.FromArgb(250, 225, 210);
-            iconE.Location = new Point(150, 30);
-            iconE.MinimumSize = new Size(1, 1);
-            iconE.Name = "iconE";
-            iconE.Radius = 15;
-            iconE.Size = new Size(97, 87);
-            iconE.Symbol = 363064;
-            iconE.SymbolSize = 35;
-            iconE.TabIndex = 2;
+            lblCard2Title.BackColor = Color.Transparent;
+            lblCard2Title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblCard2Title.ForeColor = Color.FromArgb(230, 81, 0);
+            lblCard2Title.Location = new Point(15, 15);
+            lblCard2Title.Name = "lblCard2Title";
+            lblCard2Title.Size = new Size(200, 45);
+            lblCard2Title.TabIndex = 0;
+            lblCard2Title.Text = "Câu hỏi do AI tạo\r\n(Tháng)";
             // 
-            // panelS
+            // lblCard2Value
             // 
-            panelS.Controls.Add(lblTotalSubjects);
-            panelS.Controls.Add(lblTitleS);
-            panelS.Controls.Add(iconS);
-            panelS.FillColor = Color.FromArgb(240, 250, 240);
-            panelS.Font = new Font("Microsoft Sans Serif", 12F);
-            panelS.Location = new Point(590, 80);
-            panelS.Margin = new Padding(4, 5, 4, 5);
-            panelS.MinimumSize = new Size(1, 1);
-            panelS.Name = "panelS";
-            panelS.Radius = 15;
-            panelS.RectColor = Color.LightGray;
-            panelS.Size = new Size(250, 120);
-            panelS.TabIndex = 3;
-            panelS.Text = null;
-            panelS.TextAlignment = ContentAlignment.MiddleCenter;
+            lblCard2Value.BackColor = Color.Transparent;
+            lblCard2Value.Font = new Font("Segoe UI", 32F, FontStyle.Bold);
+            lblCard2Value.ForeColor = Color.FromArgb(230, 81, 0);
+            lblCard2Value.Location = new Point(15, 55);
+            lblCard2Value.Name = "lblCard2Value";
+            lblCard2Value.Size = new Size(200, 50);
+            lblCard2Value.TabIndex = 1;
+            lblCard2Value.Text = "320";
             // 
-            // lblTotalSubjects
+            // btnCard2Detail
             // 
-            lblTotalSubjects.BackColor = Color.Transparent;
-            lblTotalSubjects.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
-            lblTotalSubjects.ForeColor = Color.FromArgb(60, 160, 80);
-            lblTotalSubjects.Location = new Point(20, 50);
-            lblTotalSubjects.Name = "lblTotalSubjects";
-            lblTotalSubjects.Size = new Size(150, 50);
-            lblTotalSubjects.TabIndex = 1;
-            lblTotalSubjects.Text = "8";
+            btnCard2Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnCard2Detail.Cursor = Cursors.Hand;
+            btnCard2Detail.FillColor = Color.FromArgb(255, 152, 0);
+            btnCard2Detail.FillHoverColor = Color.FromArgb(245, 124, 0);
+            btnCard2Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCard2Detail.Location = new Point(0, 116);
+            btnCard2Detail.MinimumSize = new Size(1, 1);
+            btnCard2Detail.Name = "btnCard2Detail";
+            btnCard2Detail.RectColor = Color.FromArgb(255, 152, 0);
+            btnCard2Detail.Size = new Size(262, 35);
+            btnCard2Detail.TabIndex = 2;
+            btnCard2Detail.Text = "Xem chi tiết";
+            btnCard2Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // lblTitleS
+            // pnlCard3
             // 
-            lblTitleS.BackColor = Color.Transparent;
-            lblTitleS.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTitleS.ForeColor = Color.FromArgb(60, 160, 80);
-            lblTitleS.Location = new Point(20, 15);
-            lblTitleS.Name = "lblTitleS";
-            lblTitleS.Size = new Size(200, 30);
-            lblTitleS.TabIndex = 0;
-            lblTitleS.Text = "Môn học quản lý";
+            pnlCard3.Controls.Add(lblCard3Title);
+            pnlCard3.Controls.Add(lblCard3Value);
+            pnlCard3.Controls.Add(btnCard3Detail);
+            pnlCard3.Dock = DockStyle.Fill;
+            pnlCard3.FillColor = Color.FromArgb(232, 245, 233);
+            pnlCard3.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlCard3.Location = new Point(569, 9);
+            pnlCard3.Margin = new Padding(9);
+            pnlCard3.MinimumSize = new Size(1, 1);
+            pnlCard3.Name = "pnlCard3";
+            pnlCard3.Radius = 10;
+            pnlCard3.RectColor = Color.FromArgb(232, 245, 233);
+            pnlCard3.Size = new Size(262, 151);
+            pnlCard3.TabIndex = 2;
+            pnlCard3.Text = null;
+            pnlCard3.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // iconS
+            // lblCard3Title
             // 
-            iconS.BackColor = Color.White;
-            iconS.Font = new Font("Microsoft Sans Serif", 48F);
-            iconS.ForeColor = Color.FromArgb(220, 240, 220);
-            iconS.Location = new Point(150, 30);
-            iconS.MinimumSize = new Size(1, 1);
-            iconS.Name = "iconS";
-            iconS.Radius = 15;
-            iconS.Size = new Size(97, 87);
-            iconS.Symbol = 61485;
-            iconS.SymbolSize = 35;
-            iconS.TabIndex = 2;
+            lblCard3Title.BackColor = Color.Transparent;
+            lblCard3Title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblCard3Title.ForeColor = Color.FromArgb(46, 125, 50);
+            lblCard3Title.Location = new Point(15, 15);
+            lblCard3Title.Name = "lblCard3Title";
+            lblCard3Title.Size = new Size(200, 25);
+            lblCard3Title.TabIndex = 0;
+            lblCard3Title.Text = "Số Đề thi";
             // 
-            // dgvRecentExams
+            // lblCard3Value
             // 
-            dgvRecentExams.AllowUserToAddRows = false;
-            dgvRecentExams.AllowUserToDeleteRows = false;
-            dgvRecentExams.AllowUserToResizeColumns = false;
-            dgvRecentExams.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = Color.WhiteSmoke;
-            dgvRecentExams.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
-            dgvRecentExams.BackgroundColor = Color.White;
-            dgvRecentExams.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = Color.LightGray;
-            dataGridViewCellStyle12.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle12.ForeColor = Color.Black;
-            dataGridViewCellStyle12.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle12.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.True;
-            dgvRecentExams.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            dgvRecentExams.ColumnHeadersHeight = 32;
-            dgvRecentExams.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colExamCode, colTitle, colSubject, colTotalQuestions, colCreatedAt });
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = SystemColors.Window;
-            dataGridViewCellStyle13.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle13.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(220, 236, 255);
-            dataGridViewCellStyle13.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.False;
-            dgvRecentExams.DefaultCellStyle = dataGridViewCellStyle13;
-            dgvRecentExams.EnableHeadersVisualStyles = false;
-            dgvRecentExams.Font = new Font("Microsoft Sans Serif", 12F);
-            dgvRecentExams.GridColor = Color.Black;
-            dgvRecentExams.Location = new Point(33, 320);
-            dgvRecentExams.Name = "dgvRecentExams";
-            dgvRecentExams.ReadOnly = true;
-            dgvRecentExams.RectColor = Color.Black;
-            dgvRecentExams.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle14.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle14.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle14.SelectionForeColor = Color.White;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.True;
-            dgvRecentExams.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            dgvRecentExams.RowHeadersVisible = false;
-            dgvRecentExams.RowHeadersWidth = 51;
-            dataGridViewCellStyle15.BackColor = Color.White;
-            dataGridViewCellStyle15.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvRecentExams.RowsDefaultCellStyle = dataGridViewCellStyle15;
-            dgvRecentExams.RowTemplate.Height = 33;
-            dgvRecentExams.ScrollBarColor = Color.Black;
-            dgvRecentExams.ScrollBarRectColor = Color.Black;
-            dgvRecentExams.ScrollBarStyleInherited = false;
-            dgvRecentExams.SelectedIndex = -1;
-            dgvRecentExams.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRecentExams.Size = new Size(807, 378);
-            dgvRecentExams.StripeOddColor = Color.WhiteSmoke;
-            dgvRecentExams.TabIndex = 4;
+            lblCard3Value.BackColor = Color.Transparent;
+            lblCard3Value.Font = new Font("Segoe UI", 32F, FontStyle.Bold);
+            lblCard3Value.ForeColor = Color.FromArgb(46, 125, 50);
+            lblCard3Value.Location = new Point(15, 55);
+            lblCard3Value.Name = "lblCard3Value";
+            lblCard3Value.Size = new Size(200, 50);
+            lblCard3Value.TabIndex = 1;
+            lblCard3Value.Text = "45";
             // 
-            // colID
+            // btnCard3Detail
             // 
-            colID.DataPropertyName = "Id";
-            colID.HeaderText = "ID";
-            colID.MinimumWidth = 6;
-            colID.Name = "colID";
-            colID.ReadOnly = true;
-            colID.Visible = false;
-            colID.Width = 125;
+            btnCard3Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnCard3Detail.Cursor = Cursors.Hand;
+            btnCard3Detail.FillColor = Color.FromArgb(76, 175, 80);
+            btnCard3Detail.FillHoverColor = Color.FromArgb(67, 160, 71);
+            btnCard3Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCard3Detail.Location = new Point(0, 116);
+            btnCard3Detail.MinimumSize = new Size(1, 1);
+            btnCard3Detail.Name = "btnCard3Detail";
+            btnCard3Detail.RectColor = Color.FromArgb(76, 175, 80);
+            btnCard3Detail.Size = new Size(262, 35);
+            btnCard3Detail.TabIndex = 2;
+            btnCard3Detail.Text = "Xem chi tiết";
+            btnCard3Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // colSTT
+            // pnlCard4
             // 
-            colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colSTT.DataPropertyName = "STT";
-            colSTT.HeaderText = "STT";
-            colSTT.MinimumWidth = 6;
-            colSTT.Name = "colSTT";
-            colSTT.ReadOnly = true;
-            colSTT.Width = 75;
+            pnlCard4.Controls.Add(lblCard4Title);
+            pnlCard4.Controls.Add(lblCard4Value);
+            pnlCard4.Controls.Add(btnCard4Detail);
+            pnlCard4.Dock = DockStyle.Fill;
+            pnlCard4.FillColor = Color.FromArgb(243, 229, 245);
+            pnlCard4.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlCard4.Location = new Point(849, 9);
+            pnlCard4.Margin = new Padding(9, 9, 13, 9);
+            pnlCard4.MinimumSize = new Size(1, 1);
+            pnlCard4.Name = "pnlCard4";
+            pnlCard4.Radius = 10;
+            pnlCard4.RectColor = Color.FromArgb(243, 229, 245);
+            pnlCard4.Size = new Size(258, 151);
+            pnlCard4.TabIndex = 3;
+            pnlCard4.Text = null;
+            pnlCard4.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // colExamCode
+            // lblCard4Title
             // 
-            colExamCode.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colExamCode.DataPropertyName = "ExamCode";
-            colExamCode.HeaderText = "Mã đề";
-            colExamCode.MinimumWidth = 6;
-            colExamCode.Name = "colExamCode";
-            colExamCode.ReadOnly = true;
-            colExamCode.Width = 91;
+            lblCard4Title.BackColor = Color.Transparent;
+            lblCard4Title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblCard4Title.ForeColor = Color.FromArgb(106, 27, 154);
+            lblCard4Title.Location = new Point(15, 15);
+            lblCard4Title.Name = "lblCard4Title";
+            lblCard4Title.Size = new Size(200, 45);
+            lblCard4Title.TabIndex = 0;
+            lblCard4Title.Text = "Tài liệu nguồn đã\r\ntải";
             // 
-            // colTitle
+            // lblCard4Value
             // 
-            colTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTitle.DataPropertyName = "Title";
-            colTitle.HeaderText = "Tên đề thi";
-            colTitle.MinimumWidth = 200;
-            colTitle.Name = "colTitle";
-            colTitle.ReadOnly = true;
+            lblCard4Value.BackColor = Color.Transparent;
+            lblCard4Value.Font = new Font("Segoe UI", 32F, FontStyle.Bold);
+            lblCard4Value.ForeColor = Color.FromArgb(106, 27, 154);
+            lblCard4Value.Location = new Point(15, 55);
+            lblCard4Value.Name = "lblCard4Value";
+            lblCard4Value.Size = new Size(200, 50);
+            lblCard4Value.TabIndex = 1;
+            lblCard4Value.Text = "18";
             // 
-            // colSubject
+            // btnCard4Detail
             // 
-            colSubject.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colSubject.DataPropertyName = "Subject";
-            colSubject.HeaderText = "Môn học";
-            colSubject.MinimumWidth = 6;
-            colSubject.Name = "colSubject";
-            colSubject.ReadOnly = true;
-            colSubject.Width = 110;
+            btnCard4Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnCard4Detail.Cursor = Cursors.Hand;
+            btnCard4Detail.FillColor = Color.FromArgb(156, 39, 176);
+            btnCard4Detail.FillHoverColor = Color.FromArgb(142, 36, 170);
+            btnCard4Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCard4Detail.Location = new Point(0, 116);
+            btnCard4Detail.MinimumSize = new Size(1, 1);
+            btnCard4Detail.Name = "btnCard4Detail";
+            btnCard4Detail.RectColor = Color.FromArgb(156, 39, 176);
+            btnCard4Detail.Size = new Size(255, 35);
+            btnCard4Detail.TabIndex = 2;
+            btnCard4Detail.Text = "Xem chi tiết";
+            btnCard4Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
             // 
-            // colTotalQuestions
+            // tlpBottomSection
             // 
-            colTotalQuestions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colTotalQuestions.DataPropertyName = "TotalQuestions";
-            colTotalQuestions.HeaderText = "Số câu";
-            colTotalQuestions.MinimumWidth = 6;
-            colTotalQuestions.Name = "colTotalQuestions";
-            colTotalQuestions.ReadOnly = true;
-            colTotalQuestions.Width = 93;
+            tlpBottomSection.ColumnCount = 2;
+            tlpBottomSection.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            tlpBottomSection.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            tlpBottomSection.Controls.Add(pnlChart, 0, 0);
+            tlpBottomSection.Controls.Add(pnlTable, 1, 0);
+            tlpBottomSection.Dock = DockStyle.Fill;
+            tlpBottomSection.Location = new Point(0, 253);
+            tlpBottomSection.Margin = new Padding(0);
+            tlpBottomSection.Name = "tlpBottomSection";
+            tlpBottomSection.RowCount = 1;
+            tlpBottomSection.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpBottomSection.Size = new Size(1120, 422);
+            tlpBottomSection.TabIndex = 2;
             // 
-            // colCreatedAt
+            // pnlChart
             // 
-            colCreatedAt.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            colCreatedAt.DataPropertyName = "CreatedAt";
-            colCreatedAt.HeaderText = "Ngày tạo";
-            colCreatedAt.MinimumWidth = 6;
-            colCreatedAt.Name = "colCreatedAt";
-            colCreatedAt.ReadOnly = true;
-            colCreatedAt.Width = 114;
+            pnlChart.Controls.Add(barChartAI);
+            pnlChart.Controls.Add(lblChartTitle);
+            pnlChart.Dock = DockStyle.Fill;
+            pnlChart.FillColor = Color.White;
+            pnlChart.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlChart.Location = new Point(13, 9);
+            pnlChart.Margin = new Padding(13, 9, 9, 14);
+            pnlChart.MinimumSize = new Size(1, 1);
+            pnlChart.Name = "pnlChart";
+            pnlChart.Radius = 15;
+            pnlChart.RectColor = Color.FromArgb(220, 220, 220);
+            pnlChart.Size = new Size(426, 399);
+            pnlChart.TabIndex = 0;
+            pnlChart.Text = null;
+            pnlChart.TextAlignment = ContentAlignment.MiddleCenter;
             // 
-            // uiLabel1
+            // lblChartTitle
             // 
-            uiLabel1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            uiLabel1.ForeColor = Color.FromArgb(64, 64, 64);
-            uiLabel1.Location = new Point(30, 279);
-            uiLabel1.Name = "uiLabel1";
-            uiLabel1.Size = new Size(247, 29);
-            uiLabel1.TabIndex = 5;
-            uiLabel1.Text = "Đề đã tạo gần đây";
+            lblChartTitle.BackColor = Color.Transparent;
+            lblChartTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblChartTitle.ForeColor = Color.FromArgb(48, 48, 48);
+            lblChartTitle.Location = new Point(15, 15);
+            lblChartTitle.Name = "lblChartTitle";
+            lblChartTitle.Size = new Size(300, 30);
+            lblChartTitle.TabIndex = 0;
+            lblChartTitle.Text = "Lượt sử dụng AI hàng tuần";
+            // 
+            // pnlTable
+            // 
+            pnlTable.Controls.Add(lblTableTitle);
+            pnlTable.Controls.Add(dgvRecentActivities);
+            pnlTable.Dock = DockStyle.Fill;
+            pnlTable.FillColor = Color.White;
+            pnlTable.Font = new Font("Microsoft Sans Serif", 12F);
+            pnlTable.Location = new Point(457, 9);
+            pnlTable.Margin = new Padding(9, 9, 13, 14);
+            pnlTable.MinimumSize = new Size(1, 1);
+            pnlTable.Name = "pnlTable";
+            pnlTable.Radius = 15;
+            pnlTable.RectColor = Color.FromArgb(220, 220, 220);
+            pnlTable.Size = new Size(650, 399);
+            pnlTable.TabIndex = 1;
+            pnlTable.Text = null;
+            pnlTable.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // lblTableTitle
+            // 
+            lblTableTitle.BackColor = Color.Transparent;
+            lblTableTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTableTitle.ForeColor = Color.FromArgb(48, 48, 48);
+            lblTableTitle.Location = new Point(15, 15);
+            lblTableTitle.Name = "lblTableTitle";
+            lblTableTitle.Size = new Size(300, 30);
+            lblTableTitle.TabIndex = 0;
+            lblTableTitle.Text = "Hoạt động gần đây";
+            // 
+            // dgvRecentActivities
+            // 
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(248, 250, 252);
+            dgvRecentActivities.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvRecentActivities.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvRecentActivities.BackgroundColor = Color.White;
+            dgvRecentActivities.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(30, 90, 180);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(30, 90, 180);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvRecentActivities.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvRecentActivities.ColumnHeadersHeight = 45;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvRecentActivities.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvRecentActivities.EnableHeadersVisualStyles = false;
+            dgvRecentActivities.Font = new Font("Segoe UI", 11F);
+            dgvRecentActivities.GridColor = Color.LightGray;
+            dgvRecentActivities.Location = new Point(15, 55);
+            dgvRecentActivities.Name = "dgvRecentActivities";
+            dgvRecentActivities.RectColor = Color.LightGray;
+            dgvRecentActivities.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvRecentActivities.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvRecentActivities.RowHeadersVisible = false;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F);
+            dgvRecentActivities.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvRecentActivities.RowTemplate.Height = 40;
+            dgvRecentActivities.SelectedIndex = -1;
+            dgvRecentActivities.Size = new Size(620, 329);
+            dgvRecentActivities.StripeOddColor = Color.FromArgb(248, 250, 252);
+            dgvRecentActivities.TabIndex = 1;
+            // 
+            // barChartAI
+            // 
+            barChartAI.Font = new Font("Microsoft Sans Serif", 12F);
+            barChartAI.LegendFont = new Font("Microsoft Sans Serif", 9F);
+            barChartAI.Location = new Point(0, 48);
+            barChartAI.MinimumSize = new Size(1, 1);
+            barChartAI.Name = "barChartAI";
+            barChartAI.Size = new Size(426, 348);
+            barChartAI.SubFont = new Font("Microsoft Sans Serif", 9F);
+            barChartAI.TabIndex = 10;
+            barChartAI.Text = "barChartAI";
             // 
             // UC_TrangChu
             // 
-            BackColor = Color.WhiteSmoke;
-            Controls.Add(uiLabel1);
-            Controls.Add(dgvRecentExams);
-            Controls.Add(panelQ);
-            Controls.Add(panelS);
-            Controls.Add(panelE);
-            Controls.Add(lblWelcome);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(245, 247, 250);
+            Controls.Add(tlpMain);
             Name = "UC_TrangChu";
-            Size = new Size(880, 774);
-            panelQ.ResumeLayout(false);
-            panelE.ResumeLayout(false);
-            panelS.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvRecentExams).EndInit();
+            Size = new Size(1120, 675);
+            tlpMain.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
+            tlpCards.ResumeLayout(false);
+            pnlCard1.ResumeLayout(false);
+            pnlCard2.ResumeLayout(false);
+            pnlCard3.ResumeLayout(false);
+            pnlCard4.ResumeLayout(false);
+            tlpBottomSection.ResumeLayout(false);
+            pnlChart.ResumeLayout(false);
+            pnlTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvRecentActivities).EndInit();
             ResumeLayout(false);
 
         }
 
-        #endregion
-
+        private System.Windows.Forms.TableLayoutPanel tlpMain;
+        private System.Windows.Forms.Panel pnlHeader;
         private Sunny.UI.UILabel lblWelcome;
-        private Sunny.UI.UIPanel panelQ;
-        private Sunny.UI.UILabel lblTotalQuestions;
-        private Sunny.UI.UILabel lblTitleQ;
-        private Sunny.UI.UISymbolLabel iconQ;
-        private Sunny.UI.UIPanel panelE;
-        private Sunny.UI.UILabel lblTotalExams;
-        private Sunny.UI.UILabel lblTitleE;
-        private Sunny.UI.UISymbolLabel iconE;
-        private Sunny.UI.UIPanel panelS;
-        private Sunny.UI.UILabel lblTotalSubjects;
-        private Sunny.UI.UILabel lblTitleS;
-        private Sunny.UI.UISymbolLabel iconS;
-        private Sunny.UI.UIDataGridView dgvRecentExams;
-        private DataGridViewTextBoxColumn colID;
-        private DataGridViewTextBoxColumn colSTT;
-        private DataGridViewTextBoxColumn colExamCode;
-        private DataGridViewTextBoxColumn colTitle;
-        private DataGridViewTextBoxColumn colSubject;
-        private DataGridViewTextBoxColumn colTotalQuestions;
-        private DataGridViewTextBoxColumn colCreatedAt;
-        private Sunny.UI.UILabel uiLabel1;
+        private Sunny.UI.UILabel lblDate;
+        private System.Windows.Forms.TableLayoutPanel tlpCards;
+        private Sunny.UI.UIPanel pnlCard1;
+        private Sunny.UI.UILabel lblCard1Title;
+        private Sunny.UI.UILabel lblCard1Value;
+        private Sunny.UI.UIButton btnCard1Detail;
+        private Sunny.UI.UIPanel pnlCard2;
+        private Sunny.UI.UILabel lblCard2Title;
+        private Sunny.UI.UILabel lblCard2Value;
+        private Sunny.UI.UIButton btnCard2Detail;
+        private Sunny.UI.UIPanel pnlCard3;
+        private Sunny.UI.UILabel lblCard3Title;
+        private Sunny.UI.UILabel lblCard3Value;
+        private Sunny.UI.UIButton btnCard3Detail;
+        private Sunny.UI.UIPanel pnlCard4;
+        private Sunny.UI.UILabel lblCard4Title;
+        private Sunny.UI.UILabel lblCard4Value;
+        private Sunny.UI.UIButton btnCard4Detail;
+        private System.Windows.Forms.TableLayoutPanel tlpBottomSection;
+        private Sunny.UI.UIPanel pnlChart;
+        private Sunny.UI.UILabel lblChartTitle;
+        private Sunny.UI.UIPanel pnlTable;
+        private Sunny.UI.UILabel lblTableTitle;
+        private Sunny.UI.UIDataGridView dgvRecentActivities;
+        private Sunny.UI.UIBarChart barChartAI;
     }
 }

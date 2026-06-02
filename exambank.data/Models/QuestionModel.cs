@@ -44,6 +44,7 @@ namespace exambank.data.Models
 
         [MaxLength(20)]
         public string Difficulty { get; set; } = string.Empty;
+        public bool IsAIGenerated { get; set; } = false;
 
         // Foreign Key - Danh mục câu hỏi
         [Required]
