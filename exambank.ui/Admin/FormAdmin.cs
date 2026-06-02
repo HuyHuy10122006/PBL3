@@ -62,8 +62,9 @@ namespace exambank.ui
 
         private void btnExamBank_Click(object sender, EventArgs e)
         {
-           UIHelper.SetActiveMenu(btnExamBank, menuButtons);
-            if (_ucExamBank == null) {
+            UIHelper.SetActiveMenu(btnExamBank, menuButtons);
+            if (_ucExamBank == null)
+            {
                 _ucExamBank = new UC_ExamBank(_loginUser);
             }
             _nav.Display(_ucExamBank);
@@ -95,6 +96,21 @@ namespace exambank.ui
             if (this.DialogResult != DialogResult.OK)
             {
                 Application.Exit(); // Thoát toàn bộ ứng dụng, không cho quay lại Form Login
+            }
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var frm = new DoiMatKhau(_loginUser))
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể mở cửa sổ đổi mật khẩu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
