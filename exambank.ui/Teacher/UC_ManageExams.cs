@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.Base;
 using exambank.ui.LogicTest;
@@ -30,6 +30,15 @@ namespace exambank.ui
         {
             LoadDataTable();
             dgvExams.AutoGenerateColumns = false;
+
+            // Reload dữ liệu mỗi khi UC được hiển thị lại (chuyển tab)
+            this.VisibleChanged += (s, args) =>
+            {
+                if (this.Visible)
+                {
+                    LoadDataTable();
+                }
+            };
         }
 
         private void InitControlDataAsync(List<ExamModel> data)
@@ -63,7 +72,7 @@ namespace exambank.ui
                 Id = e.Id,
                 STT = data.IndexOf(e) + 1,
                 ExamCode = e.ExamCode,
-                Title = e.Title,
+                Title = e.IsShared ? $"{e.Title} (Đã chia sẻ)" : e.Title,
                 Subject = e.Subject,
                 TotalQuestions = e.TotalQuestions,
                 Duration = $"{e.Duration} phút",
@@ -105,6 +114,13 @@ namespace exambank.ui
                 // Chọn hàng đó luôn
                 dgvExams.CurrentCell = dgvExams.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
+                int examId = (int)dgvExams.Rows[e.RowIndex].Cells["colID"].Value;
+                var ext = _currentExams.FirstOrDefault(x => x.Id == examId);
+                if (ext != null)
+                {
+                    miShare.Text = ext.IsShared ? "Hủy chia sẻ" : "Chia sẻ";
+                }
+
                 Rectangle rect = dgvExams.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
                 cmsActions.Show(dgvExams, rect.Left, rect.Bottom);
             }
@@ -139,9 +155,30 @@ namespace exambank.ui
             }
         }
 
-        private void miShare_Click(object sender, EventArgs e)
+        private async void miShare_Click(object sender, EventArgs e)
         {
-            UIMessageBox.ShowInfo2("Chưa có.");
+            if (dgvExams.CurrentRow == null) return;
+            try
+            {
+                int examId = (int)dgvExams.CurrentRow.Cells["colID"].Value;
+                bool isSharedNow = await _examService.ToggleShareExamAsync(examId);
+
+                var ext = _currentExams.FirstOrDefault(x => x.Id == examId);
+                if (ext != null)
+                {
+                    ext.IsShared = isSharedNow;
+                }
+
+                BindGrid(_currentExams);
+                if (isSharedNow)
+                    UIMessageBox.ShowSuccess2("Đã chia sẻ đề thi lên ngân hàng chung!");
+                else
+                    UIMessageBox.ShowSuccess2("Đã hủy chia sẻ đề thi!");
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
         }
 
         private async void miExport_Click(object sender, EventArgs e)

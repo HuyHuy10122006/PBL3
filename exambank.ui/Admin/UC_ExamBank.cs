@@ -44,7 +44,7 @@ namespace exambank.ui
 
         private async Task LoadDataTable()
         {
-            var newData = await Task.Run(() => _examService.GetAllExamsAsync(_loginUser.Id));
+            var newData = await Task.Run(() => _examService.GetAllExamsAsync());
             _publicExams.Clear();
             foreach (var item in newData)
             {

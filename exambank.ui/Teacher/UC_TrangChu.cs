@@ -1,5 +1,6 @@
 ﻿using exambank.data;
 using exambank.data.Models;
+using exambank.ui.LogicTest;
 using Sunny.UI;
 using System;
 using System.Drawing;
@@ -37,14 +38,7 @@ namespace exambank.ui
 
         private void UC_TrangChu_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible)
-            {
-                LoadDashboardData();
-                SetupChart();
-                LoadDataGrid();
-            }
-        }
-
+        
         public void LoadDashboardData()
         {
             try

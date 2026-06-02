@@ -1,4 +1,4 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.Base;
@@ -268,6 +268,8 @@ namespace exambank.ui
 
             RefineQuestions();
             int successCount = 0;
+            int totalActive = _questionsCreate.Count(q => q.IsActive);
+
             foreach (var question in _questionsCreate)
             {
                 if (question.IsActive == false) continue;
@@ -278,16 +280,22 @@ namespace exambank.ui
                 }
                 catch (Exception ex)
                 {
+                    // Lấy lỗi chi tiết nhất có thể
+                    string errorMsg = ex.InnerException?.InnerException?.Message 
+                        ?? ex.InnerException?.Message 
+                        ?? ex.Message;
+                    UIMessageBox.ShowError2($"Lỗi khi lưu câu hỏi (đã lưu {successCount}/{totalActive}):\n{errorMsg}");
                     Debug.WriteLine(ex);
+                    return; // Dừng lại, không tiếp tục lưu
                 }
             }
-            int totalActive = _questionsCreate.Count(q => q.IsActive);
+
             if (successCount == totalActive)
-                UIMessageBox.ShowSuccess2("Lưu tất cả câu hỏi thành công!");
+                UIMessageBox.ShowSuccess2($"Lưu tất cả {successCount} câu hỏi thành công!");
             else if (successCount > 0)
                 UIMessageBox.ShowInfo2($"Chỉ lưu được {successCount} / {totalActive} câu hỏi.");
             else
-                UIMessageBox.ShowError2("Lưu thất bại! Có thể các câu hỏi đã được lưu trước đó.");
+                UIMessageBox.ShowError2("Lưu thất bại! Không có câu hỏi nào được lưu.");
         }
     }
 }

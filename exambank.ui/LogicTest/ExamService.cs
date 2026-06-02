@@ -1,4 +1,4 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using Sunny.UI;
 using System;
@@ -12,8 +12,8 @@ namespace exambank.ui.LogicTest
 {
     public class ExamService
     {
-        // Khởi tạo Repository để dùng chung (Hàm dựng không nhận tham số)
-        private readonly IDatabaseRepository _repository = new DatabaseRepository(new ExamBankDbContext());
+        // Tạo Repository mới mỗi lần gọi để tránh dữ liệu cache cũ
+        private IDatabaseRepository CreateRepository() => new DatabaseRepository(new ExamBankDbContext());
         private readonly LogService _logService = new LogService();
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace exambank.ui.LogicTest
 
             try
             {
-                var allQuestions = await _repository.GetAllQuestionsAsync();
+                var allQuestions = await CreateRepository().GetAllQuestionsAsync();
                 var query = allQuestions.Where(q => q.CreatedByUserId == examInfo.CreatedByUserId && q.IsActive && q.Subject == examInfo.Subject);
                 var pool = query.ToList();
 
@@ -64,7 +64,7 @@ namespace exambank.ui.LogicTest
                     });
                 }
 
-                await _repository.AddExamAsync(examInfo);
+                await CreateRepository().AddExamAsync(examInfo);
 
                 _logService.Add($"User:{examInfo.CreatedByUserId}", $"Tạo đề bằng ma trận (ExamId pending)", "Thành công");
                 return true;
@@ -89,7 +89,7 @@ namespace exambank.ui.LogicTest
                 // Theo ghi chú ở Repo: Hàm này xóa cứng Exam và DB đã cấu hình Cascade Delete nên tự xóa sạch ExamQuestions liên quan.
                 foreach (var id in examIds)
                 {
-                    await _repository.DeleteExamAsync(id);
+                    await CreateRepository().DeleteExamAsync(id);
                 }
                 return true;
             }
@@ -120,7 +120,7 @@ namespace exambank.ui.LogicTest
                     });
                 }
 
-                await _repository.AddExamAsync(exam);
+                await CreateRepository().AddExamAsync(exam);
 
                 _logService.Add($"User:{exam.CreatedByUserId}", $"Tạo đề (IDs)", "Thành công");
                 return true;
@@ -147,7 +147,7 @@ namespace exambank.ui.LogicTest
                 if (newQuestions.Count > 0)
                 {
                     // Tận dụng hàm thêm hàng loạt của Repo
-                    await _repository.AddQuestionsAsync(newQuestions);
+                    await CreateRepository().AddQuestionsAsync(newQuestions);
                     // Sau lệnh này, Entity Framework sẽ tự động nạp lại Id thực tế từ DB vào thuộc tính `.Id` của từng phần tử trong `newQuestions` và `questions`
                 }
 
@@ -164,7 +164,7 @@ namespace exambank.ui.LogicTest
                 }
 
                 // 3. Lưu đề thi cùng tập hợp bảng trung gian thông qua Repo
-                await _repository.AddExamAsync(exam);
+                await CreateRepository().AddExamAsync(exam);
 
                 _logService.Add($"User:{exam.CreatedByUserId}", $"Tạo đề (kèm AI)", "Thành công");
                 return true;
@@ -183,7 +183,7 @@ namespace exambank.ui.LogicTest
         public async Task<List<ExamModel>> GetExamsAsync(int userId)
         {
             // Tận dụng hàm đã viết sẵn trong Repo chuyên biệt cho việc lọc theo UserId
-            return await _repository.GetExamsByUserAsync(userId);
+            return await CreateRepository().GetExamsByUserAsync(userId);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace exambank.ui.LogicTest
         public async Task<List<QuestionModel>> GetQuestionsByExamIdAsync(int examId)
         {
             // Tận dụng hàm GetExamWithQuestionsAsync từ Repo để lấy thông tin Đề thi kèm danh sách câu hỏi đi qua bảng trung gian
-            var examWithQuestions = await _repository.GetExamWithQuestionsAsync(examId);
+            var examWithQuestions = await CreateRepository().GetExamWithQuestionsAsync(examId);
 
             if (examWithQuestions == null) return new List<QuestionModel>();
 
@@ -209,7 +209,7 @@ namespace exambank.ui.LogicTest
         public async Task<List<ExamQuestionModel>> LoadExamQuestionsAsync(int examId)
         {
             // Tận dụng hàm Repo có sẵn trả về chính xác cấu trúc này kèm lệnh `.Include(eq => eq.Question)`
-            return await _repository.GetExamQuestionsAsync(examId);
+            return await CreateRepository().GetExamQuestionsAsync(examId);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace exambank.ui.LogicTest
             try
             {
                 // Tận dụng hàm cập nhật đề thi của Repo
-                await _repository.UpdateExamAsync(exam);
+                await CreateRepository().UpdateExamAsync(exam);
                 return true;
             }
             catch (Exception ex)
@@ -235,20 +235,32 @@ namespace exambank.ui.LogicTest
         public async Task<List<ExamModel>> GetRecentExamsAsync(int userId)
         {
             // Tận dụng hàm Repo đã viết sẵn để lấy danh sách đề thi của giáo viên, sau đó sắp xếp và lấy 10 đề gần nhất
-            var exams = await _repository.GetExamsByUserAsync(userId);
+            var exams = await CreateRepository().GetExamsByUserAsync(userId);
             return exams.OrderByDescending(e => e.CreatedAt).Take(10).ToList();
         }
 
-        //Hàm lấy đề thi Public (Test, tạm lấy toàn bộ)
-        public async Task<List<ExamModel>> GetPublicExamsAsync(int userId)
+        //Hàm lấy đề thi Public
+        public async Task<List<ExamModel>> GetPublicExamsAsync()
         {
-            return await _repository.GetAllExamsAsync();
+            return await CreateRepository().GetSharedExamsAsync();
+        }
+
+        //Hàm cập nhật trạng thái Chia sẻ
+        public async Task<bool> ToggleShareExamAsync(int examId)
+        {
+            var repo = CreateRepository();
+            var exam = await repo.GetExamByIdAsync(examId);
+            if (exam == null) return false;
+
+            exam.IsShared = !exam.IsShared;
+            await repo.UpdateExamAsync(exam);
+            return exam.IsShared;
         }
 
         //Hàm lấy toàn bộ đề thi (Test)
-        public async Task<List<ExamModel>> GetAllExamsAsync(int userId)
+        public async Task<List<ExamModel>> GetAllExamsAsync()
         {
-            return await _repository.GetAllExamsAsync();
+            return await CreateRepository().GetAllExamsAsync();
         }
     }
 }
