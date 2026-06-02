@@ -31,7 +31,7 @@ namespace exambank.ui.LogicTest
                     return (LoginStatus.Locked, null);
                 }
 
-                if (string.IsNullOrEmpty(user.Password) && !Base.UIHelper.VerifyPassword(password, user.Password))
+                if (string.IsNullOrEmpty(user.Password) || !Base.UIHelper.VerifyPassword(password, user.Password))
                 {
                     return (LoginStatus.Invalid, null);
                 }

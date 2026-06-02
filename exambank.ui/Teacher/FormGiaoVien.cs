@@ -111,5 +111,20 @@ namespace exambank.ui
                 Application.Exit(); // Thoát toàn bộ ứng dụng, không cho quay lại Form Login
             }
         }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var frm = new DoiMatKhau(_loginUser))
+                {
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Không thể mở cửa sổ đổi mật khẩu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

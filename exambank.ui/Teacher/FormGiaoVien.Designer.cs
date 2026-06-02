@@ -27,6 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGiaoVien));
             SidebarPanel = new Sunny.UI.UIPanel();
             pnlMenu = new Sunny.UI.UIPanel();
+            btnChangePassword = new Sunny.UI.UISymbolButton();
             btnLogout = new Sunny.UI.UISymbolButton();
             btnHome = new Sunny.UI.UIButton();
             btnViewExamBank = new Sunny.UI.UIButton();
@@ -56,6 +57,7 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.MidnightBlue;
+            pnlMenu.Controls.Add(btnChangePassword);
             pnlMenu.Controls.Add(btnLogout);
             pnlMenu.Controls.Add(btnHome);
             pnlMenu.Controls.Add(btnViewExamBank);
@@ -70,25 +72,41 @@
             pnlMenu.RectSides = ToolStripStatusLabelBorderSides.None;
             pnlMenu.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // btnChangePassword
+            // 
+            resources.ApplyResources(btnChangePassword, "btnChangePassword");
+            btnChangePassword.BackColor = Color.MediumBlue;
+            btnChangePassword.FillColor = Color.FromArgb(224, 224, 224);
+            btnChangePassword.FillColor2 = Color.FromArgb(224, 224, 224);
+            btnChangePassword.ForeColor = Color.FromArgb(0, 0, 192);
+            btnChangePassword.Name = "btnChangePassword";
+            btnChangePassword.Radius = 10;
+            btnChangePassword.RectColor = Color.FromArgb(0, 0, 192);
+            btnChangePassword.Style = Sunny.UI.UIStyle.Custom;
+            btnChangePassword.Symbol = 0;
+            btnChangePassword.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnChangePassword.TipsForeColor = SystemColors.Window;
+            btnChangePassword.Click += btnChangePassword_Click;
+            // 
             // btnLogout
             // 
             resources.ApplyResources(btnLogout, "btnLogout");
             btnLogout.BackColor = Color.MediumBlue;
-            btnLogout.FillColor = Color.Gainsboro;
-            btnLogout.FillColor2 = Color.Gainsboro;
-            btnLogout.ForeColor = Color.Black;
-            btnLogout.ForeDisableColor = Color.Black;
-            btnLogout.ForeHoverColor = Color.Black;
-            btnLogout.ForePressColor = Color.Black;
-            btnLogout.ForeSelectedColor = Color.Black;
+            btnLogout.FillColor = Color.FromArgb(224, 224, 224);
+            btnLogout.FillColor2 = Color.FromArgb(224, 224, 224);
+            btnLogout.FillHoverColor = Color.FromArgb(235, 115, 115);
+            btnLogout.FillPressColor = Color.FromArgb(184, 64, 64);
+            btnLogout.FillSelectedColor = Color.FromArgb(184, 64, 64);
+            btnLogout.ForeColor = Color.FromArgb(192, 0, 0);
+            btnLogout.LightColor = Color.FromArgb(253, 243, 243);
             btnLogout.Name = "btnLogout";
             btnLogout.Radius = 10;
+            btnLogout.RectColor = Color.FromArgb(192, 0, 0);
+            btnLogout.RectHoverColor = Color.FromArgb(235, 115, 115);
+            btnLogout.RectPressColor = Color.FromArgb(184, 64, 64);
+            btnLogout.RectSelectedColor = Color.FromArgb(184, 64, 64);
             btnLogout.Style = Sunny.UI.UIStyle.Custom;
             btnLogout.Symbol = 0;
-            btnLogout.SymbolColor = Color.Black;
-            btnLogout.SymbolHoverColor = Color.Black;
-            btnLogout.SymbolPressColor = Color.Black;
-            btnLogout.SymbolSelectedColor = Color.Black;
             btnLogout.TipsFont = new Font("Microsoft Sans Serif", 9F);
             btnLogout.Click += btnLog_Click;
             // 
@@ -267,6 +285,7 @@
         private Sunny.UI.UIButton btnCreateQuestion;
         private Sunny.UI.UIButton btnHome;
         private Sunny.UI.UISymbolButton btnLogout;
+        private Sunny.UI.UISymbolButton btnChangePassword;
     }
 
         #endregion
