@@ -27,6 +27,7 @@ namespace exambank.data
         Task<ExamModel?> GetExamWithQuestionsAsync(int examId);
         Task<List<ExamModel>> GetAllExamsAsync();
         Task<List<ExamModel>> GetExamsByUserAsync(int userId);
+        Task<List<ExamModel>> GetSharedExamsAsync();
         Task<ExamModel?> GetExamByIdAsync(int examId);
         Task AddExamAsync(ExamModel exam);
         Task UpdateExamAsync(ExamModel exam);
@@ -162,6 +163,15 @@ namespace exambank.data
         {
             return await _dbContext.Exams
                 .Where(e => e.CreatedByUserId == userId)
+                .OrderByDescending(e => e.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<ExamModel>> GetSharedExamsAsync()
+        {
+            return await _dbContext.Exams
+                .Include(e => e.Author)
+                .Where(e => e.IsShared)
                 .OrderByDescending(e => e.CreatedAt)
                 .ToListAsync();
         }

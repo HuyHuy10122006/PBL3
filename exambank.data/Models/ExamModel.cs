@@ -32,6 +32,8 @@ namespace exambank.data.Models
         [Required]
         public int CreatedByUserId { get; set; }
 
+        public bool IsShared { get; set; } = false;
+
         [ForeignKey("CreatedByUserId")]
         public virtual UserModel? Author { get; set; }
 
