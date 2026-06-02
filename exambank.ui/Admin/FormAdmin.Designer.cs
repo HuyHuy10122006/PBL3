@@ -30,6 +30,7 @@
         {
             pnlSidebar = new Sunny.UI.UIPanel();
             pnlMenu = new Sunny.UI.UIPanel();
+            btnChangePassword = new Sunny.UI.UISymbolButton();
             btnLog = new Sunny.UI.UISymbolButton();
             btnHome = new Sunny.UI.UIButton();
             btnAIConfig = new Sunny.UI.UIButton();
@@ -56,7 +57,7 @@
             pnlSidebar.MinimumSize = new Size(1, 1);
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.RectColor = Color.FromArgb(210, 210, 210);
-            pnlSidebar.Size = new Size(280, 665);
+            pnlSidebar.Size = new Size(280, 732);
             pnlSidebar.Style = Sunny.UI.UIStyle.Custom;
             pnlSidebar.TabIndex = 1;
             pnlSidebar.Text = null;
@@ -65,6 +66,7 @@
             // pnlMenu
             // 
             pnlMenu.BackColor = Color.MidnightBlue;
+            pnlMenu.Controls.Add(btnChangePassword);
             pnlMenu.Controls.Add(btnLog);
             pnlMenu.Controls.Add(btnHome);
             pnlMenu.Controls.Add(btnAIConfig);
@@ -80,34 +82,55 @@
             pnlMenu.Radius = 0;
             pnlMenu.RectColor = Color.FromArgb(44, 62, 80);
             pnlMenu.RectSides = ToolStripStatusLabelBorderSides.None;
-            pnlMenu.Size = new Size(280, 481);
+            pnlMenu.Size = new Size(280, 548);
             pnlMenu.TabIndex = 1;
             pnlMenu.Text = null;
             pnlMenu.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // btnChangePassword
+            // 
+            btnChangePassword.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnChangePassword.BackColor = Color.MediumBlue;
+            btnChangePassword.FillColor = Color.FromArgb(224, 224, 224);
+            btnChangePassword.FillColor2 = Color.FromArgb(224, 224, 224);
+            btnChangePassword.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnChangePassword.ForeColor = Color.FromArgb(0, 0, 192);
+            btnChangePassword.Location = new Point(30, 386);
+            btnChangePassword.MinimumSize = new Size(1, 1);
+            btnChangePassword.Name = "btnChangePassword";
+            btnChangePassword.Radius = 10;
+            btnChangePassword.RectColor = Color.FromArgb(0, 0, 192);
+            btnChangePassword.Size = new Size(221, 45);
+            btnChangePassword.Style = Sunny.UI.UIStyle.Custom;
+            btnChangePassword.Symbol = 0;
+            btnChangePassword.TabIndex = 9;
+            btnChangePassword.Text = "Đổi mật khẩu";
+            btnChangePassword.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnChangePassword.Click += btnChangePassword_Click;
             // 
             // btnLog
             // 
             btnLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLog.BackColor = Color.MediumBlue;
-            btnLog.FillColor = Color.Gainsboro;
-            btnLog.FillColor2 = Color.Gainsboro;
+            btnLog.FillColor = Color.FromArgb(224, 224, 224);
+            btnLog.FillColor2 = Color.FromArgb(224, 224, 224);
+            btnLog.FillHoverColor = Color.FromArgb(235, 115, 115);
+            btnLog.FillPressColor = Color.FromArgb(184, 64, 64);
+            btnLog.FillSelectedColor = Color.FromArgb(184, 64, 64);
             btnLog.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLog.ForeColor = Color.Black;
-            btnLog.ForeDisableColor = Color.Black;
-            btnLog.ForeHoverColor = Color.Black;
-            btnLog.ForePressColor = Color.Black;
-            btnLog.ForeSelectedColor = Color.Black;
-            btnLog.Location = new Point(30, 391);
+            btnLog.ForeColor = Color.FromArgb(192, 0, 0);
+            btnLog.LightColor = Color.FromArgb(253, 243, 243);
+            btnLog.Location = new Point(30, 458);
             btnLog.MinimumSize = new Size(1, 1);
             btnLog.Name = "btnLog";
             btnLog.Radius = 10;
+            btnLog.RectColor = Color.FromArgb(192, 0, 0);
+            btnLog.RectHoverColor = Color.FromArgb(235, 115, 115);
+            btnLog.RectPressColor = Color.FromArgb(184, 64, 64);
+            btnLog.RectSelectedColor = Color.FromArgb(184, 64, 64);
             btnLog.Size = new Size(221, 45);
             btnLog.Style = Sunny.UI.UIStyle.Custom;
             btnLog.Symbol = 0;
-            btnLog.SymbolColor = Color.Black;
-            btnLog.SymbolHoverColor = Color.Black;
-            btnLog.SymbolPressColor = Color.Black;
-            btnLog.SymbolSelectedColor = Color.Black;
             btnLog.TabIndex = 8;
             btnLog.Text = "Đăng xuất";
             btnLog.TipsFont = new Font("Microsoft Sans Serif", 9F);
@@ -277,7 +300,7 @@
             pnlBody.MinimumSize = new Size(1, 1);
             pnlBody.Name = "pnlBody";
             pnlBody.RectColor = Color.FromArgb(44, 62, 80);
-            pnlBody.Size = new Size(770, 665);
+            pnlBody.Size = new Size(770, 732);
             pnlBody.TabIndex = 2;
             pnlBody.Text = null;
             pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
@@ -285,7 +308,7 @@
             // FormAdmin
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1050, 700);
+            ClientSize = new Size(1050, 767);
             ControlBoxForeColor = Color.Black;
             Controls.Add(pnlBody);
             Controls.Add(pnlSidebar);
@@ -316,5 +339,6 @@
         private Sunny.UI.UILabel lblSubTitle;
         private Sunny.UI.UIPanel pnlBody;
         private Sunny.UI.UISymbolButton btnLog;
+        private Sunny.UI.UISymbolButton btnChangePassword;
     }
 }
