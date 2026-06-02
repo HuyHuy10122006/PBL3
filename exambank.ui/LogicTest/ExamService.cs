@@ -239,14 +239,26 @@ namespace exambank.ui.LogicTest
             return exams.OrderByDescending(e => e.CreatedAt).Take(10).ToList();
         }
 
-        //Hàm lấy đề thi Public (Test, tạm lấy toàn bộ)
-        public async Task<List<ExamModel>> GetPublicExamsAsync(int userId)
+        //Hàm lấy đề thi Public
+        public async Task<List<ExamModel>> GetPublicExamsAsync()
         {
-            return await CreateRepository().GetAllExamsAsync();
+            return await CreateRepository().GetSharedExamsAsync();
+        }
+
+        //Hàm cập nhật trạng thái Chia sẻ
+        public async Task<bool> ToggleShareExamAsync(int examId)
+        {
+            var repo = CreateRepository();
+            var exam = await repo.GetExamByIdAsync(examId);
+            if (exam == null) return false;
+
+            exam.IsShared = !exam.IsShared;
+            await repo.UpdateExamAsync(exam);
+            return exam.IsShared;
         }
 
         //Hàm lấy toàn bộ đề thi (Test)
-        public async Task<List<ExamModel>> GetAllExamsAsync(int userId)
+        public async Task<List<ExamModel>> GetAllExamsAsync()
         {
             return await CreateRepository().GetAllExamsAsync();
         }
