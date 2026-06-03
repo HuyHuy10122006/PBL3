@@ -281,14 +281,49 @@ namespace exambank.ui
                 catch (Exception ex)
                 {
                     // Lấy lỗi chi tiết nhất có thể
-                    string errorMsg = ex.InnerException?.InnerException?.Message 
-                        ?? ex.InnerException?.Message 
+                    string errorMsg = ex.InnerException?.InnerException?.Message
+                        ?? ex.InnerException?.Message
                         ?? ex.Message;
                     UIMessageBox.ShowError2($"Lỗi khi lưu câu hỏi (đã lưu {successCount}/{totalActive}):\n{errorMsg}");
                     Debug.WriteLine(ex);
                     return; // Dừng lại, không tiếp tục lưu
                 }
             }
+
+            if (successCount > 0 && tabSource.SelectedIndex == 0 && !string.IsNullOrWhiteSpace(txtFilePath.Text))
+            {
+                try
+                {
+                    using (var db = new ExamBankDbContext())
+                    {
+                        string tenFile = System.IO.Path.GetFileName(txtFilePath.Text);
+
+                        var tonTai = db.Documents.FirstOrDefault(d => d.FileName == tenFile && d.UserId == _loginUser.Id);
+
+                        if (tonTai == null)
+                        {
+                            string loaiFile = System.IO.Path.GetExtension(txtFilePath.Text);
+                            var taiLieuMoi = new DocumentModel
+                            {
+                                FileName = tenFile,
+                                DocumentType = loaiFile,
+                                UserId = _loginUser.Id,
+                                UploadedAt = DateTime.Now,
+                                IsActive = true,
+                                FilePath = txtFilePath.Text
+                            };
+
+                            db.Documents.Add(taiLieuMoi);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+            // --- KẾT THÚC ĐOẠN CODE LƯU TÀI LIỆU ---
 
             if (successCount == totalActive)
                 UIMessageBox.ShowSuccess2($"Lưu tất cả {successCount} câu hỏi thành công!");

@@ -28,26 +28,22 @@
             pnlCard1 = new Sunny.UI.UIPanel();
             lblCard1Title = new Sunny.UI.UILabel();
             lblCard1Value = new Sunny.UI.UILabel();
-            btnCard1Detail = new Sunny.UI.UIButton();
             pnlCard2 = new Sunny.UI.UIPanel();
             lblCard2Title = new Sunny.UI.UILabel();
             lblCard2Value = new Sunny.UI.UILabel();
-            btnCard2Detail = new Sunny.UI.UIButton();
             pnlCard3 = new Sunny.UI.UIPanel();
             lblCard3Title = new Sunny.UI.UILabel();
             lblCard3Value = new Sunny.UI.UILabel();
-            btnCard3Detail = new Sunny.UI.UIButton();
             pnlCard4 = new Sunny.UI.UIPanel();
             lblCard4Title = new Sunny.UI.UILabel();
             lblCard4Value = new Sunny.UI.UILabel();
-            btnCard4Detail = new Sunny.UI.UIButton();
             tlpBottomSection = new TableLayoutPanel();
             pnlChart = new Sunny.UI.UIPanel();
+            barChartAI = new Sunny.UI.UIBarChart();
             lblChartTitle = new Sunny.UI.UILabel();
             pnlTable = new Sunny.UI.UIPanel();
             lblTableTitle = new Sunny.UI.UILabel();
             dgvRecentActivities = new Sunny.UI.UIDataGridView();
-            barChartAI = new Sunny.UI.UIBarChart();
             tlpMain.SuspendLayout();
             pnlHeader.SuspendLayout();
             tlpCards.SuspendLayout();
@@ -133,7 +129,6 @@
             // 
             pnlCard1.Controls.Add(lblCard1Title);
             pnlCard1.Controls.Add(lblCard1Value);
-            pnlCard1.Controls.Add(btnCard1Detail);
             pnlCard1.Dock = DockStyle.Fill;
             pnlCard1.FillColor = Color.FromArgb(232, 244, 253);
             pnlCard1.Font = new Font("Microsoft Sans Serif", 12F);
@@ -170,27 +165,10 @@
             lblCard1Value.TabIndex = 1;
             lblCard1Value.Text = "1,250";
             // 
-            // btnCard1Detail
-            // 
-            btnCard1Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnCard1Detail.Cursor = Cursors.Hand;
-            btnCard1Detail.FillColor = Color.FromArgb(33, 150, 243);
-            btnCard1Detail.FillHoverColor = Color.FromArgb(30, 136, 229);
-            btnCard1Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnCard1Detail.Location = new Point(0, 113);
-            btnCard1Detail.MinimumSize = new Size(1, 1);
-            btnCard1Detail.Name = "btnCard1Detail";
-            btnCard1Detail.RectColor = Color.FromArgb(33, 150, 243);
-            btnCard1Detail.Size = new Size(258, 35);
-            btnCard1Detail.TabIndex = 2;
-            btnCard1Detail.Text = "Xem chi tiết";
-            btnCard1Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            // 
             // pnlCard2
             // 
             pnlCard2.Controls.Add(lblCard2Title);
             pnlCard2.Controls.Add(lblCard2Value);
-            pnlCard2.Controls.Add(btnCard2Detail);
             pnlCard2.Dock = DockStyle.Fill;
             pnlCard2.FillColor = Color.FromArgb(255, 243, 224);
             pnlCard2.Font = new Font("Microsoft Sans Serif", 12F);
@@ -227,27 +205,10 @@
             lblCard2Value.TabIndex = 1;
             lblCard2Value.Text = "320";
             // 
-            // btnCard2Detail
-            // 
-            btnCard2Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnCard2Detail.Cursor = Cursors.Hand;
-            btnCard2Detail.FillColor = Color.FromArgb(255, 152, 0);
-            btnCard2Detail.FillHoverColor = Color.FromArgb(245, 124, 0);
-            btnCard2Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnCard2Detail.Location = new Point(0, 116);
-            btnCard2Detail.MinimumSize = new Size(1, 1);
-            btnCard2Detail.Name = "btnCard2Detail";
-            btnCard2Detail.RectColor = Color.FromArgb(255, 152, 0);
-            btnCard2Detail.Size = new Size(262, 35);
-            btnCard2Detail.TabIndex = 2;
-            btnCard2Detail.Text = "Xem chi tiết";
-            btnCard2Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            // 
             // pnlCard3
             // 
             pnlCard3.Controls.Add(lblCard3Title);
             pnlCard3.Controls.Add(lblCard3Value);
-            pnlCard3.Controls.Add(btnCard3Detail);
             pnlCard3.Dock = DockStyle.Fill;
             pnlCard3.FillColor = Color.FromArgb(232, 245, 233);
             pnlCard3.Font = new Font("Microsoft Sans Serif", 12F);
@@ -284,27 +245,10 @@
             lblCard3Value.TabIndex = 1;
             lblCard3Value.Text = "45";
             // 
-            // btnCard3Detail
-            // 
-            btnCard3Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnCard3Detail.Cursor = Cursors.Hand;
-            btnCard3Detail.FillColor = Color.FromArgb(76, 175, 80);
-            btnCard3Detail.FillHoverColor = Color.FromArgb(67, 160, 71);
-            btnCard3Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnCard3Detail.Location = new Point(0, 116);
-            btnCard3Detail.MinimumSize = new Size(1, 1);
-            btnCard3Detail.Name = "btnCard3Detail";
-            btnCard3Detail.RectColor = Color.FromArgb(76, 175, 80);
-            btnCard3Detail.Size = new Size(262, 35);
-            btnCard3Detail.TabIndex = 2;
-            btnCard3Detail.Text = "Xem chi tiết";
-            btnCard3Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            // 
             // pnlCard4
             // 
             pnlCard4.Controls.Add(lblCard4Title);
             pnlCard4.Controls.Add(lblCard4Value);
-            pnlCard4.Controls.Add(btnCard4Detail);
             pnlCard4.Dock = DockStyle.Fill;
             pnlCard4.FillColor = Color.FromArgb(243, 229, 245);
             pnlCard4.Font = new Font("Microsoft Sans Serif", 12F);
@@ -341,22 +285,6 @@
             lblCard4Value.TabIndex = 1;
             lblCard4Value.Text = "18";
             // 
-            // btnCard4Detail
-            // 
-            btnCard4Detail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnCard4Detail.Cursor = Cursors.Hand;
-            btnCard4Detail.FillColor = Color.FromArgb(156, 39, 176);
-            btnCard4Detail.FillHoverColor = Color.FromArgb(142, 36, 170);
-            btnCard4Detail.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnCard4Detail.Location = new Point(0, 116);
-            btnCard4Detail.MinimumSize = new Size(1, 1);
-            btnCard4Detail.Name = "btnCard4Detail";
-            btnCard4Detail.RectColor = Color.FromArgb(156, 39, 176);
-            btnCard4Detail.Size = new Size(255, 35);
-            btnCard4Detail.TabIndex = 2;
-            btnCard4Detail.Text = "Xem chi tiết";
-            btnCard4Detail.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            // 
             // tlpBottomSection
             // 
             tlpBottomSection.ColumnCount = 2;
@@ -390,6 +318,18 @@
             pnlChart.TabIndex = 0;
             pnlChart.Text = null;
             pnlChart.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // barChartAI
+            // 
+            barChartAI.Font = new Font("Microsoft Sans Serif", 12F);
+            barChartAI.LegendFont = new Font("Microsoft Sans Serif", 9F);
+            barChartAI.Location = new Point(0, 48);
+            barChartAI.MinimumSize = new Size(1, 1);
+            barChartAI.Name = "barChartAI";
+            barChartAI.Size = new Size(426, 348);
+            barChartAI.SubFont = new Font("Microsoft Sans Serif", 9F);
+            barChartAI.TabIndex = 10;
+            barChartAI.Text = "barChartAI";
             // 
             // lblChartTitle
             // 
@@ -480,22 +420,10 @@
             dgvRecentActivities.StripeOddColor = Color.FromArgb(248, 250, 252);
             dgvRecentActivities.TabIndex = 1;
             // 
-            // barChartAI
-            // 
-            barChartAI.Font = new Font("Microsoft Sans Serif", 12F);
-            barChartAI.LegendFont = new Font("Microsoft Sans Serif", 9F);
-            barChartAI.Location = new Point(0, 48);
-            barChartAI.MinimumSize = new Size(1, 1);
-            barChartAI.Name = "barChartAI";
-            barChartAI.Size = new Size(426, 348);
-            barChartAI.SubFont = new Font("Microsoft Sans Serif", 9F);
-            barChartAI.TabIndex = 10;
-            barChartAI.Text = "barChartAI";
-            // 
             // UC_TrangChu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(245, 247, 250);
             Controls.Add(tlpMain);
             Name = "UC_TrangChu";
@@ -523,19 +451,15 @@
         private Sunny.UI.UIPanel pnlCard1;
         private Sunny.UI.UILabel lblCard1Title;
         private Sunny.UI.UILabel lblCard1Value;
-        private Sunny.UI.UIButton btnCard1Detail;
         private Sunny.UI.UIPanel pnlCard2;
         private Sunny.UI.UILabel lblCard2Title;
         private Sunny.UI.UILabel lblCard2Value;
-        private Sunny.UI.UIButton btnCard2Detail;
         private Sunny.UI.UIPanel pnlCard3;
         private Sunny.UI.UILabel lblCard3Title;
         private Sunny.UI.UILabel lblCard3Value;
-        private Sunny.UI.UIButton btnCard3Detail;
         private Sunny.UI.UIPanel pnlCard4;
         private Sunny.UI.UILabel lblCard4Title;
         private Sunny.UI.UILabel lblCard4Value;
-        private Sunny.UI.UIButton btnCard4Detail;
         private System.Windows.Forms.TableLayoutPanel tlpBottomSection;
         private Sunny.UI.UIPanel pnlChart;
         private Sunny.UI.UILabel lblChartTitle;
