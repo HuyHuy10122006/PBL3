@@ -221,6 +221,27 @@ namespace exambank.ui
                 // 3. GỌI AI VÀ XỬ LÝ DỮ LIỆU
                 string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)udtxtCountQuestion.IntValue);
                 FixJson(jsonResult);
+                try
+                {
+                    using (var db = new ExamBankDbContext())
+                    {
+                        // Tạo một bản ghi nhật ký mới
+                        var aiLog = new SystemLog
+                        {
+                            LogTime = DateTime.Now,
+                            Username = _loginUser.Username ?? "User:" + _loginUser.Id, // Lưu người dùng nào vừa gọi AI
+                            Action = "Sử dụng AI tạo câu hỏi", // Chữ "AI" này sẽ giúp Admin nhận diện được
+                            Status = (_questionsCreate.Count > 0) ? "Thành công" : "Thất bại" // Ghi nhận trạng thái để tính Tỷ lệ %
+                        };
+
+                        db.SystemLogs.Add(aiLog);
+                        db.SaveChanges(); // Lưu vào sổ nhật ký
+                    }
+                }
+                catch (Exception exLog)
+                {
+                    Debug.WriteLine("Lỗi không ghi được Log AI: " + exLog.Message);
+                }
 
                 if (!string.IsNullOrWhiteSpace(jsonResult) && !jsonResult.StartsWith("Error"))
                 {

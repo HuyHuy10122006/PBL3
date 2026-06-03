@@ -171,13 +171,15 @@ namespace exambank.ui
                 var option = new Sunny.UI.UIBarOption();
                 option.Title = new Sunny.UI.UITitle();
                 option.Title.Text = "Số lượng câu hỏi AI tạo (7 ngày qua)";
+                option.ToolTip = new Sunny.UI.UIBarToolTip();
+                option.ToolTip.Visible = true;
 
                 option.XAxis.Data.Clear();
                 option.Series.Clear();
 
                 var series = new Sunny.UI.UIBarSeries();
                 series.Name = "Số câu hỏi";
-
+                series.ShowValue = true;
                 using (var db = new ExamBankDbContext())
                 {
                     var today = DateTime.Today;
@@ -253,7 +255,7 @@ namespace exambank.ui
                     var recentActivities = db.Questions
                         .Where(q => q.CreatedByUserId == _user.Id)
                         .OrderByDescending(q => q.CreatedAt)
-                        .Take(5)
+                        .Take(10)
                         .ToList();
 
                     foreach (var item in recentActivities)
