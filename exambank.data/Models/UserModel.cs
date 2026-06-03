@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace exambank.data.Models
 {
@@ -27,6 +27,8 @@ namespace exambank.data.Models
         public string Role { get; set; } = "Teacher";
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public DateTime? LastLogin { get; set; }
 
         public bool IsActive { get; set; } = true;
         public virtual ICollection<QuestionModel> CreatedQuestions { get; set; } = new List<QuestionModel>();

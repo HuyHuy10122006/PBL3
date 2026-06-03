@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.LogicTest;
 using Sunny.UI;
@@ -14,11 +14,15 @@ namespace exambank.ui
     {
         private ExamModel _currentExam;
         private ExamService _examService = new ExamService();
+        private bool _isFromPublicBank;
+        private int _currentUserId;
 
-        public FormXemDe(ExamModel exam)
+        public FormXemDe(ExamModel exam, bool isFromPublicBank = false, int currentUserId = 0)
         {
             InitializeComponent();
             _currentExam = exam;
+            _isFromPublicBank = isFromPublicBank;
+            _currentUserId = currentUserId;
         }
 
         private void FormXemDe_Load(object sender, EventArgs e)
@@ -41,6 +45,15 @@ namespace exambank.ui
             // Tối ưu hóa UI để tránh nháy khi load nhiều control
             flpQuestions.DoubleBuffered(true);
             LoadQuestions();
+
+            if (_isFromPublicBank)
+            {
+                // Ở ngân hàng chung: Không cho sửa, chia sẻ, xuất file
+                btnEdit.Visible = false;
+                btnShare.Visible = false;
+                btnExport.Visible = false;
+                btnSave.Text = "Lưu về máy"; // Đổi text nút lưu
+            }
         }
 
         private void LoadQuestions()
@@ -125,56 +138,96 @@ namespace exambank.ui
         {
             try
             {
-                // 1. Cập nhật thông tin cơ bản của đề thi từ các Control trên Form
-                _currentExam.Title = txtTitle.Text.Trim();
-                _currentExam.ExamCode = txtExamCode.Text.Trim();
-                _currentExam.Subject = cbMonHoc.Text;
-                _currentExam.Duration = (int)udtTime.IntValue;
-
-                // 2. Thu thập danh sách câu hỏi hiện tại từ UI
-                var updatedQuestions = new List<ExamQuestionModel>();
-                int currentOrder = 1;
-
-                // Duyệt qua từng UC để lấy dữ liệu
-                foreach (Control ctrl in flpQuestions.Controls)
+                if (_isFromPublicBank)
                 {
-                    if (ctrl is UC_Question uc)
+                    // LƯU CLONE (BẢN SAO) VỀ NGÂN HÀNG CÁ NHÂN
+                    if (_currentUserId == 0)
                     {
-                        QuestionModel qData = uc.GetData();
-                        if (qData != null)
-                        {
-                            // 1. Tìm ExamQuestion cũ trong danh sách của Đề thi
-                            var examQuest = _currentExam.ExamQuestions.FirstOrDefault(eq => eq.QuestionId == qData.Id);
+                        UIMessageBox.ShowError2("Không xác định được ID người dùng.");
+                        return;
+                    }
 
-                            if (examQuest != null)
-                            {
-                                examQuest.Question = qData;
-                            }
-                            else
-                            {
-                                examQuest = new ExamQuestionModel { ExamId = _currentExam.Id, QuestionId = qData.Id, Question = qData };
-                            }
+                    ExamModel clonedExam = new ExamModel
+                    {
+                        Title = _currentExam.Title + " (Bản sao)",
+                        ExamCode = _currentExam.ExamCode,
+                        Subject = _currentExam.Subject,
+                        Duration = _currentExam.Duration,
+                        TotalQuestions = _currentExam.TotalQuestions,
+                        CreatedByUserId = _currentUserId, // Gắn cho user hiện tại
+                        IsShared = false,
+                        ApprovalStatus = ApprovalStatus.None,
+                        Note = _currentExam.Note,
+                        OriginalExamId = _currentExam.Id // Đánh dấu đề clone → không cho chia sẻ lại
+                    };
 
-                            // 2. Cập nhật số thứ tự câu hỏi dựa trên vị trí hiện tại trên UI
-                            examQuest.QuestionOrder = currentOrder++;
-                            updatedQuestions.Add(examQuest);
-                        }
+                    List<int> questionIds = _currentExam.ExamQuestions.OrderBy(eq => eq.QuestionOrder).Select(eq => eq.QuestionId).ToList();
+                    
+                    bool isSuccess = await _examService.CreateExamAsync(clonedExam, questionIds);
+                    if (isSuccess)
+                    {
+                        UIMessageTip.ShowOk("Đã lưu bản sao đề thi vào Ngân hàng của bạn thành công!");
+                        this.Close(); // Lưu xong thì đóng luôn cho tiện
+                    }
+                    else
+                    {
+                        UIMessageBox.ShowError2("Lưu thất bại.");
                     }
                 }
-
-                // 3. Cập nhật lại danh sách ExamQuestions của Model
-                _currentExam.ExamQuestions = updatedQuestions;
-                _currentExam.TotalQuestions = updatedQuestions.Count;
-
-                // 4. Gọi Service
-                bool isSuccess = await _examService.UpdateExamAsync(_currentExam);
-
-                if (isSuccess)
+                else
                 {
-                    UIMessageBox.ShowSuccess2("Lưu đề thi thành công!");
+                    // LƯU CẬP NHẬT ĐỀ THI HIỆN TẠI (TRONG NGÂN HÀNG CÁ NHÂN)
+                    // 1. Cập nhật thông tin cơ bản của đề thi từ các Control trên Form
+                    _currentExam.Title = txtTitle.Text.Trim();
+                    _currentExam.ExamCode = txtExamCode.Text.Trim();
+                    _currentExam.Subject = cbMonHoc.Text;
+                    _currentExam.Duration = (int)udtTime.IntValue;
 
-                    // Chuyển về chế độ xem (Read Only)
-                    if (!txtTitle.ReadOnly) btnEdit_Click(null, null);
+                    // 2. Thu thập danh sách câu hỏi hiện tại từ UI
+                    var updatedQuestions = new List<ExamQuestionModel>();
+                    int currentOrder = 1;
+
+                    // Duyệt qua từng UC để lấy dữ liệu
+                    foreach (Control ctrl in flpQuestions.Controls)
+                    {
+                        if (ctrl is UC_Question uc)
+                        {
+                            QuestionModel qData = uc.GetData();
+                            if (qData != null)
+                            {
+                                // 1. Tìm ExamQuestion cũ trong danh sách của Đề thi
+                                var examQuest = _currentExam.ExamQuestions.FirstOrDefault(eq => eq.QuestionId == qData.Id);
+
+                                if (examQuest != null)
+                                {
+                                    examQuest.Question = qData;
+                                }
+                                else
+                                {
+                                    examQuest = new ExamQuestionModel { ExamId = _currentExam.Id, QuestionId = qData.Id, Question = qData };
+                                }
+
+                                // 2. Cập nhật số thứ tự câu hỏi dựa trên vị trí hiện tại trên UI
+                                examQuest.QuestionOrder = currentOrder++;
+                                updatedQuestions.Add(examQuest);
+                            }
+                        }
+                    }
+
+                    // 3. Cập nhật lại danh sách ExamQuestions của Model
+                    _currentExam.ExamQuestions = updatedQuestions;
+                    _currentExam.TotalQuestions = updatedQuestions.Count;
+
+                    // 4. Gọi Service
+                    bool isSuccess = await _examService.UpdateExamAsync(_currentExam);
+
+                    if (isSuccess)
+                    {
+                        UIMessageBox.ShowSuccess2("Cập nhật đề thi thành công!");
+
+                        // Chuyển về chế độ xem (Read Only)
+                        if (!txtTitle.ReadOnly) btnEdit_Click(null, null);
+                    }
                 }
             }
             catch (Exception ex)

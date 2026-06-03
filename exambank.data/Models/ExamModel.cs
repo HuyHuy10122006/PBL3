@@ -47,6 +47,12 @@ namespace exambank.data.Models
         [MaxLength(500)]
         public string? AdminNote { get; set; }
 
+        /// <summary>
+        /// ID đề thi gốc nếu đề này được clone từ ngân hàng chung.
+        /// Nếu != null → không cho phép chia sẻ lại.
+        /// </summary>
+        public int? OriginalExamId { get; set; }
+
         [ForeignKey("CreatedByUserId")]
         public virtual UserModel? Author { get; set; }
 

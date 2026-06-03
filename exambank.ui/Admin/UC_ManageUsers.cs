@@ -1,9 +1,11 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.ui.Base;
 using exambank.ui.LogicTest;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +17,10 @@ namespace exambank.ui
         private readonly UserModel _loginUser;
         private readonly UserService _userService = new UserService();
         private List<UserModel> _currentUsers = new List<UserModel>();
+        
+        private FlowLayoutPanel _flpUsers;
+        private Panel _pnlListHeader;
+        private UserModel _selectedUserAction;
 
         public UC_ManageUsers(UserModel user)
         {
@@ -24,9 +30,53 @@ namespace exambank.ui
 
         private async void UC_ManageUsers_Load(object sender, EventArgs e)
         {
-            dgvUsers.AutoGenerateColumns = false;
+            dgvUsers.Visible = false; // Ẩn DataGridView cũ
+            SetupFlowLayout();
+            
             await LoadDataTable();
             InitFilterData();
+        }
+        
+        private void SetupFlowLayout()
+        {
+            _pnlListHeader = new Panel { Dock = DockStyle.Top, Height = 45, BackColor = Color.White };
+            _pnlListHeader.Paint += (s, e) => {
+                Graphics g = e.Graphics;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                Font fontBold = new Font("Segoe UI", 10, FontStyle.Bold);
+                Brush textBrush = new SolidBrush(Color.FromArgb(100, 100, 100));
+                
+                g.DrawString("#", fontBold, textBrush, new Point(30, 12));
+                g.DrawString("Người dùng", fontBold, textBrush, new Point(120, 12));
+                g.DrawString("Email", fontBold, textBrush, new Point(350, 12));
+                g.DrawString("Vai trò", fontBold, textBrush, new Point(610, 12));
+                g.DrawString("Trạng thái", fontBold, textBrush, new Point(765, 12));
+                g.DrawString("Đăng nhập cuối", fontBold, textBrush, new Point(900, 12));
+                g.DrawString("Thao tác", fontBold, textBrush, new Point(1090, 12));
+                
+                g.DrawLine(new Pen(Color.FromArgb(235, 235, 235)), 0, 44, _pnlListHeader.Width, 44);
+            };
+
+            _flpUsers = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                BackColor = Color.FromArgb(250, 250, 250),
+                WrapContents = false,
+                FlowDirection = FlowDirection.TopDown
+            };
+            
+            _flpUsers.SizeChanged += (s, ev) => {
+                _flpUsers.SuspendLayout();
+                foreach (Control c in _flpUsers.Controls) {
+                    c.Width = _flpUsers.ClientSize.Width - 15;
+                }
+                _flpUsers.ResumeLayout();
+            };
+
+            pnlDgv.Controls.Add(_flpUsers);
+            pnlDgv.Controls.Add(_pnlListHeader);
         }
 
         private void InitFilterData()
@@ -46,18 +96,66 @@ namespace exambank.ui
 
         private void BindGrid(List<UserModel> data)
         {
-            var display = data.Select(u => new
+            if (_flpUsers == null) return;
+            
+            _flpUsers.SuspendLayout();
+            // Xóa các row cũ
+            foreach (Control ctrl in _flpUsers.Controls)
             {
-                ID = u.Id,
-                STT = data.IndexOf(u) + 1,
-                FullName = u.FullName,
-                Username = u.Username,
-                Email = u.Email,
-                Status = u.IsActive ? "Hoạt động" : "Bị khóa",
-                Role = u.Role,
-            }).ToList();
+                ctrl.Dispose();
+            }
+            _flpUsers.Controls.Clear();
 
-            dgvUsers.DataSource = display;
+            int index = 1;
+            foreach (var u in data)
+            {
+                var row = new Admin.UC_UserRow(u, index++, u.Id == _loginUser.Id);
+                row.Width = _flpUsers.ClientSize.Width - 15; // Trừ hao scrollbar
+                row.ActionClicked += Row_ActionClicked;
+                _flpUsers.Controls.Add(row);
+            }
+            
+            _flpUsers.ResumeLayout();
+        }
+
+        private void Row_ActionClicked(object sender, UserModel user)
+        {
+            _selectedUserAction = user;
+            Admin.UC_UserRow row = sender as Admin.UC_UserRow;
+
+            // Xác định quyền để hiển thị menu
+            int targetUserId = user.Id;
+            string targetRole = user.Role;
+            bool targetStatus = user.IsActive;
+
+            bool isSelf = targetUserId == _loginUser.Id;
+            bool isCurrentSuperAdmin = _loginUser.Role == "SuperAdmin";
+            bool isCurrentAdmin = _loginUser.Role == "Admin";
+            bool isTargetSuperAdmin = targetRole == "SuperAdmin";
+            bool isTargetAdmin = targetRole == "Admin";
+
+            // 1. CHẶN HOÀN TOÀN
+            if (isSelf || isTargetSuperAdmin) return;
+
+            // 2. CHẶN CHO ADMIN THƯỜNG
+            if (isCurrentAdmin && isTargetAdmin) return;
+
+            bool canLock = targetStatus;
+            bool canUnlock = !targetStatus;
+            bool canGrant = isCurrentSuperAdmin && (targetRole == "Teacher") && canLock;
+            bool canRevoke = isCurrentSuperAdmin && isTargetAdmin && canLock;
+
+            if (!canLock && !canUnlock && !canGrant && !canRevoke) return;
+
+            miLock.Visible = canLock;
+            miUnlock.Visible = canUnlock;
+            miGgantAdminRole.Visible = canGrant;
+            miRevokeAdminRole.Visible = canRevoke;
+            sSuperAdmin.Visible = canGrant || canRevoke;
+
+            // Hiển thị context menu
+            Point pt = row.PointToScreen(new Point(1100, 45));
+            cmsActions.Show(pt);
         }
 
         private async void btnRefresh_Click(object sender, EventArgs e)
@@ -94,117 +192,26 @@ namespace exambank.ui
             Filter();
         }
 
-        // Định dạng màu sắc cho ô trong DataGridView
-        private void dgvUsers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            // Đổi màu chữ của cột "Trạng thái"
-            if (dgvUsers.Columns[e.ColumnIndex].Name == "colStatus" && e.Value != null)
-            {
-                string status = e.Value.ToString().Trim();
-                if (status.Equals("Bị khóa"))
-                {
-                    e.CellStyle.ForeColor = Color.FromArgb(197, 34, 31);   // Đỏ đậm
-                }
-                else
-                {
-                    e.CellStyle.ForeColor = Color.FromArgb(19, 115, 51);   // Xanh đậm
-                }
-            }
-        }
+        // CÁC HÀM CŨ CỦA DATAGRIDVIEW KHÔNG CÒN SỬ DỤNG NHƯNG GIỮ LẠI ĐỂ TRÁNH LỖI DESIGNER
+        private void dgvUsers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e) { }
+        private void dgvUsers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e) { }
+        private void dgvUsers_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e) { }
+        private void cmsActions_Opening(object sender, System.ComponentModel.CancelEventArgs e) { }
 
-        private void dgvUsers_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dgvUsers.ClearSelection();
-        }
-
-        private void dgvUsers_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-            // Kiểm tra chuột trái và đúng cột thao tác
-            if (e.Button == MouseButtons.Left && dgvUsers.Columns[e.ColumnIndex].Name == "colActions")
-            {
-                // Chọn hàng đó luôn
-                dgvUsers.CurrentCell = dgvUsers.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-                Rectangle rect = dgvUsers.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-                cmsActions.Show(dgvUsers, rect.Left, rect.Bottom);
-            }
-        }
-
-        private void cmsActions_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            var row = dgvUsers.CurrentRow;
-            if (row == null)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            // Đọc thông tin từ dòng hiện tại
-            int targetUserId = (int)row.Cells["colID"].Value;
-            string targetRole = row.Cells["colRole"].Value?.ToString()?.Trim();
-            string targetStatus = row.Cells["colStatus"].Value?.ToString()?.Trim();
-
-            // Xác định vai trò của người đang đăng nhập và đối tượng bị tác động
-            bool isSelf = targetUserId == _loginUser.Id;
-            bool isCurrentSuperAdmin = _loginUser.Role == "SuperAdmin";
-            bool isCurrentAdmin = _loginUser.Role == "Admin";
-            bool isTargetSuperAdmin = targetRole == "SuperAdmin";
-            bool isTargetAdmin = targetRole == "Admin";
-
-            // 1. CHẶN HOÀN TOÀN: Không cho thao tác với chính mình hoặc tài khoản SuperAdmin
-            if (isSelf || isTargetSuperAdmin)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            // 2. CHẶN CHO ADMIN THƯỜNG: Admin thường không được quyền quản lý các Admin khác
-            if (isCurrentAdmin && isTargetAdmin)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            // Tính toán trạng thái hiển thị bằng biến thuần túy
-            bool canLock = (targetStatus == "Hoạt động");
-            bool canUnlock = (targetStatus == "Bị khóa");
-            bool canGrant = isCurrentSuperAdmin && (targetRole == "Teacher") && canLock;
-            bool canRevoke = isCurrentSuperAdmin && isTargetAdmin && canLock;
-
-            // Kiểm tra điều kiện mở menu trước khi gán vào UI
-            if (!canLock && !canUnlock && !canGrant && !canRevoke)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            // Gán trạng thái thực tế lên UI
-            miLock.Visible = canLock;
-            miUnlock.Visible = canUnlock;
-            miGgantAdminRole.Visible = canGrant;
-            miRevokeAdminRole.Visible = canRevoke;
-            sSuperAdmin.Visible = canGrant || canRevoke;
-        }
-
-        // Hàm xử lý chung (Helper) giúp tái sử dụng code, giảm trùng lặp khi tương tác với DataGridView
+        // Hàm xử lý chung (Helper)
         private async Task ExecuteUserActionAsync(string confirmMessage, string successMessage, Action<int> userServiceAction)
         {
-            var row = dgvUsers.CurrentRow;
-            if (row == null) return;
+            if (_selectedUserAction == null) return;
 
             try
             {
-                int userId = (int)row.Cells["colID"].Value;
-                string username = row.Cells["colUsername"].Value?.ToString();
-                string fullName = row.Cells["colFullName"].Value?.ToString();
+                int userId = _selectedUserAction.Id;
+                string username = _selectedUserAction.Username;
+                string fullName = _selectedUserAction.FullName;
 
-                // Hiển thị hộp thoại xác nhận với thông tin chi tiết của User
                 if (UIMessageBox.ShowAsk2(string.Format(confirmMessage, fullName, username)))
                 {
-                    // Chạy hàm ủy nhiệm (delegate) được truyền vào từ các sự kiện click
                     userServiceAction(userId);
-
                     UIMessageBox.ShowSuccess2(successMessage);
                     await LoadDataTable();
                 }
@@ -213,12 +220,15 @@ namespace exambank.ui
             {
                 UIMessageBox.ShowError2($"Lỗi hệ thống: {ex.Message}");
             }
+            finally
+            {
+                _selectedUserAction = null;
+            }
         }
 
         private async void miLock_Click(object sender, EventArgs e)
         {
-            // Kiểm tra nhanh trạng thái trước khi chạy
-            if (dgvUsers.CurrentRow?.Cells["colStatus"].Value?.ToString() != "Hoạt động") return;
+            if (_selectedUserAction == null || !_selectedUserAction.IsActive) return;
             try
             {
                 await ExecuteUserActionAsync(
@@ -235,7 +245,7 @@ namespace exambank.ui
 
         private async void miUnlock_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.CurrentRow?.Cells["colStatus"].Value?.ToString() != "Bị khóa") return;
+            if (_selectedUserAction == null || _selectedUserAction.IsActive) return;
             try
             {
                 await ExecuteUserActionAsync(
@@ -250,7 +260,7 @@ namespace exambank.ui
 
         private async void miGgantAdminRole_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.CurrentRow?.Cells["colRole"].Value?.ToString() != "Teacher") return;
+            if (_selectedUserAction == null || _selectedUserAction.Role != "Teacher") return;
             try
             {
                 await ExecuteUserActionAsync(
@@ -267,7 +277,7 @@ namespace exambank.ui
 
         private async void miRevokeAdminRole_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.CurrentRow?.Cells["colRole"].Value?.ToString() != "Admin") return;
+            if (_selectedUserAction == null || _selectedUserAction.Role != "Admin") return;
             try
             {
                 await ExecuteUserActionAsync(
