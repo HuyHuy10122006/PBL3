@@ -1,5 +1,6 @@
 ﻿using exambank.data.Models;
 using exambank.ui.Base;
+using exambank.ui.Common;
 using exambank.ui.LogicTest;
 using Sunny.UI;
 using System;
@@ -94,16 +95,7 @@ namespace exambank.ui
             _nav.Display(_ucViewExamBank);
         }
 
-        private void btnLog_Click(object sender, EventArgs e)
-        {
-            var result = UIMessageBox.ShowAsk("Bạn có chắc chắn muốn đăng xuất không?");
-            if (result)
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-        }
-
+    
         private void FormGiaoVien_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Nếu DialogResult KHÔNG PHẢI là OK, nghĩa là người dùng bấm X hoặc Alt+F4
@@ -113,19 +105,19 @@ namespace exambank.ui
             }
         }
 
-        private void btnChangePassword_Click(object sender, EventArgs e)
+       
+
+        // TÍNH NĂNG MỚI: Click vào Avatar để mở trang Profile
+        private void avtUser_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var frm = new DoiMatKhau(_loginUser))
-                {
-                    frm.ShowDialog();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Không thể mở cửa sổ đổi mật khẩu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+          
+            UC_ProfileSettings ucProfile = new UC_ProfileSettings(_loginUser);
+
+            // Tận dụng luôn biến _nav có sẵn của bạn để hiển thị giao diện cực mượt
+            _nav.Display(ucProfile);
+
+            // (Tùy chọn) Nếu muốn xóa hiệu ứng "đang chọn" của các nút menu bên trái khi mở Profile
+            UIHelper.SetActiveMenu(null, menuButtons);
         }
     }
 }

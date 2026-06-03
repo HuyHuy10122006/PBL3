@@ -118,118 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnChangePassword.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+  <data name="btnViewExamBank.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnChangePassword.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
-  </data>
-  <data name="btnChangePassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 448</value>
-  </data>
-  <data name="btnChangePassword.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnChangePassword.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 45</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnChangePassword.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="btnChangePassword.Text" xml:space="preserve">
-    <value>Đổi mật khẩu</value>
-  </data>
-  <data name="&gt;&gt;btnChangePassword.Name" xml:space="preserve">
-    <value>btnChangePassword</value>
-  </data>
-  <data name="&gt;&gt;btnChangePassword.Type" xml:space="preserve">
-    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnChangePassword.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnChangePassword.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btnLogout.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="btnLogout.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
-  </data>
-  <data name="btnLogout.Location" type="System.Drawing.Point, System.Drawing">
-    <value>30, 519</value>
-  </data>
-  <data name="btnLogout.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnLogout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 45</value>
-  </data>
-  <data name="btnLogout.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="btnLogout.Text" xml:space="preserve">
-    <value>Đăng xuất</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Name" xml:space="preserve">
-    <value>btnLogout</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Type" xml:space="preserve">
-    <value>Sunny.UI.UISymbolButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnLogout.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="btnHome.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
-  </data>
-  <data name="btnHome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 8</value>
-  </data>
-  <data name="btnHome.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="btnHome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 80</value>
-  </data>
-  <data name="btnHome.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="btnHome.Text" xml:space="preserve">
-    <value>Trang chủ</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Name" xml:space="preserve">
-    <value>btnHome</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Type" xml:space="preserve">
-    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;btnHome.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;btnHome.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="btnViewExamBank.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
+    <value>Segoe UI, 12pt, style=Bold</value>
   </data>
   <data name="btnViewExamBank.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 340</value>
+    <value>0, 380</value>
   </data>
   <data name="btnViewExamBank.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
-  <data name="btnViewExamBank.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 80</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnViewExamBank.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>30, 0, 0, 0</value>
   </data>
+  <data name="btnViewExamBank.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 65</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnViewExamBank.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="btnViewExamBank.Text" xml:space="preserve">
     <value>Ngân hàng đề thi chung</value>
@@ -241,25 +152,31 @@
     <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
   <data name="&gt;&gt;btnViewExamBank.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
+    <value>panelSidebar</value>
   </data>
   <data name="&gt;&gt;btnViewExamBank.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>0</value>
+  </data>
+  <data name="btnManageExams.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="btnManageExams.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
+    <value>Segoe UI, 12pt, style=Bold</value>
   </data>
   <data name="btnManageExams.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 258</value>
+    <value>0, 315</value>
   </data>
   <data name="btnManageExams.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
+  <data name="btnManageExams.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>30, 0, 0, 0</value>
+  </data>
   <data name="btnManageExams.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 80</value>
+    <value>280, 65</value>
   </data>
   <data name="btnManageExams.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnManageExams.Text" xml:space="preserve">
     <value>Quản lý đề thi cá nhân</value>
@@ -271,25 +188,31 @@
     <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
   <data name="&gt;&gt;btnManageExams.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
+    <value>panelSidebar</value>
   </data>
   <data name="&gt;&gt;btnManageExams.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>1</value>
+  </data>
+  <data name="btnManageQuestions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="btnManageQuestions.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
+    <value>Segoe UI, 12pt, style=Bold</value>
   </data>
   <data name="btnManageQuestions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 176</value>
+    <value>0, 250</value>
   </data>
   <data name="btnManageQuestions.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
+  <data name="btnManageQuestions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>30, 0, 0, 0</value>
+  </data>
   <data name="btnManageQuestions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 80</value>
+    <value>280, 65</value>
   </data>
   <data name="btnManageQuestions.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="btnManageQuestions.Text" xml:space="preserve">
     <value>Quản lý câu hỏi cá nhân</value>
@@ -301,25 +224,31 @@
     <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
   <data name="&gt;&gt;btnManageQuestions.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
+    <value>panelSidebar</value>
   </data>
   <data name="&gt;&gt;btnManageQuestions.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>2</value>
+  </data>
+  <data name="btnCreateQuestion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="btnCreateQuestion.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Times New Roman, 13.8pt</value>
+    <value>Segoe UI, 12pt, style=Bold</value>
   </data>
   <data name="btnCreateQuestion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 94</value>
+    <value>0, 185</value>
   </data>
   <data name="btnCreateQuestion.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1, 1</value>
   </data>
+  <data name="btnCreateQuestion.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>30, 0, 0, 0</value>
+  </data>
   <data name="btnCreateQuestion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>273, 80</value>
+    <value>280, 65</value>
   </data>
   <data name="btnCreateQuestion.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="btnCreateQuestion.Text" xml:space="preserve">
     <value>Yêu cầu AI tạo câu hỏi</value>
@@ -331,215 +260,286 @@
     <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
   <data name="&gt;&gt;btnCreateQuestion.Parent" xml:space="preserve">
-    <value>pnlMenu</value>
+    <value>panelSidebar</value>
   </data>
   <data name="&gt;&gt;btnCreateQuestion.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="pnlMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="pnlMenu.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="pnlMenu.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 184</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pnlMenu.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="pnlMenu.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="pnlMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 608</value>
-  </data>
-  <data name="pnlMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="pnlMenu.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;pnlMenu.Name" xml:space="preserve">
-    <value>pnlMenu</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.Parent" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;pnlMenu.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="pnlLogo.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
-    <value>lblTitle</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Name" xml:space="preserve">
-    <value>lblSubTitle</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;lblSubTitle.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="pnlLogo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="pnlLogo.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="pnlLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pnlLogo.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="pnlLogo.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="pnlLogo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 184</value>
-  </data>
-  <data name="pnlLogo.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="pnlLogo.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;pnlLogo.Name" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.Parent" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;pnlLogo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SidebarPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="SidebarPanel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 12pt</value>
-  </data>
-  <data name="SidebarPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 36</value>
-  </data>
-  <data name="SidebarPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="SidebarPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="SidebarPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 792</value>
-  </data>
-  <data name="SidebarPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="SidebarPanel.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Name" xml:space="preserve">
-    <value>SidebarPanel</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Type" xml:space="preserve">
-    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SidebarPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lblTitle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 15pt, style=Bold</value>
-  </data>
-  <data name="lblTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="lblTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 46</value>
-  </data>
-  <data name="lblTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="lblTitle.Text" xml:space="preserve">
-    <value>Hệ thống</value>
-  </data>
-  <data name="lblTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
-    <value>lblTitle</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Type" xml:space="preserve">
-    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
-  </data>
-  <data name="&gt;&gt;lblTitle.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="lblSubTitle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 18pt, style=Bold</value>
-  </data>
-  <data name="lblSubTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 79</value>
-  </data>
-  <data name="lblSubTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 55</value>
-  </data>
-  <data name="lblSubTitle.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="lblSubTitle.Text" xml:space="preserve">
+  <data name="btnHome.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="btnHome.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt, style=Bold</value>
+  </data>
+  <data name="btnHome.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 120</value>
+  </data>
+  <data name="btnHome.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="btnHome.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>30, 0, 0, 0</value>
+  </data>
+  <data name="btnHome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 65</value>
+  </data>
+  <data name="btnHome.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnHome.Text" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Name" xml:space="preserve">
+    <value>btnHome</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Type" xml:space="preserve">
+    <value>Sunny.UI.UIButton, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;btnHome.Parent" xml:space="preserve">
+    <value>panelSidebar</value>
+  </data>
+  <data name="&gt;&gt;btnHome.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="pnlSpacer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="pnlSpacer.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="pnlSpacer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 100</value>
+  </data>
+  <data name="pnlSpacer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="pnlSpacer.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="pnlSpacer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 20</value>
+  </data>
+  <data name="pnlSpacer.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="pnlSpacer.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;pnlSpacer.Name" xml:space="preserve">
+    <value>pnlSpacer</value>
+  </data>
+  <data name="&gt;&gt;pnlSpacer.Type" xml:space="preserve">
+    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;pnlSpacer.Parent" xml:space="preserve">
+    <value>panelSidebar</value>
+  </data>
+  <data name="&gt;&gt;pnlSpacer.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblLogo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lblLogo.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI Black, 22pt, style=Bold</value>
+  </data>
+  <data name="lblLogo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lblLogo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 100</value>
+  </data>
+  <data name="lblLogo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblLogo.Text" xml:space="preserve">
     <value>EduGenAI</value>
   </data>
-  <data name="lblSubTitle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="lblLogo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;lblSubTitle.Name" xml:space="preserve">
-    <value>lblSubTitle</value>
+  <data name="&gt;&gt;lblLogo.Name" xml:space="preserve">
+    <value>lblLogo</value>
   </data>
-  <data name="&gt;&gt;lblSubTitle.Type" xml:space="preserve">
+  <data name="&gt;&gt;lblLogo.Type" xml:space="preserve">
     <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
   </data>
-  <data name="&gt;&gt;lblSubTitle.Parent" xml:space="preserve">
-    <value>pnlLogo</value>
+  <data name="&gt;&gt;lblLogo.Parent" xml:space="preserve">
+    <value>panelSidebar</value>
   </data>
-  <data name="&gt;&gt;lblSubTitle.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblLogo.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblSidebarRole.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 10pt</value>
+  </data>
+  <data name="lblSidebarRole.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 52</value>
+  </data>
+  <data name="lblSidebarRole.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 23</value>
+  </data>
+  <data name="lblSidebarRole.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lblSidebarRole.Text" xml:space="preserve">
+    <value>Giáo viên</value>
+  </data>
+  <data name="lblSidebarRole.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarRole.Name" xml:space="preserve">
+    <value>lblSidebarRole</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarRole.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarRole.Parent" xml:space="preserve">
+    <value>pnlUser</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarRole.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblSidebarName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt, style=Bold</value>
+  </data>
+  <data name="lblSidebarName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>90, 25</value>
+  </data>
+  <data name="lblSidebarName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 28</value>
+  </data>
+  <data name="lblSidebarName.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="lblSidebarName.Text" xml:space="preserve">
+    <value>Hoàng Hưng</value>
+  </data>
+  <data name="lblSidebarName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarName.Name" xml:space="preserve">
+    <value>lblSidebarName</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarName.Type" xml:space="preserve">
+    <value>Sunny.UI.UILabel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarName.Parent" xml:space="preserve">
+    <value>pnlUser</value>
+  </data>
+  <data name="&gt;&gt;lblSidebarName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="avtUser.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 14pt</value>
+  </data>
+  <data name="avtUser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 20</value>
+  </data>
+  <data name="avtUser.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="avtUser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="avtUser.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="avtUser.Text" xml:space="preserve">
+    <value>GV</value>
+  </data>
+  <data name="&gt;&gt;avtUser.Name" xml:space="preserve">
+    <value>avtUser</value>
+  </data>
+  <data name="&gt;&gt;avtUser.Type" xml:space="preserve">
+    <value>Sunny.UI.UIAvatar, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;avtUser.Parent" xml:space="preserve">
+    <value>pnlUser</value>
+  </data>
+  <data name="&gt;&gt;avtUser.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pnlUser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="pnlUser.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="pnlUser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 665</value>
+  </data>
+  <data name="pnlUser.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="pnlUser.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="pnlUser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 100</value>
+  </data>
+  <data name="pnlUser.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="pnlUser.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;pnlUser.Name" xml:space="preserve">
+    <value>pnlUser</value>
+  </data>
+  <data name="&gt;&gt;pnlUser.Type" xml:space="preserve">
+    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;pnlUser.Parent" xml:space="preserve">
+    <value>panelSidebar</value>
+  </data>
+  <data name="&gt;&gt;pnlUser.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="panelSidebar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panelSidebar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="panelSidebar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 35</value>
+  </data>
+  <data name="panelSidebar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="panelSidebar.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1, 1</value>
+  </data>
+  <data name="panelSidebar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 765</value>
+  </data>
+  <data name="panelSidebar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="panelSidebar.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;panelSidebar.Name" xml:space="preserve">
+    <value>panelSidebar</value>
+  </data>
+  <data name="&gt;&gt;panelSidebar.Type" xml:space="preserve">
+    <value>Sunny.UI.UIPanel, SunnyUI, Culture=neutral, PublicKeyToken=3f4ebed4237db5e1</value>
+  </data>
+  <data name="&gt;&gt;panelSidebar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelSidebar.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="pnlBody.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="pnlBody.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
+    <value>Segoe UI, 12pt</value>
   </data>
   <data name="pnlBody.Location" type="System.Drawing.Point, System.Drawing">
-    <value>282, 36</value>
+    <value>280, 35</value>
   </data>
   <data name="pnlBody.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -548,7 +548,7 @@
     <value>1, 1</value>
   </data>
   <data name="pnlBody.Size" type="System.Drawing.Size, System.Drawing">
-    <value>766, 792</value>
+    <value>920, 765</value>
   </data>
   <data name="pnlBody.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -572,13 +572,10 @@
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1050, 830</value>
-  </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 36, 2, 2</value>
+    <value>1200, 800</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Form Giáo viên</value>
+    <value>Hệ thống Quản lý EduGenAI - Giáo Viên</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormGiaoVien</value>

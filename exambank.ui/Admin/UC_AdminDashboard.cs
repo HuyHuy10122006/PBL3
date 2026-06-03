@@ -216,7 +216,7 @@ namespace exambank.ui.Admin
                     }
                 });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.Invoke((MethodInvoker)delegate
                 {

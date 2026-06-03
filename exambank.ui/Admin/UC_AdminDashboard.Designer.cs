@@ -68,7 +68,7 @@ namespace exambank.ui.Admin
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Padding = new Padding(18);
             pnlHeader.RectColor = Color.FromArgb(230, 230, 230);
-            pnlHeader.Size = new Size(10, 84);
+            pnlHeader.Size = new Size(758, 84);
             pnlHeader.Style = UIStyle.Custom;
             pnlHeader.TabIndex = 2;
             pnlHeader.Text = null;
@@ -104,7 +104,7 @@ namespace exambank.ui.Admin
             pnlCards.Location = new Point(0, 84);
             pnlCards.Name = "pnlCards";
             pnlCards.Padding = new Padding(18);
-            pnlCards.Size = new Size(10, 140);
+            pnlCards.Size = new Size(758, 140);
             pnlCards.TabIndex = 1;
             pnlCards.WrapContents = false;
             // 
@@ -116,7 +116,7 @@ namespace exambank.ui.Admin
             pnlContent.Location = new Point(0, 224);
             pnlContent.Name = "pnlContent";
             pnlContent.Padding = new Padding(20);
-            pnlContent.Size = new Size(10, 0);
+            pnlContent.Size = new Size(758, 295);
             pnlContent.TabIndex = 0;
             // 
             // pnlLogsCard
@@ -134,7 +134,7 @@ namespace exambank.ui.Admin
             pnlLogsCard.Padding = new Padding(14);
             pnlLogsCard.Radius = 1;
             pnlLogsCard.RectColor = Color.FromArgb(230, 230, 230);
-            pnlLogsCard.Size = new Size(1, 1);
+            pnlLogsCard.Size = new Size(718, 255);
             pnlLogsCard.Style = UIStyle.Custom;
             pnlLogsCard.TabIndex = 0;
             pnlLogsCard.Text = null;
@@ -168,7 +168,7 @@ namespace exambank.ui.Admin
             dgvSystemLogs.RowHeadersVisible = false;
             dgvSystemLogs.RowTemplate.Height = 36;
             dgvSystemLogs.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSystemLogs.Size = new Size(0, 0);
+            dgvSystemLogs.Size = new Size(690, 187);
             dgvSystemLogs.TabIndex = 0;
             // 
             // pnlEmpty
@@ -178,7 +178,7 @@ namespace exambank.ui.Admin
             pnlEmpty.Dock = DockStyle.Fill;
             pnlEmpty.Location = new Point(14, 54);
             pnlEmpty.Name = "pnlEmpty";
-            pnlEmpty.Size = new Size(0, 0);
+            pnlEmpty.Size = new Size(690, 187);
             pnlEmpty.TabIndex = 1;
             pnlEmpty.Visible = false;
             // 
@@ -197,7 +197,7 @@ namespace exambank.ui.Admin
             pnlLogsHeader.Dock = DockStyle.Top;
             pnlLogsHeader.Location = new Point(14, 14);
             pnlLogsHeader.Name = "pnlLogsHeader";
-            pnlLogsHeader.Size = new Size(0, 40);
+            pnlLogsHeader.Size = new Size(690, 40);
             pnlLogsHeader.TabIndex = 2;
             // 
             // lblLogsTitle
@@ -231,7 +231,7 @@ namespace exambank.ui.Admin
             Controls.Add(pnlCards);
             Controls.Add(pnlHeader);
             Name = "UC_AdminDashboard";
-            Size = new Size(10, 10);
+            Size = new Size(758, 519);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlContent.ResumeLayout(false);

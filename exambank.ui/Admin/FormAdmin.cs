@@ -1,14 +1,11 @@
 ﻿using exambank.data.Models;
 using exambank.ui.Base;
+using exambank.ui.Common;
+using exambank.ui.Admin;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using exambank.ui.Admin;
 
 namespace exambank.ui
 {
@@ -16,6 +13,7 @@ namespace exambank.ui
     {
         private UserModel _loginUser;
         private NavigationService _nav;
+
         private UC_AdminDashboard _ucAdminDashboard;
         private UC_ManageUsers _ucManageUsers;
         private UC_ExamBank _ucExamBank;
@@ -25,19 +23,14 @@ namespace exambank.ui
         public FormAdmin(UserModel user)
         {
             InitializeComponent();
-            menuButtons = new List<UIButton> { btnHome, btnManageUsers, btnExamBank, btnAIConfig };
+            this.WindowState = FormWindowState.Maximized;
 
-            this._loginUser = user;
+            menuButtons = new List<UIButton> { btnHome, btnManageAccount, btnManageExamBank, btnConfigAI };
+            _loginUser = user;
             _nav = new NavigationService(pnlBody);
 
-            // Khởi tạo các UC (lười khởi tạo lúc cần cũng được)
-            _ucAdminDashboard = new UC_AdminDashboard(_loginUser);
-            _ucManageUsers = new UC_ManageUsers(_loginUser);
-
-            // Mặc định hiển thị trang chủ admin
-            _nav.Display(_ucAdminDashboard);
-
-            this.WindowState = FormWindowState.Maximized;
+            // Mở Trang chủ làm màn hình mặc định
+            btnHome_Click(null, null);
         }
 
         private void btnHome_Click(object sender, EventArgs e)
@@ -50,9 +43,9 @@ namespace exambank.ui
             _nav.Display(_ucAdminDashboard);
         }
 
-        private void btnManageUsers_Click(object sender, EventArgs e)
+        private void btnManageAccount_Click(object sender, EventArgs e)
         {
-            UIHelper.SetActiveMenu(btnManageUsers, menuButtons);
+            UIHelper.SetActiveMenu(btnManageAccount, menuButtons);
             if (_ucManageUsers == null)
             {
                 _ucManageUsers = new UC_ManageUsers(_loginUser);
@@ -60,9 +53,9 @@ namespace exambank.ui
             _nav.Display(_ucManageUsers);
         }
 
-        private void btnExamBank_Click(object sender, EventArgs e)
+        private void btnManageExamBank_Click(object sender, EventArgs e)
         {
-            UIHelper.SetActiveMenu(btnExamBank, menuButtons);
+            UIHelper.SetActiveMenu(btnManageExamBank, menuButtons);
             if (_ucExamBank == null)
             {
                 _ucExamBank = new UC_ExamBank(_loginUser);
@@ -70,9 +63,9 @@ namespace exambank.ui
             _nav.Display(_ucExamBank);
         }
 
-        private void btnAIConfig_Click(object sender, EventArgs e)
+        private void btnConfigAI_Click(object sender, EventArgs e)
         {
-            UIHelper.SetActiveMenu(btnAIConfig, menuButtons);
+            UIHelper.SetActiveMenu(btnConfigAI, menuButtons);
             if (_aiConfig == null)
             {
                 _aiConfig = new UC_AIConfig();
@@ -80,37 +73,19 @@ namespace exambank.ui
             _nav.Display(_aiConfig);
         }
 
-        private void btnLog_Click(object sender, EventArgs e)
+        // Sự kiện click vào Avatar để mở ProfileSettings
+        private void avtUser_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
+            UC_ProfileSettings ucProfile = new UC_ProfileSettings(_loginUser);
+            _nav.Display(ucProfile);
+            UIHelper.SetActiveMenu(null, menuButtons); // Bỏ chọn các nút menu khác
         }
 
         private void FormAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Nếu DialogResult KHÔNG PHẢI là OK, nghĩa là người dùng bấm X hoặc Alt+F4
             if (this.DialogResult != DialogResult.OK)
             {
-                Application.Exit(); // Thoát toàn bộ ứng dụng, không cho quay lại Form Login
-            }
-        }
-
-        private void btnChangePassword_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (var frm = new DoiMatKhau(_loginUser))
-                {
-                    frm.ShowDialog();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Không thể mở cửa sổ đổi mật khẩu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }
