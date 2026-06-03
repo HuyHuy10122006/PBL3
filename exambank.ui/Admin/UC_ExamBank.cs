@@ -150,7 +150,7 @@ namespace exambank.ui
                 {
                     exam.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(exam.Id));
                 }
-                using (FormXemDe frm = new FormXemDe(exam))
+                using (FormXemDe frm = new FormXemDe(exam, true, _loginUser.Id))
                 {
                     frm.ShowDialog();
                 }

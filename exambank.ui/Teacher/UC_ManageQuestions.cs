@@ -80,6 +80,7 @@ namespace exambank.ui
                 STT = data.IndexOf(q) + 1,
                 Content = q.Question,
                 MonHoc = q.Subject,
+                Khoi = q.Grade,
                 DoKho = q.Difficulty
             }).ToList();
             dgvQuestions.DataSource = displayList;

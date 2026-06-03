@@ -1,4 +1,4 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using System;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace exambank.ui.LogicTest
     public class LoginService
     {
         // Trả về (LoginStatus, UserModel) để UI có thể phân biệt tài khoản bị khóa
-        public (LoginStatus Status, UserModel User) CheckLogin(string username, string password)
+        public (LoginStatus Status, UserModel? User) CheckLogin(string username, string password)
         {
             using (var db = new ExamBankDbContext())
             {
@@ -35,6 +35,10 @@ namespace exambank.ui.LogicTest
                 {
                     return (LoginStatus.Invalid, null);
                 }
+
+                // Cập nhật LastLogin
+                user.LastLogin = DateTime.Now;
+                db.SaveChanges();
 
                 return (LoginStatus.Success, user);
             }

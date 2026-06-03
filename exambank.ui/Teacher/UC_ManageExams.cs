@@ -211,6 +211,14 @@ namespace exambank.ui
         {
             var exam = GetSelectedExam();
             if (exam == null) return;
+
+            // Chặn chia sẻ đề clone từ ngân hàng chung
+            if (exam.OriginalExamId != null)
+            {
+                UIMessageBox.ShowWarning2("Đề thi này được lưu từ Ngân hàng đề thi chung nên không thể chia sẻ lại.\nBạn chỉ có thể chia sẻ đề thi do chính mình tạo.");
+                return;
+            }
+
             try
             {
                 bool isSharedNow = await _examService.ToggleShareExamAsync(exam.Id);
