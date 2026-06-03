@@ -1,4 +1,4 @@
-﻿namespace exambank.ui
+namespace exambank.ui
 {
     partial class UC_ManageQuestions
     {
@@ -60,6 +60,7 @@
             colSTT = new DataGridViewTextBoxColumn();
             colContent = new DataGridViewTextBoxColumn();
             colMon = new DataGridViewTextBoxColumn();
+            colKhoi = new DataGridViewTextBoxColumn();
             colDoKho = new DataGridViewTextBoxColumn();
             pnlQuestion = new Sunny.UI.UIPanel();
             flpQuestion = new FlowLayoutPanel();
@@ -444,7 +445,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvQuestions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvQuestions.ColumnHeadersHeight = 32;
-            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colContent, colMon, colDoKho });
+            dgvQuestions.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colContent, colMon, colKhoi, colDoKho });
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = Color.White;
             dataGridViewCellStyle7.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -536,6 +537,17 @@
             colMon.Name = "colMon";
             colMon.ReadOnly = true;
             colMon.Width = 120;
+            // 
+            // colKhoi
+            // 
+            colKhoi.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            colKhoi.DataPropertyName = "Khoi";
+            colKhoi.DefaultCellStyle = dataGridViewCellStyle5;
+            colKhoi.HeaderText = "Khối lớp";
+            colKhoi.MinimumWidth = 6;
+            colKhoi.Name = "colKhoi";
+            colKhoi.ReadOnly = true;
+            colKhoi.Width = 100;
             // 
             // colDoKho
             // 
@@ -705,6 +717,7 @@
         private DataGridViewTextBoxColumn colSTT;
         private DataGridViewTextBoxColumn colContent;
         private DataGridViewTextBoxColumn colMon;
+        private DataGridViewTextBoxColumn colKhoi;
         private DataGridViewTextBoxColumn colDoKho;
     }
 }
