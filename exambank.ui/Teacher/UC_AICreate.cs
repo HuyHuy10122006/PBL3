@@ -156,6 +156,7 @@ namespace exambank.ui
                     q.CreatedByUserId = _loginUser.Id;
                     q.CreatedAt = now;
                     q.IsActive = true;
+                    q.IsAIGenerated = true;
                 }
             }
             catch (JsonException ex)

@@ -61,7 +61,8 @@ namespace exambank.ui.LogicTest
                         CategoryId = q.CategoryId,
                         CreatedByUserId = q.CreatedByUserId,
                         CreatedAt = q.CreatedAt,
-                        IsActive = q.IsActive
+                        IsActive = q.IsActive,
+                        IsAIGenerated = q.IsAIGenerated
                     };
 
                     db.Questions.Add(newQuestion);

@@ -37,6 +37,7 @@ namespace exambank.ui.Admin
             InitializeChart();
             this.Load += UC_AdminDashboard_Load;
             this.Resize += (s, e) => AdjustLayout();
+            this.VisibleChanged += (s, e) => { if (this.Visible) _ = LoadStatisticsAsync(); };
         }
 
         private void ApplyVisualStyle()
@@ -180,38 +181,48 @@ namespace exambank.ui.Admin
         {
             try
             {
-                var users = await Task.Run(() => _userService.GetAllUsers()) ?? new List<UserModel>();
-                var exams = await _examService.GetExamsAsync(_loginUser.Id) ?? new List<ExamModel>();
-
-                int totalUsers = users.Count;
-                int teachers = users.Count(u => u.Role == "Teacher");
-                int admins = totalUsers - teachers;
-                int totalExams = exams.Count;
-
                 await Task.Run(() =>
                 {
                     using (var db = new ExamBankDbContext())
                     {
-                        int totalQuestions = db.Questions.Count();
+                        // 1. TÀI KHOẢN: Đếm tổng số người dùng
+                        var users = _userService.GetAllUsers() ?? new List<UserModel>();
+                        int totalUsers = users.Count;
+                        int teachers = users.Count(u => u.Role == "Teacher" || u.Role == "Giáo viên");
+                        int admins = totalUsers - teachers;
 
+                        // 2. NGÂN HÀNG CÂU HỎI: Đếm trên toàn hệ thống
+                        int totalQuestions = db.Questions.Count();
+                        int aiQuestions = db.Questions.Count(q => q.IsAIGenerated == true); // Đếm số câu do AI tạo
+
+                        // 3. TỔNG SỐ ĐỀ THI: Đếm trên toàn hệ thống (Sửa lỗi hiển thị số 0)
+                        int totalExams = db.Exams.Count();
+
+                        // 4. LƯỢT XỬ LÝ AI
                         int totalAIRequests = db.SystemLogs.Count(l => l.Action.Contains("AI"));
                         int successAIRequests = db.SystemLogs.Count(l => l.Action.Contains("AI") && l.Status == "Thành công");
                         int aiSuccessRate = totalAIRequests > 0 ? (successAIRequests * 100 / totalAIRequests) : 100;
-                        int aiQuestionsEstimate = successAIRequests * 5;
+                        int totalActiveExams = db.Exams.Count(e => e.IsShared == true);
+                        int totalDeletedExams = db.Exams.Count(e => e.IsShared == false);
 
+                        // 5. Cập nhật dữ liệu thật lên giao diện
                         this.Invoke((MethodInvoker)delegate
                         {
                             UpdateCardInfo(0, totalUsers.ToString(), $"Bao gồm {teachers} Giáo viên & {admins} Quản trị", Color.FromArgb(41, 128, 185));
-                            UpdateCardInfo(1, totalQuestions.ToString(), $"Khoảng {aiQuestionsEstimate} câu hỏi do AI tạo", Color.FromArgb(192, 57, 43));
-                            UpdateCardInfo(2, totalExams.ToString(), "Dữ liệu đang duy trì mức ổn định", Color.FromArgb(39, 174, 96));
+                            UpdateCardInfo(1, totalQuestions.ToString(), $"Khoảng {aiQuestions} câu hỏi do AI tạo", Color.FromArgb(192, 57, 43));
+                           UpdateCardInfo(2, totalActiveExams.ToString(), $"Và {totalDeletedExams} đề thi không được duyệt", Color.FromArgb(39, 174, 96));
                             UpdateCardInfo(3, totalAIRequests.ToString(), $"Tỷ lệ AI xử lý thành công: {aiSuccessRate}%", Color.FromArgb(142, 68, 173));
                         });
                     }
                 });
             }
-            catch
+            catch (Exception ex)
             {
-                for (int i = 0; i < 4; i++) UpdateCardInfo(i, "0", "Không thể kết nối dữ liệu", Color.FromArgb(192, 57, 43));
+                this.Invoke((MethodInvoker)delegate
+                {
+                    for (int i = 0; i < 4; i++)
+                        UpdateCardInfo(i, "0", "Lỗi tải dữ liệu", Color.FromArgb(192, 57, 43));
+                });
             }
         }
 
