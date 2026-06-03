@@ -1,5 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+public enum ApprovalStatus
+{
+    None = 0,       // Chưa chia sẻ
+    Pending = 1,    // Đang chờ Admin duyệt
+    Approved = 2,   // Đã được duyệt
+    Rejected = 3    // Bị từ chối
+}
 
 namespace exambank.data.Models
 {
@@ -33,6 +41,11 @@ namespace exambank.data.Models
         public int CreatedByUserId { get; set; }
 
         public bool IsShared { get; set; } = false;
+
+        public ApprovalStatus ApprovalStatus { get; set; } = ApprovalStatus.None;
+
+        [MaxLength(500)]
+        public string? AdminNote { get; set; }
 
         [ForeignKey("CreatedByUserId")]
         public virtual UserModel? Author { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace exambank.ui
+namespace exambank.ui
 {
     partial class UC_ExamBank
     {
@@ -234,6 +234,7 @@
             txtSearch.TabIndex = 1;
             txtSearch.TextAlignment = ContentAlignment.MiddleLeft;
             txtSearch.Watermark = "Nhập tên đề thi, giáo viên...";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // dgvPublicExams
             // 
@@ -379,6 +380,7 @@
             miView.Name = "miView";
             miView.Size = new Size(200, 30);
             miView.Text = "Xem chi tiết";
+            miView.Click += miView_Click;
             // 
             // sView
             // 
@@ -391,6 +393,7 @@
             miExport.Name = "miExport";
             miExport.Size = new Size(200, 30);
             miExport.Text = "Duyệt";
+            miExport.Click += miExport_Click;
             // 
             // sExport
             // 
@@ -403,6 +406,8 @@
             miSave.Name = "miSave";
             miSave.Size = new Size(200, 30);
             miSave.Text = "Từ chối";
+            miSave.ForeColor = Color.Red;
+            miSave.Click += miSave_Click;
             // 
             // colID
             // 

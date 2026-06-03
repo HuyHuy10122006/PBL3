@@ -245,14 +245,28 @@ namespace exambank.ui.LogicTest
             return await CreateRepository().GetSharedExamsAsync();
         }
 
-        //Hàm cập nhật trạng thái Chia sẻ
+        //Hàm cập nhật trạng thái Chia sẻ (đặt thành Pending chờ Admin duyệt)
         public async Task<bool> ToggleShareExamAsync(int examId)
         {
             var repo = CreateRepository();
             var exam = await repo.GetExamByIdAsync(examId);
             if (exam == null) return false;
 
-            exam.IsShared = !exam.IsShared;
+            if (!exam.IsShared)
+            {
+                // Chia sẻ: đặt thành Pending chờ Admin duyệt
+                exam.IsShared = true;
+                exam.ApprovalStatus = ApprovalStatus.Pending;
+                exam.AdminNote = null;
+            }
+            else
+            {
+                // Hủy chia sẻ: trả về trạng thái ban đầu
+                exam.IsShared = false;
+                exam.ApprovalStatus = ApprovalStatus.None;
+                exam.AdminNote = null;
+            }
+
             await repo.UpdateExamAsync(exam);
             return exam.IsShared;
         }
@@ -261,6 +275,73 @@ namespace exambank.ui.LogicTest
         public async Task<List<ExamModel>> GetAllExamsAsync()
         {
             return await CreateRepository().GetAllExamsAsync();
+        }
+
+        // ========== ADMIN APPROVAL METHODS ==========
+
+        /// <summary>
+        /// Lấy danh sách đề thi đang chờ duyệt
+        /// </summary>
+        public async Task<List<ExamModel>> GetPendingExamsAsync()
+        {
+            return await CreateRepository().GetPendingExamsAsync();
+        }
+
+        /// <summary>
+        /// Lấy tất cả đề thi đã chia sẻ (mọi trạng thái) cho Admin quản lý
+        /// </summary>
+        public async Task<List<ExamModel>> GetSharedExamsAllStatusAsync()
+        {
+            return await CreateRepository().GetSharedExamsAllStatusAsync();
+        }
+
+        /// <summary>
+        /// Admin duyệt đề thi
+        /// </summary>
+        public async Task<bool> ApproveExamAsync(int examId)
+        {
+            var repo = CreateRepository();
+            var exam = await repo.GetExamByIdAsync(examId);
+            if (exam == null) return false;
+
+            exam.ApprovalStatus = ApprovalStatus.Approved;
+            exam.AdminNote = null;
+            await repo.UpdateExamAsync(exam);
+
+            _logService.Add("Admin", $"Duyệt đề thi ID={examId}", "Thành công");
+            return true;
+        }
+
+        /// <summary>
+        /// Admin từ chối đề thi
+        /// </summary>
+        public async Task<bool> RejectExamAsync(int examId, string? reason = null)
+        {
+            var repo = CreateRepository();
+            var exam = await repo.GetExamByIdAsync(examId);
+            if (exam == null) return false;
+
+            exam.ApprovalStatus = ApprovalStatus.Rejected;
+            exam.AdminNote = reason;
+            await repo.UpdateExamAsync(exam);
+
+            _logService.Add("Admin", $"Từ chối đề thi ID={examId}", $"Lý do: {reason ?? "Không rõ"}");
+            return true;
+        }
+
+        /// <summary>
+        /// Helper: Chuyển ApprovalStatus sang text tiếng Việt
+        /// </summary>
+        public static string GetApprovalStatusText(ApprovalStatus status)
+        {
+            return status switch
+            {
+                ApprovalStatus.None => "Chưa chia sẻ",
+                ApprovalStatus.Pending => "Chờ duyệt",
+                ApprovalStatus.Approved => "Đã duyệt",
+                ApprovalStatus.Rejected => "Từ chối",
+                _ => "Không rõ"
+            };
         }
     }
 }

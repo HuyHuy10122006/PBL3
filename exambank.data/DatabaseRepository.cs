@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,6 +28,8 @@ namespace exambank.data
         Task<List<ExamModel>> GetAllExamsAsync();
         Task<List<ExamModel>> GetExamsByUserAsync(int userId);
         Task<List<ExamModel>> GetSharedExamsAsync();
+        Task<List<ExamModel>> GetPendingExamsAsync();
+        Task<List<ExamModel>> GetSharedExamsAllStatusAsync();
         Task<ExamModel?> GetExamByIdAsync(int examId);
         Task AddExamAsync(ExamModel exam);
         Task UpdateExamAsync(ExamModel exam);
@@ -168,6 +170,24 @@ namespace exambank.data
         }
 
         public async Task<List<ExamModel>> GetSharedExamsAsync()
+        {
+            return await _dbContext.Exams
+                .Include(e => e.Author)
+                .Where(e => e.IsShared && e.ApprovalStatus == ApprovalStatus.Approved)
+                .OrderByDescending(e => e.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<ExamModel>> GetPendingExamsAsync()
+        {
+            return await _dbContext.Exams
+                .Include(e => e.Author)
+                .Where(e => e.IsShared && e.ApprovalStatus == ApprovalStatus.Pending)
+                .OrderByDescending(e => e.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<ExamModel>> GetSharedExamsAllStatusAsync()
         {
             return await _dbContext.Exams
                 .Include(e => e.Author)
