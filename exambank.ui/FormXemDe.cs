@@ -48,11 +48,12 @@ namespace exambank.ui
 
             if (_isFromPublicBank)
             {
-                // Ở ngân hàng chung: Không cho sửa, chia sẻ, xuất file
+                // Ở ngân hàng chung: Không cho sửa, chia sẻ
                 btnEdit.Visible = false;
                 btnShare.Visible = false;
                 btnExport.Visible = false;
-                btnSave.Text = "Lưu về máy"; // Đổi text nút lưu
+                btnSave.Text = "Lưu về máy"; // Xuất file Word
+                btnSave.Symbol = 362830; // Icon xuất file
             }
         }
 
@@ -140,38 +141,22 @@ namespace exambank.ui
             {
                 if (_isFromPublicBank)
                 {
-                    // LƯU CLONE (BẢN SAO) VỀ NGÂN HÀNG CÁ NHÂN
-                    if (_currentUserId == 0)
+                    // XUẤT FILE WORD (Admin chỉ xuất file, không lưu đề)
+                    using (var saveFileDialog = new SaveFileDialog())
                     {
-                        UIMessageBox.ShowError2("Không xác định được ID người dùng.");
-                        return;
-                    }
+                        saveFileDialog.Filter = "Word Document|*.docx";
+                        saveFileDialog.Title = "Lưu đề thi ra file Word";
+                        saveFileDialog.FileName = $"{_currentExam.Title}.docx";
 
-                    ExamModel clonedExam = new ExamModel
-                    {
-                        Title = _currentExam.Title + " (Bản sao)",
-                        ExamCode = _currentExam.ExamCode,
-                        Subject = _currentExam.Subject,
-                        Duration = _currentExam.Duration,
-                        TotalQuestions = _currentExam.TotalQuestions,
-                        CreatedByUserId = _currentUserId, // Gắn cho user hiện tại
-                        IsShared = false,
-                        ApprovalStatus = ApprovalStatus.None,
-                        Note = _currentExam.Note,
-                        OriginalExamId = _currentExam.Id // Đánh dấu đề clone → không cho chia sẻ lại
-                    };
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            var docService = new DocumentService();
+                            await Task.Run(() => docService.ExportToWord(saveFileDialog.FileName, _currentExam,
+                                _currentExam.ExamQuestions.Select(eq => eq.Question).ToList()
+                            ));
 
-                    List<int> questionIds = _currentExam.ExamQuestions.OrderBy(eq => eq.QuestionOrder).Select(eq => eq.QuestionId).ToList();
-                    
-                    bool isSuccess = await _examService.CreateExamAsync(clonedExam, questionIds);
-                    if (isSuccess)
-                    {
-                        UIMessageTip.ShowOk("Đã lưu bản sao đề thi vào Ngân hàng của bạn thành công!");
-                        this.Close(); // Lưu xong thì đóng luôn cho tiện
-                    }
-                    else
-                    {
-                        UIMessageBox.ShowError2("Lưu thất bại.");
+                            UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
+                        }
                     }
                 }
                 else

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,13 +16,19 @@ namespace exambank.data.Models
 
         // ========== THÔNG SỐ KẾT NỐI ==========
 
+        [StringLength(50, ErrorMessage = "Tên nhà cung cấp không được vượt quá 50 ký tự")]
+        public string ServiceProvider { get; set; } = "Google Gemini";
+
         [Required(ErrorMessage = "Vui lòng nhập URL kết nối")]
         [StringLength(256, ErrorMessage = "URL không được vượt quá 256 ký tự")]
         public string OllamaUrl { get; set; } = "http://localhost:11434/api/generate";
 
         [Required(ErrorMessage = "Vui lòng nhập tên Model")]
         [StringLength(100, ErrorMessage = "Tên Model không được vượt quá 100 ký tự")]
-        public string Model { get; set; } = "gemma3:4b";
+        public string Model { get; set; } = "gemini-flash-lite-latest";
+
+        [StringLength(256, ErrorMessage = "API Key không được vượt quá 256 ký tự")]
+        public string ApiKey { get; set; } = "";
 
         [Range(1, int.MaxValue, ErrorMessage = "Thời gian Timeout phải lớn hơn 0")]
         public int TimeoutSeconds { get; set; } = 60;
