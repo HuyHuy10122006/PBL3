@@ -1,8 +1,7 @@
 using exambank.data;
 using exambank.data.Models;
-using exambank.logic;
+using exambank.logic.Service;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
 using Sunny.UI;
 using System;
 using System.Collections;
@@ -23,8 +22,9 @@ namespace exambank.ui
     public partial class UC_AICreate : BaseUserControl
     {
         private readonly UserModel _loginUser;
-        private readonly GeminiService _aiService = new GeminiService();
+        private GeminiService _aiService;
         private readonly DocumentService _docService = new DocumentService();
+        private readonly LogService _logService = new LogService();
         private readonly QuestionService _questionService = new QuestionService();
         private readonly ExamService _examService = new ExamService();
         private List<QuestionModel> _questionsCreate = new List<QuestionModel>();
@@ -86,86 +86,70 @@ namespace exambank.ui
                     // Hiển thị đường dẫn lên TextBox
                     txtFilePath.Text = ofd.FileName;
                     UIMessageTip.ShowOk("Chọn file thành công.");
-                    // logic đọc nội dung file...
                 }
             }
         }
 
-        private void FixJson(string jsonResult)
+        private void ProcessResult(string jsonResult)
         {
-            // Sử dụng tùy chọn giải mã linh hoạt để tránh lỗi định dạng JSON cơ bản
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                AllowTrailingCommas = true // Chấp nhận dấu phẩy thừa ở cuối mảng JSON
-            };
             try
             {
-                // Giải mã JSON thành List<QuestionModel>[cite: 2, 8]
-                _questionsCreate = JsonSerializer.Deserialize<List<QuestionModel>>(jsonResult, options) ?? new List<QuestionModel>();
-                var now = DateTime.Now;
-                // Chuẩn hóa dữ liệu từng câu hỏi để khớp với ràng buộc của QuestionModel
-                foreach (var q in _questionsCreate)
+                var options = new JsonSerializerOptions
                 {
-                    // 1. Xử lý triệt để thuộc tính Answer (Phải là A, B, C hoặc D và độ dài = 1)
-                    if (string.IsNullOrWhiteSpace(q.Answer))
+                    PropertyNameCaseInsensitive = true,
+                    AllowTrailingCommas = true
+                };
+
+                var questions = JsonSerializer.Deserialize<List<QuestionModel>>(jsonResult, options);
+
+                if (questions == null)
+                {
+                    return;
+                }
+
+                var now = DateTime.Now;
+
+                foreach (var q in questions)
+                {
+                    // Chuẩn hóa đáp án
+                    string answer = (q.Answer ?? "").Trim().ToUpper();
+                    char ans = answer.FirstOrDefault(c => "ABCD".Contains(c));
+
+                    // Bỏ qua câu thiếu dữ liệu quan trọng
+                    if (string.IsNullOrWhiteSpace(q.Question) ||
+                        string.IsNullOrWhiteSpace(q.OptionA) ||
+                        string.IsNullOrWhiteSpace(q.OptionB) ||
+                        string.IsNullOrWhiteSpace(q.OptionC) ||
+                        string.IsNullOrWhiteSpace(q.OptionD) ||
+                        ans == default)
                     {
-                        q.Answer = "A"; // Gán mặc định nếu trống
-                    }
-                    else
-                    {
-                        string ans = q.Answer.Trim().ToUpper();
-
-                        // Xử lý trường hợp AI trả về "Option A" hoặc chuỗi dài
-                        if (ans.Contains("OPTION"))
-                        {
-                            // Tìm ký tự A, B, C, D trong chuỗi
-                            if (ans.Contains("A")) ans = "A";
-                            else if (ans.Contains("B")) ans = "B";
-                            else if (ans.Contains("C")) ans = "C";
-                            else if (ans.Contains("D")) ans = "D";
-                        }
-
-                        // Đảm bảo chỉ lấy 1 ký tự duy nhất để không vi phạm [MaxLength(1)][cite: 2]
-                        if (ans.Length > 1) ans = ans.Substring(0, 1);
-
-                        // Kiểm tra cuối cùng trước khi gán để khớp với RegularExpression ^[ABCD]$[cite: 2]
-                        if (ans != "A" && ans != "B" && ans != "C" && ans != "D")
-                        {
-                            q.Answer = "A";
-                        }
-                        else
-                        {
-                            q.Answer = ans;
-                        }
+                        continue;
                     }
 
-                    // 2. Đảm bảo các thuộc tính bắt buộc khác không bị NULL (Tránh lỗi UI/Database)[cite: 2]
-                    if (string.IsNullOrWhiteSpace(q.Question)) q.Question = "N/A";
-                    q.OptionA ??= "";
-                    q.OptionB ??= "";
-                    q.OptionC ??= "";
-                    q.OptionD ??= "";
+                    q.Answer = ans.ToString();
 
-                    // 3. Gán Metadata
+                    // Metadata
                     q.Id = 0;
-                    q.Subject = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text;
-                    q.Difficulty = string.IsNullOrWhiteSpace(cbDoKho.Text) ? "..." : cbDoKho.Text;
-                    q.Grade = string.IsNullOrWhiteSpace(cbKhoi.Text) ? "..." : cbKhoi.Text;
+                    q.Subject = cbMonHoc.Text;
+                    q.Grade = cbKhoi.Text;
+                    q.Difficulty = cbDoKho.Text;
                     q.CategoryId = 1;
                     q.CreatedByUserId = _loginUser.Id;
                     q.CreatedAt = now;
                     q.IsActive = true;
                     q.IsAIGenerated = true;
+
+                    _questionsCreate.Add(q);
                 }
             }
-            catch (JsonException ex)
+            catch (Exception ex)
             {
-                UIMessageBox.ShowError2("Lỗi khi xử lý dữ liệu từ AI: " + ex.Message);
+                _questionsCreate.Clear();
+                UIMessageBox.ShowError2($"Lỗi xử lý dữ liệu AI:\n{ex.Message}");
             }
         }
 
-        private async void btnCreateExam_Click(object sender, EventArgs e)
+        private async void btnCreateQuestion_Click(object sender, EventArgs e)
         {
             string inputData = "";
 
@@ -206,7 +190,7 @@ namespace exambank.ui
             if (udtxtCountQuestion.IntValue < 1 || string.IsNullOrWhiteSpace(cbMonHoc.Text)
                 || string.IsNullOrWhiteSpace(cbDoKho.Text) || string.IsNullOrWhiteSpace(cbKhoi.Text))
             {
-                UIMessageBox.ShowWarning2("Vui lòng nhập đầy đủ thông tin thiết lập câu hỏi!");
+                UIMessageBox.ShowWarning2("Vui lòng nhập thông tin đầy đủ và hợp lệ trên phần thiết lập câu hỏi!");
                 return;
             }
 
@@ -216,32 +200,15 @@ namespace exambank.ui
 
             try
             {
+                _aiService = await Task.Run(() => new GeminiService());
                 _questionsCreate.Clear();
                 var now = DateTime.Now;
-                // 3. GỌI AI VÀ XỬ LÝ DỮ LIỆU
+                // 3. Gọi AI để tạo câu hỏi
                 string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)udtxtCountQuestion.IntValue);
-                FixJson(jsonResult);
-                try
-                {
-                    using (var db = new ExamBankDbContext())
-                    {
-                        // Tạo một bản ghi nhật ký mới
-                        var aiLog = new SystemLog
-                        {
-                            LogTime = DateTime.Now,
-                            Username = _loginUser.Username ?? "User:" + _loginUser.Id, // Lưu người dùng nào vừa gọi AI
-                            Action = "Sử dụng AI tạo câu hỏi", // Chữ "AI" này sẽ giúp Admin nhận diện được
-                            Status = (_questionsCreate.Count > 0) ? "Thành công" : "Thất bại" // Ghi nhận trạng thái để tính Tỷ lệ %
-                        };
+                ProcessResult(jsonResult);
 
-                        db.SystemLogs.Add(aiLog);
-                        db.SaveChanges(); // Lưu vào sổ nhật ký
-                    }
-                }
-                catch (Exception exLog)
-                {
-                    Debug.WriteLine("Lỗi không ghi được Log AI: " + exLog.Message);
-                }
+                // Ghi lại nhật ký sử dụng AI
+                _logService.SaveCreateQuestion(now, _questionsCreate.Count, _loginUser.Username, _loginUser.Id);
 
                 if (!string.IsNullOrWhiteSpace(jsonResult) && !jsonResult.StartsWith("Error"))
                 {
@@ -249,7 +216,6 @@ namespace exambank.ui
                     // 4. Hiển thị kết quả
                     if (_questionsCreate.Count > 0)
                     {
-                        string MonHoc = string.IsNullOrWhiteSpace(cbMonHoc.Text) ? "..." : cbMonHoc.Text;
                         LoadQuestions(_questionsCreate);
                     }
                     else
@@ -260,7 +226,7 @@ namespace exambank.ui
                 else
                 {
                     // Hiển thị lỗi từ API nếu có
-                    UIMessageBox.ShowError2(jsonResult ?? "AI không thể tạo được câu hỏi.");
+                    UIMessageBox.ShowError2("AI không thể tạo được câu hỏi.");
                 }
             }
             catch (Exception ex)
@@ -302,50 +268,15 @@ namespace exambank.ui
                 }
                 catch (Exception ex)
                 {
-                    // Lấy lỗi chi tiết nhất có thể
-                    string errorMsg = ex.InnerException?.InnerException?.Message
-                        ?? ex.InnerException?.Message
-                        ?? ex.Message;
-                    UIMessageBox.ShowError2($"Lỗi khi lưu câu hỏi (đã lưu {successCount}/{totalActive}):\n{errorMsg}");
                     Debug.WriteLine(ex);
-                    return; // Dừng lại, không tiếp tục lưu
                 }
             }
 
+            //Lưu file tài liệu nguồn
             if (successCount > 0 && tabSource.SelectedIndex == 0 && !string.IsNullOrWhiteSpace(txtFilePath.Text))
             {
-                try
-                {
-                    using (var db = new ExamBankDbContext())
-                    {
-                        string tenFile = System.IO.Path.GetFileName(txtFilePath.Text);
-
-                        var tonTai = db.Documents.FirstOrDefault(d => d.FileName == tenFile && d.UserId == _loginUser.Id);
-
-                        if (tonTai == null)
-                        {
-                            string loaiFile = System.IO.Path.GetExtension(txtFilePath.Text);
-                            var taiLieuMoi = new DocumentModel
-                            {
-                                FileName = tenFile,
-                                DocumentType = loaiFile,
-                                UserId = _loginUser.Id,
-                                UploadedAt = DateTime.Now,
-                                IsActive = true,
-                                FilePath = txtFilePath.Text
-                            };
-
-                            db.Documents.Add(taiLieuMoi);
-                            db.SaveChanges();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
+                _logService.SaveSourceDocument(_loginUser.Id, txtFilePath.Text);
             }
-            // --- KẾT THÚC ĐOẠN CODE LƯU TÀI LIỆU ---
 
             if (successCount == totalActive)
                 UIMessageBox.ShowSuccess2($"Lưu tất cả {successCount} câu hỏi thành công!");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using exambank.data;
 using exambank.data.Models;
 
-namespace exambank.logic
+namespace exambank.logic.Service
 {
     public class GeminiService
     {

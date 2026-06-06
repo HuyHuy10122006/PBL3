@@ -1,7 +1,7 @@
 ﻿using exambank.data;
 using exambank.data.Models;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
+using exambank.logic.Service;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -90,7 +90,7 @@ namespace exambank.ui
             try
             {
                 // Tiến hành băm mật khẩu
-                string hashedPassword = UIHelper.HashPassword(pass);
+                string hashedPassword = LoginService.HashPassword(pass);
 
                 if (_loginService.RegisterUser(fullName, email, user, hashedPassword, out string mess))
                 {

@@ -1,6 +1,5 @@
 using exambank.data;
 using exambank.data.Models;
-using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Diagnostics;
 
-namespace exambank.ui.LogicTest
+namespace exambank.logic.Service
 {
     public class ExamService
     {

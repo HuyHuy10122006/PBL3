@@ -33,19 +33,5 @@ namespace exambank.ui.Base
             selectedButton.Selected = true;
             selectedButton.Font = new Font(selectedButton.Font, FontStyle.Bold);
         }
-
-        // Hàm băm mật khẩu khi người dùng Đăng ký
-        public static string HashPassword(string password)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 11);
-        }
-
-        /// <param name="password">Mật khẩu thô do user nhập ở form Login</param>
-        /// <param name="storedHash">Chuỗi Hash đã lưu trong Database từ trước</param>
-        // Hàm kiểm tra mật khẩu khi người dùng Đăng nhập
-        public static bool VerifyPassword(string password, string storedHash)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, storedHash);
-        }
     }
 }

@@ -7,7 +7,7 @@ using Xceed.Document.NET;
 using System.Collections.Generic;
 using exambank.data.Models;
 
-namespace exambank.logic
+namespace exambank.logic.Service
 {
     public class DocumentService
     {

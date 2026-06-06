@@ -3,10 +3,8 @@ using exambank.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using exambank.ui.LogicTest;
-using exambank.ui.Base;
 
-namespace exambank.ui.LogicTest
+namespace exambank.logic.Service
 {
     public class UserService
     {
@@ -95,15 +93,15 @@ namespace exambank.ui.LogicTest
                     throw new Exception("Mật khẩu mới phải có ít nhất 6 ký tự.");
 
                 // Kiểm tra mật khẩu cũ
-                if (!UIHelper.VerifyPassword(oldPassword, user.Password))
+                if (!LoginService.VerifyPassword(oldPassword, user.Password))
                     throw new Exception("Mật khẩu cũ không đúng.");
 
                 // Nếu mật khẩu mới giống mật khẩu cũ (sau khi băm) thì vẫn cho là không được
-                if (UIHelper.VerifyPassword(newPassword, user.Password))
+                if (LoginService.VerifyPassword(newPassword, user.Password))
                     throw new Exception("Mật khẩu mới không được trùng với mật khẩu hiện tại.");
 
                 // Lưu mật khẩu mới (băm trước khi lưu)
-                user.Password = UIHelper.HashPassword(newPassword);
+                user.Password = LoginService.HashPassword(newPassword);
                 db.SaveChanges();
             }
         }
