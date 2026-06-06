@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
             pnlHeader = new Sunny.UI.UIPanel();
             uiLabel3 = new Sunny.UI.UILabel();
             cbRole = new Sunny.UI.UIComboBox();
@@ -64,6 +64,8 @@
             sSuperAdmin = new ToolStripSeparator();
             miGgantAdminRole = new ToolStripMenuItem();
             miRevokeAdminRole = new ToolStripMenuItem();
+            sResetPass = new ToolStripSeparator();
+            miResetPass = new ToolStripMenuItem();
             pnlHeader.SuspendLayout();
             pnlBody.SuspendLayout();
             pnlDgv.SuspendLayout();
@@ -242,28 +244,28 @@
             dgvUsers.AllowUserToDeleteRows = false;
             dgvUsers.AllowUserToResizeColumns = false;
             dgvUsers.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
-            dgvUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.BackColor = Color.WhiteSmoke;
+            dgvUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             dgvUsers.BackgroundColor = Color.White;
             dgvUsers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.LightGray;
-            dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = Color.LightGray;
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = Color.LightGray;
+            dataGridViewCellStyle11.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle11.ForeColor = Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = Color.LightGray;
+            dataGridViewCellStyle11.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dgvUsers.ColumnHeadersHeight = 32;
             dgvUsers.Columns.AddRange(new DataGridViewColumn[] { colID, colSTT, colFullName, colUsername, colEmail, colStatus, colRole, colActions });
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.Window;
-            dataGridViewCellStyle7.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle7.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dgvUsers.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = SystemColors.Window;
+            dataGridViewCellStyle16.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle16.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle16.SelectionBackColor = SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle16.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle16.WrapMode = DataGridViewTriState.False;
+            dgvUsers.DefaultCellStyle = dataGridViewCellStyle16;
             dgvUsers.Dock = DockStyle.Fill;
             dgvUsers.EnableHeadersVisualStyles = false;
             dgvUsers.Font = new Font("Microsoft Sans Serif", 12F);
@@ -273,19 +275,19 @@
             dgvUsers.ReadOnly = true;
             dgvUsers.RectColor = Color.Transparent;
             dgvUsers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(235, 243, 255);
-            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle8.ForeColor = Color.FromArgb(48, 48, 48);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(80, 160, 255);
-            dataGridViewCellStyle8.SelectionForeColor = Color.White;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = Color.FromArgb(235, 243, 255);
+            dataGridViewCellStyle17.Font = new Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle17.ForeColor = Color.FromArgb(48, 48, 48);
+            dataGridViewCellStyle17.SelectionBackColor = Color.FromArgb(80, 160, 255);
+            dataGridViewCellStyle17.SelectionForeColor = Color.White;
+            dataGridViewCellStyle17.WrapMode = DataGridViewTriState.True;
+            dgvUsers.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
             dgvUsers.RowHeadersVisible = false;
             dgvUsers.RowHeadersWidth = 51;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle18.BackColor = Color.White;
+            dataGridViewCellStyle18.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle18;
             dgvUsers.RowTemplate.Height = 33;
             dgvUsers.ScrollBarColor = Color.DimGray;
             dgvUsers.ScrollBarRectColor = Color.DimGray;
@@ -314,8 +316,8 @@
             // 
             colSTT.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colSTT.DataPropertyName = "STT";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colSTT.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colSTT.DefaultCellStyle = dataGridViewCellStyle12;
             colSTT.HeaderText = "STT";
             colSTT.MinimumWidth = 6;
             colSTT.Name = "colSTT";
@@ -355,8 +357,8 @@
             // 
             colStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colStatus.DataPropertyName = "Status";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colStatus.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colStatus.DefaultCellStyle = dataGridViewCellStyle13;
             colStatus.HeaderText = "Trạng thái";
             colStatus.MinimumWidth = 6;
             colStatus.Name = "colStatus";
@@ -367,8 +369,8 @@
             // 
             colRole.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colRole.DataPropertyName = "Role";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            colRole.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            colRole.DefaultCellStyle = dataGridViewCellStyle14;
             colRole.HeaderText = "Vai trò";
             colRole.MinimumWidth = 6;
             colRole.Name = "colRole";
@@ -379,10 +381,10 @@
             // 
             colActions.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             colActions.DataPropertyName = "Actions";
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new Font("Times New Roman", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.NullValue = null;
-            colActions.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.Font = new Font("Times New Roman", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle15.NullValue = null;
+            colActions.DefaultCellStyle = dataGridViewCellStyle15;
             colActions.HeaderText = "Thao tác";
             colActions.Image = Properties.Resources.more_vert_24dp_000000_FILL0_wght400_GRAD0_opsz24;
             colActions.MinimumWidth = 6;
@@ -438,9 +440,9 @@
             cmsActions.BackColor = Color.FromArgb(243, 249, 255);
             cmsActions.Font = new Font("Microsoft Sans Serif", 12F);
             cmsActions.ImageScalingSize = new Size(20, 20);
-            cmsActions.Items.AddRange(new ToolStripItem[] { miLock, miUnlock, sSuperAdmin, miGgantAdminRole, miRevokeAdminRole });
+            cmsActions.Items.AddRange(new ToolStripItem[] { miLock, miUnlock, sSuperAdmin, miGgantAdminRole, miRevokeAdminRole, sResetPass, miResetPass });
             cmsActions.Name = "cmsActions";
-            cmsActions.Size = new Size(215, 158);
+            cmsActions.Size = new Size(231, 194);
             cmsActions.Opening += cmsActions_Opening;
             // 
             // miLock
@@ -449,7 +451,7 @@
             miLock.ForeColor = Color.Red;
             miLock.Image = Properties.Resources.lock_24dp_EA3323_FILL0_wght400_GRAD0_opsz24;
             miLock.Name = "miLock";
-            miLock.Size = new Size(214, 30);
+            miLock.Size = new Size(230, 30);
             miLock.Text = "Khóa";
             miLock.Click += miLock_Click;
             // 
@@ -459,14 +461,14 @@
             miUnlock.ForeColor = Color.FromArgb(0, 192, 0);
             miUnlock.Image = Properties.Resources.lock_open_right_24dp_36D00B_FILL0_wght400_GRAD0_opsz24;
             miUnlock.Name = "miUnlock";
-            miUnlock.Size = new Size(214, 30);
+            miUnlock.Size = new Size(230, 30);
             miUnlock.Text = "Mở khóa";
             miUnlock.Click += miUnlock_Click;
             // 
             // sSuperAdmin
             // 
             sSuperAdmin.Name = "sSuperAdmin";
-            sSuperAdmin.Size = new Size(211, 6);
+            sSuperAdmin.Size = new Size(227, 6);
             // 
             // miGgantAdminRole
             // 
@@ -474,7 +476,7 @@
             miGgantAdminRole.ForeColor = Color.FromArgb(0, 192, 0);
             miGgantAdminRole.Image = Properties.Resources.arrow_upward_24dp_36D00B_FILL0_wght400_GRAD0_opsz24;
             miGgantAdminRole.Name = "miGgantAdminRole";
-            miGgantAdminRole.Size = new Size(214, 30);
+            miGgantAdminRole.Size = new Size(230, 30);
             miGgantAdminRole.Text = "Nâng quyền";
             miGgantAdminRole.Click += miGgantAdminRole_Click;
             // 
@@ -484,9 +486,23 @@
             miRevokeAdminRole.ForeColor = Color.Red;
             miRevokeAdminRole.Image = Properties.Resources.arrow_downward_24dp_EA3323_FILL0_wght400_GRAD0_opsz24;
             miRevokeAdminRole.Name = "miRevokeAdminRole";
-            miRevokeAdminRole.Size = new Size(214, 30);
+            miRevokeAdminRole.Size = new Size(230, 30);
             miRevokeAdminRole.Text = "Hạ quyền";
             miRevokeAdminRole.Click += miRevokeAdminRole_Click;
+            // 
+            // sResetPass
+            // 
+            sResetPass.Name = "sResetPass";
+            sResetPass.Size = new Size(227, 6);
+            // 
+            // miResetPass
+            // 
+            miResetPass.Font = new Font("Times New Roman", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            miResetPass.Image = Properties.Resources.lock_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24;
+            miResetPass.Name = "miResetPass";
+            miResetPass.Size = new Size(230, 30);
+            miResetPass.Text = "Reset mật khẩu";
+            miResetPass.Click += miResetPass_Click;
             // 
             // UC_ManageUsers
             // 
@@ -536,5 +552,7 @@
         private ToolStripMenuItem miGgantAdminRole;
         private ToolStripSeparator sGgantAdminRole;
         private ToolStripMenuItem miRevokeAdminRole;
+        private ToolStripSeparator sResetPass;
+        private ToolStripMenuItem miResetPass;
     }
 }

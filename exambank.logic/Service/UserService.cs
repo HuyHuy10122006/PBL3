@@ -60,23 +60,32 @@ namespace exambank.logic.Service
                 var targetUser = db.Users.Find(userId);
 
                 if (currentUser == null || targetUser == null)
-                    throw new Exception("Không tìm thấy thông tin người dùng trên hệ thống.");
+                    throw new Exception("Không tìm thấy người dùng.");
 
-                // 1. Kiểm tra an toàn tối cao: Chỉ duy nhất SuperAdmin mới có quyền nâng/hạ
                 if (currentUser.Role != "SuperAdmin")
-                    throw new Exception("Chỉ tài khoản SuperAdmin tối cao mới có quyền thay đổi vai trò Admin.");
+                    throw new Exception("Bạn không có quyền thay đổi vai trò.");
 
-                // 2. Không cho phép tự hạ quyền chính mình (SuperAdmin không được tự hạ xuống Admin/Teacher)
                 if (userId == currentUserId)
-                    throw new Exception("Bạn không thể tự thay đổi vai trò của chính mình.");
+                    throw new Exception("Không thể tự thay đổi vai trò của chính mình.");
 
-                // 3. Quy tắc Business: Tài khoản phải đang HOẠT ĐỘNG thì mới được nâng/hạ quyền
-                if (!targetUser.IsActive) // Tương đương với trạng thái "Bị khóa" ở UI
-                    throw new Exception("Tài khoản đang bị khóa, vui lòng mở khóa trước khi thay đổi vai trò.");
+                role = role?.Trim();
 
-                // Thực hiện đổi quyền và lưu
+                if (role != "Admin" && role != "Teacher")
+                    throw new Exception("Vai trò không hợp lệ.");
+
+                if (targetUser.Role == "SuperAdmin")
+                    throw new Exception("Không được thay đổi tài khoản SuperAdmin.");
+
+                if (!targetUser.IsActive)
+                    throw new Exception("Tài khoản đang bị khóa.");
+
+                if (targetUser.Role == role)
+                    return;
+
                 targetUser.Role = role;
                 db.SaveChanges();
+
+                _logService.Add(currentUser.Username, $"Thay đổi vai trò (UserId:{userId}, Username:{targetUser.Username}, Role:{role})", "Thành công");
             }
         }
 
@@ -102,6 +111,41 @@ namespace exambank.logic.Service
 
                 // Lưu mật khẩu mới (băm trước khi lưu)
                 user.Password = LoginService.HashPassword(newPassword);
+                db.SaveChanges();
+            }
+        }
+
+        // Reset mật khẩu (dành cho Admin/SuperAdmin reset mật khẩu cho user khác)
+        public void ResetPassword(int userId, string newPassword, int currentUserId)
+        {
+            using (var db = new ExamBankDbContext())
+            {
+                var currentUser = db.Users.Find(currentUserId);
+                var targetUser = db.Users.Find(userId);
+
+                if (currentUser == null || targetUser == null)
+                    throw new Exception("Không tìm thấy người dùng.");
+
+                // Chỉ Admin hoặc SuperAdmin được reset mật khẩu
+                if (currentUser.Role != "Admin" && currentUser.Role != "SuperAdmin")
+                {
+                    throw new Exception("Bạn không có quyền reset mật khẩu.");
+                }
+
+                // Không cho phép reset tài khoản SuperAdmin
+                if (targetUser.Role == "SuperAdmin")
+                    throw new Exception("Không thể reset mật khẩu của tài khoản SuperAdmin.");
+
+                // Không reset cho tài khoản bị khóa
+                if (!targetUser.IsActive)
+                    throw new Exception("Tài khoản đang bị khóa.");
+
+                // Kiểm tra mật khẩu mới
+                if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
+                    throw new Exception("Mật khẩu mới phải có ít nhất 6 ký tự.");
+
+                targetUser.Password = LoginService.HashPassword(newPassword);
+
                 db.SaveChanges();
             }
         }

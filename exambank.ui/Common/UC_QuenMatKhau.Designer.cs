@@ -29,22 +29,20 @@
         private void InitializeComponent()
         {
             pnlForgotPassCard = new Sunny.UI.UIPanel();
+            lstAdminEmails = new Sunny.UI.UIListBox();
             lblTitle = new Sunny.UI.UILabel();
             lblSubTitle = new Sunny.UI.UILabel();
             lblDescription = new Sunny.UI.UILabel();
-            txtEmail = new Sunny.UI.UITextBox();
-            btnSendRequest = new Sunny.UI.UIButton();
             lnkReturnLogin = new Sunny.UI.UILinkLabel();
             pnlForgotPassCard.SuspendLayout();
             SuspendLayout();
             // 
             // pnlForgotPassCard
             // 
+            pnlForgotPassCard.Controls.Add(lstAdminEmails);
             pnlForgotPassCard.Controls.Add(lblTitle);
             pnlForgotPassCard.Controls.Add(lblSubTitle);
             pnlForgotPassCard.Controls.Add(lblDescription);
-            pnlForgotPassCard.Controls.Add(txtEmail);
-            pnlForgotPassCard.Controls.Add(btnSendRequest);
             pnlForgotPassCard.Controls.Add(lnkReturnLogin);
             pnlForgotPassCard.Dock = DockStyle.Fill;
             pnlForgotPassCard.FillColor = Color.White;
@@ -59,6 +57,23 @@
             pnlForgotPassCard.TabIndex = 0;
             pnlForgotPassCard.Text = null;
             pnlForgotPassCard.TextAlignment = ContentAlignment.MiddleCenter;
+            pnlForgotPassCard.Load += pnlForgotPassCard_Load;
+            // 
+            // lstAdminEmails
+            // 
+            lstAdminEmails.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lstAdminEmails.HoverColor = Color.FromArgb(155, 200, 255);
+            lstAdminEmails.ItemSelectForeColor = Color.White;
+            lstAdminEmails.Location = new Point(50, 198);
+            lstAdminEmails.Margin = new Padding(4, 5, 4, 5);
+            lstAdminEmails.MinimumSize = new Size(1, 1);
+            lstAdminEmails.Name = "lstAdminEmails";
+            lstAdminEmails.Padding = new Padding(5);
+            lstAdminEmails.Radius = 10;
+            lstAdminEmails.ShowText = false;
+            lstAdminEmails.Size = new Size(350, 166);
+            lstAdminEmails.TabIndex = 6;
+            lstAdminEmails.Text = null;
             // 
             // lblTitle
             // 
@@ -90,36 +105,8 @@
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new Size(350, 50);
             lblDescription.TabIndex = 2;
-            lblDescription.Text = "Nhập địa chỉ Email của bạn để nhận hướng dẫn khôi phục mật khẩu.";
+            lblDescription.Text = "Liên hệ 1 trong các địa chỉ Email dưới đây để được cấp lại mật khẩu.\r\n\r\n\r\n";
             lblDescription.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // txtEmail
-            // 
-            txtEmail.Font = new Font("Segoe UI", 11F);
-            txtEmail.Location = new Point(60, 200);
-            txtEmail.Margin = new Padding(4, 5, 4, 5);
-            txtEmail.MinimumSize = new Size(1, 16);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Padding = new Padding(5);
-            txtEmail.ShowText = false;
-            txtEmail.Size = new Size(330, 35);
-            txtEmail.Symbol = 61447;
-            txtEmail.TabIndex = 3;
-            txtEmail.TextAlignment = ContentAlignment.MiddleLeft;
-            txtEmail.Watermark = "Email";
-            // 
-            // btnSendRequest
-            // 
-            btnSendRequest.FillColor = Color.FromArgb(10, 35, 81);
-            btnSendRequest.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnSendRequest.Location = new Point(60, 260);
-            btnSendRequest.MinimumSize = new Size(1, 1);
-            btnSendRequest.Name = "btnSendRequest";
-            btnSendRequest.Size = new Size(330, 45);
-            btnSendRequest.TabIndex = 4;
-            btnSendRequest.Text = "GỬI YÊU CẦU";
-            btnSendRequest.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnSendRequest.Click += btnSendRequest_Click;
             // 
             // lnkReturnLogin
             // 
@@ -128,7 +115,7 @@
             lnkReturnLogin.ForeColor = Color.FromArgb(48, 48, 48);
             lnkReturnLogin.LinkBehavior = LinkBehavior.HoverUnderline;
             lnkReturnLogin.LinkColor = Color.FromArgb(10, 35, 81);
-            lnkReturnLogin.Location = new Point(60, 320);
+            lnkReturnLogin.Location = new Point(60, 388);
             lnkReturnLogin.Name = "lnkReturnLogin";
             lnkReturnLogin.Size = new Size(330, 40);
             lnkReturnLogin.TabIndex = 5;
@@ -153,10 +140,10 @@
         private Sunny.UI.UILabel lblTitle;
         private Sunny.UI.UILabel lblSubTitle;
         private Sunny.UI.UILabel lblDescription;
-        private Sunny.UI.UITextBox txtEmail;
-        private Sunny.UI.UIButton btnSendRequest;
         private Sunny.UI.UILinkLabel lnkReturnLogin;
 
         #endregion
+
+        private Sunny.UI.UIListBox lstAdminEmails;
     }
 }

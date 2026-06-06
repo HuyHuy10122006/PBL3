@@ -21,16 +21,16 @@ namespace exambank.ui.Common
         // Màu sắc theo môn học
         private static readonly Dictionary<string, (Color primary, Color light, string icon)> SubjectThemes = new Dictionary<string, (Color, Color, string)>(StringComparer.OrdinalIgnoreCase)
         {
-            { "Toán", (Color.FromArgb(66, 133, 244), Color.FromArgb(232, 240, 254), "∑") },
-            { "Văn", (Color.FromArgb(234, 67, 53), Color.FromArgb(252, 232, 230), "✎") },
-            { "Anh", (Color.FromArgb(52, 168, 83), Color.FromArgb(230, 244, 234), "🌐") },
-            { "Lý", (Color.FromArgb(251, 188, 4), Color.FromArgb(254, 247, 224), "⚡") },
-            { "Hóa", (Color.FromArgb(156, 39, 176), Color.FromArgb(243, 229, 245), "⚗") },
-            { "Sinh", (Color.FromArgb(0, 150, 136), Color.FromArgb(224, 242, 241), "🧬") },
-            { "Sử", (Color.FromArgb(255, 87, 34), Color.FromArgb(251, 233, 224), "📜") },
-            { "Địa", (Color.FromArgb(33, 150, 243), Color.FromArgb(227, 242, 253), "🌍") },
+            { "Toán học", (Color.FromArgb(66, 133, 244), Color.FromArgb(232, 240, 254), "∑") },
+            { "Ngữ văn", (Color.FromArgb(234, 67, 53), Color.FromArgb(252, 232, 230), "✎") },
+            { "Tiếng Anh", (Color.FromArgb(52, 168, 83), Color.FromArgb(230, 244, 234), "🌐") },
+            { "Vật lý", (Color.FromArgb(251, 188, 4), Color.FromArgb(254, 247, 224), "⚡") },
+            { "Hóa học", (Color.FromArgb(156, 39, 176), Color.FromArgb(243, 229, 245), "⚗") },
+            { "Sinh học", (Color.FromArgb(0, 150, 136), Color.FromArgb(224, 242, 241), "🧬") },
+            { "Lịch sử", (Color.FromArgb(255, 87, 34), Color.FromArgb(251, 233, 224), "📜") },
+            { "Địa lý", (Color.FromArgb(33, 150, 243), Color.FromArgb(227, 242, 253), "🌍") },
             { "GDCD", (Color.FromArgb(121, 85, 72), Color.FromArgb(239, 235, 233), "⚖") },
-            { "Tin", (Color.FromArgb(63, 81, 181), Color.FromArgb(232, 234, 246), "💻") },
+            { "Tin học", (Color.FromArgb(63, 81, 181), Color.FromArgb(232, 234, 246), "💻") },
         };
 
         public UC_ExamCard(ExamModel exam, bool showActions = true)
