@@ -21,31 +21,6 @@ namespace exambank.ui
         {
             InitializeComponent();
             _loginService = loginService;
-            ApplyFloatingLabels();
-        }
-
-        private void ApplyFloatingLabels()
-        {
-            CreateLabel(txtEmail, "Email");
-        }
-
-        private void CreateLabel(Control txtBox, string text)
-        {
-            if (txtBox is UITextBox uiTxt)
-            {
-                uiTxt.Watermark = "";
-            }
-
-            Label lbl = new Label();
-            lbl.Text = text;
-            lbl.AutoSize = true;
-            lbl.BackColor = Color.White;
-            lbl.ForeColor = Color.Navy;
-            lbl.Font = new Font("Segoe UI", 8F, FontStyle.Regular);
-            lbl.Location = new Point(txtBox.Location.X + 23, txtBox.Location.Y - 11);
-
-            this.Controls.Add(lbl);
-            lbl.BringToFront();
         }
 
         private void lnkReturnLogin_Click(object sender, EventArgs e)
@@ -53,36 +28,14 @@ namespace exambank.ui
             OnNavigate?.Invoke(NavigationTarget.Login, null);
         }
 
-        private void btnSendRequest_Click(object sender, EventArgs e)
+        private void pnlForgotPassCard_Load(object sender, EventArgs e)
         {
-            string email = txtEmail.Text.Trim();
-
-            if (string.IsNullOrEmpty(email))
+            // Đưa danh sách email admin lên ListBox
+            var adminEmails = _loginService.GetAdminEmails();
+            lstAdminEmails.Items.Clear();
+            foreach (var email in adminEmails)
             {
-                MessageBox.Show("Vui lòng nhập địa chỉ Email!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!UIHelper.IsValidEmail(email))
-            {
-                MessageBox.Show("Định dạng Email không hợp lệ!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                if (_loginService.SendPasswordRecoveryRequest(email, out string message))
-                {
-                    MessageBox.Show(message, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lstAdminEmails.Items.Add(email);
             }
         }
     }

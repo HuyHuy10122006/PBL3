@@ -79,35 +79,16 @@ namespace exambank.logic.Service
             }
         }
 
-        public bool SendPasswordRecoveryRequest(string email, out string mess)
+        //Hàm lấy danh sách email của các tài khoản Admin để hiển thị ở form Quên mật khẩu
+        public string[] GetAdminEmails()
         {
             using (var db = new ExamBankDbContext())
             {
-                var user = db.Users.FirstOrDefault(u => u.Email == email);
-                if (user == null)
-                {
-                    mess = "Email này không tồn tại trong hệ thống!";
-                    return false;
-                }
-
-                bool isSent = SendRecoveryEmail(email, user.FullName);
-                if (isSent)
-                {
-                    mess = $"Hướng dẫn khôi phục mật khẩu đã được gửi đến email: {email}.";
-                    return true;
-                }
-                else
-                {
-                    mess = "Có lỗi xảy ra khi gửi email. Vui lòng thử lại sau!";
-                    return false;
-                }
+                return db.Users
+                    .Where(u => u.Role.Contains("Admin") && u.IsActive)
+                    .Select(u => u.Email)
+                    .ToArray();
             }
-        }
-
-        //Hàm mô phỏng gửi email khôi phục mật khẩu.
-        private bool SendRecoveryEmail(string email, string fullName)
-        {
-            return true;
         }
 
         // Hàm băm mật khẩu khi người dùng Đăng ký
