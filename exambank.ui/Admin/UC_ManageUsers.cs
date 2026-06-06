@@ -1,6 +1,6 @@
 using exambank.data.Models;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
+using exambank.logic.Service;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;

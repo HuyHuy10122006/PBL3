@@ -17,248 +17,267 @@
 
         private void InitializeComponent()
         {
-            this.panelSidebar = new Sunny.UI.UIPanel();
-            this.btnConfigAI = new Sunny.UI.UIButton();
-            this.btnManageExamBank = new Sunny.UI.UIButton();
-            this.btnManageAccount = new Sunny.UI.UIButton();
-            this.btnHome = new Sunny.UI.UIButton();
-            this.pnlSpacer = new Sunny.UI.UIPanel();
-            this.lblLogo = new Sunny.UI.UILabel();
-            this.pnlUser = new Sunny.UI.UIPanel();
-            this.lblSidebarRole = new Sunny.UI.UILabel();
-            this.lblSidebarName = new Sunny.UI.UILabel();
-            this.avtUser = new Sunny.UI.UIAvatar();
-            this.pnlBody = new Sunny.UI.UIPanel();
-            this.panelSidebar.SuspendLayout();
-            this.pnlUser.SuspendLayout();
-            this.SuspendLayout();
+            panelSidebar = new Sunny.UI.UIPanel();
+            btnConfigAI = new Sunny.UI.UIButton();
+            btnManageExamBank = new Sunny.UI.UIButton();
+            btnManageAccount = new Sunny.UI.UIButton();
+            btnHome = new Sunny.UI.UIButton();
+            pnlSpacer = new Sunny.UI.UIPanel();
+            lblLogo = new Sunny.UI.UILabel();
+            pnlUser = new Sunny.UI.UIPanel();
+            lblSidebarRole = new Sunny.UI.UILabel();
+            lblSidebarName = new Sunny.UI.UILabel();
+            avtUser = new Sunny.UI.UIAvatar();
+            pnlBody = new Sunny.UI.UIPanel();
+            panelSidebar.SuspendLayout();
+            pnlUser.SuspendLayout();
+            SuspendLayout();
             // 
             // panelSidebar
             // 
-            this.panelSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.panelSidebar.Controls.Add(this.btnConfigAI);
-            this.panelSidebar.Controls.Add(this.btnManageExamBank);
-            this.panelSidebar.Controls.Add(this.btnManageAccount);
-            this.panelSidebar.Controls.Add(this.btnHome);
-            this.panelSidebar.Controls.Add(this.pnlSpacer);
-            this.panelSidebar.Controls.Add(this.lblLogo);
-            this.panelSidebar.Controls.Add(this.pnlUser);
-            this.panelSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSidebar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.panelSidebar.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.panelSidebar.Location = new System.Drawing.Point(0, 35);
-            this.panelSidebar.Name = "panelSidebar";
-            this.panelSidebar.Radius = 0;
-            this.panelSidebar.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.panelSidebar.Size = new System.Drawing.Size(280, 765);
-            this.panelSidebar.Style = Sunny.UI.UIStyle.Custom;
-            this.panelSidebar.TabIndex = 0;
-            this.panelSidebar.Text = null;
+            panelSidebar.BackColor = Color.FromArgb(30, 41, 59);
+            panelSidebar.Controls.Add(btnConfigAI);
+            panelSidebar.Controls.Add(btnManageExamBank);
+            panelSidebar.Controls.Add(btnManageAccount);
+            panelSidebar.Controls.Add(btnHome);
+            panelSidebar.Controls.Add(pnlSpacer);
+            panelSidebar.Controls.Add(lblLogo);
+            panelSidebar.Controls.Add(pnlUser);
+            panelSidebar.Dock = DockStyle.Left;
+            panelSidebar.FillColor = Color.FromArgb(30, 41, 59);
+            panelSidebar.Font = new Font("Segoe UI", 12F);
+            panelSidebar.Location = new Point(0, 35);
+            panelSidebar.Margin = new Padding(4, 5, 4, 5);
+            panelSidebar.MinimumSize = new Size(1, 1);
+            panelSidebar.Name = "panelSidebar";
+            panelSidebar.Radius = 0;
+            panelSidebar.RectColor = Color.FromArgb(30, 41, 59);
+            panelSidebar.Size = new Size(280, 765);
+            panelSidebar.Style = Sunny.UI.UIStyle.Custom;
+            panelSidebar.TabIndex = 0;
+            panelSidebar.Text = null;
+            panelSidebar.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // btnConfigAI
             // 
-            this.btnConfigAI.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfigAI.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnConfigAI.FillColor = System.Drawing.Color.Transparent;
-            this.btnConfigAI.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnConfigAI.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.btnConfigAI.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnConfigAI.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnConfigAI.ForeHoverColor = System.Drawing.Color.White;
-            this.btnConfigAI.Location = new System.Drawing.Point(0, 315);
-            this.btnConfigAI.Name = "btnConfigAI";
-            this.btnConfigAI.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnConfigAI.Radius = 0;
-            this.btnConfigAI.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.btnConfigAI.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnConfigAI.Size = new System.Drawing.Size(280, 65);
-            this.btnConfigAI.Style = Sunny.UI.UIStyle.Custom;
-            this.btnConfigAI.TabIndex = 5;
-            this.btnConfigAI.Text = "Cấu hình tham số AI";
-            this.btnConfigAI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfigAI.Click += new System.EventHandler(this.btnConfigAI_Click);
+            btnConfigAI.Cursor = Cursors.Hand;
+            btnConfigAI.Dock = DockStyle.Top;
+            btnConfigAI.FillColor = Color.Transparent;
+            btnConfigAI.FillHoverColor = Color.FromArgb(51, 65, 85);
+            btnConfigAI.FillPressColor = Color.FromArgb(15, 23, 42);
+            btnConfigAI.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnConfigAI.ForeColor = Color.FromArgb(203, 213, 225);
+            btnConfigAI.Location = new Point(0, 315);
+            btnConfigAI.MinimumSize = new Size(1, 1);
+            btnConfigAI.Name = "btnConfigAI";
+            btnConfigAI.Padding = new Padding(30, 0, 0, 0);
+            btnConfigAI.Radius = 0;
+            btnConfigAI.RectColor = Color.FromArgb(30, 41, 59);
+            btnConfigAI.RectHoverColor = Color.FromArgb(51, 65, 85);
+            btnConfigAI.Size = new Size(280, 65);
+            btnConfigAI.Style = Sunny.UI.UIStyle.Custom;
+            btnConfigAI.TabIndex = 5;
+            btnConfigAI.Text = "Cấu hình tham số AI";
+            btnConfigAI.TextAlign = ContentAlignment.MiddleLeft;
+            btnConfigAI.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnConfigAI.Click += btnConfigAI_Click;
             // 
             // btnManageExamBank
             // 
-            this.btnManageExamBank.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnManageExamBank.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnManageExamBank.FillColor = System.Drawing.Color.Transparent;
-            this.btnManageExamBank.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnManageExamBank.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.btnManageExamBank.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnManageExamBank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnManageExamBank.ForeHoverColor = System.Drawing.Color.White;
-            this.btnManageExamBank.Location = new System.Drawing.Point(0, 250);
-            this.btnManageExamBank.Name = "btnManageExamBank";
-            this.btnManageExamBank.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnManageExamBank.Radius = 0;
-            this.btnManageExamBank.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.btnManageExamBank.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnManageExamBank.Size = new System.Drawing.Size(280, 65);
-            this.btnManageExamBank.Style = Sunny.UI.UIStyle.Custom;
-            this.btnManageExamBank.TabIndex = 4;
-            this.btnManageExamBank.Text = "Quản lý ngân hàng đề thi";
-            this.btnManageExamBank.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManageExamBank.Click += new System.EventHandler(this.btnManageExamBank_Click);
+            btnManageExamBank.Cursor = Cursors.Hand;
+            btnManageExamBank.Dock = DockStyle.Top;
+            btnManageExamBank.FillColor = Color.Transparent;
+            btnManageExamBank.FillHoverColor = Color.FromArgb(51, 65, 85);
+            btnManageExamBank.FillPressColor = Color.FromArgb(15, 23, 42);
+            btnManageExamBank.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnManageExamBank.ForeColor = Color.FromArgb(203, 213, 225);
+            btnManageExamBank.Location = new Point(0, 250);
+            btnManageExamBank.MinimumSize = new Size(1, 1);
+            btnManageExamBank.Name = "btnManageExamBank";
+            btnManageExamBank.Padding = new Padding(30, 0, 0, 0);
+            btnManageExamBank.Radius = 0;
+            btnManageExamBank.RectColor = Color.FromArgb(30, 41, 59);
+            btnManageExamBank.RectHoverColor = Color.FromArgb(51, 65, 85);
+            btnManageExamBank.Size = new Size(280, 65);
+            btnManageExamBank.Style = Sunny.UI.UIStyle.Custom;
+            btnManageExamBank.TabIndex = 4;
+            btnManageExamBank.Text = "Quản lý ngân hàng đề thi";
+            btnManageExamBank.TextAlign = ContentAlignment.MiddleLeft;
+            btnManageExamBank.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnManageExamBank.Click += btnManageExamBank_Click;
             // 
             // btnManageAccount
             // 
-            this.btnManageAccount.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnManageAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnManageAccount.FillColor = System.Drawing.Color.Transparent;
-            this.btnManageAccount.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnManageAccount.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.btnManageAccount.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnManageAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnManageAccount.ForeHoverColor = System.Drawing.Color.White;
-            this.btnManageAccount.Location = new System.Drawing.Point(0, 185);
-            this.btnManageAccount.Name = "btnManageAccount";
-            this.btnManageAccount.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnManageAccount.Radius = 0;
-            this.btnManageAccount.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.btnManageAccount.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnManageAccount.Size = new System.Drawing.Size(280, 65);
-            this.btnManageAccount.Style = Sunny.UI.UIStyle.Custom;
-            this.btnManageAccount.TabIndex = 3;
-            this.btnManageAccount.Text = "Quản lý tài khoản";
-            this.btnManageAccount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnManageAccount.Click += new System.EventHandler(this.btnManageAccount_Click);
+            btnManageAccount.Cursor = Cursors.Hand;
+            btnManageAccount.Dock = DockStyle.Top;
+            btnManageAccount.FillColor = Color.Transparent;
+            btnManageAccount.FillHoverColor = Color.FromArgb(51, 65, 85);
+            btnManageAccount.FillPressColor = Color.FromArgb(15, 23, 42);
+            btnManageAccount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnManageAccount.ForeColor = Color.FromArgb(203, 213, 225);
+            btnManageAccount.Location = new Point(0, 185);
+            btnManageAccount.MinimumSize = new Size(1, 1);
+            btnManageAccount.Name = "btnManageAccount";
+            btnManageAccount.Padding = new Padding(30, 0, 0, 0);
+            btnManageAccount.Radius = 0;
+            btnManageAccount.RectColor = Color.FromArgb(30, 41, 59);
+            btnManageAccount.RectHoverColor = Color.FromArgb(51, 65, 85);
+            btnManageAccount.Size = new Size(280, 65);
+            btnManageAccount.Style = Sunny.UI.UIStyle.Custom;
+            btnManageAccount.TabIndex = 3;
+            btnManageAccount.Text = "Quản lý tài khoản";
+            btnManageAccount.TextAlign = ContentAlignment.MiddleLeft;
+            btnManageAccount.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnManageAccount.Click += btnManageAccount_Click;
             // 
             // btnHome
             // 
-            this.btnHome.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.FillColor = System.Drawing.Color.Transparent;
-            this.btnHome.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnHome.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.btnHome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnHome.ForeHoverColor = System.Drawing.Color.White;
-            this.btnHome.Location = new System.Drawing.Point(0, 120);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.btnHome.Radius = 0;
-            this.btnHome.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.btnHome.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(65)))), ((int)(((byte)(85)))));
-            this.btnHome.Size = new System.Drawing.Size(280, 65);
-            this.btnHome.Style = Sunny.UI.UIStyle.Custom;
-            this.btnHome.TabIndex = 1;
-            this.btnHome.Text = "Trang chủ";
-            this.btnHome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            btnHome.Cursor = Cursors.Hand;
+            btnHome.Dock = DockStyle.Top;
+            btnHome.FillColor = Color.Transparent;
+            btnHome.FillHoverColor = Color.FromArgb(51, 65, 85);
+            btnHome.FillPressColor = Color.FromArgb(15, 23, 42);
+            btnHome.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnHome.ForeColor = Color.FromArgb(203, 213, 225);
+            btnHome.Location = new Point(0, 120);
+            btnHome.MinimumSize = new Size(1, 1);
+            btnHome.Name = "btnHome";
+            btnHome.Padding = new Padding(30, 0, 0, 0);
+            btnHome.Radius = 0;
+            btnHome.RectColor = Color.FromArgb(30, 41, 59);
+            btnHome.RectHoverColor = Color.FromArgb(51, 65, 85);
+            btnHome.Size = new Size(280, 65);
+            btnHome.Style = Sunny.UI.UIStyle.Custom;
+            btnHome.TabIndex = 1;
+            btnHome.Text = "Trang chủ";
+            btnHome.TextAlign = ContentAlignment.MiddleLeft;
+            btnHome.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnHome.Click += btnHome_Click;
             // 
             // pnlSpacer
             // 
-            this.pnlSpacer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSpacer.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.pnlSpacer.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.pnlSpacer.Location = new System.Drawing.Point(0, 100);
-            this.pnlSpacer.Name = "pnlSpacer";
-            this.pnlSpacer.Radius = 0;
-            this.pnlSpacer.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
-            this.pnlSpacer.Size = new System.Drawing.Size(280, 20);
-            this.pnlSpacer.Style = Sunny.UI.UIStyle.Custom;
-            this.pnlSpacer.TabIndex = 7;
-            this.pnlSpacer.Text = null;
+            pnlSpacer.Dock = DockStyle.Top;
+            pnlSpacer.FillColor = Color.FromArgb(30, 41, 59);
+            pnlSpacer.Font = new Font("Segoe UI", 12F);
+            pnlSpacer.Location = new Point(0, 100);
+            pnlSpacer.Margin = new Padding(4, 5, 4, 5);
+            pnlSpacer.MinimumSize = new Size(1, 1);
+            pnlSpacer.Name = "pnlSpacer";
+            pnlSpacer.Radius = 0;
+            pnlSpacer.RectColor = Color.FromArgb(30, 41, 59);
+            pnlSpacer.Size = new Size(280, 20);
+            pnlSpacer.Style = Sunny.UI.UIStyle.Custom;
+            pnlSpacer.TabIndex = 7;
+            pnlSpacer.Text = null;
+            pnlSpacer.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // lblLogo
             // 
-            this.lblLogo.BackColor = System.Drawing.Color.Transparent;
-            this.lblLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblLogo.Font = new System.Drawing.Font("Segoe UI Black", 22F, System.Drawing.FontStyle.Bold);
-            this.lblLogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(189)))), ((int)(((byte)(248)))));
-            this.lblLogo.Location = new System.Drawing.Point(0, 0);
-            this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(280, 100);
-            this.lblLogo.Style = Sunny.UI.UIStyle.Custom;
-            this.lblLogo.TabIndex = 0;
-            this.lblLogo.Text = "EduGenAI";
-            this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblLogo.BackColor = Color.Transparent;
+            lblLogo.Dock = DockStyle.Top;
+            lblLogo.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold);
+            lblLogo.ForeColor = Color.FromArgb(56, 189, 248);
+            lblLogo.Location = new Point(0, 0);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new Size(280, 100);
+            lblLogo.Style = Sunny.UI.UIStyle.Custom;
+            lblLogo.TabIndex = 0;
+            lblLogo.Text = "EduGenAI";
+            lblLogo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlUser
             // 
-            this.pnlUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.pnlUser.Controls.Add(this.lblSidebarRole);
-            this.pnlUser.Controls.Add(this.lblSidebarName);
-            this.pnlUser.Controls.Add(this.avtUser);
-            this.pnlUser.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlUser.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.pnlUser.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.pnlUser.Location = new System.Drawing.Point(0, 665);
-            this.pnlUser.Name = "pnlUser";
-            this.pnlUser.Radius = 0;
-            this.pnlUser.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.pnlUser.Size = new System.Drawing.Size(280, 100);
-            this.pnlUser.Style = Sunny.UI.UIStyle.Custom;
-            this.pnlUser.TabIndex = 6;
-            this.pnlUser.Text = null;
+            pnlUser.BackColor = Color.FromArgb(15, 23, 42);
+            pnlUser.Controls.Add(lblSidebarRole);
+            pnlUser.Controls.Add(lblSidebarName);
+            pnlUser.Controls.Add(avtUser);
+            pnlUser.Dock = DockStyle.Bottom;
+            pnlUser.FillColor = Color.FromArgb(15, 23, 42);
+            pnlUser.Font = new Font("Segoe UI", 12F);
+            pnlUser.Location = new Point(0, 665);
+            pnlUser.Margin = new Padding(4, 5, 4, 5);
+            pnlUser.MinimumSize = new Size(1, 1);
+            pnlUser.Name = "pnlUser";
+            pnlUser.Radius = 0;
+            pnlUser.RectColor = Color.FromArgb(15, 23, 42);
+            pnlUser.Size = new Size(280, 100);
+            pnlUser.Style = Sunny.UI.UIStyle.Custom;
+            pnlUser.TabIndex = 6;
+            pnlUser.Text = null;
+            pnlUser.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // lblSidebarRole
             // 
-            this.lblSidebarRole.BackColor = System.Drawing.Color.Transparent;
-            this.lblSidebarRole.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSidebarRole.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
-            this.lblSidebarRole.Location = new System.Drawing.Point(90, 52);
-            this.lblSidebarRole.Name = "lblSidebarRole";
-            this.lblSidebarRole.Size = new System.Drawing.Size(160, 23);
-            this.lblSidebarRole.Style = Sunny.UI.UIStyle.Custom;
-            this.lblSidebarRole.TabIndex = 8;
-            this.lblSidebarRole.Text = "Quản trị viên";
-            this.lblSidebarRole.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblSidebarRole.BackColor = Color.Transparent;
+            lblSidebarRole.Font = new Font("Segoe UI", 10F);
+            lblSidebarRole.ForeColor = Color.FromArgb(148, 163, 184);
+            lblSidebarRole.Location = new Point(90, 52);
+            lblSidebarRole.Name = "lblSidebarRole";
+            lblSidebarRole.Size = new Size(160, 23);
+            lblSidebarRole.Style = Sunny.UI.UIStyle.Custom;
+            lblSidebarRole.TabIndex = 8;
+            lblSidebarRole.Text = "Quản trị viên";
+            lblSidebarRole.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblSidebarName
             // 
-            this.lblSidebarName.BackColor = System.Drawing.Color.Transparent;
-            this.lblSidebarName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSidebarName.ForeColor = System.Drawing.Color.White;
-            this.lblSidebarName.Location = new System.Drawing.Point(90, 25);
-            this.lblSidebarName.Name = "lblSidebarName";
-            this.lblSidebarName.Size = new System.Drawing.Size(180, 28);
-            this.lblSidebarName.Style = Sunny.UI.UIStyle.Custom;
-            this.lblSidebarName.TabIndex = 7;
-            this.lblSidebarName.Text = "Hoàng Hưng";
-            this.lblSidebarName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblSidebarName.BackColor = Color.Transparent;
+            lblSidebarName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblSidebarName.ForeColor = Color.White;
+            lblSidebarName.Location = new Point(90, 25);
+            lblSidebarName.Name = "lblSidebarName";
+            lblSidebarName.Size = new Size(180, 28);
+            lblSidebarName.Style = Sunny.UI.UIStyle.Custom;
+            lblSidebarName.TabIndex = 7;
+            lblSidebarName.Text = "Hoàng Hưng";
+            lblSidebarName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // avtUser
             // 
-            this.avtUser.BackColor = System.Drawing.Color.Transparent;
-            this.avtUser.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.avtUser.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68))))); // Nền Avatar đỏ tươi cho Admin
-            this.avtUser.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.avtUser.Location = new System.Drawing.Point(20, 20);
-            this.avtUser.Name = "avtUser";
-            this.avtUser.Size = new System.Drawing.Size(60, 60);
-            this.avtUser.TabIndex = 6;
-            this.avtUser.Text = "AD";
-            this.avtUser.Click += new System.EventHandler(this.avtUser_Click);
+            avtUser.BackColor = Color.Transparent;
+            avtUser.Cursor = Cursors.Hand;
+            avtUser.FillColor = Color.FromArgb(239, 68, 68);
+            avtUser.Font = new Font("Segoe UI", 14F);
+            avtUser.Location = new Point(20, 20);
+            avtUser.MinimumSize = new Size(1, 1);
+            avtUser.Name = "avtUser";
+            avtUser.Size = new Size(60, 60);
+            avtUser.TabIndex = 6;
+            avtUser.Text = "AD";
+            avtUser.Click += avtUser_Click;
             // 
             // pnlBody
             // 
-            this.pnlBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBody.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.pnlBody.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.pnlBody.Location = new System.Drawing.Point(280, 35);
-            this.pnlBody.Name = "pnlBody";
-            this.pnlBody.Radius = 0;
-            this.pnlBody.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
-            this.pnlBody.Size = new System.Drawing.Size(920, 765);
-            this.pnlBody.Style = Sunny.UI.UIStyle.Custom;
-            this.pnlBody.TabIndex = 1;
-            this.pnlBody.Text = null;
+            pnlBody.BackColor = Color.FromArgb(243, 244, 246);
+            pnlBody.Dock = DockStyle.Fill;
+            pnlBody.FillColor = Color.FromArgb(243, 244, 246);
+            pnlBody.Font = new Font("Segoe UI", 12F);
+            pnlBody.Location = new Point(280, 35);
+            pnlBody.Margin = new Padding(4, 5, 4, 5);
+            pnlBody.MinimumSize = new Size(1, 1);
+            pnlBody.Name = "pnlBody";
+            pnlBody.Radius = 0;
+            pnlBody.RectColor = Color.FromArgb(243, 244, 246);
+            pnlBody.Size = new Size(920, 765);
+            pnlBody.Style = Sunny.UI.UIStyle.Custom;
+            pnlBody.TabIndex = 1;
+            pnlBody.Text = null;
+            pnlBody.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // FormAdmin
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1200, 800);
-            this.Controls.Add(this.pnlBody);
-            this.Controls.Add(this.panelSidebar);
-            this.Name = "FormAdmin";
-            this.Text = "Hệ thống Quản lý EduGenAI - Admin";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.panelSidebar.ResumeLayout(false);
-            this.pnlUser.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(1200, 800);
+            Controls.Add(pnlBody);
+            Controls.Add(panelSidebar);
+            Name = "FormAdmin";
+            Text = "Hệ thống Quản lý EduGenAI - Admin";
+            WindowState = FormWindowState.Maximized;
+            ZoomScaleRect = new Rectangle(19, 19, 1200, 800);
+            FormClosing += FormAdmin_FormClosing;
+            panelSidebar.ResumeLayout(false);
+            pnlUser.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

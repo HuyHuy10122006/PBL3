@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace exambank.ui.LogicTest
+namespace exambank.logic.Service
 {
     public class QuestionService
     {

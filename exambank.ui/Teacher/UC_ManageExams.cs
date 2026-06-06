@@ -1,7 +1,7 @@
 using exambank.data.Models;
 using exambank.logic;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
+using exambank.logic.Service;
 using Microsoft.EntityFrameworkCore;
 using Sunny.UI;
 using System;

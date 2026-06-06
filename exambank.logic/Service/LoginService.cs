@@ -3,7 +3,7 @@ using exambank.data.Models;
 using System;
 using System.Linq;
 
-namespace exambank.ui.LogicTest
+namespace exambank.logic.Service
 {
     public enum LoginStatus
     {
@@ -31,7 +31,7 @@ namespace exambank.ui.LogicTest
                     return (LoginStatus.Locked, null);
                 }
 
-                if (string.IsNullOrEmpty(user.Password) || !Base.UIHelper.VerifyPassword(password, user.Password))
+                if (string.IsNullOrEmpty(user.Password) || !LoginService.VerifyPassword(password, user.Password))
                 {
                     return (LoginStatus.Invalid, null);
                 }
@@ -108,6 +108,20 @@ namespace exambank.ui.LogicTest
         private bool SendRecoveryEmail(string email, string fullName)
         {
             return true;
+        }
+
+        // Hàm băm mật khẩu khi người dùng Đăng ký
+        public static string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 11);
+        }
+
+        /// <param name="password">Mật khẩu thô do user nhập ở form Login</param>
+        /// <param name="storedHash">Chuỗi Hash đã lưu trong Database từ trước</param>
+        // Hàm kiểm tra mật khẩu khi người dùng Đăng nhập
+        public static bool VerifyPassword(string password, string storedHash)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
     }
 }
