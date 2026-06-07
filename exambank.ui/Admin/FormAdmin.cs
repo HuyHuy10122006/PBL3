@@ -28,7 +28,25 @@ namespace exambank.ui
             menuButtons = new List<UIButton> { btnHome, btnManageAccount, btnManageExamBank, btnConfigAI };
             _loginUser = user;
             _nav = new NavigationService(pnlBody);
+            if (_loginUser != null)
+            {
+                // 1. Cập nhật Tên và Vai trò cho Admin
+                lblSidebarName.Text = _loginUser.FullName ?? _loginUser.Username;
+                lblSidebarRole.Text = _loginUser.Role == "1" ? "Quản trị viên" : "Giáo viên";
 
+                // 2. Tự động lấy chữ cái cuối của Tên gán vào Avatar (Ví dụ: "Hưng" -> "H")
+                string displayName = lblSidebarName.Text.Trim();
+                int lastSpaceIndex = displayName.LastIndexOf(' ');
+
+                if (lastSpaceIndex >= 0 && lastSpaceIndex < displayName.Length - 1)
+                {
+                    avtUser.Text = displayName.Substring(lastSpaceIndex + 1, 1).ToUpper();
+                }
+                else if (displayName.Length > 0)
+                {
+                    avtUser.Text = displayName.Substring(0, 1).ToUpper();
+                }
+            }
             // Mở Trang chủ làm màn hình mặc định
             btnHome_Click(null, null);
         }
