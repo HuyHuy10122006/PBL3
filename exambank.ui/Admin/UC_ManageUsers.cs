@@ -1,6 +1,6 @@
 using exambank.data.Models;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
+using exambank.logic.Service;
 using Sunny.UI;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace exambank.ui
         private readonly UserModel _loginUser;
         private readonly UserService _userService = new UserService();
         private List<UserModel> _currentUsers = new List<UserModel>();
-        
+
         private FlowLayoutPanel _flpUsers;
         private Panel _pnlListHeader;
         private UserModel _selectedUserAction;
@@ -32,21 +32,22 @@ namespace exambank.ui
         {
             dgvUsers.Visible = false; // Ẩn DataGridView cũ
             SetupFlowLayout();
-            
+
             await LoadDataTable();
             InitFilterData();
         }
-        
+
         private void SetupFlowLayout()
         {
             _pnlListHeader = new Panel { Dock = DockStyle.Top, Height = 45, BackColor = Color.White };
-            _pnlListHeader.Paint += (s, e) => {
+            _pnlListHeader.Paint += (s, e) =>
+            {
                 Graphics g = e.Graphics;
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
                 Font fontBold = new Font("Segoe UI", 10, FontStyle.Bold);
                 Brush textBrush = new SolidBrush(Color.FromArgb(100, 100, 100));
-                
+
                 g.DrawString("#", fontBold, textBrush, new Point(30, 12));
                 g.DrawString("Người dùng", fontBold, textBrush, new Point(120, 12));
                 g.DrawString("Email", fontBold, textBrush, new Point(350, 12));
@@ -54,7 +55,7 @@ namespace exambank.ui
                 g.DrawString("Trạng thái", fontBold, textBrush, new Point(765, 12));
                 g.DrawString("Đăng nhập cuối", fontBold, textBrush, new Point(900, 12));
                 g.DrawString("Thao tác", fontBold, textBrush, new Point(1090, 12));
-                
+
                 g.DrawLine(new Pen(Color.FromArgb(235, 235, 235)), 0, 44, _pnlListHeader.Width, 44);
             };
 
@@ -66,10 +67,12 @@ namespace exambank.ui
                 WrapContents = false,
                 FlowDirection = FlowDirection.TopDown
             };
-            
-            _flpUsers.SizeChanged += (s, ev) => {
+
+            _flpUsers.SizeChanged += (s, ev) =>
+            {
                 _flpUsers.SuspendLayout();
-                foreach (Control c in _flpUsers.Controls) {
+                foreach (Control c in _flpUsers.Controls)
+                {
                     c.Width = _flpUsers.ClientSize.Width - 15;
                 }
                 _flpUsers.ResumeLayout();
@@ -90,14 +93,14 @@ namespace exambank.ui
             var newData = await Task.Run(() => _userService.GetAllUsers());
             _currentUsers.Clear();
             foreach (var u in newData) _currentUsers.Add(u);
-            
+
             Filter();
         }
 
         private void BindGrid(List<UserModel> data)
         {
             if (_flpUsers == null) return;
-            
+
             _flpUsers.SuspendLayout();
             // Xóa các row cũ
             foreach (Control ctrl in _flpUsers.Controls)
@@ -114,7 +117,7 @@ namespace exambank.ui
                 row.ActionClicked += Row_ActionClicked;
                 _flpUsers.Controls.Add(row);
             }
-            
+
             _flpUsers.ResumeLayout();
         }
 
@@ -152,6 +155,7 @@ namespace exambank.ui
             miGgantAdminRole.Visible = canGrant;
             miRevokeAdminRole.Visible = canRevoke;
             sSuperAdmin.Visible = canGrant || canRevoke;
+            miResetPass.Visible = sResetPass.Visible = true; // Luôn cho phép reset pass nếu không bị chặn
 
             // Hiển thị context menu
             Point pt = row.PointToScreen(new Point(1100, 45));
@@ -253,7 +257,9 @@ namespace exambank.ui
                     successMessage: "Mở khóa tài khoản thành công!",
                     userServiceAction: (userId) => _userService.ToggleUserStatus(userId, _loginUser.Id)
                 );
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
             }
         }
@@ -284,6 +290,24 @@ namespace exambank.ui
                     confirmMessage: "Bạn có chắc chắn muốn HẠ QUYỀN tài khoản {0} ({1}) xuống Teacher không?",
                     successMessage: "Hạ quyền Teacher thành công!",
                     userServiceAction: (userId) => _userService.SetUserRole(userId, "Teacher", _loginUser.Id)
+                );
+            }
+            catch (Exception ex)
+            {
+                UIMessageBox.ShowError2($"Lỗi: {ex.Message}");
+            }
+        }
+
+        private async void miResetPass_Click(object sender, EventArgs e)
+        {
+            // Reset mật khẩu về 123456 và hiển thị thông báo
+            if (_selectedUserAction == null) return;
+            try
+            {
+                await ExecuteUserActionAsync(
+                    confirmMessage: "Bạn có chắc chắn muốn RESET mật khẩu cho tài khoản {0} ({1}) không?",
+                    successMessage: $"Reset mật khẩu thành công!\nMật khẩu hiện tại của \"{_selectedUserAction.Username}\" là 123456.",
+                    userServiceAction: (userId) => _userService.ResetPassword(userId, "123456", _loginUser.Id)
                 );
             }
             catch (Exception ex)

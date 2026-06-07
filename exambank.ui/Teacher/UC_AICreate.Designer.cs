@@ -98,7 +98,7 @@
             btnCreateQuestion.Symbol = 0;
             btnCreateQuestion.SymbolSize = 26;
             btnCreateQuestion.TipsFont = new Font("Microsoft Sans Serif", 9F);
-            btnCreateQuestion.Click += btnCreateExam_Click;
+            btnCreateQuestion.Click += btnCreateQuestion_Click;
             // 
             // pnlCauHinh
             // 

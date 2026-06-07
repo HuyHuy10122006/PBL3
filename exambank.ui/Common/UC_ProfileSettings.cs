@@ -62,9 +62,8 @@ namespace exambank.ui.Common
                 Form parentForm = this.FindForm();
                 if (parentForm != null)
                 {
-                    parentForm.Hide();
-                    // Khởi động lại ứng dụng hoặc gọi lại Form Đăng nhập
-                    Application.Restart();
+                    parentForm.DialogResult = DialogResult.OK;
+                    parentForm.Close();
                 }
             }
         }

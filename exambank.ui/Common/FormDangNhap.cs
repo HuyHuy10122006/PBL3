@@ -1,7 +1,7 @@
 ﻿using exambank.data;
 using exambank.data.Models;
 using exambank.ui.Base;
-using exambank.ui.LogicTest;
+using exambank.logic.Service;
 using Sunny.UI;
 using Sunny.UI.Win32;
 using System;

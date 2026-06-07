@@ -1,28 +1,81 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using exambank.data;
+using exambank.data.Models;
 
-namespace exambank.logic
+namespace exambank.logic.Service
 {
     public class GeminiService
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly string _apiKey;
+        private readonly string _model;
         private readonly string _geminiUrl;
+        private readonly string _systemPrompt;
+        private readonly double _temperature;
 
+        /// <summary>
+        /// Constructor mặc định: Tự động đọc cấu hình từ Database → File → Env
+        /// </summary>
         public GeminiService()
         {
-            _apiKey = GetApiKey();
-            _geminiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={_apiKey}";
+            // Ưu tiên đọc từ Database
+            var config = LoadConfigFromDatabase();
+            if (config != null && !string.IsNullOrWhiteSpace(config.ApiKey))
+            {
+                _apiKey = config.ApiKey;
+                _model = config.Model ?? "gemini-flash-lite-latest";
+                _systemPrompt = config.SystemPrompt ?? "Bạn là chuyên gia giáo dục. Hãy tạo câu hỏi trắc nghiệm chất lượng cao dựa trên nội dung được cung cấp. Trả về kết quả dưới dạng JSON array.";
+                _temperature = config.Temperature;
+            }
+            else
+            {
+                _apiKey = GetApiKeyFromFile();
+                _model = "gemini-flash-lite-latest";
+                _systemPrompt = "Bạn là chuyên gia giáo dục. Hãy tạo câu hỏi trắc nghiệm chất lượng cao dựa trên nội dung được cung cấp. Trả về kết quả dưới dạng JSON array.";
+                _temperature = 0.7;
+            }
+            _geminiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{_model}:generateContent?key={_apiKey}";
         }
 
-        private string GetApiKey()
+        /// <summary>
+        /// Constructor dùng cho Admin test kết nối với API key và model tùy chỉnh
+        /// </summary>
+        public GeminiService(string apiKey, string model, string systemPrompt = null, double temperature = 0.7)
         {
-            // Cách 1: Đọc API Key từ file api_key.txt (Tệp này đã được đưa vào .gitignore để không đẩy lên GitHub)
-            // Tìm file api_key.txt từ thư mục Build lùi dần lên thư mục gốc của Solution
+            _apiKey = apiKey;
+            _model = string.IsNullOrWhiteSpace(model) ? "gemini-flash-lite-latest" : model;
+            _systemPrompt = systemPrompt ?? "Bạn là chuyên gia giáo dục. Hãy tạo câu hỏi trắc nghiệm chất lượng cao.";
+            _temperature = temperature;
+            _geminiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{_model}:generateContent?key={_apiKey}";
+        }
+
+        /// <summary>
+        /// Đọc cấu hình AI từ Database (bảng AI_Configs)
+        /// </summary>
+        private AIConfigModel LoadConfigFromDatabase()
+        {
+            try
+            {
+                using (var db = new ExamBankDbContext())
+                {
+                    var repo = new DatabaseRepository(db);
+                    return repo.GetActiveAIConfigAsync().GetAwaiter().GetResult();
+                }
+            }
+            catch
+            {
+                return null; // Nếu DB lỗi thì fallback
+            }
+        }
+
+        private string GetApiKeyFromFile()
+        {
+            // Cách 1: Đọc API Key từ file api_key.txt
             string path = AppDomain.CurrentDomain.BaseDirectory;
             while (path != null)
             {
@@ -34,15 +87,113 @@ namespace exambank.logic
                 path = System.IO.Directory.GetParent(path)?.FullName;
             }
 
-            // Cách 2: Lấy từ biến môi trường (Environment Variable) nếu không dùng file
+            // Cách 2: Lấy từ biến môi trường
             var envKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
             if (!string.IsNullOrEmpty(envKey)) 
             {
                 return envKey.Trim();
             }
 
-            // Báo lỗi rõ ràng trên UI nếu không có key
-            throw new Exception("Không tìm thấy API Key!\n\nVui lòng tạo một file 'api_key.txt' (có chứa API key của bạn từ Google AI Studio) nằm ở ngoài cùng thư mục dự án (ngang hàng với file .sln).\n(Hoặc thiết lập biến môi trường GEMINI_API_KEY)");
+            throw new Exception("Không tìm thấy API Key!\n\nVui lòng cấu hình API Key trong phần 'Cấu hình tham số AI' (Admin) hoặc tạo file 'api_key.txt' ở thư mục gốc dự án.\n(Hoặc thiết lập biến môi trường GEMINI_API_KEY)");
+        }
+
+        /// <summary>
+        /// Kiểm tra kết nối tới API Gemini (Admin dùng để test)
+        /// </summary>
+        public async Task<string> TestConnectionAsync()
+        {
+            try
+            {
+                var requestBody = new
+                {
+                    contents = new[]
+                    {
+                        new
+                        {
+                            parts = new[]
+                            {
+                                new { text = "Trả lời ngắn gọn: 1 + 1 = ?" }
+                            }
+                        }
+                    }
+                };
+
+                string jsonBody = JsonSerializer.Serialize(requestBody);
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PostAsync(_geminiUrl, content);
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return $"❌ Lỗi {(int)response.StatusCode}: {responseString}";
+                }
+
+                return "✅ Kết nối thành công! API Key hợp lệ.";
+            }
+            catch (Exception ex)
+            {
+                return $"❌ Lỗi kết nối: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Chạy thử Prompt với nội dung mẫu (Admin dùng để preview output)
+        /// </summary>
+        public async Task<string> TestPromptAsync(string systemPrompt, double temperature = 0.7, string inputContent = "", int numberOfQuestions = 2)
+        {
+            try
+            {
+                string testContent = string.IsNullOrWhiteSpace(inputContent) ? "Thủ đô của Việt Nam là Hà Nội. Việt Nam có 63 tỉnh thành." : inputContent;
+                string prompt = $"{systemPrompt}\n\nNội dung: {testContent}\n\nHãy tạo {numberOfQuestions} câu hỏi trắc nghiệm mẫu.";
+
+                var requestBody = new
+                {
+                    contents = new[]
+                    {
+                        new
+                        {
+                            parts = new[]
+                            {
+                                new { text = prompt }
+                            }
+                        }
+                    },
+                    generationConfig = new
+                    {
+                        temperature = temperature
+                    }
+                };
+
+                string jsonBody = JsonSerializer.Serialize(requestBody);
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PostAsync(_geminiUrl, content);
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return $"❌ Lỗi {(int)response.StatusCode}: {responseString}";
+                }
+
+                using (JsonDocument doc = JsonDocument.Parse(responseString))
+                {
+                    JsonElement root = doc.RootElement;
+                    if (root.TryGetProperty("candidates", out JsonElement candidates) && candidates.GetArrayLength() > 0)
+                    {
+                        JsonElement firstCandidate = candidates[0];
+                        if (firstCandidate.TryGetProperty("content", out JsonElement contentElement) &&
+                            contentElement.TryGetProperty("parts", out JsonElement parts) && parts.GetArrayLength() > 0)
+                        {
+                            return parts[0].GetProperty("text").GetString() ?? "Không có kết quả.";
+                        }
+                    }
+                }
+
+                return "Không parse được kết quả từ AI.";
+            }
+            catch (Exception ex)
+            {
+                return $"❌ Lỗi: {ex.Message}";
+            }
         }
 
         public async IAsyncEnumerable<string> GenerateQuestionsStreamAsync(string textChunk, int numbOfQuestions = 10)

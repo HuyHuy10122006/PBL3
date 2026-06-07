@@ -42,6 +42,7 @@ namespace exambank.data
         // ===== AI Config Methods (ĐÃ BỔ SUNG) =====
         Task<AIConfigModel?> GetActiveAIConfigAsync();
         Task UpdateAIConfigAsync(AIConfigModel config);
+        Task AddAIConfigAsync(AIConfigModel config);
     }
 
     public class DatabaseRepository(ExamBankDbContext dbContext) : IDatabaseRepository
@@ -248,6 +249,12 @@ namespace exambank.data
         {
             // Cập nhật thông số do Admin chỉnh sửa
             _dbContext.AIConfigs.Update(config);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task AddAIConfigAsync(AIConfigModel config)
+        {
+            await _dbContext.AIConfigs.AddAsync(config);
             await _dbContext.SaveChangesAsync();
         }
     }
