@@ -51,9 +51,9 @@ namespace exambank.ui
                 // Ở ngân hàng chung: Không cho sửa, chia sẻ
                 btnEdit.Visible = false;
                 btnShare.Visible = false;
-                btnExport.Visible = false;
-                btnSave.Text = "Lưu về máy"; // Xuất file Word
-                btnSave.Symbol = 362830; // Icon xuất file
+                btnExport.Visible = true; // Cho phép dùng nút Export riêng để xuất file
+                btnSave.Text = "Lưu đề thi"; // Clone đề thi về kho cá nhân
+                btnSave.Symbol = 61639; // Icon lưu (Floppy disk)
             }
         }
 
@@ -141,21 +141,17 @@ namespace exambank.ui
             {
                 if (_isFromPublicBank)
                 {
-                    // XUẤT FILE WORD (Admin chỉ xuất file, không lưu đề)
-                    using (var saveFileDialog = new SaveFileDialog())
+                    // LƯU ĐỀ THI TỪ NGÂN HÀNG CHUNG VỀ NGÂN HÀNG CÁ NHÂN (CLONE)
+                    if (UIMessageBox.Show("Bạn có muốn lưu bản sao của đề thi này vào ngân hàng đề thi cá nhân của mình không?", "Xác nhận lưu", UIStyle.Blue, UIMessageBoxButtons.OKCancel))
                     {
-                        saveFileDialog.Filter = "Word Document|*.docx";
-                        saveFileDialog.Title = "Lưu đề thi ra file Word";
-                        saveFileDialog.FileName = $"{_currentExam.Title}.docx";
-
-                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        bool isSuccess = await _examService.ClonePublicExamAsync(_currentExam.Id, _currentUserId);
+                        if (isSuccess)
                         {
-                            var docService = new DocumentService();
-                            await Task.Run(() => docService.ExportToWord(saveFileDialog.FileName, _currentExam,
-                                _currentExam.ExamQuestions.Select(eq => eq.Question).ToList()
-                            ));
-
-                            UIMessageBox.ShowSuccess2("Xuất file Word thành công!");
+                            UIMessageBox.ShowSuccess2("Lưu đề thi thành công! Bạn có thể xem đề thi này trong tab Quản lý đề thi cá nhân.");
+                        }
+                        else
+                        {
+                            UIMessageBox.ShowError2("Lưu đề thi thất bại. Đề thi này có thể không còn khả dụng hoặc bạn không có quyền.");
                         }
                     }
                 }

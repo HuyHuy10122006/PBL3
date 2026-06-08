@@ -1,4 +1,4 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,32 @@ namespace exambank.logic.Service
             using (var db = new ExamBankDbContext())
             {
                 return db.Users.ToList();
+            }
+        }
+
+        public UserModel GetUserById(int id)
+        {
+            using (var db = new ExamBankDbContext())
+            {
+                return db.Users.Find(id);
+            }
+        }
+
+        // Cập nhật thông tin profile của User
+        public void UpdateProfile(UserModel updatedUser)
+        {
+            using (var db = new ExamBankDbContext())
+            {
+                var user = db.Users.Find(updatedUser.Id);
+                if (user == null)
+                    throw new Exception("Không tìm thấy thông tin người dùng trên hệ thống.");
+
+                user.Phone = updatedUser.Phone;
+                user.University = updatedUser.University;
+                user.Subjects = updatedUser.Subjects;
+                user.AiDifficulty = updatedUser.AiDifficulty;
+
+                db.SaveChanges();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 
@@ -45,10 +45,20 @@ namespace exambank.logic.Service
                     p.Append($"{q.Question}", textFormat);
 
                     var pOptions = document.InsertParagraph();
-                    pOptions.Append($"A. {q.OptionA}", textFormat).AppendLine();
-                    pOptions.Append($"B. {q.OptionB}", textFormat).AppendLine();
-                    pOptions.Append($"C. {q.OptionC}", textFormat).AppendLine();
-                    pOptions.Append($"D. {q.OptionD}", textFormat).AppendLine();
+                    
+                    if (string.IsNullOrWhiteSpace(q.OptionB) && string.IsNullOrWhiteSpace(q.OptionC) && string.IsNullOrWhiteSpace(q.OptionD))
+                    {
+                        // Câu hỏi trả lời ngắn
+                        pOptions.Append($"Đáp án: ", textFormat).AppendLine();
+                    }
+                    else
+                    {
+                        // Trắc nghiệm hoặc Đúng/Sai
+                        if (!string.IsNullOrWhiteSpace(q.OptionA)) pOptions.Append($"A. {q.OptionA}", textFormat).AppendLine();
+                        if (!string.IsNullOrWhiteSpace(q.OptionB)) pOptions.Append($"B. {q.OptionB}", textFormat).AppendLine();
+                        if (!string.IsNullOrWhiteSpace(q.OptionC)) pOptions.Append($"C. {q.OptionC}", textFormat).AppendLine();
+                        if (!string.IsNullOrWhiteSpace(q.OptionD)) pOptions.Append($"D. {q.OptionD}", textFormat).AppendLine();
+                    }
 
                     document.InsertParagraph().AppendLine();
                 }
@@ -59,14 +69,24 @@ namespace exambank.logic.Service
         }
 
         // 1. Đọc Text từ PDF
-        public string ExtractTextFromPdf(string filePath)
+        public string ExtractTextFromPdf(string filePath, int maxPages = 0)
         {
             StringBuilder text = new StringBuilder();
             using (PdfDocument document = PdfDocument.Open(filePath))
             {
+                int pageWithTextCount = 0;
                 foreach (var page in document.GetPages())
                 {
-                    text.AppendLine(ContentOrderTextExtractor.GetText(page));
+                    string pageText = ContentOrderTextExtractor.GetText(page);
+                    if (!string.IsNullOrWhiteSpace(pageText))
+                    {
+                        text.AppendLine(pageText);
+                        pageWithTextCount++;
+                    }
+                    
+                    // Nếu giới hạn số trang (maxPages > 0), chỉ đếm những trang CÓ CHỮ. 
+                    // Đồng thời ngắt sau 30 trang (page.Number) để tránh file scan 100% ảnh làm treo máy
+                    if (maxPages > 0 && (pageWithTextCount >= maxPages || page.Number > 30)) break;
                 }
             }
             return text.ToString();

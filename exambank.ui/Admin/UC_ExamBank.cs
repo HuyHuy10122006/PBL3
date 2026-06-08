@@ -44,17 +44,17 @@ namespace exambank.ui
             cboTT.SelectedIndex = 0;
         }
 
-        private void UC_ViewExamBank_Load(object sender, EventArgs e)
+        private async void UC_ViewExamBank_Load(object sender, EventArgs e)
         {
-            LoadDataTable();
+            await LoadDataTable();
             dgvPublicExams.AutoGenerateColumns = false;
 
             // Reload dữ liệu mỗi khi UC được hiển thị lại
-            this.VisibleChanged += (s, args) =>
+            this.VisibleChanged += async (s, args) =>
             {
                 if (this.Visible)
                 {
-                    LoadDataTable();
+                    await LoadDataTable();
                 }
             };
         }
@@ -68,14 +68,21 @@ namespace exambank.ui
 
         private async Task LoadDataTable()
         {
-            var newData = await Task.Run(() => _examService.GetSharedExamsAllStatusAsync());
-            _allSharedExams.Clear();
-            foreach (var item in newData)
+            try
             {
-                _allSharedExams.Add(item);
+                var newData = await _examService.GetSharedExamsAllStatusAsync();
+                _allSharedExams.Clear();
+                foreach (var item in newData)
+                {
+                    _allSharedExams.Add(item);
+                }
+                InitControlDataAsync(_allSharedExams);
+                Filter();
             }
-            InitControlDataAsync(_allSharedExams);
-            Filter();
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Lỗi LoadDataTable (ExamBank Admin): " + ex.Message);
+            }
         }
 
         private void BindGrid(List<ExamModel> data)
@@ -148,7 +155,7 @@ namespace exambank.ui
             {
                 if (exam.ExamQuestions == null || exam.ExamQuestions.Count == 0)
                 {
-                    exam.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(exam.Id));
+                    exam.ExamQuestions = await _examService.LoadExamQuestionsAsync(exam.Id);
                 }
                 using (FormXemDe frm = new FormXemDe(exam, true, _loginUser.Id))
                 {
@@ -344,9 +351,9 @@ namespace exambank.ui
             // Giữ lại cho backward compatibility nhưng DataGridView đã ẩn
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadDataTable();
+            await LoadDataTable();
         }
 
         private void dgvPublicExams_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

@@ -11,6 +11,16 @@ namespace exambank.ui.Common
     {
         public ExamModel ExamData { get; private set; }
         public event EventHandler<ExamCardEventArgs> ActionClicked;
+        public event EventHandler SelectionChanged;
+
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public bool IsSelected
+        {
+            get => chkSelect != null && chkSelect.Checked;
+            set { if (chkSelect != null) chkSelect.Checked = value; }
+        }
+
+        private Sunny.UI.UICheckBox chkSelect;
 
         private bool _showActions;
         private bool _isHovered = false;
@@ -63,6 +73,19 @@ namespace exambank.ui.Common
             this.MouseEnter += (s, e) => { _isHovered = true; this.Invalidate(); };
             this.MouseLeave += (s, e) => { _isHovered = false; this.Invalidate(); };
             this.Click += Control_Click;
+
+            // Checkbox for selection
+            chkSelect = new Sunny.UI.UICheckBox
+            {
+                Text = "",
+                Size = new Size(29, 29),
+                Location = new Point(240, 160),
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand,
+                CheckBoxColor = _accentColor
+            };
+            chkSelect.CheckedChanged += (s, e) => { SelectionChanged?.Invoke(this, EventArgs.Empty); };
+            this.Controls.Add(chkSelect);
         }
 
         protected override void OnPaint(PaintEventArgs e)

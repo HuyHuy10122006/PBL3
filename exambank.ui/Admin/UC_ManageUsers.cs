@@ -137,25 +137,29 @@ namespace exambank.ui
             bool isTargetSuperAdmin = targetRole == "SuperAdmin";
             bool isTargetAdmin = targetRole == "Admin";
 
-            // 1. CHẶN HOÀN TOÀN
-            if (isSelf || isTargetSuperAdmin) return;
+            // Mặc định luôn cho phép xem chi tiết
+            miViewDetails.Visible = true;
 
-            // 2. CHẶN CHO ADMIN THƯỜNG
-            if (isCurrentAdmin && isTargetAdmin) return;
+            // 1. CHẶN HOÀN TOÀN TÁC ĐỘNG VÀO BẢN THÂN HOẶC SUPERADMIN
+            bool canEdit = !(isSelf || isTargetSuperAdmin);
 
-            bool canLock = targetStatus;
-            bool canUnlock = !targetStatus;
-            bool canGrant = isCurrentSuperAdmin && (targetRole == "Teacher") && canLock;
-            bool canRevoke = isCurrentSuperAdmin && isTargetAdmin && canLock;
+            // 2. CHẶN CHO ADMIN THƯỜNG KHÔNG ĐƯỢC TÁC ĐỘNG VÀO ADMIN KHÁC
+            if (isCurrentAdmin && isTargetAdmin)
+            {
+                canEdit = false;
+            }
 
-            if (!canLock && !canUnlock && !canGrant && !canRevoke) return;
+            bool canLock = canEdit && targetStatus;
+            bool canUnlock = canEdit && !targetStatus;
+            bool canGrant = canEdit && isCurrentSuperAdmin && (targetRole == "Teacher") && canLock;
+            bool canRevoke = canEdit && isCurrentSuperAdmin && isTargetAdmin && canLock;
 
             miLock.Visible = canLock;
             miUnlock.Visible = canUnlock;
             miGgantAdminRole.Visible = canGrant;
             miRevokeAdminRole.Visible = canRevoke;
             sSuperAdmin.Visible = canGrant || canRevoke;
-            miResetPass.Visible = sResetPass.Visible = true; // Luôn cho phép reset pass nếu không bị chặn
+            miResetPass.Visible = sResetPass.Visible = canEdit;
 
             // Hiển thị context menu
             Point pt = row.PointToScreen(new Point(1100, 45));
@@ -227,6 +231,36 @@ namespace exambank.ui
             finally
             {
                 _selectedUserAction = null;
+            }
+        }
+
+        private void miViewDetails_Click(object sender, EventArgs e)
+        {
+            if (_selectedUserAction == null) return;
+            try
+            {
+                var userFull = _userService.GetUserById(_selectedUserAction.Id);
+                if (userFull != null)
+                {
+                    using (var frm = new Sunny.UI.UIForm())
+                    {
+                        frm.Text = "Chi tiết hồ sơ";
+                        frm.Size = new Size(1000, 600);
+                        frm.StartPosition = FormStartPosition.CenterParent;
+                        frm.ShowRadius = false;
+                        frm.ShowShadow = true;
+                        
+                        var uc = new exambank.ui.Common.UC_ProfileSettings(userFull, true);
+                        uc.Dock = DockStyle.Fill;
+                        frm.Controls.Add(uc);
+
+                        frm.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Sunny.UI.UIMessageBox.ShowError("Có lỗi xảy ra: " + ex.Message);
             }
         }
 

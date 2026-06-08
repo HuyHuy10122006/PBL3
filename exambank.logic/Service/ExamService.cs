@@ -99,6 +99,32 @@ namespace exambank.logic.Service
             }
         }
 
+        public async Task<bool> TransferExamOwnershipToAdminAsync(int examId)
+        {
+            try
+            {
+                using (var db = new ExamBankDbContext())
+                {
+                    var exam = await db.Exams.FindAsync(examId);
+                    if (exam != null)
+                    {
+                        var adminUser = db.Users.FirstOrDefault(u => u.Role == "Admin" || u.Role == "SuperAdmin");
+                        if (adminUser != null)
+                        {
+                            exam.CreatedByUserId = adminUser.Id;
+                            await db.SaveChangesAsync();
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi chuyển quyền sở hữu đề thi cho Admin: " + ex.Message);
+            }
+            return false;
+        }
+
         /// <summary>
         /// Tạo đề thi mới từ danh sách ID câu hỏi đã có sẵn
         /// </summary>
@@ -242,6 +268,65 @@ namespace exambank.logic.Service
         public async Task<List<ExamModel>> GetPublicExamsAsync()
         {
             return await CreateRepository().GetSharedExamsAsync();
+        }
+
+        //Hàm lưu một đề thi Public về ngân hàng cá nhân (Clone)
+        public async Task<bool> ClonePublicExamAsync(int publicExamId, int newOwnerId)
+        {
+            try
+            {
+                var repo = CreateRepository();
+                var publicExam = await repo.GetExamWithQuestionsAsync(publicExamId);
+                
+                // Đảm bảo chỉ clone các đề đang shared và approved (an toàn bảo mật)
+                if (publicExam == null || !publicExam.IsShared || publicExam.ApprovalStatus != ApprovalStatus.Approved) 
+                    return false;
+
+                // Tạo đối tượng ExamModel mới (bản sao)
+                var newExam = new ExamModel
+                {
+                    Title = publicExam.Title,
+                    ExamCode = publicExam.ExamCode,
+                    Duration = publicExam.Duration,
+                    TotalQuestions = publicExam.TotalQuestions,
+                    Subject = publicExam.Subject,
+                    CreatedAt = DateTime.Now,
+                    Note = publicExam.Note,
+                    CreatedByUserId = newOwnerId,
+                    IsShared = false, // Bản sao không mặc định được share
+                    ApprovalStatus = ApprovalStatus.None,
+                    OriginalExamId = publicExamId // Lưu vết đề thi gốc để cấm share lại
+                };
+
+                // Lưu đề thi mới vào DB trước để có Id
+                await repo.AddExamAsync(newExam);
+
+                // Clone các câu hỏi sang bảng trung gian
+                if (publicExam.ExamQuestions != null && publicExam.ExamQuestions.Any())
+                {
+                    var newExamQuestions = new List<ExamQuestionModel>();
+                    foreach (var eq in publicExam.ExamQuestions)
+                    {
+                        newExamQuestions.Add(new ExamQuestionModel
+                        {
+                            ExamId = newExam.Id, // Link với đề vừa tạo
+                            QuestionId = eq.QuestionId, // Giữ nguyên câu hỏi gốc
+                            QuestionOrder = eq.QuestionOrder,
+                            CreatedAt = DateTime.Now
+                        });
+                    }
+                    await repo.AddExamQuestionsAsync(newExamQuestions);
+                }
+
+                _logService.Add($"User:{newOwnerId}", $"Lưu đề chung (Clone)", $"Mã gốc: {publicExamId} - Thành công");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logService.Add($"User:{newOwnerId}", "Lưu đề chung (Clone)", $"Thất bại - {ex.Message}");
+                Debug.WriteLine("Lỗi khi clone đề thi: " + ex.Message);
+                return false;
+            }
         }
 
         //Hàm cập nhật trạng thái Chia sẻ (đặt thành Pending chờ Admin duyệt)

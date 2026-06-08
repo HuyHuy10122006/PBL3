@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using exambank.ui.Base;
 using exambank.ui.Common;
 using exambank.logic.Service;
@@ -40,7 +40,7 @@ namespace exambank.ui
             {
                 // 1. Cập nhật Tên và Vai trò
                 lblSidebarName.Text = _loginUser.FullName ?? _loginUser.Username;
-                lblSidebarRole.Text = _loginUser.Role == "1" ? "Quản trị viên" : "Giáo viên";
+                lblSidebarRole.Text = (_loginUser.Role == "Admin" || _loginUser.Role == "SuperAdmin") ? "Quản trị viên" : "Giáo viên";
 
                 // 2. Tự động trích xuất chữ cái đầu của Tên để làm ảnh Avatar (VD: "Nguyễn Huy" -> "H")
                 string displayName = lblSidebarName.Text.Trim();

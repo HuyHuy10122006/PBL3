@@ -1,4 +1,4 @@
-﻿using Sunny.UI;
+using Sunny.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
-using Sunny.UI;
 using exambank.data.Models;
 using System;
 
@@ -21,6 +20,7 @@ namespace exambank.ui
         public int Duration => (int)udtxtTime.IntValue;
         public int QuestionCount => (int)udtxtCountQuestion.IntValue;
         public string SelectedSubject => cbMonHoc.Text;
+        public string SelectedGrade => cbKhoi.Text;
 
         public FormTaoDe_MaTran()
         {
@@ -29,6 +29,8 @@ namespace exambank.ui
             txtExamCode.Text = now.ToString("yyyyMMddHHmmss");
             cbMonHoc.Items.AddRange(Base.Constants.List_MonHoc);
             cbMonHoc.SelectedIndex = 0;
+            cbKhoi.Items.AddRange(Base.Constants.List_Khoi);
+            cbKhoi.SelectedIndex = 0;
             txtExamName.Text = $"{cbMonHoc.Text} - {txtExamCode.Text}";
             udtxtCountQuestion.Text = "10";
             udtxtTime.Text = "10";
@@ -57,9 +59,13 @@ namespace exambank.ui
             if (udtxtCountQuestion.IntValue <= 0)
                 return ShowValidationError(udtxtCountQuestion, "Số lượng câu hỏi phải lớn hơn 0.");
 
-            //5. Kiểm tra Môn học
+            // 5. Kiểm tra Môn học
             if (string.IsNullOrWhiteSpace(cbMonHoc.Text))
                 return ShowValidationError(cbMonHoc, "Vui lòng chọn môn học.");
+
+            // 6. Kiểm tra Khối lớp
+            if (string.IsNullOrWhiteSpace(cbKhoi.Text))
+                return ShowValidationError(cbKhoi, "Vui lòng chọn khối lớp.");
 
             return true; // Tất cả đều hợp lệ
         }

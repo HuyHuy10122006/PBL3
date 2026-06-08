@@ -44,36 +44,62 @@ namespace exambank.ui
         }
 
         // Nạp dữ liệu vào ComboBox
-        private void LoadCboData(List<QuestionModel> data)
+        private void InitFilterDataAsync(List<QuestionModel> data)
         {
-            void BindCombo(UIComboBox cb, List<string> values)
-            {
-                string selected = cb.SelectedItem?.ToString() ?? "Tất cả";
-                values.Insert(0, "Tất cả");
-                cb.DataSource = values;
-                cb.SelectedItem = values.Contains(selected) ? selected : "Tất cả";
-            }
+            List<string> subjects = _questionService.GetCboValuesAsync(data, q => q.Subject);
+            subjects.Insert(0, "Tất cả");
+            cbMonHoc.DataSource = subjects;
 
-            BindCombo(cbMonHoc, _questionService.GetCboValuesAsync(data, q => q.Subject));
-            BindCombo(cbKhoi, _questionService.GetCboValuesAsync(data, q => q.Grade));
-            BindCombo(cbDoKho, Constants.List_DoKho.ToList());
+            List<string> grades = _questionService.GetCboValuesAsync(data, q => q.Grade);
+            grades.Insert(0, "Tất cả");
+            cbKhoi.DataSource = grades;
+
+            List<string> difficulties = Constants.List_DoKho.ToList();
+            difficulties.Insert(0, "Tất cả");
+            cbDoKho.DataSource = difficulties;
         }
 
-        // Nạp dữ liệu lên màn hình
+        // Nạp dữ liệu vào DataGridView
         private async Task LoadDataTable()
         {
-            _currentQuestions = await _questionService.GetQuestionsAsync(_loginUser.Id);
-            LoadCboData(_currentQuestions);
-            Filter(_currentQuestions);
+            try
+            {
+                var newData = await _questionService.GetQuestionsAsync(_loginUser.Id);
+                _currentQuestions.Clear();
+                foreach (var item in newData)
+                {
+                    _currentQuestions.Add(item);
+                }
+                InitFilterDataAsync(_currentQuestions);
+                BindGrid(_currentQuestions);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Lỗi LoadDataTable (Questions): " + ex.Message);
+            }
+        }
+
+        private string GetQuestionType(QuestionModel q)
+        {
+            if (string.IsNullOrWhiteSpace(q.OptionB) && string.IsNullOrWhiteSpace(q.OptionC) && string.IsNullOrWhiteSpace(q.OptionD))
+            {
+                return "Trả lời ngắn";
+            }
+            if (q.OptionA == "Đúng" && q.OptionB == "Sai" && string.IsNullOrWhiteSpace(q.OptionC) && string.IsNullOrWhiteSpace(q.OptionD))
+            {
+                return "Đúng / Sai";
+            }
+            return "Trắc nghiệm";
         }
 
         private void BindGrid(List<QuestionModel> data)
         {
-            var displayList = data.Select(q => new
+            var displayList = data.Select((q, index) => new
             {
                 ID = q.Id,
-                STT = data.IndexOf(q) + 1,
+                STT = index + 1,
                 Content = q.Question,
+                LoaiCauHoi = GetQuestionType(q),
                 MonHoc = q.Subject,
                 Khoi = q.Grade,
                 DoKho = q.Difficulty
@@ -118,9 +144,6 @@ namespace exambank.ui
 
         private void ShowDetail(QuestionModel q)
         {
-            // Trước khi thao tác với flpQuestion, kiểm tra xem control đã bị dispose hay chưa để tránh lỗi "Handle không tồn tại"
-            if (this.IsDisposed || !this.IsHandleCreated) return;
-
             // Kiểm tra xem có cần Invoke để chuyển về luồng chính không
             if (this.InvokeRequired)
             {
@@ -130,7 +153,7 @@ namespace exambank.ui
 
             try
             {
-                flpQuestion.SuspendLayout();
+                flpQuestion.SuspendLayout(); // Tạm dừng vẽ để tránh lỗi Handle
 
                 // Giải phóng Control cũ
                 foreach (Control ctrl in flpQuestion.Controls)
@@ -146,7 +169,7 @@ namespace exambank.ui
             }
             finally
             {
-                flpQuestion.ResumeLayout(true);
+                flpQuestion.ResumeLayout(true); // Tiếp tục vẽ giao diện
             }
         }
 
@@ -240,11 +263,7 @@ namespace exambank.ui
                 List<int> ids = new List<int>();
                 foreach (DataGridViewRow row in selectedRows)
                 {
-                    var val = row.Cells["colID"].Value;
-                    if (val != null && int.TryParse(val.ToString(), out int id))
-                    {
-                        ids.Add(id);
-                    }
+                    ids.Add((int)row.Cells["colID"].Value);
                 }
 
                 if (await _questionService.DeleteMultipleAsync(ids))
@@ -336,15 +355,15 @@ namespace exambank.ui
             }
         }
 
-        private void Filter(List<QuestionModel> questions)
+        private void Filter()
         {
             string keyword = txtSearch.Text.Trim().ToLower();
             string mon = cbMonHoc.Text;
             string doKho = cbDoKho.Text;
             string khoi = cbKhoi.Text;
 
-            var filtered = questions.Where(q =>
-                (string.IsNullOrWhiteSpace(keyword) || (q.Question ?? string.Empty).ToLower().Contains(keyword)) &&
+            var filtered = _currentQuestions.Where(q =>
+                (string.IsNullOrWhiteSpace(keyword) || q.Question.ToLower().Contains(keyword)) &&
                 (mon == "Tất cả" || q.Subject == mon) &&
                 (khoi == "Tất cả" || q.Grade == khoi) &&
                 (doKho == "Tất cả" || q.Difficulty == doKho)
@@ -355,12 +374,12 @@ namespace exambank.ui
 
         private void cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Filter(_currentQuestions);
+            Filter();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            Filter(_currentQuestions);
+            Filter();
         }
 
         private void btnAddManual_Click(object sender, EventArgs e)
@@ -385,7 +404,7 @@ namespace exambank.ui
                     OptionD = " ",
                     Answer = "A",
                     Subject = cbMonHoc.Text != "Tất cả" ? cbMonHoc.Text : "Lịch sử",
-                    Grade = cbKhoi.Text != "Tất cả" ? cbKhoi.Text : "Lớp 12",
+                    Grade = cbKhoi.Text != "Tất cả" ? cbKhoi.Text : "12",
                     Difficulty = cbDoKho.Text != "Tất cả" ? cbDoKho.Text : "Nhận biết",
                     CreatedByUserId = _loginUser.Id,
                     CreatedAt = DateTime.Now,

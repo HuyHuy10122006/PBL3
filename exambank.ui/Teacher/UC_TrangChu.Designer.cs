@@ -161,7 +161,7 @@
             lblCard1Value.ForeColor = Color.FromArgb(21, 101, 192);
             lblCard1Value.Location = new Point(15, 55);
             lblCard1Value.Name = "lblCard1Value";
-            lblCard1Value.Size = new Size(200, 50);
+            lblCard1Value.Size = new Size(200, 96);
             lblCard1Value.TabIndex = 1;
             lblCard1Value.Text = "1,250";
             // 
@@ -201,7 +201,7 @@
             lblCard2Value.ForeColor = Color.FromArgb(230, 81, 0);
             lblCard2Value.Location = new Point(15, 55);
             lblCard2Value.Name = "lblCard2Value";
-            lblCard2Value.Size = new Size(200, 50);
+            lblCard2Value.Size = new Size(200, 105);
             lblCard2Value.TabIndex = 1;
             lblCard2Value.Text = "320";
             // 
@@ -241,7 +241,7 @@
             lblCard3Value.ForeColor = Color.FromArgb(46, 125, 50);
             lblCard3Value.Location = new Point(15, 55);
             lblCard3Value.Name = "lblCard3Value";
-            lblCard3Value.Size = new Size(200, 50);
+            lblCard3Value.Size = new Size(200, 96);
             lblCard3Value.TabIndex = 1;
             lblCard3Value.Text = "45";
             // 
@@ -281,7 +281,7 @@
             lblCard4Value.ForeColor = Color.FromArgb(106, 27, 154);
             lblCard4Value.Location = new Point(15, 55);
             lblCard4Value.Name = "lblCard4Value";
-            lblCard4Value.Size = new Size(200, 50);
+            lblCard4Value.Size = new Size(200, 96);
             lblCard4Value.TabIndex = 1;
             lblCard4Value.Text = "18";
             // 
@@ -411,6 +411,7 @@
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dgvRecentActivities.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvRecentActivities.RowHeadersVisible = false;
+            dgvRecentActivities.RowHeadersWidth = 51;
             dataGridViewCellStyle5.BackColor = Color.White;
             dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 12F);
             dgvRecentActivities.RowsDefaultCellStyle = dataGridViewCellStyle5;
@@ -422,7 +423,6 @@
             // 
             // UC_TrangChu
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(245, 247, 250);
             Controls.Add(tlpMain);

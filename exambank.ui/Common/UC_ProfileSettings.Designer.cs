@@ -1,4 +1,4 @@
-﻿namespace exambank.ui.Common
+namespace exambank.ui.Common
 {
     partial class UC_ProfileSettings
     {
@@ -19,6 +19,7 @@
         {
             tlpMain = new TableLayoutPanel();
             uiPanelHeader = new Sunny.UI.UIPanel();
+            btnEditProfile = new Sunny.UI.UIButton();
             btnLogout = new Sunny.UI.UIButton();
             btnChangePassword = new Sunny.UI.UIButton();
             lblRole = new Sunny.UI.UILabel();
@@ -62,6 +63,7 @@
             // uiPanelHeader
             // 
             tlpMain.SetColumnSpan(uiPanelHeader, 2);
+            uiPanelHeader.Controls.Add(btnEditProfile);
             uiPanelHeader.Controls.Add(btnLogout);
             uiPanelHeader.Controls.Add(btnChangePassword);
             uiPanelHeader.Controls.Add(lblRole);
@@ -79,6 +81,21 @@
             uiPanelHeader.TabIndex = 0;
             uiPanelHeader.Text = null;
             uiPanelHeader.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
+            // btnEditProfile
+            // 
+            btnEditProfile.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditProfile.Cursor = Cursors.Hand;
+            btnEditProfile.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnEditProfile.Location = new Point(440, 25);
+            btnEditProfile.MinimumSize = new Size(1, 1);
+            btnEditProfile.Name = "btnEditProfile";
+            btnEditProfile.Radius = 8;
+            btnEditProfile.Size = new Size(150, 45);
+            btnEditProfile.TabIndex = 5;
+            btnEditProfile.Text = "Sửa thông tin";
+            btnEditProfile.TipsFont = new Font("Microsoft Sans Serif", 9F);
+            btnEditProfile.Click += btnEditProfile_Click;
             // 
             // btnLogout
             // 
@@ -311,6 +328,7 @@
 
         private System.Windows.Forms.TableLayoutPanel tlpMain;
         private Sunny.UI.UIPanel uiPanelHeader;
+        private Sunny.UI.UIButton btnEditProfile;
         private Sunny.UI.UIButton btnLogout;
         private Sunny.UI.UIButton btnChangePassword;
         private Sunny.UI.UILabel lblRole;
