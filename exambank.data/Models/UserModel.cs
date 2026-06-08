@@ -26,6 +26,18 @@ namespace exambank.data.Models
         [MaxLength(20)]
         public string Role { get; set; } = "Teacher";
 
+        [MaxLength(20)]
+        public string Phone { get; set; } = string.Empty;
+
+        [MaxLength(150)]
+        public string University { get; set; } = string.Empty;
+
+        [MaxLength(150)]
+        public string Subjects { get; set; } = string.Empty;
+
+        [MaxLength(50)]
+        public string AiDifficulty { get; set; } = string.Empty;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? LastLogin { get; set; }

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Linq;
 using exambank.data;
 using exambank.data.Models;
 
@@ -63,8 +64,7 @@ namespace exambank.logic.Service
             {
                 using (var db = new ExamBankDbContext())
                 {
-                    var repo = new DatabaseRepository(db);
-                    return repo.GetActiveAIConfigAsync().GetAwaiter().GetResult();
+                    return db.AIConfigs.FirstOrDefault(c => c.IsActive);
                 }
             }
             catch
@@ -195,51 +195,150 @@ namespace exambank.logic.Service
                 return $"❌ Lỗi: {ex.Message}";
             }
         }
-
-        public async IAsyncEnumerable<string> GenerateQuestionsStreamAsync(string textChunk, int numbOfQuestions = 10)
+        public async IAsyncEnumerable<string> GenerateQuestionsStreamAsync(string textChunk, int countMC = 10, int countTF = 0, int countSA = 0, string subject = "", string grade = "")
         {
-            int batchSize = 10; // Giảm xuống 10 câu mỗi mẻ để tránh rate limit cứng của Google AI Studio (Free tier khoảng 15 RPM)
-            int numBatches = (int)Math.Ceiling((double)numbOfQuestions / batchSize);
+            int batchSize = 10;
+            var requests = new List<(int mc, int tf, int sa)>();
 
-            for (int i = 0; i < numBatches; i++)
+            int remainMC = countMC;
+            int remainTF = countTF;
+            int remainSA = countSA;
+
+            while (remainMC > 0 || remainTF > 0 || remainSA > 0)
             {
-                int count = (i == numBatches - 1 && numbOfQuestions % batchSize != 0) ? (numbOfQuestions % batchSize) : batchSize;
+                int takeMC = Math.Min(remainMC, batchSize);
+                int takeTF = Math.Min(remainTF, batchSize - takeMC);
+                int takeSA = Math.Min(remainSA, batchSize - takeMC - takeTF);
 
-                // Xử lý tuần tự thay vì song song để đảm bảo ổn định không bị rate limit
-                string res = await GenerateBatchAsync(textChunk, count, i);
+                requests.Add((takeMC, takeTF, takeSA));
+
+                remainMC -= takeMC;
+                remainTF -= takeTF;
+                remainSA -= takeSA;
+            }
+
+            for (int i = 0; i < requests.Count; i++)
+            {
+                var req = requests[i];
+                string res = await GenerateBatchAsync(textChunk, req.mc, req.tf, req.sa, i, subject, grade);
 
                 if (!string.IsNullOrWhiteSpace(res))
                 {
                     yield return res;
                 }
 
-                // Chờ đủ thời gian để hệ thống AI không báo lỗi (15 RPM -> chờ khoảng 5 giây mỗi request)
-                if (i < numBatches - 1)
+                if (i < requests.Count - 1)
                 {
                     await Task.Delay(5000); 
                 }
             }
         }
 
-        public async Task<string> GenerateQuestionsAsync(string textChunk, int numbOfQuestions = 10)
+        public async Task<string> AnalyzeDocumentAsync(string textChunk)
         {
-            int batchSize = 10; // Giảm batch size
-            if (numbOfQuestions <= batchSize)
+            string prompt = @"Bạn là chuyên gia giáo dục. Hãy phân tích đoạn tài liệu sau và cho biết nó có phải là tài liệu thuộc chương trình phổ thông (như Sách Giáo Khoa, đề thi chuẩn, bài giảng) hay không.
+Hãy trả về một JSON object duy nhất, không có markdown (không dùng ```json), gồm các trường sau:
+{
+    ""IsSGK"": true hoặc false (true nếu là tài liệu học đường/SGK, false nếu là tài liệu không liên quan),
+    ""Grade"": ""Tên khối lớp"",
+    ""Subject"": ""Tên môn học""
+}
+Lưu ý:
+- Grade CHỈ được chọn một trong các giá trị sau (hoặc để rỗng nếu không xác định được): Lớp 1, Lớp 2, Lớp 3, Lớp 4, Lớp 5, Lớp 6, Lớp 7, Lớp 8, Lớp 9, Lớp 10, Lớp 11, Lớp 12.
+- Subject CHỈ được chọn một trong các giá trị sau (hoặc để rỗng nếu không xác định được): Toán học, Vật lý, Hóa học, Sinh học, Ngữ văn, Lịch sử, Địa lý, Tiếng Anh, Tin học, GDCD.
+
+Nội dung tài liệu:
+" + (textChunk.Length > 3000 ? textChunk.Substring(0, 3000) : textChunk);
+
+            var requestBody = new
             {
-                return await GenerateBatchAsync(textChunk, numbOfQuestions, 0);
+                contents = new[]
+                {
+                    new
+                    {
+                        parts = new[]
+                        {
+                            new { text = prompt }
+                        }
+                    }
+                },
+                generationConfig = new
+                {
+                    responseMimeType = "application/json",
+                    temperature = 0.1
+                }
+            };
+
+            string jsonBody = JsonSerializer.Serialize(requestBody);
+
+            try
+            {
+                var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PostAsync(_geminiUrl, content);
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    using (JsonDocument doc = JsonDocument.Parse(responseString))
+                    {
+                        JsonElement root = doc.RootElement;
+                        if (root.TryGetProperty("candidates", out JsonElement candidates) && candidates.GetArrayLength() > 0)
+                        {
+                            var parts = candidates[0].GetProperty("content").GetProperty("parts");
+                            if (parts.GetArrayLength() > 0)
+                            {
+                                string text = parts[0].GetProperty("text").GetString();
+                                if (text.StartsWith("```json")) text = text.Substring(7);
+                                else if (text.StartsWith("```")) text = text.Substring(3);
+                                if (text.EndsWith("```")) text = text.Substring(0, text.Length - 3);
+                                return text.Trim();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("AnalyzeDocumentAsync Error: " + ex.Message);
             }
 
-            int numBatches = (int)Math.Ceiling((double)numbOfQuestions / batchSize);
+            return null;
+        }
+
+        public async Task<string> GenerateQuestionsAsync(string textChunk, int countMC = 10, int countTF = 0, int countSA = 0, string subject = "", string grade = "")
+        {
+            int batchSize = 10; // Giảm batch size
+            var requests = new List<(int mc, int tf, int sa)>();
+
+            int remainMC = countMC;
+            int remainTF = countTF;
+            int remainSA = countSA;
+
+            while (remainMC > 0 || remainTF > 0 || remainSA > 0)
+            {
+                int takeMC = Math.Min(remainMC, batchSize);
+                int takeTF = Math.Min(remainTF, batchSize - takeMC);
+                int takeSA = Math.Min(remainSA, batchSize - takeMC - takeTF);
+
+                requests.Add((takeMC, takeTF, takeSA));
+
+                remainMC -= takeMC;
+                remainTF -= takeTF;
+                remainSA -= takeSA;
+            }
+
+            if (requests.Count == 0) return "[]";
+
             var results = new List<string>();
 
-            for (int i = 0; i < numBatches; i++)
+            for (int i = 0; i < requests.Count; i++)
             {
-                int count = (i == numBatches - 1 && numbOfQuestions % batchSize != 0) ? (numbOfQuestions % batchSize) : batchSize;
-                string res = await GenerateBatchAsync(textChunk, count, i);
+                var req = requests[i];
+                string res = await GenerateBatchAsync(textChunk, req.mc, req.tf, req.sa, i, subject, grade);
                 results.Add(res);
 
                 // Tránh lỗi quá tải của API (Rate Limit) khoản 15 RPM
-                if (i < numBatches - 1)
+                if (i < requests.Count - 1)
                 {
                     await Task.Delay(5000); // Đợi 5 giây giữa các request
                 }
@@ -269,9 +368,24 @@ namespace exambank.logic.Service
             return sb.ToString();
         }
 
-        private async Task<string> GenerateBatchAsync(string textChunk, int numbOfQuestions, int batchIndex)
+        private async Task<string> GenerateBatchAsync(string textChunk, int countMC, int countTF, int countSA, int batchIndex, string subject = "", string grade = "")
         {
-            string prompt = $"Bạn là chuyên gia giáo dục. Dựa vào nội dung sau, hãy tạo {numbOfQuestions} câu hỏi trắc nghiệm dưới dạng JSON array (mỗi object gồm: Question, OptionA, OptionB, OptionC, OptionD, Answer). Chỉ trả về duy nhất 1 mảng JSON chuẩn xác, không có markdown, không có chữ thừa ở đầu và cuối. Hãy tạo các câu hỏi đa dạng (Phần {batchIndex + 1}). Nội dung: {textChunk}";
+            string contextInfo = string.IsNullOrWhiteSpace(subject) ? "" : $"thuộc môn {subject} {(string.IsNullOrWhiteSpace(grade) ? "" : grade)}";
+            string prompt = $"Bạn là chuyên gia giáo dục. Dựa vào nội dung tài liệu {contextInfo} sau đây (Phần {batchIndex + 1}), hãy tạo các câu hỏi dưới dạng một mảng JSON (mỗi object gồm đúng các key: Question, OptionA, OptionB, OptionC, OptionD, Answer).\n";
+            prompt += $"Tổng cộng {countMC + countTF + countSA} câu hỏi, bao gồm:\n";
+            if (countMC > 0)
+            {
+                prompt += $"- {countMC} câu trắc nghiệm 4 đáp án (A, B, C, D).\n";
+            }
+            if (countTF > 0)
+            {
+                prompt += $"- {countTF} câu trắc nghiệm Đúng/Sai. Thiết lập OptionA là 'Đúng', OptionB là 'Sai', OptionC và OptionD để là chuỗi rỗng '', và Answer là 'A' hoặc 'B'.\n";
+            }
+            if (countSA > 0)
+            {
+                prompt += $"- {countSA} câu trả lời ngắn. Hãy ghi đáp án chính xác và ngắn gọn nhất vào OptionA, để OptionB, OptionC, OptionD là chuỗi rỗng '', và Answer bắt buộc là 'A'.\n";
+            }
+            prompt += $"Chỉ trả về duy nhất 1 mảng JSON chuẩn xác, không có markdown (không dùng ```json), không có chữ thừa ở đầu và cuối. Hãy bỏ qua phần giới thiệu, mục lục, và TẬP TRUNG vào kiến thức trọng tâm. Nội dung: {textChunk}";
 
             var requestBody = new
             {

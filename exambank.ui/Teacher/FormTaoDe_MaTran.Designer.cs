@@ -1,4 +1,4 @@
-﻿namespace exambank.ui
+namespace exambank.ui
 {
     partial class FormTaoDe_MaTran
     {
@@ -38,6 +38,8 @@
             udtxtCountQuestion = new Sunny.UI.UIUpDownTextBox();
             uiLabel5 = new Sunny.UI.UILabel();
             cbMonHoc = new Sunny.UI.UIComboBox();
+            lblKhoi = new Sunny.UI.UILabel();
+            cbKhoi = new Sunny.UI.UIComboBox();
             uiLabel7 = new Sunny.UI.UILabel();
             pnlBtm.SuspendLayout();
             grbCauHinh.SuspendLayout();
@@ -152,6 +154,8 @@
             grbCauHinh.Controls.Add(udtxtCountQuestion);
             grbCauHinh.Controls.Add(uiLabel5);
             grbCauHinh.Controls.Add(cbMonHoc);
+            grbCauHinh.Controls.Add(lblKhoi);
+            grbCauHinh.Controls.Add(cbKhoi);
             grbCauHinh.Controls.Add(uiLabel9);
             grbCauHinh.Controls.Add(txtExamCode);
             grbCauHinh.Controls.Add(uiLabel8);
@@ -245,6 +249,37 @@
             cbMonHoc.TextAlignment = ContentAlignment.MiddleLeft;
             cbMonHoc.Watermark = "Chọn môn...";
             // 
+            // lblKhoi
+            // 
+            lblKhoi.Font = new Font("Times New Roman", 12F);
+            lblKhoi.ForeColor = Color.FromArgb(48, 48, 48);
+            lblKhoi.Location = new Point(320, 181);
+            lblKhoi.Name = "lblKhoi";
+            lblKhoi.Size = new Size(110, 35);
+            lblKhoi.TabIndex = 24;
+            lblKhoi.Text = "Khối lớp:";
+            lblKhoi.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // cbKhoi
+            // 
+            cbKhoi.DataSource = null;
+            cbKhoi.FillColor = Color.White;
+            cbKhoi.Font = new Font("Times New Roman", 10.8F);
+            cbKhoi.ItemHoverColor = Color.FromArgb(155, 200, 255);
+            cbKhoi.ItemSelectForeColor = Color.FromArgb(235, 243, 255);
+            cbKhoi.Location = new Point(440, 181);
+            cbKhoi.Margin = new Padding(4, 5, 4, 5);
+            cbKhoi.MinimumSize = new Size(63, 0);
+            cbKhoi.Name = "cbKhoi";
+            cbKhoi.Padding = new Padding(0, 0, 30, 2);
+            cbKhoi.RectColor = Color.FromArgb(18, 58, 92);
+            cbKhoi.Size = new Size(130, 35);
+            cbKhoi.Style = Sunny.UI.UIStyle.Custom;
+            cbKhoi.SymbolSize = 24;
+            cbKhoi.TabIndex = 21;
+            cbKhoi.TextAlignment = ContentAlignment.MiddleLeft;
+            cbKhoi.Watermark = "Chọn khối...";
+            // 
             // uiLabel7
             // 
             uiLabel7.Font = new Font("Times New Roman", 12F);
@@ -289,6 +324,8 @@
         private Sunny.UI.UIUpDownTextBox udtxtCountQuestion;
         private Sunny.UI.UILabel uiLabel5;
         private Sunny.UI.UIComboBox cbMonHoc;
+        private Sunny.UI.UILabel lblKhoi;
+        private Sunny.UI.UIComboBox cbKhoi;
         private Sunny.UI.UILabel uiLabel7;
     }
 }

@@ -32,6 +32,9 @@ namespace exambank.data.Models
         [MaxLength(100)]
         public string Subject { get; set; } = string.Empty;
 
+        [MaxLength(50)]
+        public string Grade { get; set; } = string.Empty;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [MaxLength(200)]

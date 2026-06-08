@@ -1,4 +1,4 @@
-﻿namespace exambank.ui
+namespace exambank.ui
 {
     partial class UC_ManageUsers
     {
@@ -59,6 +59,8 @@
             uiPanel2 = new Sunny.UI.UIPanel();
             btnRefresh = new Sunny.UI.UISymbolButton();
             cmsActions = new Sunny.UI.UIContextMenuStrip(components);
+            miViewDetails = new ToolStripMenuItem();
+            sViewDetails = new ToolStripSeparator();
             miLock = new ToolStripMenuItem();
             miUnlock = new ToolStripMenuItem();
             sSuperAdmin = new ToolStripSeparator();
@@ -440,10 +442,24 @@
             cmsActions.BackColor = Color.FromArgb(243, 249, 255);
             cmsActions.Font = new Font("Microsoft Sans Serif", 12F);
             cmsActions.ImageScalingSize = new Size(20, 20);
-            cmsActions.Items.AddRange(new ToolStripItem[] { miLock, miUnlock, sSuperAdmin, miGgantAdminRole, miRevokeAdminRole, sResetPass, miResetPass });
+            cmsActions.Items.AddRange(new ToolStripItem[] { miViewDetails, sViewDetails, miLock, miUnlock, sSuperAdmin, miGgantAdminRole, miRevokeAdminRole, sResetPass, miResetPass });
             cmsActions.Name = "cmsActions";
-            cmsActions.Size = new Size(231, 194);
+            cmsActions.Size = new Size(231, 230);
             cmsActions.Opening += cmsActions_Opening;
+            // 
+            // miViewDetails
+            // 
+            miViewDetails.Font = new Font("Times New Roman", 13.2000008F);
+            miViewDetails.ForeColor = Color.Black;
+            miViewDetails.Name = "miViewDetails";
+            miViewDetails.Size = new Size(230, 30);
+            miViewDetails.Text = "Xem thông tin chi tiết";
+            miViewDetails.Click += miViewDetails_Click;
+            // 
+            // sViewDetails
+            // 
+            sViewDetails.Name = "sViewDetails";
+            sViewDetails.Size = new Size(227, 6);
             // 
             // miLock
             // 
@@ -545,12 +561,12 @@
         private DataGridViewTextBoxColumn colRole;
         private DataGridViewImageColumn colActions;
         private Sunny.UI.UIContextMenuStrip cmsActions;
+        private ToolStripMenuItem miViewDetails;
+        private ToolStripSeparator sViewDetails;
         private ToolStripMenuItem miLock;
-        private ToolStripSeparator sLock;
         private ToolStripMenuItem miUnlock;
         private ToolStripSeparator sSuperAdmin;
         private ToolStripMenuItem miGgantAdminRole;
-        private ToolStripSeparator sGgantAdminRole;
         private ToolStripMenuItem miRevokeAdminRole;
         private ToolStripSeparator sResetPass;
         private ToolStripMenuItem miResetPass;

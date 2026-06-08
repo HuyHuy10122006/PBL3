@@ -15,6 +15,7 @@ namespace exambank.data
         Task<QuestionModel?> GetQuestionByIdWithCategoryAsync(int id);
         Task<List<QuestionModel>> GetRandomQuestionsAsync(int categoryId, int count);
         Task<List<QuestionModel>> GetAllQuestionsAsync();
+        Task<List<QuestionModel>> GetQuestionsByUserAsync(int userId);
         Task AddQuestionsAsync(List<QuestionModel> questions);
         Task UpdateQuestionAsync(QuestionModel question);
         Task DeleteQuestionAsync(int id); // Xóa mềm
@@ -93,6 +94,15 @@ namespace exambank.data
         {
             return await _dbContext.Questions
                 .Where(q => q.IsActive)
+                .Include(q => q.Category)
+                .OrderByDescending(q => q.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<QuestionModel>> GetQuestionsByUserAsync(int userId)
+        {
+            return await _dbContext.Questions
+                .Where(q => q.IsActive && q.CreatedByUserId == userId)
                 .Include(q => q.Category)
                 .OrderByDescending(q => q.CreatedAt)
                 .ToListAsync();

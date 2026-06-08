@@ -1,4 +1,4 @@
-﻿using exambank.data.Models;
+using exambank.data.Models;
 using Sunny.UI;
 using System;
 using System.Drawing;
@@ -58,7 +58,14 @@ namespace exambank.ui
                 if (i < options.Length && !string.IsNullOrEmpty(options[i]))
                 {
                     answerBoxes[i].Visible = true;
-                    answerBoxes[i].Text = $"{prefix}. {options[i]}";
+                    if (string.IsNullOrEmpty(options[1]) && i == 0) // Short Answer condition
+                    {
+                        answerBoxes[i].Text = $"Đáp án: {options[i]}";
+                    }
+                    else
+                    {
+                        answerBoxes[i].Text = $"{prefix}. {options[i]}";
+                    }
 
                     answerBoxes[i].MouseWheel -= RedirectWheel;
                     answerBoxes[i].MouseWheel += RedirectWheel;
@@ -254,6 +261,10 @@ namespace exambank.ui
             if (text.StartsWith(startMatch, StringComparison.OrdinalIgnoreCase))
             {
                 return text.Substring(3).Trim();
+            }
+            if (text.StartsWith("Đáp án: ", StringComparison.OrdinalIgnoreCase))
+            {
+                return text.Substring(8).Trim();
             }
             return text.Trim();
         }

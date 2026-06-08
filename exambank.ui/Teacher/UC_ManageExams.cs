@@ -39,17 +39,17 @@ namespace exambank.ui
             flpExams.BringToFront();
         }
 
-        private void UC_ManageExams_Load(object sender, EventArgs e)
+        private async void UC_ManageExams_Load(object sender, EventArgs e)
         {
-            LoadDataTable();
+            await LoadDataTable();
             dgvExams.AutoGenerateColumns = false;
 
             // Reload dữ liệu mỗi khi UC được hiển thị lại (chuyển tab)
-            this.VisibleChanged += (s, args) =>
+            this.VisibleChanged += async (s, args) =>
             {
                 if (this.Visible)
                 {
-                    LoadDataTable();
+                    await LoadDataTable();
                 }
             };
         }
@@ -68,14 +68,21 @@ namespace exambank.ui
 
         private async Task LoadDataTable()
         {
-            var newData = await Task.Run(() => _examService.GetExamsAsync(_loginUser.Id));
-            _currentExams.Clear();
-            foreach (var item in newData)
+            try
             {
-                _currentExams.Add(item);
+                var newData = await _examService.GetExamsAsync(_loginUser.Id);
+                _currentExams.Clear();
+                foreach (var item in newData)
+                {
+                    _currentExams.Add(item);
+                }
+                InitControlDataAsync(_currentExams);
+                BindGrid(_currentExams);
             }
-            InitControlDataAsync(_currentExams);
-            BindGrid(_currentExams);
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Lỗi LoadDataTable (Exams): " + ex.Message);
+            }
         }
 
         private void BindGrid(List<ExamModel> data)
@@ -104,6 +111,7 @@ namespace exambank.ui
                     {
                         var card = new exambank.ui.Common.UC_ExamCard(exam, true);
                         card.ActionClicked += Card_ActionClicked;
+                        card.SelectionChanged += Card_SelectionChanged;
                         flpExams.Controls.Add(card);
                     }
                 }
@@ -193,7 +201,7 @@ namespace exambank.ui
             {
                 if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
                 {
-                    fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(fullExamData.Id));
+                    fullExamData.ExamQuestions = await _examService.LoadExamQuestionsAsync(fullExamData.Id);
                 }
 
                 using (FormXemDe frm = new FormXemDe(fullExamData))
@@ -252,7 +260,7 @@ namespace exambank.ui
                 if (fullExamData.ExamQuestions == null || fullExamData.ExamQuestions.Count == 0)
                 {
                     // Nạp câu hỏi (Dùng Task.Run để không lag)
-                    fullExamData.ExamQuestions = await Task.Run(() => _examService.LoadExamQuestionsAsync(fullExamData.Id));
+                    fullExamData.ExamQuestions = await _examService.LoadExamQuestionsAsync(fullExamData.Id);
                 }
 
                 using (var saveFileDialog = new SaveFileDialog())
@@ -284,52 +292,185 @@ namespace exambank.ui
             var exam = GetSelectedExam();
             if (exam == null) return;
 
+            if (exam.IsShared && exam.ApprovalStatus == ApprovalStatus.Approved)
+            {
+                var result = MessageBox.Show(
+                    $"Đề thi \"{exam.Title}\" đã được chia sẻ lên ngân hàng chung và được duyệt.\nBạn có muốn HỦY CHIA SẺ đề thi này không?\n\n- [Yes/Có]: Hủy chia sẻ (Xóa hoàn toàn)\n- [No/Không]: Không hủy chia sẻ (Vẫn giữ trên ngân hàng)",
+                    "Xác nhận hủy chia sẻ",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+                
+                if (result == DialogResult.Cancel)
+                {
+                    return; // Nhấn X hoặc Cancel thì thoát ra không xóa nữa
+                }
+                
+                // Bước xác nhận xóa khỏi kho cá nhân
+                if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa đề thi \"{exam.Title}\" khỏi kho cá nhân của bạn không?"))
+                {
+                    if (result == DialogResult.Yes)
+                    {
+                        // Yes => Xóa hoàn toàn
+                        if (await _examService.DeleteExamsAsync(new List<int> { exam.Id }))
+                        {
+                            UIMessageTip.ShowOk("Đã xóa và hủy chia sẻ thành công.");
+                        }
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        // No => Chuyển quyền sở hữu cho Admin để khỏi hiện ở kho cá nhân
+                        if (await _examService.TransferExamOwnershipToAdminAsync(exam.Id))
+                        {
+                            UIMessageTip.ShowOk("Đã xóa khỏi kho cá nhân, đề thi vẫn còn trên ngân hàng chung.");
+                        }
+                    }
+                    await LoadDataTable();
+                }
+                return;
+            }
+
             if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa đề thi \"{exam.Title}\"?"))
             {
                 if (await _examService.DeleteExamsAsync(new List<int> { exam.Id }))
                 {
                     UIMessageTip.ShowOk("Đã xóa thành công.");
-                    LoadDataTable();
+                    await LoadDataTable();
                 }
             }
         }
 
         private async void btnSelectDelete_Click(object sender, EventArgs e)
         {
-            var selectedRows = dgvExams.SelectedRows;
-            if (selectedRows.Count == 0) return;
+            var selectedExams = GetSelectedExamsFromCards();
+            if (selectedExams.Count == 0) return;
 
-            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa {selectedRows.Count} đề thi đã chọn?"))
+            var sharedExams = selectedExams.Where(x => x.IsShared && x.ApprovalStatus == ApprovalStatus.Approved).ToList();
+            var unsharedExams = selectedExams.Where(x => !(x.IsShared && x.ApprovalStatus == ApprovalStatus.Approved)).ToList();
+
+            if (sharedExams.Count > 0)
             {
-                List<int> idsToDelete = new List<int>();
-                foreach (DataGridViewRow row in selectedRows)
+                var result = MessageBox.Show(
+                    $"Trong số {selectedExams.Count} đề thi bạn chọn, có {sharedExams.Count} đề thi ĐÃ ĐƯỢC CHIA SẺ lên ngân hàng chung.\nBạn có muốn HỦY CHIA SẺ các đề thi này không?\n\n- [Yes/Có]: Hủy chia sẻ (Xóa hoàn toàn)\n- [No/Không]: Không hủy chia sẻ (Vẫn giữ trên ngân hàng)",
+                    "Xác nhận hủy chia sẻ",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+                
+                if (result == DialogResult.Cancel)
                 {
-                    idsToDelete.Add((int)row.Cells["colID"].Value);
+                    return; // Nhấn X hoặc Cancel thì thoát ra không xóa nữa
                 }
+                
+                // Bước xác nhận xóa khỏi kho cá nhân
+                if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa {selectedExams.Count} đề thi đã chọn khỏi kho cá nhân không?"))
+                {
+                    if (result == DialogResult.Yes)
+                    {
+                        // Xóa tất cả
+                        var idsToDelete = selectedExams.Select(x => x.Id).ToList();
+                        await _examService.DeleteExamsAsync(idsToDelete);
+                        UIMessageTip.ShowOk("Đã xóa toàn bộ đề thi thành công.");
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        // Detach shared exams, delete the rest
+                        foreach(var shared in sharedExams)
+                        {
+                            await _examService.TransferExamOwnershipToAdminAsync(shared.Id);
+                        }
+
+                        if (unsharedExams.Count > 0)
+                        {
+                            var idsToDelete = unsharedExams.Select(x => x.Id).ToList();
+                            await _examService.DeleteExamsAsync(idsToDelete);
+                        }
+                        UIMessageTip.ShowOk("Đã xử lý xóa thành công.");
+                    }
+                    await LoadDataTable();
+                }
+                return;
+            }
+
+            // Trường hợp không có đề thi nào đã chia sẻ
+            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn xóa {selectedExams.Count} đề thi đã chọn?"))
+            {
+                List<int> idsToDelete = selectedExams.Select(x => x.Id).ToList();
 
                 if (await _examService.DeleteExamsAsync(idsToDelete))
                 {
                     UIMessageTip.ShowOk("Đã xóa thành công.");
-                    LoadDataTable();
+                    await LoadDataTable();
                 }
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadDataTable();
+            await LoadDataTable();
         }
 
-        private void dgvExams_SelectionChanged(object sender, EventArgs e)
+        private void UpdateSelectionLabel()
         {
-            int count = dgvExams.SelectedRows.Count;
+            int count = GetSelectedExamsFromCards().Count;
             lblSelect.Text = $"{count} đề thi đang được chọn";
             pnlThaoTac.Visible = count > 0;
         }
 
-        private void btnSelectShare_Click(object sender, EventArgs e)
+        private void Card_SelectionChanged(object sender, EventArgs e)
         {
-            UIMessageBox.ShowInfo("Chưa có.");
+            UpdateSelectionLabel();
+        }
+
+        private void dgvExams_SelectionChanged(object sender, EventArgs e)
+        {
+            // UpdateSelectionLabel();
+        }
+
+        private List<ExamModel> GetSelectedExamsFromCards()
+        {
+            var list = new List<ExamModel>();
+            if (flpExams != null)
+            {
+                foreach (Control ctrl in flpExams.Controls)
+                {
+                    if (ctrl is exambank.ui.Common.UC_ExamCard card && card.IsSelected)
+                    {
+                        list.Add(card.ExamData);
+                    }
+                }
+            }
+            return list;
+        }
+
+        private async void btnSelectShare_Click(object sender, EventArgs e)
+        {
+            var selectedExams = GetSelectedExamsFromCards();
+            if (selectedExams.Count == 0) return;
+
+            if (UIMessageBox.ShowAsk2($"Bạn có chắc chắn muốn chia sẻ {selectedExams.Count} đề thi đã chọn?"))
+            {
+                int successCount = 0;
+                foreach (var exam in selectedExams)
+                {
+                    if (exam.OriginalExamId == null && !exam.IsShared)
+                    {
+                        bool isSharedNow = await _examService.ToggleShareExamAsync(exam.Id);
+                        if (isSharedNow)
+                        {
+                            successCount++;
+                        }
+                    }
+                }
+                
+                if (successCount > 0)
+                {
+                    UIMessageBox.ShowSuccess2($"Đã chia sẻ thành công {successCount} đề thi!");
+                    await LoadDataTable();
+                }
+                else
+                {
+                    UIMessageBox.ShowWarning2("Không có đề thi nào hợp lệ để chia sẻ (Đã chia sẻ rồi hoặc đề lấy từ thư viện).");
+                }
+            }
         }
 
         private async void btnCreateExamByMatrix_Click(object sender, EventArgs e)
@@ -349,6 +490,7 @@ namespace exambank.ui
                             Duration = frm.Duration,
                             TotalQuestions = frm.QuestionCount,
                             Subject = frm.SelectedSubject,
+                            Grade = frm.SelectedGrade,
                             CreatedByUserId = _loginUser.Id, // ID người dùng đăng nhập
                             CreatedAt = DateTime.Now
                         };
@@ -359,7 +501,7 @@ namespace exambank.ui
                         if (success)
                         {
                             UIMessageBox.ShowSuccess2("Tạo đề thi từ ma trận thành công!");
-                            LoadDataTable(); // Load lại danh sách đề thi trên Grid
+                            await LoadDataTable(); // Load lại danh sách đề thi trên Grid
                         }
                     }
                     catch (Exception ex)

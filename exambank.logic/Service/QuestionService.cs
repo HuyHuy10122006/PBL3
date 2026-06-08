@@ -80,12 +80,7 @@ namespace exambank.logic.Service
         public async Task<List<QuestionModel>> GetQuestionsAsync(int userId)
         {
             var repo = CreateRepository();
-            // Tối ưu: Lấy toàn bộ câu hỏi Active thông qua Repo, sau đó lọc theo UserId ở bộ nhớ
-            var allQuestions = await repo.GetAllQuestionsAsync();
-
-            return allQuestions
-                .Where(q => q.CreatedByUserId == userId)
-                .ToList(); // GetAllQuestionsAsync đã có sẵn OrderByDescending(CreatedAt) trong Repo
+            return await repo.GetQuestionsByUserAsync(userId);
         }
 
         public async Task<bool> DeleteMultipleAsync(List<int> ids)

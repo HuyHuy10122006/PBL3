@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using exambank.data.Models;
@@ -9,11 +9,21 @@ namespace exambank.ui.Common
     {
         private UserModel _currentUser;
 
+        private bool _isViewOnly = false;
+
         // Hàm khởi tạo bắt buộc phải truyền User vào để biết là Admin hay Giáo viên
-        public UC_ProfileSettings(UserModel user)
+        public UC_ProfileSettings(UserModel user, bool isViewOnly = false)
         {
             InitializeComponent();
             _currentUser = user;
+            _isViewOnly = isViewOnly;
+
+            if (_isViewOnly)
+            {
+                btnEditProfile.Visible = false;
+                btnChangePassword.Visible = false;
+                btnLogout.Visible = false;
+            }
 
             // Gọi hàm hiển thị thông tin ngay khi trang vừa tải xong
             LoadUserInfo();
@@ -25,17 +35,29 @@ namespace exambank.ui.Common
 
             // Gắn dữ liệu thật vào các thẻ giao diện
             lblFullName.Text = _currentUser.FullName ?? "Chưa cập nhật";
-            lblRole.Text = _currentUser.Role == "1" ? "Vai trò: Quản trị viên hệ thống" : "Vai trò: Giáo viên";
+            lblRole.Text = (_currentUser.Role == "Admin" || _currentUser.Role == "SuperAdmin") ? "Vai trò: Quản trị viên hệ thống" : "Vai trò: Giáo viên";
             lblEmail.Text = "📧 Email: " + (_currentUser.Email ?? "Chưa cập nhật");
 
-            // Các thông tin dưới đây bạn có thể lấy từ Database sau, hiện tại để hiển thị demo
-            lblPhone.Text = "📞 Điện thoại: Chưa cập nhật";
-            lblUniversity.Text = "🏫 Đơn vị: ĐH Bách Khoa - DUT";
-            lblSubjects.Text = "📚 Bộ môn: Công nghệ thông tin";
-            lblAiDifficulty.Text = "⚙️ Mức độ AI ưu tiên: Vận dụng";
-            lblAccountStatus.Text = "🟢 Trạng thái: Đang hoạt động";
+            // Load info from DB
+            lblPhone.Text = "📞 Điện thoại: " + (!string.IsNullOrWhiteSpace(_currentUser.Phone) ? _currentUser.Phone : "Chưa cập nhật");
+            lblUniversity.Text = "🏫 Đơn vị: " + (!string.IsNullOrWhiteSpace(_currentUser.University) ? _currentUser.University : "Chưa cập nhật");
+            lblSubjects.Text = "📚 Bộ môn: " + (!string.IsNullOrWhiteSpace(_currentUser.Subjects) ? _currentUser.Subjects : "Chưa cập nhật");
+            lblAiDifficulty.Text = "⚙️ Mức độ AI ưu tiên: " + (!string.IsNullOrWhiteSpace(_currentUser.AiDifficulty) ? _currentUser.AiDifficulty : "Chưa cập nhật");
+            lblAccountStatus.Text = "🟢 Trạng thái: " + (_currentUser.IsActive ? "Đang hoạt động" : "Bị khóa");
 
             // (Code load ảnh Avatar sau này viết vào đây)
+        }
+
+        private void btnEditProfile_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FormEditProfile(_currentUser))
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    // Tải lại thông tin sau khi cập nhật thành công
+                    LoadUserInfo();
+                }
+            }
         }
 
         private void btnChangePassword_Click(object sender, EventArgs e)

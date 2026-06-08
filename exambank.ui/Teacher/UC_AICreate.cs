@@ -28,10 +28,95 @@ namespace exambank.ui
         private readonly QuestionService _questionService = new QuestionService();
         private readonly ExamService _examService = new ExamService();
         private List<QuestionModel> _questionsCreate = new List<QuestionModel>();
+        
+        private Label lblStatus;
+        private Sunny.UI.UIUpDownTextBox udtxtCountTrueFalse;
+        private Sunny.UI.UIUpDownTextBox udtxtCountShortAnswer;
+        private Sunny.UI.UILabel uiLabelTrueFalse;
+        private Sunny.UI.UILabel uiLabelShortAnswer;
+
         public UC_AICreate(UserModel loginUser)
         {
             _loginUser = loginUser;
             InitializeComponent();
+            InitStatusLabel();
+            InitAdditionalFields();
+        }
+
+        private void InitAdditionalFields()
+        {
+            // Rename existing label
+            uiLabel7.Text = "Trắc nghiệm";
+
+            // Add True/False Label
+            uiLabelTrueFalse = new Sunny.UI.UILabel();
+            uiLabelTrueFalse.Font = uiLabel7.Font;
+            uiLabelTrueFalse.ForeColor = uiLabel7.ForeColor;
+            uiLabelTrueFalse.Location = new Point(6, 216);
+            uiLabelTrueFalse.Size = new Size(142, 35);
+            uiLabelTrueFalse.Text = "Đúng / Sai";
+            uiLabelTrueFalse.BackColor = Color.White;
+            pnlCauHinh.Controls.Add(uiLabelTrueFalse);
+
+            // Add True/False UpDownTextBox
+            udtxtCountTrueFalse = new Sunny.UI.UIUpDownTextBox();
+            udtxtCountTrueFalse.Font = udtxtCountQuestion.Font;
+            udtxtCountTrueFalse.Location = new Point(155, 216);
+            udtxtCountTrueFalse.Size = new Size(206, 36);
+            udtxtCountTrueFalse.TextAlignment = ContentAlignment.MiddleRight;
+            udtxtCountTrueFalse.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtxtCountTrueFalse.DoubleStep = 1D;
+            udtxtCountTrueFalse.Text = "0";
+            pnlCauHinh.Controls.Add(udtxtCountTrueFalse);
+
+            // Add Short Answer Label
+            uiLabelShortAnswer = new Sunny.UI.UILabel();
+            uiLabelShortAnswer.Font = uiLabel7.Font;
+            uiLabelShortAnswer.ForeColor = uiLabel7.ForeColor;
+            uiLabelShortAnswer.Location = new Point(6, 256);
+            uiLabelShortAnswer.Size = new Size(142, 35);
+            uiLabelShortAnswer.Text = "Trả lời ngắn";
+            uiLabelShortAnswer.BackColor = Color.White;
+            pnlCauHinh.Controls.Add(uiLabelShortAnswer);
+
+            // Add Short Answer UpDownTextBox
+            udtxtCountShortAnswer = new Sunny.UI.UIUpDownTextBox();
+            udtxtCountShortAnswer.Font = udtxtCountQuestion.Font;
+            udtxtCountShortAnswer.Location = new Point(155, 256);
+            udtxtCountShortAnswer.Size = new Size(206, 36);
+            udtxtCountShortAnswer.TextAlignment = ContentAlignment.MiddleRight;
+            udtxtCountShortAnswer.Type = Sunny.UI.UITextBox.UIEditType.Integer;
+            udtxtCountShortAnswer.DoubleStep = 1D;
+            udtxtCountShortAnswer.Text = "0";
+            pnlCauHinh.Controls.Add(udtxtCountShortAnswer);
+
+            // Increase panel height to fit new controls
+            int moveDown = 85;
+            pnlCauHinh.Height += moveDown;
+            
+            // Push button down further, but don't move lblStatus down
+            btnCreateQuestion.Top += moveDown;
+        }
+
+        private void InitStatusLabel()
+        {
+            lblStatus = new Label();
+            lblStatus.Text = "";
+            lblStatus.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic);
+            lblStatus.ForeColor = Color.Blue;
+            lblStatus.AutoSize = false;
+            lblStatus.Width = pnlNguonDuLieu.Width;
+            lblStatus.Height = 40;
+            
+            // Adjust layout to make room for the status label
+            int moveDown = 20;
+            pnlCauHinh.Top += moveDown;
+            btnCreateQuestion.Top += moveDown;
+
+            lblStatus.Location = new Point(pnlNguonDuLieu.Left, pnlNguonDuLieu.Bottom + 5);
+            lblStatus.TextAlign = ContentAlignment.TopCenter;
+            pnlLeft.Controls.Add(lblStatus);
+            lblStatus.BringToFront();
         }
 
         private void UC_AICreate_Load(object sender, EventArgs e)
@@ -73,7 +158,7 @@ namespace exambank.ui
             }
         }
 
-        private void btnSelectFile_Click(object sender, EventArgs e)
+        private async void btnSelectFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -85,7 +170,94 @@ namespace exambank.ui
                 {
                     // Hiển thị đường dẫn lên TextBox
                     txtFilePath.Text = ofd.FileName;
-                    UIMessageTip.ShowOk("Chọn file thành công.");
+                    
+                    btnSelectFile.Enabled = false;
+                    lblStatus.ForeColor = Color.Blue;
+                    lblStatus.Text = "Đang phân tích file...";
+
+                    try
+                    {
+                        // Chỉ trích xuất 5 trang đầu tiên để AI nhận diện môn học và khối lớp nhanh hơn
+                        string text = await Task.Run(() => _docService.ExtractTextFromPdf(ofd.FileName, 5));
+                        string analyzeContent = string.IsNullOrWhiteSpace(text) ? $"Tên file tài liệu: {Path.GetFileName(ofd.FileName)}" : $"Tên file tài liệu: {Path.GetFileName(ofd.FileName)}\nNội dung: {text}";
+
+                        var aiService = new GeminiService();
+                        string result = await aiService.AnalyzeDocumentAsync(analyzeContent);
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            using (JsonDocument doc = JsonDocument.Parse(result))
+                            {
+                                var root = doc.RootElement;
+                                bool isSgk = true; 
+                                if (root.TryGetProperty("IsSGK", out JsonElement isSgkProp))
+                                {
+                                    if (isSgkProp.ValueKind == JsonValueKind.True || isSgkProp.ValueKind == JsonValueKind.False)
+                                        isSgk = isSgkProp.GetBoolean();
+                                }
+                                
+                                string grade = "";
+                                if (root.TryGetProperty("Grade", out JsonElement gradeProp) && gradeProp.ValueKind == JsonValueKind.String)
+                                {
+                                    grade = gradeProp.GetString();
+                                    if (!string.IsNullOrWhiteSpace(grade) && cbKhoi.Items.Contains(grade))
+                                    {
+                                        cbKhoi.SelectedItem = grade;
+                                    }
+                                }
+
+                                string subject = "";
+                                if (root.TryGetProperty("Subject", out JsonElement subjectProp) && subjectProp.ValueKind == JsonValueKind.String)
+                                {
+                                    subject = subjectProp.GetString();
+                                    if (!string.IsNullOrWhiteSpace(subject) && cbMonHoc.Items.Contains(subject))
+                                    {
+                                        cbMonHoc.SelectedItem = subject;
+                                    }
+                                }
+
+                                if (!isSgk)
+                                {
+                                    lblStatus.ForeColor = Color.Red;
+                                    lblStatus.Text = "Cảnh báo: File không giống định dạng Sách Giáo Khoa\nhoặc không rõ môn học";
+                                }
+                                else
+                                {
+                                    lblStatus.ForeColor = Color.Green;
+                                    if (string.IsNullOrWhiteSpace(text))
+                                    {
+                                        lblStatus.Text = $"Nhận diện từ tên file: {(string.IsNullOrWhiteSpace(subject) ? "không rõ môn" : subject)} - {(string.IsNullOrWhiteSpace(grade) ? "không rõ lớp" : grade)}";
+                                    }
+                                    else
+                                    {
+                                        lblStatus.Text = $"Đã nhận diện: SGK {(string.IsNullOrWhiteSpace(subject) ? "không rõ môn" : subject)} - {(string.IsNullOrWhiteSpace(grade) ? "không rõ lớp" : grade)}";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (string.IsNullOrWhiteSpace(text))
+                            {
+                                lblStatus.ForeColor = Color.Red;
+                                lblStatus.Text = "File rỗng hoặc không thể trích xuất chữ (có thể là file ảnh/scan).";
+                            }
+                            else
+                            {
+                                lblStatus.ForeColor = Color.Red;
+                                lblStatus.Text = "Không thể nhận diện tài liệu.";
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Lỗi phân tích tài liệu: " + ex.Message);
+                        lblStatus.ForeColor = Color.Red;
+                        lblStatus.Text = "Lỗi phân tích tài liệu.";
+                    }
+                    finally
+                    {
+                        btnSelectFile.Enabled = true;
+                    }
                 }
             }
         }
@@ -115,12 +287,15 @@ namespace exambank.ui
                     string answer = (q.Answer ?? "").Trim().ToUpper();
                     char ans = answer.FirstOrDefault(c => "ABCD".Contains(c));
 
-                    // Bỏ qua câu thiếu dữ liệu quan trọng
+                    // Đảm bảo không bị null
+                    q.OptionA = q.OptionA ?? "";
+                    q.OptionB = q.OptionB ?? "";
+                    q.OptionC = q.OptionC ?? "";
+                    q.OptionD = q.OptionD ?? "";
+
+                    // Bỏ qua câu thiếu dữ liệu quan trọng (chỉ bắt buộc Question và OptionA vì Option B,C,D có thể rỗng đối với câu T/F hoặc Trả lời ngắn)
                     if (string.IsNullOrWhiteSpace(q.Question) ||
                         string.IsNullOrWhiteSpace(q.OptionA) ||
-                        string.IsNullOrWhiteSpace(q.OptionB) ||
-                        string.IsNullOrWhiteSpace(q.OptionC) ||
-                        string.IsNullOrWhiteSpace(q.OptionD) ||
                         ans == default)
                     {
                         continue;
@@ -187,10 +362,10 @@ namespace exambank.ui
             }
 
             //Kiểm tra phần thiết lập đề thi có hợp lệ không trước khi gọi API
-            if (udtxtCountQuestion.IntValue < 1 || string.IsNullOrWhiteSpace(cbMonHoc.Text)
+            if ((udtxtCountQuestion.IntValue < 1 && udtxtCountTrueFalse.IntValue < 1 && udtxtCountShortAnswer.IntValue < 1) || string.IsNullOrWhiteSpace(cbMonHoc.Text)
                 || string.IsNullOrWhiteSpace(cbDoKho.Text) || string.IsNullOrWhiteSpace(cbKhoi.Text))
             {
-                UIMessageBox.ShowWarning2("Vui lòng nhập thông tin đầy đủ và hợp lệ trên phần thiết lập câu hỏi!");
+                UIMessageBox.ShowWarning2("Vui lòng nhập thông tin đầy đủ và hợp lệ trên phần thiết lập câu hỏi (cần ít nhất 1 câu hỏi)!");
                 return;
             }
 
@@ -204,7 +379,7 @@ namespace exambank.ui
                 _questionsCreate.Clear();
                 var now = DateTime.Now;
                 // 3. Gọi AI để tạo câu hỏi
-                string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)udtxtCountQuestion.IntValue);
+                string jsonResult = await _aiService.GenerateQuestionsAsync(inputData, (int)udtxtCountQuestion.IntValue, (int)udtxtCountTrueFalse.IntValue, (int)udtxtCountShortAnswer.IntValue, cbMonHoc.Text, cbKhoi.Text);
                 ProcessResult(jsonResult);
 
                 // Ghi lại nhật ký sử dụng AI

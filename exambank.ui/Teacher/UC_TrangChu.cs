@@ -1,10 +1,12 @@
-﻿using exambank.data;
+using exambank.data;
 using exambank.data.Models;
 using exambank.logic.Service;
+using Microsoft.EntityFrameworkCore;
 using Sunny.UI;
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xceed.Document.NET;
 
@@ -26,13 +28,24 @@ namespace exambank.ui
             lblWelcome.Text = $"Xin chào, Giáo viên {_user.FullName}. Chúc bạn một ngày làm việc hiệu quả!";
             lblDate.Text = $"Ngày là: {DateTime.Now.ToString("dd/MM/yyyy, HH:mm:ss")}";
 
-            this.VisibleChanged += UC_TrangChu_VisibleChanged;
+            this.VisibleChanged += async (s, args) =>
+            {
+                if (this.Visible)
+                {
+                    try
+                    {
+                        await LoadDashboardDataAsync();
+                        await SetupChartAsync();
+                        await LoadDataGridAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Lỗi TrangChu VisibleChanged: " + ex.Message);
+                    }
+                }
+            };
 
             barChartAI.Text = "";
-            SetupChart();
-            LoadDataGrid();
-
-            LoadDashboardData();
             SetupClickableCard();
         }
 
@@ -118,41 +131,32 @@ namespace exambank.ui
             }
         }
 
-        private void UC_TrangChu_VisibleChanged(object sender, EventArgs e)
-        {
-            if (this.Visible)
-            {
-                LoadDashboardData();
-                SetupChart();
-                LoadDataGrid();
-            }
-        }
-
-        public void LoadDashboardData()
+        public async Task LoadDashboardDataAsync()
         {
             try
             {
+                int tongCauHoi = 0, cauHoiAI = 0, tongDeThi = 0, taiLieu = 0;
                 using (var db = new ExamBankDbContext())
                 {
                     var now = DateTime.Now;
 
-                    int tongCauHoi = db.Questions.Count(q => q.CreatedByUserId == _user.Id);
+                    tongCauHoi = await db.Questions.CountAsync(q => q.CreatedByUserId == _user.Id);
 
-                    int cauHoiAI = db.Questions.Count(q =>
+                    cauHoiAI = await db.Questions.CountAsync(q =>
                         q.CreatedByUserId == _user.Id &&
                         q.IsAIGenerated == true &&
                         q.CreatedAt.Month == now.Month &&
                         q.CreatedAt.Year == now.Year);
 
-                    int tongDeThi = db.Exams.Count(e => e.CreatedByUserId == _user.Id);
+                    tongDeThi = await db.Exams.CountAsync(e => e.CreatedByUserId == _user.Id);
 
-                    int taiLieu = db.Documents.Count(d => d.UserId == _user.Id);
-
-                    lblCard1Value.Text = tongCauHoi.ToString("N0");
-                    lblCard2Value.Text = cauHoiAI.ToString("N0");
-                    lblCard3Value.Text = tongDeThi.ToString("N0");
-                    lblCard4Value.Text = taiLieu.ToString("N0");
+                    taiLieu = await db.Documents.CountAsync(d => d.UserId == _user.Id);
                 }
+
+                lblCard1Value.Text = tongCauHoi.ToString("N0");
+                lblCard2Value.Text = cauHoiAI.ToString("N0");
+                lblCard3Value.Text = tongDeThi.ToString("N0");
+                lblCard4Value.Text = taiLieu.ToString("N0");
             }
             catch (Exception ex)
             {
@@ -164,7 +168,7 @@ namespace exambank.ui
             }
         }
 
-        public void SetupChart()
+        public async Task SetupChartAsync()
         {
             try
             {
@@ -185,10 +189,13 @@ namespace exambank.ui
                     var today = DateTime.Today;
                     var sevenDaysAgo = today.AddDays(-6);
 
-                    var rawData = db.Questions
+                    var dbData = await db.Questions
                         .Where(q => q.CreatedByUserId == _user.Id
                                  && q.IsAIGenerated == true
                                  && q.CreatedAt >= sevenDaysAgo)
+                        .ToListAsync();
+
+                    var rawData = dbData
                         .GroupBy(q => q.CreatedAt.Date)
                         .Select(g => new { Date = g.Key, Count = g.Count() })
                         .ToList();
@@ -215,7 +222,7 @@ namespace exambank.ui
             }
         }
 
-        private void LoadDataGrid()
+        private async Task LoadDataGridAsync()
         {
             try
             {
@@ -250,21 +257,22 @@ namespace exambank.ui
                 dgvRecentActivities.AllowUserToResizeColumns = false;
                 dgvRecentActivities.AllowUserToResizeRows = false;
 
+                List<QuestionModel> recentActivities;
                 using (var db = new ExamBankDbContext())
                 {
-                    var recentActivities = db.Questions
+                    recentActivities = await db.Questions
                         .Where(q => q.CreatedByUserId == _user.Id)
                         .OrderByDescending(q => q.CreatedAt)
                         .Take(10)
-                        .ToList();
+                        .ToListAsync();
+                }
 
-                    foreach (var item in recentActivities)
-                    {
-                        string actionName = item.IsAIGenerated ? "Đã tạo câu hỏi AI" : "Tạo câu hỏi thủ công";
-                        string timeString = item.CreatedAt.ToString("dd/MM/yyyy HH:mm");
+                foreach (var item in recentActivities)
+                {
+                    string actionName = item.IsAIGenerated ? "Đã tạo câu hỏi AI" : "Tạo câu hỏi thủ công";
+                    string timeString = item.CreatedAt.ToString("dd/MM/yyyy HH:mm");
 
-                        dgvRecentActivities.Rows.Add(actionName, item.Subject, item.Grade, timeString, "Đã lưu");
-                    }
+                    dgvRecentActivities.Rows.Add(actionName, item.Subject, item.Grade, timeString, "Đã lưu");
                 }
 
                 dgvRecentActivities.ClearSelection();
